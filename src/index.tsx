@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import './styles/index.scss';
+import './styles/index.less';
 
 dotenv.config();
 
