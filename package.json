@@ -32,7 +32,8 @@
   "scripts": {
     "start": "nodemon -w craco.config.ts -w ./src/styles/theme-overrides.js --exec \"craco start\"",
     "build": "craco build",
-    "test": "craco test"
+    "test": "craco test",
+    "lint:check": "npx eslint ."
   },
   "eslintConfig": {
     "extends": [

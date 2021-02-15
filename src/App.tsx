@@ -1,19 +1,9 @@
-import { Button } from 'antd';
 import React from 'react';
-import { AiFillHome } from 'react-icons/ai';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 const App = (): React.ReactElement => {
   return (
     <div className="App">
-      <Button
-        type="primary"
-        style={{ margin: '1rem' }}
-        icon={<AiFillHome />}
-        size="large"
-      >
-        Some Button Text
-      </Button>
       <Switch>
         {/* Public Routes */}
         {/* Private Routes */}
