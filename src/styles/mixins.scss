@@ -37,3 +37,39 @@
     cursor: not-allowed;
   }
 }
+
+@mixin text-button($color, $darken-amt: 15%) {
+  color: $color;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease-in;
+  &:active,
+  &:hover {
+    color: darken($color, $darken-amt);
+    transition: all 0.15s ease-in;
+  }
+}
+
+@mixin placeholder($color) {
+  &::placeholder {
+    color: $color;
+  }
+  &:-ms-input-placeholder {
+    color: $color;
+  }
+  ::-ms-input-placeholder {
+    color: $color;
+  }
+}
+
+@mixin text-input() {
+  border: none;
+  border-bottom: 2px solid $white;
+  background-color: transparent;
+  color: $white;
+  font-family: $text-font;
+  padding: 0.5rem;
+  @include placeholder(#c4c4c4);
+  position: relative;
+  z-index: 3;
+}
