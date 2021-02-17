@@ -8,13 +8,20 @@
 // Ensure the app containers fills the screen
 html,
 body,
-#root {
+#root,
+.App {
   min-height: 100vh;
 }
 
 // Set the font-size so 1rem = 10px for easier styling
 html {
   font-size: 62.5%;
+}
+
+// Allow us to flex containers
+.App {
+  display: flex;
+  flex-direction: column;
 }
 
 // Font Variables
@@ -37,3 +44,7 @@ $orange: #f66700;
 $red: #f64141;
 $white: #ffffff;
 $charcoal: #343434;
+
+#root {
+  background-color: $dark-blue;
+}
