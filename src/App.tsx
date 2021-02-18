@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import { TermsOfService } from './components/common/TermsOfService';
 import { AuthPage } from './components/pages/AuthPage';
 
 const App = (): React.ReactElement => {
@@ -8,6 +9,7 @@ const App = (): React.ReactElement => {
       <Switch>
         {/* Public Routes */}
         <Route path="/login" component={AuthPage} />
+        <Route path="/tos" component={TermsOfService} />
         {/* Private Routes */}
         {/* Fallback redirect to main app homepage! Change the 'to' property after setting up routes. */}
         <Route path="/" component={() => <Redirect to="/homepage" />} />
