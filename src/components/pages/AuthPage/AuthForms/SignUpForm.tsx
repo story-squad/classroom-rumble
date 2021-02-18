@@ -1,7 +1,7 @@
-import { watch } from 'fs';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { Auth } from '../../../../api';
 import { ISignUpBody } from '../../../../api/Auth';
 import { patterns } from '../../../../config';
 import { Checkbox, Input } from '../../../common';
@@ -13,16 +13,34 @@ const SignUpForm = ({
   isLogin: boolean;
   setIsLogin: (arg: boolean) => void;
 }): React.ReactElement => {
-  const { errors, register, handleSubmit } = useForm();
+  const { errors, register, handleSubmit, clearErrors, watch } = useForm({
+    mode: 'onChange',
+  });
 
   const onSubmit: SubmitHandler<ISignUpBody> = async (data): Promise<void> => {
     try {
+      Auth.login(data);
     } catch (err) {
       console.log(err);
     }
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <Input
+        label="Username"
+        name="username"
+        register={register}
+        id="signup-username"
+        errors={errors}
+        placeholder="Username"
+        rules={{
+          required: 'Username is required!',
+          validate: {
+            regex: (value) =>
+              patterns.codenameRegex.test(value) || 'Must be X length',
+          },
+        }}
+      />
       <Input
         label="signupEmail"
         name="email"
@@ -112,7 +130,9 @@ const SignUpForm = ({
         className="submit"
         type="submit"
         value="Create Account"
-        onClick={() => setIsLogin(!isLogin)}
+        onClick={() => clearErrors()}
+        // onClick={() => setIsLogin(!isLogin)}
+        //Once Register is successful redirect to login page
       />
     </form>
   );
