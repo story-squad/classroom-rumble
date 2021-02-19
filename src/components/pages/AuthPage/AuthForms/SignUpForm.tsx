@@ -166,6 +166,7 @@ const SignUpForm = ({
           required: 'Password is required!',
           validate: {
             // checks entered password value contains required characters
+            // Password needs special characters added
             includesCapital: (value) => {
               const pattern = /[A-Z]/;
               return (
@@ -185,6 +186,11 @@ const SignUpForm = ({
               return (
                 (value.length >= 8 && value.length <= 32) ||
                 'Password must be between 8 and 32 characters.'
+              );
+            },
+            checkRegex: (value) => {
+              return (
+                patterns.passwordRegex.test(value) || 'Password is invalid!'
               );
             },
           },
