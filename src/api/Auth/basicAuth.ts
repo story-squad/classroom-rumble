@@ -12,13 +12,30 @@ export interface ILoginBody {
   password: string;
 }
 
-export const signup = (
-  body: ISignUpBody,
-): Promise<AxiosResponse<{ token: string }>> => {
-  return axiosWithoutAuth().post('/api/auth/register', body);
+export const signup = (credentials: ISignUpBody): Promise<AxiosResponse> => {
+  return axiosWithoutAuth().post('api/auth/register', credentials);
 };
 
-export interface ISignUpBody {
+export const formatSignupBody = (formData: SignupFormState): ISignUpBody => {
+  const age = parseInt(formData.ageStr);
+  return {
+    email: formData.email,
+    parentEmail: age < 13 ? formData.parentEmail : formData.email,
+    password: formData.password,
+    username: formData.username,
+    age,
+  };
+};
+
+export interface SignupFormState extends Omit<ISignUpBody, 'age'> {
+  ageStr: string;
+  confirm: string;
+}
+
+interface ISignUpBody {
   email: string;
+  username: string;
   password: string;
+  parentEmail: string;
+  age: number;
 }

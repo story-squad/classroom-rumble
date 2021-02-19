@@ -2,7 +2,7 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { Auth } from '../../../../api';
-import { ISignUpBody } from '../../../../api/Auth';
+import { SignupFormState } from '../../../../api/Auth';
 import { patterns } from '../../../../config';
 import { Checkbox, Input } from '../../../common';
 
@@ -13,13 +13,36 @@ const SignUpForm = ({
   isLogin: boolean;
   setIsLogin: (arg: boolean) => void;
 }): React.ReactElement => {
-  const { errors, register, handleSubmit, clearErrors, watch } = useForm({
+  const {
+    errors,
+    register,
+    handleSubmit,
+    clearErrors,
+    watch,
+    setError,
+  } = useForm({
     mode: 'onChange',
   });
 
-  const onSubmit: SubmitHandler<ISignUpBody> = async (data): Promise<void> => {
+  const onSubmit: SubmitHandler<SignupFormState> = async (
+    data,
+  ): Promise<void> => {
     try {
-      Auth.signup(data);
+      const credentials = Auth.formatSignupBody(data);
+      Auth.signup(credentials)
+        .then(() => {
+          clearErrors();
+        })
+        .catch((err) => {
+          console.log({ err });
+          let message: string;
+          if (err.response?.data) {
+            message = err.response.data.error;
+          } else {
+            message = 'An unknown error occurred. Please try again.';
+          }
+          setError('form', { type: 'manual', message });
+        });
     } catch (err) {
       console.log(err);
     }
@@ -48,6 +71,51 @@ const SignUpForm = ({
         }}
         placeholder="Your last name"
       />
+      <Input
+        id="age"
+        name="ageStr"
+        label="Age"
+        errors={errors}
+        register={register}
+        rules={{
+          required: 'Age is required!',
+          validate: (value) => !!parseInt(value) || 'Age must be a number!',
+        }}
+        placeholder="Enter your age"
+      />
+      {/* If the user is younger than 13, require a parent email */}
+      {parseInt(watch('ageStr')) < 13 && (
+        <Input
+          id="parentEmail"
+          name="parentEmail"
+          label="Parent Email"
+          errors={errors}
+          register={register}
+          rules={{
+            validate: {
+              // required field if the entered age is less than 13
+              required: (value) => {
+                if (parseInt(watch('ageStr')) < 13)
+                  return value.length > 1 || 'Parent email is required!';
+                else return true;
+              },
+              // checks the email and parent email to make sure they are different
+              differentEmail: (value) => {
+                return (
+                  value !== watch('email') ||
+                  'Parent email must be different than email!'
+                );
+              },
+            },
+            pattern: {
+              // ensures the entered parent email string matches a valid email address pattern
+              value: patterns.emailRegex,
+              message: 'Please enter a valid email address.',
+            },
+          }}
+          placeholder="ParentSuperWriter@storysquad.org"
+        />
+      )}
       <Input
         id="codename"
         name="codename"
@@ -160,7 +228,7 @@ const SignUpForm = ({
         className="submit"
         type="submit"
         value="Create Account"
-        onClick={() => clearErrors()}
+        onClick={() => clearErrors('form')}
         // onClick={() => setIsLogin(!isLogin)}
         //Once Register is successful redirect to login page
       />
