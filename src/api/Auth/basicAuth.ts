@@ -20,9 +20,11 @@ export const formatSignupBody = (formData: SignupFormState): ISignUpBody => {
   const age = parseInt(formData.ageStr);
   return {
     email: formData.email,
+    firstname: formData.firstname,
+    lastname: formData.lastname,
     parentEmail: age < 13 ? formData.parentEmail : formData.email,
     password: formData.password,
-    username: formData.username,
+    codename: formData.codename,
     age,
   };
 };
@@ -33,8 +35,10 @@ export interface SignupFormState extends Omit<ISignUpBody, 'age'> {
 }
 
 interface ISignUpBody {
+  firstname: string;
+  lastname: string;
+  codename: string;
   email: string;
-  username: string;
   password: string;
   parentEmail: string;
   age: number;
