@@ -15,7 +15,7 @@ export interface ILoginBody {
 export const signup = (
   body: ISignUpBody,
 ): Promise<AxiosResponse<{ token: string }>> => {
-  return axiosWithoutAuth().post('', body);
+  return axiosWithoutAuth().post('/api/auth/register', body);
 };
 
 export interface ISignUpBody {

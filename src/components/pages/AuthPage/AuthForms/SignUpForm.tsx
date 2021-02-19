@@ -19,7 +19,7 @@ const SignUpForm = ({
 
   const onSubmit: SubmitHandler<ISignUpBody> = async (data): Promise<void> => {
     try {
-      Auth.login(data);
+      Auth.signup(data);
     } catch (err) {
       console.log(err);
     }
@@ -27,22 +27,52 @@ const SignUpForm = ({
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Input
-        label="Username"
-        name="username"
-        register={register}
-        id="signup-username"
+        id="firstname"
+        name="firstname"
+        label="First Name"
         errors={errors}
-        placeholder="Username"
+        register={register}
         rules={{
-          required: 'Username is required!',
-          validate: {
-            regex: (value) =>
-              patterns.codenameRegex.test(value) || 'Must be X length',
-          },
+          required: 'First name is required!',
         }}
+        placeholder="Your first name"
       />
       <Input
-        label="signupEmail"
+        id="lastname"
+        name="lastname"
+        label="Last Name"
+        errors={errors}
+        register={register}
+        rules={{
+          required: 'Last name is required!',
+        }}
+        placeholder="Your last name"
+      />
+      <Input
+        id="codename"
+        name="codename"
+        label="Codename"
+        errors={errors}
+        register={register}
+        rules={{
+          required: 'Codename is required!',
+          validate: {
+            checkCharacters: (value) => {
+              return (
+                // ensures the user's entered codename contains only allowed characters
+                patterns.codenameRegex.test(value) ||
+                'Only letters and numbers are allowed.'
+              );
+            },
+            checkLength: (value) => {
+              return value.length < 15 || 'Cannot be more than 15 characters.';
+            },
+          },
+        }}
+        placeholder="Your secret codename!"
+      />
+      <Input
+        label="Email"
         name="email"
         register={register}
         id="signup-email"
