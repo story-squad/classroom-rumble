@@ -1,18 +1,14 @@
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import { Auth } from '../../../../api';
 import { SignupFormState } from '../../../../api/Auth';
 import { patterns } from '../../../../config';
+import { auth } from '../../../../state';
 import { Checkbox, Input } from '../../../common';
 
-const SignUpForm = ({
-  isLogin,
-  setIsLogin,
-}: {
-  isLogin: boolean;
-  setIsLogin: (arg: boolean) => void;
-}): React.ReactElement => {
+const SignUpForm = (): React.ReactElement => {
   const {
     errors,
     register,
@@ -23,6 +19,7 @@ const SignUpForm = ({
   } = useForm({
     mode: 'onChange',
   });
+  const setIsLogin = useSetRecoilState(auth.form.isLogin);
 
   const onSubmit: SubmitHandler<SignupFormState> = async (
     data,
@@ -32,6 +29,7 @@ const SignUpForm = ({
       Auth.signup(credentials)
         .then(() => {
           clearErrors();
+          setIsLogin(true);
         })
         .catch((err) => {
           console.log({ err });
