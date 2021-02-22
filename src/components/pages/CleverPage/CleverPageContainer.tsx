@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Auth } from '../../../api';
 import { token } from '../../../utils';
 
 const CleverPageContainer = (): React.ReactElement => {
   const { search } = useLocation();
   const [code, setCode] = useState<undefined | string>();
+  const { push } = useHistory();
 
   useEffect(() => {
     if (!code) {
@@ -25,13 +26,18 @@ const CleverPageContainer = (): React.ReactElement => {
           switch (data.actionType) {
             case 'MERGE':
               // Something needs to happen on the backend here I think
+              // Is this your account?
               break;
             case 'NEW':
               // Open signup form and pass data.body into the form state
+              // Do you have an existing SS account?
+              // If yes -> try to sign in & we'll merge it
+              // Else -> create new account and merge it with clever stuff
               break;
             case 'SUCCESS':
               // On success, store token and push to correct dashboard
               token.set(data.body.token);
+              push(`/${data.userType}/dashboard`);
               break;
             default:
               break;
