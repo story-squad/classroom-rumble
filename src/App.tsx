@@ -11,7 +11,7 @@ const App = (): React.ReactElement => {
         <Route path="/login" component={AuthPage} />
         <Route path="/tos" component={TermsOfService} />
         {/* Private Routes */}
-        <Route path="/teacherdash" component={TeacherDash} />
+        <Route path="/dashboard/teacher" component={TeacherDash} />
         {/* Fallback redirect to main app homepage! Change the 'to' property after setting up routes. */}
         <Route path="/" component={() => <Redirect to="/homepage" />} />
       </Switch>
