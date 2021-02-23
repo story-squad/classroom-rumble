@@ -3,6 +3,14 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { Auth } from '../../../api';
 import { token } from '../../../utils';
 
+/**
+ * The Clever redirect page, gets a token from Clever and sends it to
+ * the backend, which trades it with the Clever API for user info.
+ *
+ * After the OAuth process, the backend returns the user's registration
+ * state as pertains to our database and this component routes the user
+ * to where they need to go.
+ */
 const CleverPageContainer = (): React.ReactElement => {
   const { search } = useLocation();
   const [code, setCode] = useState<undefined | string>();

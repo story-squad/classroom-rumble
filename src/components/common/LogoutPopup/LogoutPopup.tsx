@@ -27,9 +27,10 @@ const LogoutComponent = (
     token.clear();
     token.clearUser();
     push('/');
+    props.closeModal();
   };
   return (
-    <div className="signout-confirmation">
+    <div className="logout-popup">
       <p>Are you sure you&apos;d like to sign out?</p>
       <div className="button-row">
         <button onClick={logout}>Yes</button>
