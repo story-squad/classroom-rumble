@@ -17,7 +17,7 @@ const LoginForm = (): React.ReactElement => {
     try {
       const res = await Auth.login(data);
       login(res.data);
-      push('/');
+      push(`/dashboard/${Auth.Roles[res.data.user.roleId]}`);
     } catch (err) {
       console.log(err);
     }
