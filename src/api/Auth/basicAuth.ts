@@ -23,4 +23,11 @@ export interface IUser {
   email?: string;
   firstname?: string;
   lastname?: string;
+  roleId: Roles & number;
+}
+
+export enum Roles {
+  'user' = 1,
+  'teacher' = 2,
+  'admin' = 3,
 }

@@ -32,15 +32,11 @@
     width: 100%;
     margin: 2rem auto;
     box-shadow: 5px 5px 15px #333;
+    background-color: $dark-blue;
     border-radius: 5px;
     display: flex;
     flex-flow: column nowrap;
     position: relative;
-
-    background-color: #fff;
-    &.dark-blue {
-      background-color: $dark-blue;
-    }
 
     .modal-header {
       width: 100%;
