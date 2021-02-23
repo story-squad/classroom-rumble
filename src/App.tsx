@@ -43,7 +43,7 @@ const App = (): React.ReactElement => {
           userType={Auth.Roles.admin}
         /> */}
         <PrivateRoute
-          path="/dashboard"
+          path="/"
           component={() => <TestComponent thing="something" />}
         />
 
@@ -52,7 +52,7 @@ const App = (): React.ReactElement => {
         <Route exact path="/oauth/clever/login" component={() => <></>} />
         <Route exact path="/oauth/clever/signup" component={() => <></>} />
 
-        {/* Fallback redirect to main app homepage! Change the 'to' property after setting up routes. */}
+        {/* Fallback Route */}
         <Route path="/" component={() => <Redirect to="/" />} />
       </Switch>
     </div>
