@@ -10,3 +10,8 @@ export const user = atom<Auth.IUser | undefined>({
   key: 'currentUser',
   default: undefined,
 });
+
+export const logoutModalOpen = atom<boolean>({
+  key: 'isLogoutModalOpen',
+  default: false,
+});

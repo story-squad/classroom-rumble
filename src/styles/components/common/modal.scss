@@ -1,0 +1,85 @@
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
+  opacity: 1;
+  transition: all 0.5s ease-in-out 0s;
+  background-color: #0004;
+  overflow-y: scroll;
+  cursor: pointer;
+
+  &.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .modal {
+      width: auto;
+    }
+  }
+
+  &.hidden {
+    opacity: 0;
+    transition: all 0.5s ease-in-out 0.2s;
+    z-index: -1;
+  }
+
+  .modal {
+    cursor: auto;
+    max-width: 96%;
+    width: 100%;
+    margin: 2rem auto;
+    box-shadow: 5px 5px 15px #333;
+    border-radius: 5px;
+    display: flex;
+    flex-flow: column nowrap;
+    position: relative;
+
+    background-color: #fff;
+    &.dark-blue {
+      background-color: $dark-blue;
+    }
+
+    .modal-header {
+      width: 100%;
+      height: 4rem;
+      padding: 0.8rem 3.6rem;
+      background-color: $jade;
+      position: relative;
+      border-radius: 5px 5px 0 0;
+
+      .modal-title {
+        font-size: 2.4rem;
+        line-height: 2.4rem;
+        color: $white;
+        font-family: $display-font;
+        text-align: center;
+        text-shadow: 0 2px 2px #0003;
+      }
+
+      .close-button {
+        position: absolute;
+        right: 0.8rem;
+        top: 0.8rem;
+        font-size: 1.6rem;
+        cursor: pointer;
+        z-index: 20;
+        padding: 0.4rem 0.4rem 0.2rem;
+        color: $white;
+        border-radius: 3px;
+        transition: all 0.2s ease-in;
+        &:hover {
+          background-color: #00000019;
+          color: darken($white, 10%);
+          transition: all 0.2s ease-in;
+        }
+      }
+    }
+
+    .modal-content {
+      padding: 2rem;
+    }
+  }
+}

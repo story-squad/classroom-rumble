@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useMemo } from 'react';
 import {
   Redirect,
   Route,
   RouteComponentProps,
   RouteProps,
 } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { auth } from '../../../state';
+import { token } from '../../../utils';
 
 const PrivateRoute = ({
   component: Component,
@@ -14,17 +15,14 @@ const PrivateRoute = ({
 }: {
   component: React.ComponentType<RouteComponentProps>;
 } & RouteProps): React.ReactElement => {
-  const [isLogged, login] = useRecoilState(auth.isLoggedIn);
-
-  useEffect(() => {
-    login(undefined);
-  }, [isLogged]);
+  const isLogged = useRecoilValue(auth.isLoggedIn);
+  const t = useMemo(() => token.get(), [isLogged]);
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        isLogged ? <Component {...props} /> : <Redirect to="/login" />
+        t ? <Component {...props} /> : <Redirect to="/login" />
       }
     />
   );

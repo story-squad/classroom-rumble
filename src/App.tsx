@@ -1,13 +1,16 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import {
   CookiePopup,
+  LogoutPopup,
   PrivateRoute,
   ReadTokenData,
   SEO,
 } from './components/common/';
 import { AuthPage } from './components/pages/AuthPage';
 import { CleverPage } from './components/pages/CleverPage';
+import { auth } from './state';
 
 const App = (): React.ReactElement => {
   return (
@@ -15,9 +18,10 @@ const App = (): React.ReactElement => {
       <ReadTokenData />
       <SEO />
       <CookiePopup />
+      <LogoutPopup />
       <Switch>
         {/* Public Routes */}
-        <Route path="/login" component={AuthPage} />
+        <Route exact path="/login" component={AuthPage} />
 
         {/* Private Routes */}
         <PrivateRoute
@@ -26,9 +30,9 @@ const App = (): React.ReactElement => {
         />
 
         {/* Clever Routes */}
-        <Route path="/oauth/clever/login" component={() => <></>} />
-        <Route path="/oauth/clever/signup" component={() => <></>} />
-        <Route path="/oauth/clever" component={CleverPage} />
+        <Route exact path="/oauth/clever/login" component={() => <></>} />
+        <Route exact path="/oauth/clever/signup" component={() => <></>} />
+        <Route exact path="/oauth/clever" component={CleverPage} />
 
         {/* Fallback redirect to main app homepage! Change the 'to' property after setting up routes. */}
         <Route path="/" component={() => <Redirect to="/testroute" />} />
@@ -37,8 +41,14 @@ const App = (): React.ReactElement => {
   );
 };
 
-const TestComponent = (props: { thing: string }): React.ReactElement => (
-  <div>{props.thing}</div>
-);
+const TestComponent = (props: { thing: string }): React.ReactElement => {
+  const setLogoutOpen = useSetRecoilState(auth.logoutModalOpen);
+  return (
+    <div>
+      <p>{props.thing}</p>
+      <button onClick={() => setLogoutOpen(true)}>Log Out</button>
+    </div>
+  );
+};
 
 export default App;
