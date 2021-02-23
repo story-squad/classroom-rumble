@@ -1,12 +1,12 @@
 import { atom } from 'recoil';
-import { IUser } from '../../utils';
+import { Auth } from '../../api';
 
 export const authToken = atom<string | undefined>({
   key: 'authToken',
   default: undefined,
 });
 
-export const user = atom<IUser | undefined>({
+export const user = atom<Auth.IUser | undefined>({
   key: 'currentUser',
   default: undefined,
 });

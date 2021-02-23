@@ -1,17 +1,23 @@
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import { Auth } from '../../../../api';
-import { ILoginBody } from '../../../../api/Auth/basicAuth';
-import { token } from '../../../../utils';
+import { auth } from '../../../../state';
 import { Input } from '../../../common';
 
 const LoginForm = (): React.ReactElement => {
   const { errors, register, handleSubmit } = useForm();
+  const login = useSetRecoilState(auth.isLoggedIn);
+  const { push } = useHistory();
 
-  const onSubmit: SubmitHandler<ILoginBody> = async (data): Promise<void> => {
+  const onSubmit: SubmitHandler<Auth.ILoginBody> = async (
+    data,
+  ): Promise<void> => {
     try {
       const res = await Auth.login(data);
-      token.set(res.data.token);
+      login(res.data);
+      push('/');
     } catch (err) {
       console.log(err);
     }

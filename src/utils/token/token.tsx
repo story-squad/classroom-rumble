@@ -1,4 +1,5 @@
 import jwt_decode from 'jwt-decode';
+import { Auth } from '../../api';
 
 /**
  * If a key is set in the ENV, it will use that as the localStorage
@@ -24,7 +25,8 @@ export const get = (): string | undefined => {
     return token ?? undefined;
   } catch (err) {
     console.log(err);
-    // logout function
+    clear();
+    clearUser();
     return;
   }
 };
@@ -44,20 +46,12 @@ export const clear = (): void => localStorage.removeItem(tokenName);
 /**
  * Local storage handlers for user info
  */
-export const getUser = (): IUser | undefined =>
+export const getUser = (): Auth.IUser | undefined =>
   JSON.parse(localStorage.getItem(userStorageName) ?? 'null') ?? undefined;
-export const setUser = (user: IUser): void =>
+export const setUser = (user: Auth.IUser): void =>
   localStorage.setItem(userStorageName, JSON.stringify(user));
 export const clearUser = (): void => localStorage.removeItem(userStorageName);
 export interface DecodedToken {
   exp: number;
   iat: number;
-}
-
-export interface IUser {
-  id: number;
-  codename: string;
-  email?: string;
-  firstname?: string;
-  lastname?: string;
 }
