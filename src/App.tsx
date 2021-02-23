@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { AuthPage } from './components/pages/AuthPage';
-import { ChildDashboard } from './components/pages/ChildDashboard';
+import { StudentDashboard } from './components/pages/StudentDashboard';
 
 const App = (): React.ReactElement => {
   return (
@@ -10,7 +10,7 @@ const App = (): React.ReactElement => {
         {/* Public Routes */}
         <Route path="/login" component={AuthPage} />
         {/* Private Routes */}
-        <Route path="/dashboard/student" component={ChildDashboard} />
+        <Route path="/dashboard/student" component={StudentDashboard} />
         {/* Fallback redirect to main app homepage! Change the 'to' property after setting up routes. */}
         <Route path="/" component={() => <Redirect to="/homepage" />} />
       </Switch>
