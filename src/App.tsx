@@ -1,11 +1,15 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import { CookiePopup, ReadTokenData, SEO } from './components/common/';
 import { AuthPage } from './components/pages/AuthPage';
 import { CleverPage } from './components/pages/CleverPage';
 
 const App = (): React.ReactElement => {
   return (
     <div className="App">
+      <ReadTokenData />
+      <SEO />
+      <CookiePopup />
       <Switch>
         {/* Public Routes */}
         <Route path="/login" component={AuthPage} />
