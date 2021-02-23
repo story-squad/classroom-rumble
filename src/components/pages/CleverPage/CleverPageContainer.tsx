@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import { Auth } from '../../../api';
-import { token } from '../../../utils';
+import { auth } from '../../../state';
 
 /**
  * The Clever redirect page, gets a token from Clever and sends it to
@@ -15,6 +16,7 @@ const CleverPageContainer = (): React.ReactElement => {
   const { search } = useLocation();
   const [code, setCode] = useState<undefined | string>();
   const { push } = useHistory();
+  const login = useSetRecoilState(auth.isLoggedIn);
 
   useEffect(() => {
     if (!code) {
@@ -44,7 +46,7 @@ const CleverPageContainer = (): React.ReactElement => {
               break;
             case 'SUCCESS':
               // On success, store token and push to correct dashboard
-              token.set(data.body.token);
+              login(data.body);
               push(`/${data.userType}/dashboard`);
               break;
             default:
