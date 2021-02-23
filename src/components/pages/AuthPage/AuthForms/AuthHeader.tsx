@@ -1,12 +1,9 @@
 import React from 'react';
+import { useRecoilState } from 'recoil';
+import { auth } from '../../../../state';
 
-const AuthHeader = ({
-  isLogin,
-  setIsLogin,
-}: {
-  isLogin: boolean;
-  setIsLogin: (arg: boolean) => void;
-}): React.ReactElement => {
+const AuthHeader = (): React.ReactElement => {
+  const [isLogin, setIsLogin] = useRecoilState(auth.form.isLogin);
   return (
     <div className="auth-header">
       <a onClick={() => setIsLogin(true)} className={isLogin ? 'active' : ''}>
