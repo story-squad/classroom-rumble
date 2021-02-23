@@ -2,7 +2,6 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Auth } from '../../../../api';
 import { ILoginBody } from '../../../../api/Auth/basicAuth';
-import { patterns } from '../../../../config';
 import { token } from '../../../../utils';
 import { Input } from '../../../common';
 
@@ -21,18 +20,14 @@ const LoginForm = (): React.ReactElement => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Input
-        label="Email"
-        name="email"
+        label="Codename"
+        name="codename"
         register={register}
-        id="login-email"
+        id="login-codename"
         errors={errors}
-        placeholder="Enter your email"
+        placeholder="Enter your codename"
         rules={{
-          required: 'Email is required!',
-          validate: {
-            regex: (value) =>
-              patterns.emailRegex.test(value) || 'Must be a valid email',
-          },
+          required: 'Codename is required!',
         }}
       />
       <Input

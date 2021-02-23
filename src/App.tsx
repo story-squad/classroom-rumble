@@ -12,6 +12,8 @@ const App = (): React.ReactElement => {
         {/* Private Routes */}
 
         {/* Clever Routes */}
+        <Route path="/oauth/clever/login" component={() => <></>} />
+        <Route path="/oauth/clever/signup" component={() => <></>} />
         <Route path="/oauth/clever" component={CleverPage} />
 
         {/* Fallback redirect to main app homepage! Change the 'to' property after setting up routes. */}
