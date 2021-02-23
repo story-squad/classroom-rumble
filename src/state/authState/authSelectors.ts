@@ -1,8 +1,9 @@
 import { DefaultValue, selector } from 'recoil';
-import { IUser, token } from '../../utils';
+import { Auth } from '../../api';
+import { token } from '../../utils';
 import { authToken, user } from './authAtoms';
 
-export const isLoggedIn = selector<{ token: string; user: IUser } | undefined>({
+export const isLoggedIn = selector<Auth.IAuthResponse | undefined>({
   key: 'loginSelector',
   get: ({ get }) => {
     const curUser = get(user);
