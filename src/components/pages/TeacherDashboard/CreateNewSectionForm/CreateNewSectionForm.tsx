@@ -6,7 +6,7 @@ import { Input } from '../../../common';
 const TestData = [
   // subjectId: string // We'll get these from the backend
   // gradeId: string // Getting these from the backend as well!
-  { name: 'Science', subjectId: '4', gradeId: 4 },
+  { name: 'Science', subjectId: '4', gradeId: 'Item 4' },
   { name: 'Math', subjectId: '4', gradeId: 4 },
   { name: 'Art', subjectId: '4', gradeId: 4 },
   { name: 'Reading', subjectId: '4', gradeId: 4 },
@@ -34,15 +34,16 @@ const NewSection = (): React.ReactElement => {
         label="Class name"
         name="name"
         register={register}
-        id=""
+        id="class-name"
         errors={errors}
         placeholder="Enter class name"
         rules={{ required: 'Classname is required!' }}
       />
-      <select>
+      <select name="Test" value="Test">
         {/* <option value="Grade">Items</option> */}
+        {/* The value being put in the potions needs  */}
         {TestData.map((item, gradeId) => (
-          <option key={gradeId}>{item.subjectId}</option>
+          <option key={gradeId}>{item.gradeId}</option>
         ))}
       </select>
     </form>
