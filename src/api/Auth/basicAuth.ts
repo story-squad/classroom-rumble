@@ -8,6 +8,6 @@ export const login = (
 };
 
 export interface ILoginBody {
-  email: string;
+  codename: string;
   password: string;
 }
