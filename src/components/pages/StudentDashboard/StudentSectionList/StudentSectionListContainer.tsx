@@ -1,39 +1,36 @@
 import React, { useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Sections } from '../../../../api';
-import { ISection } from '../../../../api/Sections';
-import CouldNotLoad from '../../DashBoards/CouldNotLoad';
+import { auth, sections } from '../../../../state';
+import CouldNotLoad from '../../CouldNotLoad';
 import RenderStudentSectionList from './RenderStudentSectionList';
 
 const StudentSectionListContainer = (): React.ReactElement => {
   // TODO I beleive I need recoil state here to monitor the users section
-  const [studentSections, setStudentSections] = useState<ISection[]>([
-    {
-      id: 1,
-      name: 'Ben',
-      active: true,
-      grade: '4',
-      subject: 'History',
-      joinCode: 'afadsfdada',
-    },
-  ]);
+  const [sectionList, setSectionList] = useRecoilState(sections.list);
+  const user = useRecoilValue(auth.user);
 
   const [error, setError] = useState<null | string>(null);
 
   useEffect(() => {
-    Sections.getStudentSections(studentSections[0].id)
-      .then((res) => {
-        setStudentSections(res);
-      })
-      .catch((err) => {
-        console.log({ err });
-        setError('It appears you are not in a section.');
-      });
+    if (user) {
+      Sections.getStudentSections(user?.id)
+        .then((res) => {
+          setSectionList(res);
+        })
+        .catch((err) => {
+          console.log({ err });
+          setError('It appears you are not in a section.');
+        });
+    }
   }, []);
 
   return error ? (
     <CouldNotLoad error={error} />
+  ) : sectionList ? (
+    <RenderStudentSectionList studentSections={sectionList} />
   ) : (
-    <RenderStudentSectionList studentSections={studentSections} />
+    <p>LOADING</p>
   );
 };
 
