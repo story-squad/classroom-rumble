@@ -1,1 +1,1 @@
-export { default as TeacherDash } from './TeacherDashboardContainer';
+export { default as TeacherDashboard } from './TeacherDashboardContainer';
