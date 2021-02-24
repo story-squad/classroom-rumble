@@ -1,6 +1,5 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
 import {
   CookiePopup,
   LogoutPopup,
@@ -15,7 +14,6 @@ import { LandingPage } from './components/pages/LandingPage';
 import { LoginPage } from './components/pages/LoginPage';
 import { SignupPage } from './components/pages/SignupPage';
 import { StudentDashboard } from './components/pages/StudentDashboard';
-import { auth } from './state';
 
 const App = (): React.ReactElement => {
   return (
@@ -38,29 +36,9 @@ const App = (): React.ReactElement => {
         <PrivateRoute path="/dashboard/teacher" component={TeacherDashboard} />
         <PrivateRoute path="/dashboard/student" component={StudentDashboard} />
 
-        <PrivateRoute
-          path="/"
-          component={() => <TestComponent thing="something" />}
-        />
-
         {/* Fallback Route */}
         <Route path="/" component={() => <Redirect to="/" />} />
       </Switch>
-    </div>
-  );
-};
-
-/**
- * The app falls back to display thsi component after login for now,
- * it will attempt to route to the corerct dashboard endpoint but if
- * it doesn't exist it will render this instead
- */
-const TestComponent = (props: { thing: string }): React.ReactElement => {
-  const setLogoutOpen = useSetRecoilState(auth.logoutModalOpen);
-  return (
-    <div>
-      <p>{props.thing}</p>
-      <button onClick={() => setLogoutOpen(true)}>Log Out</button>
     </div>
   );
 };
