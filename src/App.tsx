@@ -1,7 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { Auth } from './api';
 import {
   CookiePopup,
   LogoutPopup,
@@ -14,7 +13,6 @@ import { CleverPage } from './components/pages/CleverPage';
 import { LandingPage } from './components/pages/LandingPage';
 import { LoginPage } from './components/pages/LoginPage';
 import { SignupPage } from './components/pages/SignupPage';
-import { TeacherDashboard } from './components/pages/TeacherDashboard';
 import { auth } from './state';
 
 const App = (): React.ReactElement => {
@@ -46,11 +44,11 @@ const App = (): React.ReactElement => {
           component={AdminDashboard}
           userType={Auth.Roles.admin}
         /> */}
-        <PrivateRoute
+        {/* <PrivateRoute
           path="/dashboard/teacher"
           component={TeacherDashboard}
           userType={Auth.Roles.teacher}
-        />
+        /> */}
         <PrivateRoute
           path="/"
           component={() => <TestComponent thing="something" />}
