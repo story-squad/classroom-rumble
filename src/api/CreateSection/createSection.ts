@@ -1,16 +1,10 @@
 import { axiosWithAuth } from '../axiosWithConfig';
 
-export interface INewSectionBody {
-  name: string; // The name of the class!
-  subjectId: string; // We'll get these from the backend
-  gradeId: string; // Getting these from the backend as well!
-}
-
-export interface IFullSection extends INewSectionBody {
-  joinCode: string;
-  id: number;
-  active: boolean;
-}
+export const getSectionData = async (): Promise<IData[]> => {
+  // const { data } = await axiosWithAuth().get('/api/rumble/data');
+  // return data;
+  return Promise.resolve(dummyData);
+};
 
 export const CreateNewSection = async (
   body: INewSectionBody,
@@ -22,18 +16,6 @@ export const CreateNewSection = async (
   );
   return data;
 };
-
-// Endpoint: POST /api/rumble/teachers/:teacherId/sections
-
-export interface IGrade {
-  gradeId: string;
-  grade: number;
-}
-
-export interface ISubject {
-  subjectId: string;
-  subject: string;
-}
 
 const dummyData = [
   {
@@ -52,18 +34,29 @@ const dummyData = [
   },
 ];
 
+export interface IGrade {
+  gradeId: string;
+  grade: number;
+}
+
+export interface ISubject {
+  subjectId: string;
+  subject: string;
+}
+
 export interface IData {
   grades: { gradeId: string; value: string }[];
   subjects: { subjectId: string; value: string }[];
 }
 
-// {
-//   grades: [{ gradeId: string; value: string; }];
-//   subjects: [{ subjectId: string; value: string; }];
-// }
-export const getSectionData = async (): Promise<IData[]> => {
-  // const { data } = await axiosWithAuth().get('/api/rumble/data');
-  // return data;
+export interface INewSectionBody {
+  name: string; // The name of the class!
+  subjectId: string; // We'll get these from the backend
+  gradeId: string; // Getting these from the backend as well!
+}
 
-  return Promise.resolve(dummyData);
-};
+export interface IFullSection extends INewSectionBody {
+  joinCode: string;
+  id: number;
+  active: boolean;
+}
