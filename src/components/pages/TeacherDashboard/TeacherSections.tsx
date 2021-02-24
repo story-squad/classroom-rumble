@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Sections } from '../../../../api';
-import { ISection } from '../../../../api/Sections';
+import { Sections } from '../../../api';
+import { ISection } from '../../../api/Sections';
 
 const TeacherSections = (): React.ReactElement => {
   const [teacherSections, setTeacherSections] = useState<
