@@ -1,6 +1,6 @@
 import { axiosWithAuth } from '../axiosWithConfig';
 
-// GET
+// GET a list of Teachers sections
 export const getTeacherSections = async (
   teacherId: number,
 ): Promise<ISection[]> => {
@@ -8,15 +8,14 @@ export const getTeacherSections = async (
     `/api/rumble/teachers/${teacherId}/sections`,
   );
   return data;
-  // return Promise.resolve(dummyData);
 };
 
-// Return a list of sections for a student
+// GET a list of Student Sections
 export const getStudentSections = async (
   studentId: number,
 ): Promise<ISection[]> => {
   const { data } = await axiosWithAuth().get(
-    '/api/rumble/students/:studentId/sections',
+    `/api/rumble/students/${studentId}/sections`,
   );
   return data;
 };
