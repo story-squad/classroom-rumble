@@ -1,19 +1,24 @@
-import { AxiosResponse } from 'axios';
 import { axiosWithoutAuth } from '../axiosWithConfig';
+import {
+  IAuthResponse,
+  ILoginBody,
+  ISignUpBody,
+  SignupFormState,
+} from './authTypes';
 
-export const login = (
-  body: ILoginBody,
-): Promise<AxiosResponse<{ token: string }>> => {
-  return axiosWithoutAuth().post('/api/auth/login', body);
+export const login = async (body: ILoginBody): Promise<IAuthResponse> => {
+  const { data } = await axiosWithoutAuth().post('/api/auth/login', body);
+  return data;
 };
 
-export interface ILoginBody {
-  email: string;
-  password: string;
-}
-
-export const signup = (credentials: ISignUpBody): Promise<AxiosResponse> => {
-  return axiosWithoutAuth().post('api/auth/register', credentials);
+export const signup = async (
+  credentials: ISignUpBody,
+): Promise<IAuthResponse> => {
+  const { data } = await axiosWithoutAuth().post(
+    'api/auth/register',
+    credentials,
+  );
+  return data;
 };
 
 export const formatSignupBody = (formData: SignupFormState): ISignUpBody => {
@@ -28,18 +33,3 @@ export const formatSignupBody = (formData: SignupFormState): ISignUpBody => {
     age,
   };
 };
-
-export interface SignupFormState extends Omit<ISignUpBody, 'age'> {
-  ageStr: string;
-  confirm: string;
-}
-
-interface ISignUpBody {
-  firstname: string;
-  lastname: string;
-  codename: string;
-  email: string;
-  password: string;
-  parentEmail: string;
-  age: number;
-}
