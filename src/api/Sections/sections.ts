@@ -1,4 +1,43 @@
-const dummyData = [
+import { axiosWithAuth } from '../axiosWithConfig';
+
+// GET
+export const getTeacherSections = async (
+  teacherId: number,
+): Promise<ISection[]> => {
+  const { data } = await axiosWithAuth().get(
+    `/api/rumble/teachers/${teacherId}/sections`,
+  );
+  return data;
+  // return Promise.resolve(dummyData);
+};
+
+// Return a list of sections for a student
+export const getStudentSections = async (
+  studentId: number,
+): Promise<ISection[]> => {
+  const { data } = await axiosWithAuth().get(
+    '/api/rumble/students/:studentId/sections',
+  );
+  return data;
+};
+
+/**
+ * INTERFACES
+ */
+export interface ISection {
+  id: number;
+  name: string;
+  active: boolean;
+  grade: string;
+  subject: string;
+  joinCode: string;
+}
+
+/**
+ * Dummy Data for testing
+ */
+/**
+ * const dummyData = [
   {
     name: 'Kathy Smith',
     active: true,
@@ -21,19 +60,4 @@ const dummyData = [
     joinCode: '9rr1',
   },
 ];
-
-export interface ISection {
-  name: string;
-  active: boolean;
-  grade: string;
-  subject: string;
-  joinCode: string;
-}
-
-export const getSections = async (teacherId: number): Promise<ISection[]> => {
-  // const { data } = await axiosWithAuth().get(
-  //   `/api/rumble/teachers/${teacherId}/sections`,
-  // );
-  // return data;
-  return Promise.resolve(dummyData);
-};
+ */

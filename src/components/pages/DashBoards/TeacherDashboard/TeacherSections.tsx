@@ -8,7 +8,7 @@ const TeacherSections = (): React.ReactElement => {
   >();
 
   useEffect(() => {
-    Sections.getSections(1)
+    Sections.getTeacherSections(1)
       .then((res) => {
         setTeacherSections(res);
       })
