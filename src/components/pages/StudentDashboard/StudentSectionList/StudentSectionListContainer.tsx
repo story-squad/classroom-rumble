@@ -25,8 +25,8 @@ const StudentSectionListContainer = (): React.ReactElement => {
         setStudentSections(res);
       })
       .catch((err) => {
-        console.log('Err in useeffect', err);
-        setError('BOOOO');
+        console.log({ err });
+        setError('It appears you are not in a section.');
       });
   }, []);
 
