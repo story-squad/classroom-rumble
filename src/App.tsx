@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { TermsOfService } from './components/common/TermsOfService';
 import { AuthPage } from './components/pages/AuthPage';
-import { TeacherDash } from './components/pages/TeacherDashboard';
+import { TeacherDash } from './components/pages/DashBoards/TeacherDashboard';
 const App = (): React.ReactElement => {
   return (
     <div className="App">
