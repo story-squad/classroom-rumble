@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Section } from '../../../../api';
+import { Sections } from '../../../../api';
 import { ISection } from '../../../../api/Sections';
+import CouldNotLoad from '../../DashBoards/CouldNotLoad';
 import RenderStudentSectionList from './RenderStudentSectionList';
 
 const StudentSectionListContainer = (): React.ReactElement => {
@@ -16,17 +17,24 @@ const StudentSectionListContainer = (): React.ReactElement => {
     },
   ]);
 
+  const [error, setError] = useState<null | string>(null);
+
   useEffect(() => {
-    Section.getStudentSections()
+    Sections.getStudentSections(studentSections[0].id)
       .then((res) => {
         setStudentSections(res);
       })
       .catch((err) => {
         console.log('Err in useeffect', err);
+        setError('BOOOO');
       });
   }, []);
 
-  return <RenderStudentSectionList studentSections={studentSections} />;
+  return error ? (
+    <CouldNotLoad error={error} />
+  ) : (
+    <RenderStudentSectionList studentSections={studentSections} />
+  );
 };
 
 export default StudentSectionListContainer;
