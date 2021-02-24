@@ -59,7 +59,7 @@ const NewSection = (): React.ReactElement => {
           </label>
         </>
       ))}
-      ,
+      <input className="submit" type="submit" value="Create Section" />
     </form>
   );
 };
