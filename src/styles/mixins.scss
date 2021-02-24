@@ -69,7 +69,7 @@
   color: $white;
   font-family: $text-font;
   padding: 0.5rem;
-  @include placeholder(#c4c4c4);
+  @include placeholder(#fff4);
   position: relative;
   z-index: 3;
 }

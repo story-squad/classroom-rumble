@@ -1,3 +1,3 @@
-// Export the atoms and/or selectors from here
 export * from './authAtoms';
+export * as form from './authFormState';
 export * from './authSelectors';

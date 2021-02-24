@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { Auth } from '../../../api';
+import { Roles } from '../../../api/Auth';
 import { auth } from '../../../state';
+import { query } from '../../../utils';
 
 /**
  * The Clever redirect page, gets a token from Clever and sends it to
@@ -20,10 +22,7 @@ const CleverPageContainer = (): React.ReactElement => {
 
   useEffect(() => {
     if (!code) {
-      const params = JSON.parse(
-        '{"' + search.slice(1).replace(/&/g, '","').replace(/=/g, '":"') + '"}',
-        (key, value) => (key === '' ? value : decodeURIComponent(value)),
-      );
+      const params = query.parse<'code'>(search);
       setCode(params.code);
     }
   }, []);
@@ -31,23 +30,37 @@ const CleverPageContainer = (): React.ReactElement => {
   useEffect(() => {
     if (code) {
       Auth.authorizeWithClever(code)
-        .then(({ data }) => {
-          console.log(data);
-          switch (data.actionType) {
-            case 'MERGE':
-              // Something needs to happen on the backend here I think
-              // Is this your account?
-              break;
-            case 'NEW':
-              // Open signup form and pass data.body into the form state
-              // Do you have an existing SS account?
-              // If yes -> try to sign in & we'll merge it
-              // Else -> create new account and merge it with clever stuff
-              break;
+        .then((res) => {
+          console.log(res);
+          let params: URLSearchParams;
+          const userType =
+            res.roleId === Roles.user ? 'student' : Roles[res.roleId];
+          switch (res.actionType) {
             case 'SUCCESS':
               // On success, store token and push to correct dashboard
-              login(data.body);
-              push(`/${data.userType}/dashboard`);
+              login(res.body);
+              push(`/${userType}/dashboard`);
+              break;
+            case 'MERGE':
+              // If the user has an account that can be merged, route to login
+              params = new URLSearchParams({
+                isMerge: 'true',
+                cleverId: '6001e942790e5a0fd643d7eb',
+                codename: res.body.codename,
+              });
+              push(`/login?${params.toString()}`);
+              break;
+            case 'NEW':
+              // If the user doesn't have account, sign up and link account
+              params = new URLSearchParams({
+                isNew: 'true',
+                cleverId: res.body.id,
+                roleId: `${res.roleId}`,
+                firstname: res.body.name.first,
+                lastname: res.body.name.last,
+              });
+              if (res.body.email) params.set('email', res.body.email);
+              push(`/signup?${params.toString()}`);
               break;
             default:
               break;

@@ -1,48 +1,68 @@
-import { AxiosResponse } from 'axios';
-import { axiosWithAuth } from '../axiosWithConfig';
+import { axiosWithoutAuth } from '../axiosWithConfig';
+import {
+  IAuthResponse,
+  ILoginBody,
+  ISignUpBody,
+  IUser,
+  Roles,
+} from './authTypes';
 
 export const authorizeWithClever = async (
   code: string,
-): Promise<AxiosResponse<CleverAuthResponseType>> => {
-  return axiosWithAuth().get(`/api/auth/o/clever?code=${code}`);
+): Promise<CleverAuthResponseType> => {
+  const { data } = await axiosWithoutAuth().get(
+    `/api/auth/o/clever?code=${code}`,
+  );
+  return data;
+};
+
+export const mergeAccounts = async (
+  body: ILoginBody,
+  cleverId: string,
+): Promise<IAuthResponse> => {
+  const { data } = await axiosWithoutAuth().post(
+    `/api/auth/o/clever/merge?cleverId=${cleverId}`,
+    body,
+  );
+  return data;
+};
+
+export const signupWithClever = async (
+  body: Partial<ISignUpBody>,
+  roleId: number,
+  cleverId: string,
+): Promise<IAuthResponse> => {
+  const userType = roleId === Roles.user ? 'student' : Roles[roleId];
+  const params = new URLSearchParams({
+    userType,
+    cleverId,
+  });
+  const { data } = await axiosWithoutAuth().post(
+    `/api/auth/o/clever/signup?${params.toString()}`,
+    body,
+  );
+  return data;
 };
 
 type CleverAuthResponseType =
   | {
       actionType: 'SUCCESS';
-      userType: 'student' | 'teacher';
+      roleId: Roles & number;
       body: IAuthResponse;
+      cleverId: string;
     }
   | {
       actionType: 'MERGE';
-      userType: 'student' | 'teacher';
+      roleId: Roles & number;
       body: IUser;
+      cleverId: string;
     }
   | {
       actionType: 'NEW';
-      userType: 'student' | 'teacher';
+      roleId: Roles & number;
       body: ICleverStudent | ICleverTeacher;
+      cleverId: string;
     };
-
-interface IAuthResponse {
-  user: Omit<IUser, 'password'>;
-  token: string;
-}
-
-interface IUser {
-  id: number;
-  isValidated: boolean;
-  codename: string;
-  password: string;
-  email: string;
-  roleId: number;
-  created_at: Date;
-  updated_at: Date;
-  firstname: string;
-  lastname: string;
-  parentEmail?: string;
-  age?: number;
-}
 
 interface ICleverStudent {
   id: string;
