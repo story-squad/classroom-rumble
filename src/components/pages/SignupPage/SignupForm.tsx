@@ -1,14 +1,21 @@
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { Auth } from '../../../../api';
-import { SignupFormState } from '../../../../api/Auth';
-import { patterns } from '../../../../config';
-import { auth } from '../../../../state';
-import { Checkbox, Input } from '../../../common';
+import { Auth } from '../../../api';
+import { patterns } from '../../../config';
+import { auth } from '../../../state';
+import { Checkbox, Input } from '../../common';
+import { ISigninProps } from './signupTypes';
 
-const SignUpForm = (): React.ReactElement => {
+const SignUpForm = ({
+  isNew,
+  roleId,
+  cleverId,
+  email,
+  firstname,
+  lastname,
+}: ISigninProps): React.ReactElement => {
   const {
     errors,
     register,
@@ -19,30 +26,36 @@ const SignUpForm = (): React.ReactElement => {
   } = useForm({
     mode: 'onChange',
   });
-  const setIsLogin = useSetRecoilState(auth.form.isLogin);
+  const login = useSetRecoilState(auth.isLoggedIn);
+  const { push } = useHistory();
 
-  const onSubmit: SubmitHandler<SignupFormState> = async (
+  const onSubmit: SubmitHandler<Auth.SignupFormState> = async (
     data,
   ): Promise<void> => {
     try {
       const credentials = Auth.formatSignupBody(data);
-      Auth.signup(credentials)
-        .then(() => {
-          clearErrors();
-          setIsLogin(true);
-        })
-        .catch((err) => {
-          console.log({ err });
-          let message: string;
-          if (err.response?.data) {
-            message = err.response.data.error;
-          } else {
-            message = 'An unknown error occurred. Please try again.';
-          }
-          setError('form', { type: 'manual', message });
-        });
+      let res: Auth.IAuthResponse;
+      if (isNew) {
+        res = await Auth.signupWithClever(
+          credentials,
+          roleId as number,
+          cleverId as string,
+        );
+      } else {
+        res = await Auth.signup(credentials);
+      }
+      login(res);
+      clearErrors();
+      push(`/dashboard/${Auth.Roles[res.user.roleId]}`);
     } catch (err) {
-      console.log(err);
+      console.log({ err });
+      let message: string;
+      if (err.response?.data) {
+        message = err.response.data.error;
+      } else {
+        message = 'An unknown error occurred. Please try again.';
+      }
+      setError('form', { type: 'manual', message });
     }
   };
   return (
@@ -57,6 +70,7 @@ const SignUpForm = (): React.ReactElement => {
           required: 'First name is required!',
         }}
         placeholder="Your first name"
+        defaultValue={firstname}
       />
       <Input
         id="lastname"
@@ -68,6 +82,7 @@ const SignUpForm = (): React.ReactElement => {
           required: 'Last name is required!',
         }}
         placeholder="Your last name"
+        defaultValue={lastname}
       />
       <Input
         id="age"
@@ -151,6 +166,7 @@ const SignUpForm = (): React.ReactElement => {
               patterns.emailRegex.test(value) || 'Must be a valid email',
           },
         }}
+        defaultValue={email}
       />
       <Input
         id="signupPassword"
@@ -233,8 +249,6 @@ const SignUpForm = (): React.ReactElement => {
         type="submit"
         value="Create Account"
         onClick={() => clearErrors('form')}
-        // onClick={() => setIsLogin(!isLogin)}
-        //Once Register is successful redirect to login page
       />
     </form>
   );
