@@ -39,7 +39,7 @@ const CleverPageContainer = (): React.ReactElement => {
             case 'SUCCESS':
               // On success, store token and push to correct dashboard
               login(res.body);
-              push(`/${userType}/dashboard`);
+              push(`/dashboard/${userType}`);
               break;
             case 'MERGE':
               // If the user has an account that can be merged, route to login
