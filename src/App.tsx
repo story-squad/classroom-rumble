@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
+import { Auth } from './api';
 import {
   CookiePopup,
   LogoutPopup,
@@ -8,9 +9,12 @@ import {
   ReadTokenData,
   SEO,
 } from './components/common/';
-import { AuthPage } from './components/pages/AuthPage';
+import { TermsOfService } from './components/common/TermsOfService';
 import { CleverPage } from './components/pages/CleverPage';
 import { LandingPage } from './components/pages/LandingPage';
+import { LoginPage } from './components/pages/LoginPage';
+import { SignupPage } from './components/pages/SignupPage';
+import { TeacherDashboard } from './components/pages/TeacherDashboard';
 import { auth } from './state';
 
 const App = (): React.ReactElement => {
@@ -23,7 +27,12 @@ const App = (): React.ReactElement => {
       <Switch>
         {/* Public Routes */}
         <Route exact path="/" component={LandingPage} />
-        <Route exact path="/login" component={AuthPage} />
+        <Route path="/login" component={LoginPage} />
+        <Route path="/signup" component={SignupPage} />
+        <Route path="/tos" component={TermsOfService} />
+
+        {/* OAuth Redirects */}
+        <Route exact path="/oauth/clever" component={CleverPage} />
 
         {/* Private Routes */}
         {/* Commenting these out until we have something built
@@ -33,24 +42,19 @@ const App = (): React.ReactElement => {
           userType={Auth.Roles.user}
         />
         <PrivateRoute
-          path="/dashboard/teacher"
-          component={TeacherDashboard}
-          userType={Auth.Roles.teacher}
-        />
-        <PrivateRoute
           path="/dashboard/admin"
           component={AdminDashboard}
           userType={Auth.Roles.admin}
         /> */}
         <PrivateRoute
+          path="/dashboard/teacher"
+          component={TeacherDashboard}
+          userType={Auth.Roles.teacher}
+        />
+        <PrivateRoute
           path="/"
           component={() => <TestComponent thing="something" />}
         />
-
-        {/* Clever Routes */}
-        <Route exact path="/oauth/clever" component={CleverPage} />
-        <Route exact path="/oauth/clever/login" component={() => <></>} />
-        <Route exact path="/oauth/clever/signup" component={() => <></>} />
 
         {/* Fallback Route */}
         <Route path="/" component={() => <Redirect to="/" />} />

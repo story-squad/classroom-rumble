@@ -2,12 +2,17 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { Auth } from '../../../../api';
-import { auth } from '../../../../state';
-import { Input } from '../../../common';
+import { Auth } from '../../../api';
+import { auth } from '../../../state';
+import { Input } from '../../common';
+import { ILoginParams } from './loginTypes';
 
-const LoginForm = (): React.ReactElement => {
-  const { errors, register, handleSubmit } = useForm();
+const LoginForm = ({
+  isMerge,
+  codename,
+  cleverId,
+}: ILoginParams): React.ReactElement => {
+  const { errors, register, handleSubmit, clearErrors, setError } = useForm();
   const login = useSetRecoilState(auth.isLoggedIn);
   const { push } = useHistory();
 
@@ -15,11 +20,24 @@ const LoginForm = (): React.ReactElement => {
     data,
   ): Promise<void> => {
     try {
-      const res = await Auth.login(data);
-      login(res.data);
-      push(`/dashboard/${Auth.Roles[res.data.user.roleId]}`);
+      let res: Auth.IAuthResponse;
+      if (isMerge) {
+        res = await Auth.mergeAccounts(data, cleverId as string);
+      } else {
+        res = await Auth.login(data);
+      }
+      login(res);
+      clearErrors();
+      push(`/dashboard/${Auth.Roles[res.user.roleId]}`);
     } catch (err) {
-      console.log(err);
+      console.log({ err });
+      let message: string;
+      if (err.response?.data) {
+        message = err.response.data.error;
+      } else {
+        message = 'An unknown error occurred. Please try again.';
+      }
+      setError('form', { type: 'manual', message });
     }
   };
 
@@ -35,6 +53,7 @@ const LoginForm = (): React.ReactElement => {
         rules={{
           required: 'Codename is required!',
         }}
+        defaultValue={codename}
       />
       <Input
         label="Password"
@@ -46,7 +65,11 @@ const LoginForm = (): React.ReactElement => {
         placeholder="Enter your password"
         rules={{ required: 'Password is required!' }}
       />
-      <input className="submit" type="submit" value="Log In" />
+      <input
+        className="submit"
+        type="submit"
+        value={isMerge ? 'Merge' : 'Log In'}
+      />
     </form>
   );
 };

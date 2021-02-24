@@ -1,3 +1,4 @@
+export { Checkbox } from './Checkbox';
 export { CookiePopup } from './CookiePopup';
 export { Input } from './Input';
 export { LogoutPopup } from './LogoutPopup';

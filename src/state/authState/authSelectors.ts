@@ -26,7 +26,6 @@ export const isLoggedIn = selector<Auth.IAuthResponse | undefined>({
 
     const t = token.get();
     const u = token.getUser();
-    console.log({ t, u });
     if (u && t) {
       // Persist that user's info in recoil state
       set(authToken, t);
