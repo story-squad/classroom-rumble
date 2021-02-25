@@ -1,12 +1,7 @@
+import { Select } from '../../components/common';
 import { axiosWithAuth } from '../axiosWithConfig';
 
-export const getSectionData = async (): Promise<IData[]> => {
-  // const { data } = await axiosWithAuth().get('/api/rumble/data');
-  // return data;
-  return Promise.resolve(dummyData);
-};
-
-export const CreateNewSection = async (
+export const createNewSection = async (
   body: INewSectionBody,
   teacherId: number,
 ): Promise<IFullSection> => {
@@ -17,22 +12,29 @@ export const CreateNewSection = async (
   return data;
 };
 
-const dummyData = [
-  {
-    grades: [
-      { gradeId: '0', value: '3' },
-      { gradeId: '1', value: '4' },
-      { gradeId: '2', value: '5' },
-      { gradeId: '3', value: '6' },
-    ],
-    subjects: [
-      { subjectId: '3', value: 'Math' },
-      { subjectId: '4', value: 'Art' },
-      { subjectId: '5', value: 'English' },
-      { subjectId: '6', value: 'Science' },
-    ],
-  },
-];
+export const getSectionData = async (): Promise<IEnumData> => {
+  const { data } = await axiosWithAuth().get('/api/rumble/data');
+  // console.log('DATA', data);
+  return data;
+  // return Promise.resolve(dummyData);
+};
+
+// const dummyData = [
+//   {
+//     grades: [
+//       { gradeId: '0', value: '3' },
+//       { gradeId: '1', value: '4' },
+//       { gradeId: '2', value: '5' },
+//       { gradeId: '3', value: '6' },
+//     ],
+//     subjects: [
+//       { subjectId: '3', value: 'Math' },
+//       { subjectId: '4', value: 'Art' },
+//       { subjectId: '5', value: 'English' },
+//       { subjectId: '6', value: 'Science' },
+//     ],
+//   },
+// ];
 
 export interface IGrade {
   gradeId: string;
@@ -44,9 +46,9 @@ export interface ISubject {
   subject: string;
 }
 
-export interface IData {
-  grades: { gradeId: string; value: string }[];
-  subjects: { subjectId: string; value: string }[];
+export interface IEnumData {
+  grades: Select.IOption[];
+  subjects: Select.IOption[];
 }
 
 export interface INewSectionBody {
