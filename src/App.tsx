@@ -1,14 +1,43 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import {
+  CookiePopup,
+  LogoutPopup,
+  PrivateRoute,
+  ReadTokenData,
+  SEO,
+} from './components/common/';
+import { TermsOfService } from './components/common/TermsOfService';
+import { CleverPage } from './components/pages/CleverPage';
+import { LandingPage } from './components/pages/LandingPage';
+import { LoginPage } from './components/pages/LoginPage';
+import { SignupPage } from './components/pages/SignupPage';
+import { StudentDashboard } from './components/pages/StudentDashboard';
+import { TeacherDashboard } from './components/pages/TeacherDashboard';
 
 const App = (): React.ReactElement => {
   return (
     <div className="App">
+      <ReadTokenData />
+      <SEO />
+      <CookiePopup />
+      <LogoutPopup />
       <Switch>
         {/* Public Routes */}
+        <Route exact path="/" component={LandingPage} />
+        <Route path="/login" component={LoginPage} />
+        <Route path="/signup" component={SignupPage} />
+        <Route path="/tos" component={TermsOfService} />
+
+        {/* OAuth Redirects */}
+        <Route exact path="/oauth/clever" component={CleverPage} />
+
         {/* Private Routes */}
-        {/* Fallback redirect to main app homepage! Change the 'to' property after setting up routes. */}
-        <Route path="/" component={() => <Redirect to="/homepage" />} />
+        <PrivateRoute path="/dashboard/teacher" component={TeacherDashboard} />
+        <PrivateRoute path="/dashboard/student" component={StudentDashboard} />
+
+        {/* Fallback Route */}
+        <Route path="/" component={() => <Redirect to="/" />} />
       </Switch>
     </div>
   );
