@@ -1,16 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useRecoilValue } from 'recoil';
 import { Section } from '../../../../api';
-import { IData, INewSectionBody } from '../../../../api/CreateSection';
-import { Input } from '../../../common';
+import { auth } from '../../../../state';
+import { Input, Select } from '../../../common';
 
 const NewSection = (): React.ReactElement => {
   const { errors, register, handleSubmit } = useForm();
-  const [options, setOptions] = useState<IData[]>();
+  const [enumData, setEnumData] = useState<Section.IEnumData>();
+  const user = useRecoilValue(auth.user);
 
-  const onSubmit: SubmitHandler<INewSectionBody> = async (): // data,
-  Promise<void> => {
+  const onSubmit: SubmitHandler<Section.INewSectionBody> = async (
+    data,
+  ): Promise<void> => {
     try {
+      if (user) {
+        // console.log(data);
+        Section.createNewSection(data, user.id)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -19,7 +32,7 @@ const NewSection = (): React.ReactElement => {
   useEffect(() => {
     Section.getSectionData()
       .then((res) => {
-        setOptions(res);
+        setEnumData(res);
       })
       .catch((err) => {
         console.log(err);
@@ -34,42 +47,31 @@ const NewSection = (): React.ReactElement => {
         register={register}
         id="class-name"
         errors={errors}
-        placeholder="Enter class name"
+        placeholder="English 12"
         rules={{ required: 'Classname is required!' }}
       />
       {/* <option value="Grade">Items</option> */}
-      {/* The value being put in the potions needs  */}
-      {options?.map(({ subjects, grades }, i) => (
-        <>
-          <label>
-            Grade:
-            <select>
-              {grades.map(({ gradeId, value }) => (
-                <option key={gradeId}>{value}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Subject:
-            <select key={i} name="Test" value="Test">
-              {subjects.map(({ subjectId, value }) => (
-                <option key={subjectId}>{value}</option>
-              ))}
-            </select>
-          </label>
-        </>
-      ))}
-      <input className="submit" type="submit" value="Create Section" />
+      <Select.Component
+        id="new-section-gradeId"
+        options={enumData?.grades}
+        name="gradeId"
+        register={register}
+        errors={errors}
+        placeholder="Select A Grade"
+        // TODO: Rules
+      />
+      <Select.Component
+        id="new-section-subjectId"
+        options={enumData?.subjects}
+        name="subjectId"
+        register={register}
+        errors={errors}
+        placeholder="Select A Subject"
+        // TODO: Rules
+      />
+      <input type="submit" value="Create Section" />
     </form>
   );
 };
 
 export default NewSection;
-
-// The subject and gradeId are a drop down menu
-
-// {
-// name: string; // The name of the class!
-// subjectId: string // We'll get these from the backend
-// gradeId: string // Getting these from the backend as well!
-// }
