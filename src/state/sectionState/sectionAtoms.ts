@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
-import { Section } from '../../api';
+import { Sections } from '../../api';
 
-export const list = atom<Section.ISection[] | undefined>({
+export const list = atom<Sections.ISection[] | undefined>({
   key: 'sectionList',
   default: undefined,
 });
