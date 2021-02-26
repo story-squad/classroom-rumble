@@ -20,17 +20,22 @@ const StudentSectionListContainer = (): React.ReactElement => {
         })
         .catch((err) => {
           console.log({ err });
-          setError('It appears you are not in a section.');
+          setError(
+            'It appears you are not in a section yet. You can be added to a section by your teacher.',
+          );
         });
     }
   }, []);
 
-  return error ? (
-    <CouldNotLoad error={error} />
-  ) : sectionList ? (
+  return sectionList ? (
     <RenderStudentSectionList studentSections={sectionList} />
+  ) : error ? (
+    <CouldNotLoad error={error} />
   ) : (
-    <p>LOADING</p>
+    <>
+      <p>Loading Section List...</p>
+      <p>**Loader will live here**</p>
+    </>
   );
 };
 
