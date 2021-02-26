@@ -1,7 +1,13 @@
 import React from 'react';
+import { TeacherSectionList } from './TeacherSectionList';
 
-const RenderTeacherDash = (): React.ReactElement => {
-  return <div>Dashboard</div>;
+const RenderTeacherDashboard = (): React.ReactElement => {
+  return (
+    <div className="student-dashboard">
+      <h1>Dashboard</h1>
+      <TeacherSectionList />
+    </div>
+  );
 };
 
-export default RenderTeacherDash;
+export default RenderTeacherDashboard;
