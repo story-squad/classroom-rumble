@@ -1,5 +1,5 @@
 import React from 'react';
-import { StudentList } from './StudentSectionList';
+import { StudentSectionList } from './StudentSectionList';
 
 /**TODO
  * Take in props from container conponenet `./StudentDashboardContainer`
@@ -11,7 +11,7 @@ const RenderStudentDashboard = (): React.ReactElement => {
   return (
     <div className="student-dashboard">
       <h1>Your Dashbaord</h1>
-      <StudentList />
+      <StudentSectionList />
     </div>
   );
 };
