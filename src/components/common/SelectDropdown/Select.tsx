@@ -8,16 +8,24 @@ const Select = ({
   register,
   rules,
   placeholder,
+  defaultValue = 'none',
   ...props
 }: ISelectProps): React.ReactElement => {
   return (
     <div className={`form-select${errors[name] ? ' error' : ''}`}>
-      <select {...props} name={name} ref={register && register(rules)}>
-        {options.map((item) => (
-          <option key={item.value}>{item.label}</option>
+      <select
+        {...props}
+        name={name}
+        ref={register && register(rules)}
+        defaultValue={defaultValue}
+      >
+        {options.map((item, i) => (
+          <option key={`${item.value}-${item.label}-${i}`} value={item.value}>
+            {item.label}
+          </option>
         ))}
         {placeholder && (
-          <option value="none" selected disabled hidden>
+          <option value="none" disabled hidden>
             {placeholder}
           </option>
         )}

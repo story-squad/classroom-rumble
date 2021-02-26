@@ -16,6 +16,7 @@ const TeacherSectionListContainer = (): React.ReactElement => {
     if (user) {
       Sections.getTeacherSections(user?.id)
         .then((res) => {
+          console.log({ res });
           setTeacherList(res);
         })
         .catch((err) => {
@@ -23,7 +24,7 @@ const TeacherSectionListContainer = (): React.ReactElement => {
           setError('It appears you are not in a section.');
         });
     }
-  }, []);
+  }, [user]);
 
   return error ? (
     <CouldNotLoad error={error} />

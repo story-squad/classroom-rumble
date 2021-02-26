@@ -1,10 +1,10 @@
-import { Select } from '../../components/common';
 import { axiosWithAuth } from '../axiosWithConfig';
+import { INewSectionBody, ISection, ISectionEnumData } from './sectionTypes';
 
 export const createNewSection = async (
   body: INewSectionBody,
   teacherId: number,
-): Promise<IFullSection> => {
+): Promise<ISection> => {
   const { data } = await axiosWithAuth().post(
     `/api/rumble/teachers/${teacherId}/sections`,
     body,
@@ -12,9 +12,8 @@ export const createNewSection = async (
   return data;
 };
 
-export const getSectionData = async (): Promise<IEnumData> => {
+export const getSectionEnumData = async (): Promise<ISectionEnumData> => {
   const { data } = await axiosWithAuth().get('/api/rumble/data');
-  // console.log('DATA', data);
   return data;
   // return Promise.resolve(dummyData);
 };
@@ -35,30 +34,3 @@ export const getSectionData = async (): Promise<IEnumData> => {
 //     ],
 //   },
 // ];
-
-export interface IGrade {
-  gradeId: string;
-  grade: number;
-}
-
-export interface ISubject {
-  subjectId: string;
-  subject: string;
-}
-
-export interface IEnumData {
-  grades: Select.IOption[];
-  subjects: Select.IOption[];
-}
-
-export interface INewSectionBody {
-  name: string; // The name of the class!
-  subjectId: string; // We'll get these from the backend
-  gradeId: string; // Getting these from the backend as well!
-}
-
-export interface IFullSection extends INewSectionBody {
-  joinCode: string;
-  id: number;
-  active: boolean;
-}
