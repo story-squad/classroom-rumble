@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Sections } from '../../../../api';
 import { auth, sections } from '../../../../state';
-import CouldNotLoad from '../../CouldNotLoad';
+import CouldNotLoad from '../../../common/CouldNotLoad/CouldNotLoad';
 import RenderTeacherSectionList from './RenderTeacherSectionList';
 
 const TeacherSectionListContainer = (): React.ReactElement => {
