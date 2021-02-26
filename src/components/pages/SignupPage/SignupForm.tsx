@@ -8,7 +8,7 @@ import { auth } from '../../../state';
 import { Checkbox, Input } from '../../common';
 import { ISigninProps } from './signupTypes';
 
-const SignUpForm = ({
+const SignupForm = ({
   isNew,
   roleId,
   cleverId,
@@ -254,4 +254,4 @@ const SignUpForm = ({
   );
 };
 
-export default SignUpForm;
+export default SignupForm;
