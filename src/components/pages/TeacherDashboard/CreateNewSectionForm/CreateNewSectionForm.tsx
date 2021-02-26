@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
-import { Section } from '../../../../api';
+import { Sections } from '../../../../api';
 import { auth } from '../../../../state';
 import { Input, Select } from '../../../common';
 
 const NewSection = (): React.ReactElement => {
   const { errors, register, handleSubmit } = useForm();
-  const [enumData, setEnumData] = useState<Section.IEnumData>();
+  const [enumData, setEnumData] = useState<Sections.ISectionEnumData>();
   const user = useRecoilValue(auth.user);
 
-  const onSubmit: SubmitHandler<Section.INewSectionBody> = async (
+  const onSubmit: SubmitHandler<Sections.INewSectionBody> = async (
     data,
   ): Promise<void> => {
     try {
       if (user) {
-        // console.log(data);
-        Section.createNewSection(data, user.id)
+        console.log(data);
+        Sections.createNewSection(data, user.id)
           .then((res) => {
             console.log(res);
           })
@@ -30,7 +30,7 @@ const NewSection = (): React.ReactElement => {
   };
 
   useEffect(() => {
-    Section.getSectionData()
+    Sections.getSectionEnumData()
       .then((res) => {
         setEnumData(res);
       })

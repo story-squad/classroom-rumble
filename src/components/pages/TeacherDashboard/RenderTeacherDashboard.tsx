@@ -1,11 +1,13 @@
 import React from 'react';
-import NewSection from './CreateNewSectionForm/CreateNewSectionForm';
+import { CreateNewSectionForm } from './CreateNewSectionForm';
+import { TeacherSectionList } from './TeacherSectionList';
 
 const RenderTeacherDash = (): React.ReactElement => {
   return (
     <div>
       {/* displaying this way just to see needs to be a button */}
-      <NewSection />
+      <TeacherSectionList />
+      <CreateNewSectionForm />
     </div>
   );
 };
