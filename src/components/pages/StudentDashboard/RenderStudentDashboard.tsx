@@ -1,7 +1,7 @@
 import React from 'react';
+import { StudentSectionList } from './StudentSectionList';
 import { Route } from 'react-router-dom';
 import { JoinSectionRedirect } from './JoinSectionRedirect';
-import { StudentList } from './StudentSectionList';
 
 // Dislay Component for Students to view their sections
 const RenderStudentDashboard = (): React.ReactElement => {
@@ -13,7 +13,7 @@ const RenderStudentDashboard = (): React.ReactElement => {
         path="/dashboard/student/join"
         component={JoinSectionRedirect}
       />
-      <StudentList />
+      <StudentSectionList />
     </div>
   );
 };

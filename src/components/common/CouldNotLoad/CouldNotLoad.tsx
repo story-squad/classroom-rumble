@@ -1,5 +1,12 @@
 import React from 'react';
 
+/**
+ * Could Not Load will help us render consistent error messages throughout the application.
+ * @param error The error the be loaded for the component, which in our case will be a message.
+ * @example "Your are not currenly in a section".
+ * @param className Class Name will allow us to style freely based on the could not load error.
+ */
+
 const CouldNotLoad = ({
   error,
   className,
@@ -7,7 +14,6 @@ const CouldNotLoad = ({
   return (
     <div className={`could-not-load${className ? ' ' + className : ''}`}>
       <div className="message">{error}&#128557;</div>
-      <p>You are not in a section!</p>
     </div>
   );
 };
