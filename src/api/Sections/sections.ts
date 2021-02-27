@@ -1,4 +1,5 @@
 import { axiosWithAuth } from '../axiosWithConfig';
+import { ISection } from './sectionTypes';
 
 // GET a list of Teachers sections
 export const getTeacherSections = async (
@@ -19,18 +20,6 @@ export const getStudentSections = async (
   );
   return data;
 };
-
-/**
- * INTERFACES
- */
-export interface ISection {
-  id: number;
-  name: string;
-  active: boolean;
-  grade: string;
-  subject: string;
-  joinCode: string;
-}
 
 /**
  * Dummy Data for testing

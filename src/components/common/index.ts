@@ -6,4 +6,5 @@ export { LogoutPopup } from './LogoutPopup';
 export { Modal } from './Modal';
 export { PrivateRoute } from './PrivateRoute';
 export { ReadTokenData } from './ReadTokenData';
+export * as Select from './SelectDropdown';
 export { SEO } from './SEO';

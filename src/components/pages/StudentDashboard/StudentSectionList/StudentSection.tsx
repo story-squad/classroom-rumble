@@ -4,17 +4,17 @@ import { ISection } from '../../../../api/Sections';
 const StudentSection = ({
   active,
   id,
-  grade,
+  gradeId,
   joinCode,
   name,
-  subject,
+  subjectId,
 }: ISection): React.ReactElement => {
   return (
     <div className="student-section">
       {id}
       {name}
-      {grade}
-      {subject}
+      {gradeId}
+      {subjectId}
       {active}
       {joinCode}
     </div>
