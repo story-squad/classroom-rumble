@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Sections } from '../../../../api';
-import { auth } from '../../../../state';
+import { auth, sections } from '../../../../state';
 import { Input, Select } from '../../../common';
 
 const NewSection = (): React.ReactElement => {
   const { errors, register, handleSubmit } = useForm();
   const [enumData, setEnumData] = useState<Sections.ISectionEnumData>();
   const user = useRecoilValue(auth.user);
+  const setSectionList = useSetRecoilState(sections.list);
 
   const onSubmit: SubmitHandler<Sections.INewSectionBody> = async (
     data,
   ): Promise<void> => {
     try {
       if (user) {
-        console.log(data);
         Sections.createNewSection(data, user.id)
           .then((res) => {
-            console.log(res);
+            setSectionList((prev) => (prev ? [...prev, res] : [res]));
           })
           .catch((err) => {
             console.log(err);
