@@ -13,7 +13,6 @@ const JoinSectionRedirectContainer = (): React.ReactElement => {
   const { search } = useLocation();
 
   useEffect(() => {
-    console.log({ search });
     if (!joinCode) {
       const params = query.parse<'joinCode' | 'sectionId'>(search);
       setJoinCode(params.joinCode);
