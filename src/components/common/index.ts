@@ -1,5 +1,6 @@
 export { Checkbox } from './Checkbox';
 export { CookiePopup } from './CookiePopup';
+export { CouldNotLoad } from './CouldNotLoad';
 export { Input } from './Input';
 export { LogoutPopup } from './LogoutPopup';
 export { Modal } from './Modal';

@@ -1,10 +1,10 @@
 import React from 'react';
 
 /**
- *
- * @param error - The error the be loaded for the component, which in our case will be a message.
+ * Could Not Load will help us render consistent error messages throughout the application.
+ * @param error The error the be loaded for the component, which in our case will be a message.
  * @example "Your are not currenly in a section".
- * @param className -Class Name will allow us to style freely based on the could not load error.
+ * @param className Class Name will allow us to style freely based on the could not load error.
  */
 
 const CouldNotLoad = ({
