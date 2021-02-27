@@ -1,1 +1,1 @@
-export { default as TeacherList } from './TeacherSectionListContainer';
+export { default as TeacherSectionList } from './TeacherSectionListContainer';
