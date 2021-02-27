@@ -1,16 +1,18 @@
 import React from 'react';
 import { StudentSectionList } from './StudentSectionList';
+import { Route } from 'react-router-dom';
+import { JoinSectionRedirect } from './JoinSectionRedirect';
 
-/**TODO
- * Take in props from container conponenet `./StudentDashboardContainer`
- * Create placeholders for props within jsx for the ISection
- */
-
-// Dislay Compoent for Students to view thier sections
+// Dislay Component for Students to view their sections
 const RenderStudentDashboard = (): React.ReactElement => {
   return (
     <div className="student-dashboard">
-      <h1>Your Dashbaord</h1>
+      <h1>Your Dashboard</h1>
+      <Route
+        exact
+        path="/dashboard/student/join"
+        component={JoinSectionRedirect}
+      />
       <StudentSectionList />
     </div>
   );

@@ -16,6 +16,7 @@ const StudentSectionListContainer = (): React.ReactElement => {
     if (user) {
       Sections.getStudentSections(user?.id)
         .then((res) => {
+          console.log(res);
           setSectionList(res);
         })
         .catch((err) => {
@@ -25,7 +26,7 @@ const StudentSectionListContainer = (): React.ReactElement => {
           );
         });
     }
-  }, []);
+  }, [user]);
 
   return sectionList ? (
     <RenderStudentSectionList studentSections={sectionList} />

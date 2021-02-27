@@ -8,7 +8,7 @@ import {
   SEO,
 } from './components/common/';
 import { TermsOfService } from './components/common/TermsOfService';
-import { CleverPage } from './components/pages/CleverPage';
+import { CleverRedirect } from './components/pages/CleverRedirect';
 import { LandingPage } from './components/pages/LandingPage';
 import { LoginPage } from './components/pages/LoginPage';
 import { SignupPage } from './components/pages/SignupPage';
@@ -30,7 +30,7 @@ const App = (): React.ReactElement => {
         <Route path="/tos" component={TermsOfService} />
 
         {/* OAuth Redirects */}
-        <Route exact path="/oauth/clever" component={CleverPage} />
+        <Route exact path="/oauth/clever" component={CleverRedirect} />
 
         {/* Private Routes */}
         <PrivateRoute path="/dashboard/teacher" component={TeacherDashboard} />
