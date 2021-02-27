@@ -14,7 +14,7 @@ import { query } from '../../../utils';
  * state as pertains to our database and this component routes the user
  * to where they need to go.
  */
-const CleverPageContainer = (): React.ReactElement => {
+const CleverRedirectContainer = (): React.ReactElement => {
   const { search } = useLocation();
   const [code, setCode] = useState<undefined | string>();
   const { push } = useHistory();
@@ -75,4 +75,4 @@ const CleverPageContainer = (): React.ReactElement => {
   return <></>;
 };
 
-export default CleverPageContainer;
+export default CleverRedirectContainer;

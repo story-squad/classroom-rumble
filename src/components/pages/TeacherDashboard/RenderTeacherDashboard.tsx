@@ -1,13 +1,15 @@
 import React from 'react';
-import NewSection from './CreateNewSectionForm/CreateNewSectionForm';
+import { TeacherSectionList } from './TeacherSectionList';
+import { CreateNewSectionForm } from './CreateNewSectionForm';
 
-const RenderTeacherDash = (): React.ReactElement => {
+const RenderTeacherDashboard = (): React.ReactElement => {
   return (
-    <div>
-      {/* displaying this way just to see needs to be a button */}
-      <NewSection />
+    <div className="teacher-dashboard">
+      <h1>Dashboard</h1>
+      <TeacherSectionList />
+      <CreateNewSectionForm />
     </div>
   );
 };
-// Is the button a modal popup on the teacher dash?
-export default RenderTeacherDash;
+
+export default RenderTeacherDashboard;

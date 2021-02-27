@@ -4,19 +4,20 @@ import { ISection } from '../../../../api/Sections';
 const TeacherSection = ({
   active,
   id,
-  grade,
+  gradeId,
   joinCode,
   name,
-  subject,
+  subjectId,
 }: ISection): React.ReactElement => {
   return (
     <div className="teacher-section">
-      {id}
-      {name}
-      {grade}
-      {subject}
-      {active}
-      {joinCode}
+      <p>
+        Join Code:{' '}
+        <span>
+          http://localhost:3000/dashboard/student/join?joinCode={joinCode}
+          &sectionId={id}
+        </span>
+      </p>
     </div>
   );
 };
