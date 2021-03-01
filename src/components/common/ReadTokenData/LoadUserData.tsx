@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { InitialState } from '../../../api';
+import { Roles } from '../../../api/Auth';
 import { IRumbleWithSectionInfo } from '../../../api/Rumbles';
 import { ISectionWithRumbles } from '../../../api/Sections';
 import { auth, enumData, rumbles, sections } from '../../../state';
@@ -12,6 +14,7 @@ const LoadUserData = (): React.ReactElement => {
   const setSections = useSetRecoilState(sections.list);
   const setGradeEnum = useSetRecoilState(enumData.grades);
   const setSubjectEnum = useSetRecoilState(enumData.subjects);
+  const { push } = useHistory();
 
   useEffect(() => {
     if (!isLogged) {
@@ -27,6 +30,9 @@ const LoadUserData = (): React.ReactElement => {
           setSections(res.sections);
           setGradeEnum(res.enumData.grades);
           setSubjectEnum(res.enumData.subjects);
+          let userType = Roles[user.roleId];
+          if (userType === 'user') userType = 'student';
+          push(`/dashboard/${userType}`);
         })
         .catch((err) => console.log(err));
   }, [user]);
