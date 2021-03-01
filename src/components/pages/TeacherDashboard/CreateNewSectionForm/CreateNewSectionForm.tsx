@@ -41,7 +41,6 @@ const NewSection = (): React.ReactElement => {
         placeholder="English 12"
         rules={{ required: 'Classname is required!' }}
       />
-      {/* <option value="Grade">Items</option> */}
       <Select.Component
         id="new-section-gradeId"
         options={grades}
