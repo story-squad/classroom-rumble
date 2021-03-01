@@ -1,4 +1,9 @@
 import { Select } from '../../components/common';
+import { IRumble } from '../Rumbles';
+
+export interface ISectionWithRumbles extends ISection {
+  rumbles: IRumble[];
+}
 
 export interface ISection extends INewSectionBody {
   id: number;
