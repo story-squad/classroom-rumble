@@ -1,7 +1,7 @@
 import React from 'react';
 import { IRumbleWithSectionInfo } from '../../../../api/Rumbles';
 
-const RumbleItem = ({
+const TeacherRumble = ({
   numMinutes,
   sectionName,
 }: IRumbleWithSectionInfo): React.ReactElement => {
@@ -13,4 +13,4 @@ const RumbleItem = ({
   );
 };
 
-export default RumbleItem;
+export default TeacherRumble;

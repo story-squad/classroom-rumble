@@ -1,14 +1,7 @@
 import React from 'react';
 import { ISection } from '../../../../api/Sections';
 
-const TeacherSection = ({
-  active,
-  id,
-  gradeId,
-  joinCode,
-  name,
-  subjectId,
-}: ISection): React.ReactElement => {
+const TeacherSection = ({ id, joinCode }: ISection): React.ReactElement => {
   return (
     <div className="teacher-section">
       <p>

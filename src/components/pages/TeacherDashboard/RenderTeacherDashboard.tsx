@@ -1,7 +1,7 @@
 import React from 'react';
 import { CreateNewSectionForm } from './CreateNewSectionForm';
 import { PromptQueueDisplay } from './PromptQueueDisplay';
-import { RumbleList } from './RumbleList';
+import { TeacherRumbleList } from './TeacherRumbleList';
 import { TeacherSectionList } from './TeacherSectionList';
 
 const RenderTeacherDashboard = (): React.ReactElement => {
@@ -9,7 +9,7 @@ const RenderTeacherDashboard = (): React.ReactElement => {
     <div className="teacher-dashboard">
       <h1>Dashboard</h1>
       <PromptQueueDisplay />
-      <RumbleList />
+      <TeacherRumbleList />
       <TeacherSectionList />
       <CreateNewSectionForm />
     </div>

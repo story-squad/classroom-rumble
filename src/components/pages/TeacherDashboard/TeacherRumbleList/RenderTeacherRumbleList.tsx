@@ -1,22 +1,22 @@
 import React from 'react';
 import { IRumbleWithSectionInfo } from '../../../../api/Rumbles';
-import RumbleItem from './RumbleItem';
+import TeacherRumble from './TeacherRumble';
 
-const RenderRumbleList = ({
+const RenderTeacherRumbleList = ({
   rumbles,
-}: IRenderRumbleListProps): React.ReactElement => {
+}: IRenderTeacherRumbleListProps): React.ReactElement => {
   return (
     <div className="rumble-list">
       <h2>Rumbles</h2>
       {rumbles.map((r) => (
-        <RumbleItem key={r.id} {...r} />
+        <TeacherRumble key={r.id} {...r} />
       ))}
     </div>
   );
 };
 
-interface IRenderRumbleListProps {
+interface IRenderTeacherRumbleListProps {
   rumbles: IRumbleWithSectionInfo[];
 }
 
-export default RenderRumbleList;
+export default RenderTeacherRumbleList;

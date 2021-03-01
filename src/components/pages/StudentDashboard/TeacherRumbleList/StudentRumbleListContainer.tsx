@@ -1,9 +1,9 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { rumbles } from '../../../../state';
-import RenderRumbleList from './RenderRumbleList';
+import RenderRumbleList from './RenderStudentRumbleList';
 
-const RumbleListContainer = (): React.ReactElement => {
+const StudentRumbleListContainer = (): React.ReactElement => {
   const rumbleList = useRecoilValue(rumbles.list);
   return rumbleList ? (
     <RenderRumbleList rumbles={rumbleList} />
@@ -12,4 +12,4 @@ const RumbleListContainer = (): React.ReactElement => {
   );
 };
 
-export default RumbleListContainer;
+export default StudentRumbleListContainer;
