@@ -1,6 +1,6 @@
 import React from 'react';
 import { ISection } from '../../../../api/Sections';
-import TeacherSection from './TeacherSections';
+import TeacherSection from './TeacherSection';
 
 const RenderTeacherSectionList = ({
   teacherSections,

@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Sections } from '../../../../api';
-import { auth, sections } from '../../../../state';
+import { auth, enumData, sections } from '../../../../state';
 import { Input, Select } from '../../../common';
 
 const NewSection = (): React.ReactElement => {
   const { errors, register, handleSubmit } = useForm();
-  const [enumData, setEnumData] = useState<Sections.ISectionEnumData>();
   const user = useRecoilValue(auth.user);
+  const grades = useRecoilValue(enumData.grades);
+  const subjects = useRecoilValue(enumData.subjects);
   const setSectionList = useSetRecoilState(sections.list);
 
   const onSubmit: SubmitHandler<Sections.INewSectionBody> = async (
@@ -29,16 +30,6 @@ const NewSection = (): React.ReactElement => {
     }
   };
 
-  useEffect(() => {
-    Sections.getSectionEnumData()
-      .then((res) => {
-        setEnumData(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Input
@@ -50,10 +41,9 @@ const NewSection = (): React.ReactElement => {
         placeholder="English 12"
         rules={{ required: 'Classname is required!' }}
       />
-      {/* <option value="Grade">Items</option> */}
       <Select.Component
         id="new-section-gradeId"
-        options={enumData?.grades}
+        options={grades}
         name="gradeId"
         register={register}
         errors={errors}
@@ -62,7 +52,7 @@ const NewSection = (): React.ReactElement => {
       />
       <Select.Component
         id="new-section-subjectId"
-        options={enumData?.subjects}
+        options={subjects}
         name="subjectId"
         register={register}
         errors={errors}

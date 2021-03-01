@@ -19,16 +19,16 @@ const Select = ({
         ref={register && register(rules)}
         defaultValue={defaultValue}
       >
-        {options.map((item, i) => (
-          <option key={`${item.value}-${item.label}-${i}`} value={item.value}>
-            {item.label}
-          </option>
-        ))}
         {placeholder && (
           <option value="none" disabled hidden>
             {placeholder}
           </option>
         )}
+        {options.map((item, i) => (
+          <option key={`${item.value}-${item.label}-${i}`} value={item.value}>
+            {item.label}
+          </option>
+        ))}
       </select>
     </div>
   );
