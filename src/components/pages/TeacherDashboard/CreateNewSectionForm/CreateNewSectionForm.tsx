@@ -12,18 +12,11 @@ const NewSection = (): React.ReactElement => {
   const subjects = useRecoilValue(enumData.subjects);
   const setSectionList = useSetRecoilState(sections.list);
 
-  const onSubmit: SubmitHandler<Sections.INewSectionBody> = async (
-    data,
-  ): Promise<void> => {
+  const onSubmit: SubmitHandler<Sections.INewSectionBody> = async (data) => {
     try {
       if (user) {
-        Sections.createNewSection(data, user.id)
-          .then((res) => {
-            setSectionList((prev) => (prev ? [...prev, res] : [res]));
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        const res = await Sections.createNewSection(data, user.id);
+        setSectionList((prev) => (prev ? [...prev, res] : [res]));
       }
     } catch (err) {
       console.log(err);
