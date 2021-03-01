@@ -1,6 +1,6 @@
 import React from 'react';
-import { TeacherSectionList } from './TeacherSectionList';
 import { CreateNewSectionForm } from './CreateNewSectionForm';
+import { TeacherSectionList } from './TeacherSectionList';
 
 const RenderTeacherDashboard = (): React.ReactElement => {
   return (
