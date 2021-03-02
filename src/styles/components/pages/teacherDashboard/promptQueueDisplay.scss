@@ -1,0 +1,8 @@
+.prompt-queue-display {
+  h2 {
+    color: $white;
+    font-size: 2rem;
+    font-family: $display-font;
+  }
+  @include list('prompt-queue');
+}

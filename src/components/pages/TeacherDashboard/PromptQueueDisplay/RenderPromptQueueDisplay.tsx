@@ -8,9 +8,11 @@ const RenderPromptQueueDisplay = ({
   return (
     <div className="prompt-queue-display">
       <h2>Prompt Queue</h2>
-      {queue.map((prompt) => (
-        <PromptQueueItem key={prompt.id} {...prompt} />
-      ))}
+      <div className="prompt-queue-list">
+        {queue.map((prompt) => (
+          <PromptQueueItem key={prompt.id} {...prompt} />
+        ))}
+      </div>
     </div>
   );
 };
