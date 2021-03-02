@@ -12,3 +12,10 @@ export const addCustom = async (prompt: string): Promise<IPrompt> => {
   });
   return data;
 };
+
+export const getPrompts = async (offset: number): Promise<IPrompt[]> => {
+  const { data } = await axiosWithAuth().get(
+    `/api/prompts?offset=${offset}&limit=5`,
+  );
+  return data;
+};

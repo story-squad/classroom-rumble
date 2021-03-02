@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 import { Sections } from '../../api';
 
-export const list = atom<Sections.ISection[] | undefined>({
+export const list = atom<Sections.ISectionWithRumbles[]>({
   key: 'sectionList',
-  default: undefined,
+  default: [],
 });

@@ -10,3 +10,8 @@ export const list = atom<IPrompt[]>({
   key: 'promptList',
   default: [],
 });
+
+export const promptOffset = atom({
+  key: 'promptOffset',
+  default: 0,
+});

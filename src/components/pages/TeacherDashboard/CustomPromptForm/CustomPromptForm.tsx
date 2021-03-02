@@ -9,6 +9,7 @@ const CustomPromptForm = (): React.ReactElement => {
   const setPrompts = useSetRecoilState(prompts.list);
 
   const onSubmit: SubmitHandler<Prompts.INewPrompt> = async (data) => {
+    console.log(data);
     try {
       const res = await Prompts.addCustom(data.prompt);
       setPrompts((prev) => [...prev, res]);
@@ -29,6 +30,7 @@ const CustomPromptForm = (): React.ReactElement => {
             placeholder="Enter custom prompt..."
           />
         </div>
+        <input type="submit" value="Submit" />
       </form>
     </div>
   );
