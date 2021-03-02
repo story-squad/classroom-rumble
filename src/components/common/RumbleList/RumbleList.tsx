@@ -4,11 +4,13 @@ import RumbleCard from './RumbleCard';
 
 const RumbleList = ({ rumbles }: IRumbleListProps): React.ReactElement => {
   return (
-    <div className="rumble-list">
+    <div className="rumble-list-wrapper">
       <h2>Rumbles</h2>
-      {rumbles.map((r) => (
-        <RumbleCard key={r.id} {...r} />
-      ))}
+      <div className="rumble-list">
+        {rumbles.map((r) => (
+          <RumbleCard key={r.id} {...r} />
+        ))}
+      </div>
     </div>
   );
 };

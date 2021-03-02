@@ -1,14 +1,14 @@
-.section-list-wrapper {
+.rumble-list-wrapper {
   h2 {
     color: $white;
     font-family: $display-font;
     font-size: 2rem;
   }
-  .section-list {
+  .rumble-list {
     display: flex;
     flex-flow: row wrap;
     padding: 1rem;
-    .section-card {
+    .rumble-card {
       width: 30%;
       margin-right: 2%;
       padding: 1rem;
