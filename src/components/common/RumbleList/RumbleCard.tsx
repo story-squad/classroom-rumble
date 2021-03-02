@@ -1,12 +1,12 @@
 import React from 'react';
-import { IRumbleWithSectionInfo } from '../../../../api/Rumbles';
+import { Rumbles } from '../../../api';
 
 const TeacherRumble = ({
   numMinutes,
   sectionName,
-}: IRumbleWithSectionInfo): React.ReactElement => {
+}: Rumbles.IRumbleWithSectionInfo): React.ReactElement => {
   return (
-    <div className="rumble-item">
+    <div className="rumble-card">
       <h3>{sectionName}</h3>
       <p>This rumble is {numMinutes} minutes long!</p>
     </div>
