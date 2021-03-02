@@ -1,23 +1,24 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
-import { JoinSectionRedirect } from './JoinSectionRedirect';
-import { StudentRumbleList } from './StudentRumbleList';
-import { StudentSectionList } from './StudentSectionList';
+import { Rumbles, Sections } from '../../../api';
+import { RumbleList, SectionList } from '../../common';
 
 // Dislay Component for Students to view their sections
-const RenderStudentDashboard = (): React.ReactElement => {
+const RenderStudentDashboard = ({
+  rumbleList,
+  sectionList,
+}: IRenderStudentDashboardProps): React.ReactElement => {
   return (
     <div className="student-dashboard">
       <h1>Your Dashboard</h1>
-      <Route
-        exact
-        path="/dashboard/student/join"
-        component={JoinSectionRedirect}
-      />
-      <StudentRumbleList />
-      <StudentSectionList />
+      <RumbleList rumbles={rumbleList} />
+      <SectionList sections={sectionList} />
     </div>
   );
 };
+
+interface IRenderStudentDashboardProps {
+  sectionList: Sections.ISectionWithRumbles[];
+  rumbleList: Rumbles.IRumbleWithSectionInfo[];
+}
 
 export default RenderStudentDashboard;

@@ -7,7 +7,7 @@ const RenderSectionList = ({
 }: ISectionListProps): React.ReactElement => {
   return (
     <div className="section-list-wrapper">
-      <h1>YOUR SECTIONS</h1>
+      <h2>YOUR SECTIONS</h2>
       <div className="section-list">
         {sections?.map((sec) => (
           <Section {...sec} key={sec.id} />
