@@ -6,18 +6,17 @@ import { CouldNotLoad } from '../../../common';
 import RenderTeacherSectionList from './RenderTeacherSectionList';
 
 const TeacherSectionListContainer = (): React.ReactElement => {
-  // TODO I beleive I need recoil state here to monitor the users section
-  const [teacherList, setTeacherList] = useRecoilState(sections.list);
+  const [sectionList, setSectionList] = useRecoilState(sections.list);
   const user = useRecoilValue(auth.user);
 
-  const [error, setError] = useState<null | string>(null);
+  const [error, setError] = useState<string>();
 
   useEffect(() => {
     if (user) {
       Sections.getTeacherSections(user?.id)
         .then((res) => {
           console.log({ res });
-          setTeacherList(res);
+          setSectionList(res);
         })
         .catch((err) => {
           console.log({ err });
@@ -28,8 +27,8 @@ const TeacherSectionListContainer = (): React.ReactElement => {
     }
   }, [user]);
 
-  return teacherList ? (
-    <RenderTeacherSectionList teacherSections={teacherList} />
+  return sectionList ? (
+    <RenderTeacherSectionList teacherSections={sectionList} />
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (
