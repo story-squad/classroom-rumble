@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Sections } from '../../../../api';
 import { RumbleList } from '../../../common';
+import { StudentList } from './StudentList';
 
 const RenderTeacherViewSection = ({
   name,
@@ -32,6 +33,7 @@ const RenderTeacherViewSection = ({
         </div>
       </div>
       <RumbleList rumbles={rumbleList} />
+      <StudentList sectionId={id} />
     </div>
   );
 };
