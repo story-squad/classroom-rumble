@@ -3,9 +3,11 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Sections } from '../../../../api';
 import { auth, enumData, sections } from '../../../../state';
-import { Input, Select } from '../../../common';
+import { Input, Modal, Select } from '../../../common';
 
-const NewSection = (): React.ReactElement => {
+const CreateNewSectionForm = ({
+  closeModal,
+}: Modal.ModalComponentProps): React.ReactElement => {
   const { errors, register, handleSubmit } = useForm();
   const user = useRecoilValue(auth.user);
   const grades = useRecoilValue(enumData.grades);
@@ -17,6 +19,7 @@ const NewSection = (): React.ReactElement => {
       if (user) {
         const res = await Sections.createNewSection(data, user.id);
         setSectionList((prev) => (prev ? [...prev, res] : [res]));
+        closeModal();
       }
     } catch (err) {
       console.log(err);
@@ -57,4 +60,4 @@ const NewSection = (): React.ReactElement => {
   );
 };
 
-export default NewSection;
+export default CreateNewSectionForm;

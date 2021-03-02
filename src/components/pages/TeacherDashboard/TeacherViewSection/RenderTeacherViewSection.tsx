@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Sections } from '../../../../api';
 import { RumbleList } from '../../../common';
 
@@ -10,16 +10,28 @@ const RenderTeacherViewSection = ({
   id,
   rumbles,
 }: Sections.ISectionWithRumbles): React.ReactElement => {
+  const rumbleList = useMemo(
+    () =>
+      rumbles.map((r) => ({
+        ...r,
+        sectionName: name,
+        sectionId: id,
+      })),
+    [rumbles, name, id],
+  );
   return (
     <div className="teacher-view-section">
-      <h2>View Section</h2>
-      <RumbleList
-        rumbles={rumbles.map((r) => ({
-          ...r,
-          sectionName: name,
-          sectionId: id,
-        }))}
-      />
+      <h2>Section: {name}</h2>
+      <div className="section-info">
+        <div>Grade: {gradeId}</div>
+        <div>Subject: {subjectId}</div>
+        <div>
+          Join URL: http://localhost:3000/dashboard/student/join?joinCode=
+          {joinCode}
+          &sectionId={id}
+        </div>
+      </div>
+      <RumbleList rumbles={rumbleList} />
     </div>
   );
 };
