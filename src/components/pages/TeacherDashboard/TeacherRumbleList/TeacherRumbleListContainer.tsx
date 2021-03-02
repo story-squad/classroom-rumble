@@ -5,6 +5,7 @@ import TeacherRenderRumbleList from './RenderTeacherRumbleList';
 
 const TeacherRumbleListContainer = (): React.ReactElement => {
   const rumbleList = useRecoilValue(rumbles.list);
+
   return rumbleList ? (
     <TeacherRenderRumbleList rumbles={rumbleList} />
   ) : (

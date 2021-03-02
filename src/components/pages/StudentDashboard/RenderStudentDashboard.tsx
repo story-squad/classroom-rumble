@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { JoinSectionRedirect } from './JoinSectionRedirect';
+import { StudentRumbleList } from './StudentRumbleList';
 import { StudentSectionList } from './StudentSectionList';
-import { StudentRumbleList } from './TeacherRumbleList';
 
 // Dislay Component for Students to view their sections
 const RenderStudentDashboard = (): React.ReactElement => {
