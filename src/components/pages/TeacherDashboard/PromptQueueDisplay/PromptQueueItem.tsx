@@ -7,8 +7,8 @@ const PromptQueueItem = ({
   starts_at,
 }: IPromptInQueue): React.ReactElement => {
   return (
-    <div className="prompt-queue-item">
-      <h2>{formatDate(DateTime.fromISO(starts_at))}</h2>
+    <div className="prompt-queue-card">
+      <h3>{formatDate(DateTime.fromISO(starts_at))}</h3>
       <p>{prompt}</p>
     </div>
   );

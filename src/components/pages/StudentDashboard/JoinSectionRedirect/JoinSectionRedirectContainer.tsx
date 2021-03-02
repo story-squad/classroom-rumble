@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Sections } from '../../../../api';
 import { auth, sections } from '../../../../state';
@@ -11,6 +11,7 @@ const JoinSectionRedirectContainer = (): React.ReactElement => {
   const setSectionList = useSetRecoilState(sections.list);
   const user = useRecoilValue(auth.user);
   const { search } = useLocation();
+  const { push } = useHistory();
 
   useEffect(() => {
     if (!joinCode) {
@@ -25,6 +26,7 @@ const JoinSectionRedirectContainer = (): React.ReactElement => {
       Sections.joinSection({ joinCode }, sectionId, user.id)
         .then((res) => {
           setSectionList((prev) => (prev ? [...prev, res] : [res]));
+          push('/dashboard/student');
         })
         .catch((err) => console.log(err));
     }

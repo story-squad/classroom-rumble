@@ -1,23 +1,42 @@
-import React from 'react';
-import { CreateNewRumbleForm } from './CreateNewRumbleForm';
-import { CreateNewSectionForm } from './CreateNewSectionForm';
-import { CustomPromptForm } from './CustomPromptForm';
+import React, { useState } from 'react';
+import { Rumbles, Sections } from '../../../api';
+import { RumbleList, SectionList } from '../../common';
+import { CreateNewSection } from './CreateNewSection';
 import { PromptQueueDisplay } from './PromptQueueDisplay';
-import { TeacherRumbleList } from './TeacherRumbleList';
-import { TeacherSectionList } from './TeacherSectionList';
 
-const RenderTeacherDashboard = (): React.ReactElement => {
+const RenderTeacherDashboard = ({
+  sectionList,
+  rumbleList,
+}: IRenderTeacherDashboardProps): React.ReactElement => {
+  const [newSectionOpen, setNewSectionOpen] = useState(false);
   return (
     <div className="teacher-dashboard">
+      <CreateNewSection
+        isVisible={newSectionOpen}
+        setIsVisible={setNewSectionOpen}
+      />
       <h1>Dashboard</h1>
       <PromptQueueDisplay />
-      <TeacherRumbleList />
-      <TeacherSectionList />
-      <CreateNewSectionForm />
-      <CustomPromptForm />
-      <CreateNewRumbleForm />
+      {sectionList ? (
+        <SectionList
+          sections={sectionList}
+          openNewSectionForm={setNewSectionOpen}
+        />
+      ) : (
+        <p>Loading Sections...</p>
+      )}
+      {rumbleList ? (
+        <RumbleList rumbles={rumbleList} />
+      ) : (
+        <p>Loading Rumbles...</p>
+      )}
     </div>
   );
 };
+
+interface IRenderTeacherDashboardProps {
+  sectionList: Sections.ISectionWithRumbles[];
+  rumbleList: Rumbles.IRumbleWithSectionInfo[];
+}
 
 export default RenderTeacherDashboard;

@@ -73,3 +73,24 @@
   position: relative;
   z-index: 3;
 }
+
+@mixin list($listname) {
+  .#{$listname}-list {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 1rem;
+    .#{$listname}-card {
+      width: 30%;
+      margin-right: 2%;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border: 1px solid black;
+      @include drop-shadow;
+      background-color: $white;
+      &:hover {
+        background-color: #fffc;
+        cursor: pointer;
+      }
+    }
+  }
+}
