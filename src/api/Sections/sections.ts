@@ -1,10 +1,10 @@
 import { axiosWithAuth } from '../axiosWithConfig';
-import { ISection } from './sectionTypes';
+import { ISectionWithRumbles } from './sectionTypes';
 
 // GET a list of Teachers sections
 export const getTeacherSections = async (
   teacherId: number,
-): Promise<ISection[]> => {
+): Promise<ISectionWithRumbles[]> => {
   const { data } = await axiosWithAuth().get(
     `/api/rumble/teachers/${teacherId}/sections`,
   );
@@ -14,7 +14,7 @@ export const getTeacherSections = async (
 // GET a list of Student Sections
 export const getStudentSections = async (
   studentId: number,
-): Promise<ISection[]> => {
+): Promise<ISectionWithRumbles[]> => {
   const { data } = await axiosWithAuth().get(
     `/api/rumble/students/${studentId}/sections`,
   );

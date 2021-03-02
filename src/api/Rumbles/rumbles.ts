@@ -6,6 +6,10 @@ export const create = async (
   teacherId: number,
   sectionIds: number[],
 ): Promise<IRumbleWithSectionInfo[]> => {
+  console.log({
+    rumble: body,
+    sectionIds,
+  });
   const { data } = await axiosWithAuth().post(
     `/api/rumble/teachers/${teacherId}/rumbles`,
     {

@@ -8,7 +8,8 @@ const Select = ({
   register,
   rules,
   placeholder,
-  defaultValue = 'none',
+  multiple,
+  defaultValue = multiple ? [] : 'none',
   ...props
 }: ISelectProps): React.ReactElement => {
   return (
@@ -18,6 +19,7 @@ const Select = ({
         name={name}
         ref={register && register(rules)}
         defaultValue={defaultValue}
+        multiple={multiple}
       >
         {placeholder && (
           <option value="none" disabled hidden>

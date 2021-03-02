@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 import { IRumbleWithSectionInfo } from '../../api/Rumbles';
 
-export const list = atom<IRumbleWithSectionInfo[] | undefined>({
+export const list = atom<IRumbleWithSectionInfo[]>({
   key: 'rumbleList',
-  default: undefined,
+  default: [],
 });
