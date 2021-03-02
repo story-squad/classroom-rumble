@@ -1,0 +1,24 @@
+.section-list-wrapper {
+  h1 {
+    color: $white;
+    font-family: $display-font;
+    font-size: 2rem;
+  }
+  .section-list {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 1rem;
+    .section-card {
+      width: 30%;
+      margin-right: 2%;
+      padding: 1rem;
+      border: 1px solid black;
+      @include drop-shadow;
+      background-color: $white;
+      &:hover {
+        background-color: #fffc;
+        cursor: pointer;
+      }
+    }
+  }
+}
