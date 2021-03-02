@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { rumbles, sections } from '../../../state';
 import RenderTeacherDashboard from './RenderTeacherDashboard';
 import { TeacherViewSection } from './TeacherViewSection';
+import { TeacherViewStudent } from './TeacherViewStudent';
 
 const TeacherDashboardContainer = (): React.ReactElement => {
   const sectionList = useRecoilValue(sections.list);
@@ -24,6 +25,10 @@ const TeacherDashboardContainer = (): React.ReactElement => {
       <Route
         path="/dashboard/teacher/section"
         render={(props) => <TeacherViewSection {...props} />}
+      />
+      <Route
+        path="/dashboard/teacher/student"
+        render={(props) => <TeacherViewStudent {...props} />}
       />
       {/* Fallback redirect for nonexistent routes */}
       <Route
