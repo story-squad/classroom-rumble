@@ -3,10 +3,17 @@ import { Submissions } from '../../../../../api';
 
 const SubmissionCard = ({
   score,
-}: Submissions.ISubmission): React.ReactElement => {
+  prompt,
+  src,
+  codename,
+}: Submissions.ISubItem): React.ReactElement => {
   return (
     <div className="submission-card">
-      <h3>{score}</h3>
+      <h3>
+        {codename} - {score}
+      </h3>
+      <img width="100" height="100" src={src} alt="" />
+      <p>{prompt}</p>
     </div>
   );
 };

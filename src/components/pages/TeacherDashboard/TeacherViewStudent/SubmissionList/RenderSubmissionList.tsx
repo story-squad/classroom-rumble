@@ -19,7 +19,7 @@ const RenderSubmissionList = ({
 };
 
 interface IRenderSubmissionListProps {
-  submissionList: Submissions.ISubmission[];
+  submissionList: Submissions.ISubItem[];
   student: Auth.IUser;
 }
 

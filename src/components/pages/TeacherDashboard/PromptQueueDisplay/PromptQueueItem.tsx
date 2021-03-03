@@ -1,14 +1,18 @@
 import { DateTime } from 'luxon';
 import React from 'react';
-import { IPromptInQueue } from '../../../../api/Prompts';
+import { Prompts } from '../../../../api';
 
 const PromptQueueItem = ({
   prompt,
   starts_at,
-}: IPromptInQueue): React.ReactElement => {
+}: Prompts.IPromptInQueue): React.ReactElement => {
   return (
     <div className="prompt-queue-card">
-      <h3>{formatDate(DateTime.fromISO(starts_at))}</h3>
+      {starts_at ? (
+        <h3>{formatDate(DateTime.fromISO(starts_at))}</h3>
+      ) : (
+        <h3>Custom</h3>
+      )}
       <p>{prompt}</p>
     </div>
   );

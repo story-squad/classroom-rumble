@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { InitialState } from '../../../api';
 import { Roles } from '../../../api/Auth';
@@ -15,6 +15,7 @@ const LoadUserData = (): React.ReactElement => {
   const setGradeEnum = useSetRecoilState(enumData.grades);
   const setSubjectEnum = useSetRecoilState(enumData.subjects);
   const { push } = useHistory();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (!isLogged) {
@@ -30,9 +31,13 @@ const LoadUserData = (): React.ReactElement => {
           setSections(res.sections);
           setGradeEnum(res.enumData.grades);
           setSubjectEnum(res.enumData.subjects);
-          let userType = Roles[user.roleId];
-          if (userType === 'user') userType = 'student';
-          push(`/dashboard/${userType}`);
+
+          // Route to dashboard if they're not already on it
+          if (!pathname.includes('dashboard')) {
+            let userType = Roles[user.roleId];
+            if (userType === 'user') userType = 'student';
+            push(`/dashboard/${userType}`);
+          }
         })
         .catch((err) => console.log(err));
   }, [user]);
