@@ -1,9 +1,10 @@
 import React from 'react';
-import { Submissions } from '../../../../../api';
+import { Auth, Submissions } from '../../../../../api';
 import SubmissionCard from './SubmissionCard';
 
 const RenderSubmissionList = ({
   submissionList,
+  student,
 }: IRenderSubmissionListProps): React.ReactElement => {
   return (
     <div className="submission-list-wrapper">
@@ -19,6 +20,7 @@ const RenderSubmissionList = ({
 
 interface IRenderSubmissionListProps {
   submissionList: Submissions.ISubmission[];
+  student: Auth.IUser;
 }
 
 export default RenderSubmissionList;
