@@ -13,8 +13,8 @@ const StudentSectionListContainer = (): React.ReactElement => {
   const [error, setError] = useState<null | string>(null);
 
   useEffect(() => {
-    if (user) {
-      Sections.getStudentSections(user?.id)
+    if (user && !sectionList) {
+      Sections.getStudentSections(user.id)
         .then((res) => {
           console.log(res);
           setSectionList(res);
