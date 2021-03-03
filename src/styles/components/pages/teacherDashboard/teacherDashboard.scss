@@ -1,0 +1,9 @@
+.teacher-dashboard {
+  h1 {
+    color: $white;
+    font-family: $display-font;
+    font-size: 3rem;
+  }
+}
+@import './studentList.scss';
+@import './promptQueueDisplay.scss';

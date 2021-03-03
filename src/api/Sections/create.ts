@@ -1,15 +1,19 @@
 import { axiosWithAuth } from '../axiosWithConfig';
-import { INewSectionBody, ISection, ISectionEnumData } from './sectionTypes';
+import {
+  INewSectionBody,
+  ISectionEnumData,
+  ISectionWithRumbles,
+} from './sectionTypes';
 
 export const createNewSection = async (
   body: INewSectionBody,
   teacherId: number,
-): Promise<ISection> => {
+): Promise<ISectionWithRumbles> => {
   const { data } = await axiosWithAuth().post(
     `/api/rumble/teachers/${teacherId}/sections`,
     body,
   );
-  return data;
+  return { ...data, rumbles: [] };
 };
 
 export const getSectionEnumData = async (): Promise<ISectionEnumData> => {
