@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Prompts } from '../../../../api';
 import { prompts } from '../../../../state';
 import { CouldNotLoad } from '../../../common';
@@ -7,6 +7,7 @@ import RenderPromptQueueDisplay from './RenderPromptQueueDisplay';
 
 const PromptQueueDisplayContainer = (): React.ReactElement => {
   const [promptQueue, setPromptQueue] = useRecoilState(prompts.queue);
+  const customPrompts = useRecoilValue(prompts.customList);
   const [error, setError] = useState<string>();
 
   useEffect(() => {
@@ -21,7 +22,7 @@ const PromptQueueDisplayContainer = (): React.ReactElement => {
   }, []);
 
   return promptQueue ? (
-    <RenderPromptQueueDisplay queue={promptQueue} />
+    <RenderPromptQueueDisplay queue={[...customPrompts, ...promptQueue]} />
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (

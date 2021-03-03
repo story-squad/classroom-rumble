@@ -10,6 +10,7 @@ const RenderTeacherViewSection = ({
   joinCode,
   id,
   rumbles,
+  active,
 }: Sections.ISectionWithRumbles): React.ReactElement => {
   const rumbleList = useMemo(
     () =>
@@ -33,7 +34,9 @@ const RenderTeacherViewSection = ({
         </div>
       </div>
       <RumbleList rumbles={rumbleList} />
-      <StudentList sectionId={id} />
+      <StudentList
+        section={{ name, gradeId, subjectId, joinCode, id, active }}
+      />
     </div>
   );
 };

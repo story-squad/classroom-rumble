@@ -1,21 +1,31 @@
 import React from 'react';
-import { Auth } from '../../../../../api';
+import { useHistory } from 'react-router-dom';
+import { Auth, Sections } from '../../../../../api';
 
 const StudentCard = ({
-  codename,
-  email,
-  firstname,
-  lastname,
-}: Auth.IUser): React.ReactElement => {
+  section,
+  student,
+}: IStudentCardProps): React.ReactElement => {
+  const { push } = useHistory();
+
+  const openStudent = () => {
+    push('/dashboard/teacher/student', { student, section });
+  };
+
   return (
-    <div className="student-card">
+    <div className="student-card" onClick={openStudent}>
       <h3>
-        {firstname} {lastname}
+        {student.firstname} {student.lastname}
       </h3>
-      <p>{codename}</p>
-      <p>{email}</p>
+      <p>{student.codename}</p>
+      <p>{student.email}</p>
     </div>
   );
 };
+
+interface IStudentCardProps {
+  student: Auth.IUser;
+  section: Sections.ISection;
+}
 
 export default StudentCard;
