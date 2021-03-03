@@ -30,6 +30,7 @@ const CreateCustomPromptForm = ({
         <div className="text-input">
           <label htmlFor="customPrompt">New Prompt:</label>
           <textarea
+            autoFocus
             ref={register && register({})}
             name="prompt"
             id="customPrompt"

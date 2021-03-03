@@ -9,7 +9,6 @@ const RenderTeacherDashboard = ({
 }: IRenderTeacherDashboardProps): React.ReactElement => {
   return (
     <div className="teacher-dashboard">
-      <h1>Dashboard</h1>
       <PromptQueueDisplay />
       {rumbleList ? (
         <RumbleList rumbles={rumbleList} isTeacher />

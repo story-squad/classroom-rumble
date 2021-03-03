@@ -12,35 +12,38 @@ const TeacherDashboardContainer = (): React.ReactElement => {
   const rumbleList = useRecoilValue(rumbles.list);
 
   return (
-    <Switch>
-      <Route
-        exact
-        path="/dashboard/teacher"
-        render={() => (
-          <RenderTeacherDashboard
-            sectionList={sectionList}
-            rumbleList={rumbleList}
-          />
-        )}
-      />
-      <Route
-        path="/dashboard/teacher/section"
-        render={(props) => <TeacherViewSection {...props} />}
-      />
-      <Route
-        path="/dashboard/teacher/student"
-        render={(props) => <TeacherViewStudent {...props} />}
-      />
-      <Route
-        path="/dashboard/teacher/rumble/new"
-        render={(props) => <CreateNewRumble {...props} />}
-      />
-      {/* Fallback redirect for nonexistent routes */}
-      <Route
-        path="/dashboard/teacher"
-        component={() => <Redirect to="/dashboard/teacher" />}
-      />
-    </Switch>
+    <div className="teacher-dashboard-wrapper">
+      <h1>Dashboard</h1>
+      <Switch>
+        <Route
+          exact
+          path="/dashboard/teacher"
+          render={() => (
+            <RenderTeacherDashboard
+              sectionList={sectionList}
+              rumbleList={rumbleList}
+            />
+          )}
+        />
+        <Route
+          path="/dashboard/teacher/section"
+          render={(props) => <TeacherViewSection {...props} />}
+        />
+        <Route
+          path="/dashboard/teacher/student"
+          render={(props) => <TeacherViewStudent {...props} />}
+        />
+        <Route
+          path="/dashboard/teacher/rumble/new"
+          render={(props) => <CreateNewRumble {...props} />}
+        />
+        {/* Fallback redirect for nonexistent routes */}
+        <Route
+          path="/dashboard/teacher"
+          component={() => <Redirect to="/dashboard/teacher" />}
+        />
+      </Switch>
+    </div>
   );
 };
 
