@@ -8,6 +8,7 @@ const RenderTeacherViewStudent = ({
   lastname,
   email,
   id,
+  ...student
 }: Auth.IUser): React.ReactElement => {
   return (
     <div className="teacher-view-student">
@@ -17,7 +18,9 @@ const RenderTeacherViewStudent = ({
       <div className="student-info">
         <div>Email: {email}</div>
       </div>
-      <SubmissionList studentId={id} />
+      <SubmissionList
+        student={{ codename, firstname, lastname, email, id, ...student }}
+      />
     </div>
   );
 };

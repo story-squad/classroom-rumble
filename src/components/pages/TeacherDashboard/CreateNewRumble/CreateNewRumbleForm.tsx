@@ -4,9 +4,11 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Prompts, Rumbles } from '../../../../api';
 import { IRumblePostBody } from '../../../../api/Rumbles';
 import { auth, prompts, rumbles, sections } from '../../../../state';
-import { Input, Select } from '../../../common';
+import { Input, Modal, Select } from '../../../common';
 
-const CreateNewRumbleForm = (): React.ReactElement => {
+const CreateNewRumbleForm = ({
+  closeModal,
+}: Modal.ModalComponentProps): React.ReactElement => {
   const { register, handleSubmit } = useForm();
   const [promptList, setPromptList] = useRecoilState(prompts.list);
   const promptQueue = useRecoilValue(prompts.queue);
@@ -44,6 +46,7 @@ const CreateNewRumbleForm = (): React.ReactElement => {
           sectionIds.map((x) => parseInt(`${x}`, 10)),
         );
         setRumbleList(res);
+        closeModal();
       }
     } catch (err) {
       console.log(err);
