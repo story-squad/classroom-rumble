@@ -1,28 +1,27 @@
 import React from 'react';
-import { Auth } from '../../../../api';
+import { Auth, Sections } from '../../../../api';
 import { SubmissionList } from './SubmissionList';
 
 const RenderTeacherViewStudent = ({
-  codename,
-  firstname,
-  lastname,
-  email,
-  id,
-  ...student
-}: Auth.IUser): React.ReactElement => {
+  section,
+  student,
+}: IRenderTeacherViewStudentProps): React.ReactElement => {
   return (
     <div className="teacher-view-student">
       <h2>
-        {firstname} {lastname} <em>({codename})</em>
+        {student.firstname} {student.lastname} <em>({student.codename})</em>
       </h2>
       <div className="student-info">
-        <div>Email: {email}</div>
+        <div>Email: {student.email}</div>
       </div>
-      <SubmissionList
-        student={{ codename, firstname, lastname, email, id, ...student }}
-      />
+      <SubmissionList student={student} section={section} />
     </div>
   );
 };
+
+interface IRenderTeacherViewStudentProps {
+  student: Auth.IUser;
+  section: Sections.ISection;
+}
 
 export default RenderTeacherViewStudent;

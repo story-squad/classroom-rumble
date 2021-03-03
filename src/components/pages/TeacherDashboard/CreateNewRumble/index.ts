@@ -1,1 +1,1 @@
-export { default as CreateNewRumble } from './CreateNewRumble';
+export { default as CreateNewRumble } from './CreateNewRumbleContainer';

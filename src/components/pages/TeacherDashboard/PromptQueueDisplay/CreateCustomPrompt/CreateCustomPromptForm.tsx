@@ -1,18 +1,24 @@
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
-import { Prompts } from '../../../../api';
-import { prompts } from '../../../../state';
+import { Prompts } from '../../../../../api';
+import { prompts } from '../../../../../state';
+import { Modal } from '../../../../common';
 
-const CustomPromptForm = (): React.ReactElement => {
+const CreateCustomPromptForm = ({
+  closeModal,
+}: Modal.ModalComponentProps): React.ReactElement => {
   const { register, handleSubmit } = useForm();
-  const setPrompts = useSetRecoilState(prompts.list);
+  const setCustomPrompts = useSetRecoilState(prompts.customList);
 
   const onSubmit: SubmitHandler<Prompts.INewPrompt> = async (data) => {
     console.log(data);
     try {
-      const res = await Prompts.addCustom(data.prompt);
-      setPrompts((prev) => [...prev, res]);
+      const res = (await Prompts.addCustom(
+        data.prompt,
+      )) as Prompts.IPromptInQueue; // We're handling edge cases in the display component
+      setCustomPrompts((prev) => [...prev, res]);
+      closeModal();
     } catch (err) {
       console.log(err);
     }
@@ -36,4 +42,4 @@ const CustomPromptForm = (): React.ReactElement => {
   );
 };
 
-export default CustomPromptForm;
+export default CreateCustomPromptForm;
