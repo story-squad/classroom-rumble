@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Prompts, Rumbles } from '../../../../api';
 import { IRumblePostBody } from '../../../../api/Rumbles';
@@ -10,6 +11,7 @@ const CreateNewRumbleForm = ({
   defaultSelected,
 }: ICreateNewRumbleFormProps): React.ReactElement => {
   const { register, handleSubmit } = useForm();
+  const { push } = useHistory();
 
   const [promptList, setPromptList] = useRecoilState(prompts.list);
   const [promptOffset, setPromptOffset] = useRecoilState(prompts.promptOffset);
@@ -19,7 +21,7 @@ const CreateNewRumbleForm = ({
   const sectionList = useRecoilValue(sections.list);
   const user = useRecoilValue(auth.user);
 
-  const setRumbleList = useSetRecoilState(rumbles.addRumbles);
+  const addRumbles = useSetRecoilState(rumbles.addRumbles);
 
   const promptOptions = useMemo<Select.IOption[]>(() => {
     const op: Select.IOption[] = [];
@@ -56,7 +58,8 @@ const CreateNewRumbleForm = ({
           user.id,
           sectionIds.map((x) => parseInt(`${x}`, 10)),
         );
-        setRumbleList(res);
+        addRumbles(res);
+        push('/dashboard/teacher');
       }
     } catch (err) {
       console.log(err);
