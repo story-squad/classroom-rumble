@@ -4,13 +4,13 @@ import { CouldNotLoad } from '../../../../common';
 import RenderStudentList from './RenderStudentList';
 
 const StudentListContainer = ({
-  sectionId,
+  section,
 }: IStudentListContainerProps): React.ReactElement => {
   const [studentList, setStudentList] = useState<Auth.IUser[]>();
   const [error, setError] = useState<string>();
 
   useEffect(() => {
-    Sections.getStudentsBySectionId(sectionId)
+    Sections.getStudentsBySectionId(section.id)
       .then((res) => {
         setStudentList(res);
       })
@@ -18,10 +18,10 @@ const StudentListContainer = ({
         console.log(err);
         setError(err.message);
       });
-  }, [sectionId]);
+  }, [section.id]);
 
   return studentList ? (
-    <RenderStudentList studentList={studentList} />
+    <RenderStudentList studentList={studentList} section={section} />
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (
@@ -30,7 +30,7 @@ const StudentListContainer = ({
 };
 
 interface IStudentListContainerProps {
-  sectionId: number;
+  section: Sections.ISection;
 }
 
 export default StudentListContainer;
