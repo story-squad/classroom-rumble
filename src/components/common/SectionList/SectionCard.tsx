@@ -18,7 +18,9 @@ const TeacherSection = ({
   }, [user]);
 
   const openSection = () => {
-    push(`/dashboard/${role}/section`, { ...section, id, joinCode });
+    push(`/dashboard/${role}/section`, {
+      section: { ...section, id, joinCode },
+    });
   };
 
   return (
