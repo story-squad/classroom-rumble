@@ -30,7 +30,7 @@ const StudentListContainer = ({
 };
 
 interface IStudentListContainerProps {
-  section: Sections.ISection;
+  section: Sections.ISectionWithRumbles;
 }
 
 export default StudentListContainer;

@@ -9,7 +9,7 @@ const TeacherViewSectionContainer = (): React.ReactElement => {
   const section = useRecoilValue(current.section);
 
   return section ? (
-    <RenderTeacherViewSection {...section} />
+    <RenderTeacherViewSection section={section} />
   ) : isLoading ? (
     <p>Loading...</p>
   ) : (

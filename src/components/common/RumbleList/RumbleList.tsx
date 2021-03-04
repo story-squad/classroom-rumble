@@ -16,7 +16,7 @@ const RumbleList = ({
       <h2>Rumbles</h2>
       {isTeacher && <button onClick={openNewRumbleForm}>New Rumble</button>}
       <div className="rumble-list">
-        {rumbles.map((r) => (
+        {rumbles?.map((r) => (
           <RumbleCard key={r.id} {...r} />
         ))}
       </div>
