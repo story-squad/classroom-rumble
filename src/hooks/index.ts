@@ -1,1 +1,1 @@
-export { default as useCheckBrowserState } from './useCheckBrowserState';
+export { useCheckBrowserState } from './useCheckBrowserState';

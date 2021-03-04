@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { Auth, Sections, Submissions } from '../api';
-import { current } from '../state';
+import { Auth, Sections, Submissions } from '../../api';
+import { current } from '../../state';
 
 const useCheckBrowserState = (
   ...values: ('student' | 'sub' | 'section')[]
@@ -34,16 +34,9 @@ const useCheckBrowserState = (
       if (!sub && values.includes('sub') && state.submission) {
         setSub(state.submission);
       }
-      setIsLoading(false);
     }
+    setIsLoading(false);
   }, [state, values]);
-
-  useEffect(() => console.log({ section, isLoading, student, sub }), [
-    section,
-    isLoading,
-    student,
-    sub,
-  ]);
 
   return { isLoading };
 };
