@@ -20,7 +20,7 @@ const RenderStudentList = ({
 
 interface IRenderStudentListProps {
   studentList: Auth.IUser[];
-  section: Sections.ISection;
+  section: Sections.ISectionWithRumbles;
 }
 
 export default RenderStudentList;

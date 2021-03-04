@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Submissions } from '../../../../../api';
 import { current } from '../../../../../state';
 
@@ -14,18 +14,21 @@ const SubmissionCard = ({
   const { push } = useHistory();
   const student = useRecoilValue(current.student);
   const section = useRecoilValue(current.section);
+  const setCurrentSubmission = useSetRecoilState(current.sub);
 
   const openSubView = () => {
+    const currentSubmission = {
+      ...submission,
+      score,
+      prompt,
+      src,
+      codename,
+    };
+    setCurrentSubmission(currentSubmission);
     push('/dashboard/teacher/submission', {
       student,
       section,
-      submission: {
-        ...submission,
-        score,
-        prompt,
-        src,
-        codename,
-      },
+      submission: currentSubmission,
     });
   };
 
