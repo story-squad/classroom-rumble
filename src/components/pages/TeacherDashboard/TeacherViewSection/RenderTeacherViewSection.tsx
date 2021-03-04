@@ -14,7 +14,7 @@ const RenderTeacherViewSection = ({
 }: Sections.ISectionWithRumbles): React.ReactElement => {
   const rumbleList = useMemo(
     () =>
-      rumbles.map((r) => ({
+      rumbles?.map((r) => ({
         ...r,
         sectionName: name,
         sectionId: id,
