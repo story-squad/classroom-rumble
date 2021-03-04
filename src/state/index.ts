@@ -1,4 +1,5 @@
 export * as auth from './authState';
+export * as current from './currentViewState';
 export * as enumData from './enumDataState';
 export * as prompts from './promptState';
 export * from './reset';
