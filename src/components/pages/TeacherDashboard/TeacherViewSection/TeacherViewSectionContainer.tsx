@@ -1,16 +1,20 @@
-import React, { useMemo } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-import { Sections } from '../../../../api';
+import React from 'react';
+import { useRecoilValue } from 'recoil';
+import { useCheckBrowserState } from '../../../../hooks';
+import { current } from '../../../../state';
 import RenderTeacherViewSection from './RenderTeacherViewSection';
 
-const TeacherViewSectionContainer = ({
-  history,
-}: RouteComponentProps): React.ReactElement => {
-  const section = useMemo(
-    () => history.location.state as Sections.ISectionWithRumbles,
-    [history],
+const TeacherViewSectionContainer = (): React.ReactElement => {
+  const { isLoading } = useCheckBrowserState('section');
+  const section = useRecoilValue(current.section);
+
+  return section ? (
+    <RenderTeacherViewSection {...section} />
+  ) : isLoading ? (
+    <p>Loading...</p>
+  ) : (
+    <p>Redirecting...</p>
   );
-  return <RenderTeacherViewSection {...section} />;
 };
 
 export default TeacherViewSectionContainer;
