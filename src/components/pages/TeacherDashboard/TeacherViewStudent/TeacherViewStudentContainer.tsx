@@ -1,20 +1,21 @@
-import React, { useMemo } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-import { Auth, Sections } from '../../../../api';
+import React from 'react';
+import { useRecoilValue } from 'recoil';
+import { useCheckBrowserState } from '../../../../hooks';
+import { current } from '../../../../state';
 import RenderTeacherViewStudent from './RenderTeacherViewStudent';
 
-const TeacherViewStudentContainer = ({
-  history,
-}: RouteComponentProps): React.ReactElement => {
-  const { student, section } = useMemo(
-    () =>
-      history.location.state as {
-        student: Auth.IUser;
-        section: Sections.ISection;
-      },
-    [history],
+const TeacherViewStudentContainer = (): React.ReactElement => {
+  const { isLoading } = useCheckBrowserState('student', 'section');
+  const student = useRecoilValue(current.student);
+  const section = useRecoilValue(current.section);
+
+  return student && section ? (
+    <RenderTeacherViewStudent student={student} section={section} />
+  ) : isLoading ? (
+    <p>Loading...</p>
+  ) : (
+    <p>Redirecting...</p>
   );
-  return <RenderTeacherViewStudent student={student} section={section} />;
 };
 
 export default TeacherViewStudentContainer;

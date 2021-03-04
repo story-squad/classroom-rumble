@@ -6,6 +6,7 @@ import { CreateNewRumble } from './CreateNewRumble';
 import RenderTeacherDashboard from './RenderTeacherDashboard';
 import { TeacherViewSection } from './TeacherViewSection';
 import { TeacherViewStudent } from './TeacherViewStudent';
+import { TeacherViewSubmission } from './TeacherViewSubmission';
 
 const TeacherDashboardContainer = (): React.ReactElement => {
   const sectionList = useRecoilValue(sections.list);
@@ -27,11 +28,15 @@ const TeacherDashboardContainer = (): React.ReactElement => {
         />
         <Route
           path="/dashboard/teacher/section"
-          render={(props) => <TeacherViewSection {...props} />}
+          render={() => <TeacherViewSection />}
         />
         <Route
           path="/dashboard/teacher/student"
-          render={(props) => <TeacherViewStudent {...props} />}
+          render={() => <TeacherViewStudent />}
+        />
+        <Route
+          path="/dashboard/teacher/submission"
+          render={() => <TeacherViewSubmission />}
         />
         <Route
           path="/dashboard/teacher/rumble/new"
