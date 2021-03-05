@@ -1,11 +1,11 @@
 import React from 'react';
-import { Auth, Sections } from '../../../../../api';
-import StudentCard from './StudentCard';
+import { Sections, Students } from '../../../../../api';
+import StudentCard from './RumbleStudentCard';
 
-const RenderStudentList = ({
+const RenderRumbleStudentList = ({
   studentList,
   section,
-}: IRenderStudentListProps): React.ReactElement => {
+}: IRenderRumbleStudentListProps): React.ReactElement => {
   return (
     <div className="student-list-wrapper">
       <h2>Students</h2>
@@ -18,9 +18,9 @@ const RenderStudentList = ({
   );
 };
 
-interface IRenderStudentListProps {
-  studentList: Auth.IUser[];
+interface IRenderRumbleStudentListProps {
+  studentList: Students.IStudentWithSubmissions[];
   section: Sections.ISectionWithRumbles;
 }
 
-export default RenderStudentList;
+export default RenderRumbleStudentList;
