@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Auth, Sections } from '../../../../../api';
+import { Sections, Students } from '../../../../../api';
 import { CouldNotLoad } from '../../../../common';
-import RenderStudentList from './RenderStudentList';
+import RenderStudentList from './RenderSectionStudentList';
 
-const StudentListContainer = ({
+const SectionStudentListContainer = ({
   section,
-}: IStudentListContainerProps): React.ReactElement => {
-  const [studentList, setStudentList] = useState<Auth.IUser[]>();
+}: ISectionStudentListContainerProps): React.ReactElement => {
+  const [studentList, setStudentList] = useState<
+    Students.IStudentWithSubmissions[]
+  >();
   const [error, setError] = useState<string>();
 
   useEffect(() => {
-    Sections.getStudentsBySectionId(section.id)
+    Students.getWithSubsBySectionId(section.id)
       .then((res) => {
         setStudentList(res);
       })
@@ -29,8 +31,8 @@ const StudentListContainer = ({
   );
 };
 
-interface IStudentListContainerProps {
+interface ISectionStudentListContainerProps {
   section: Sections.ISectionWithRumbles;
 }
 
-export default StudentListContainer;
+export default SectionStudentListContainer;

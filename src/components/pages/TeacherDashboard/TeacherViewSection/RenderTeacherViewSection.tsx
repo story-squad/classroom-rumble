@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Sections } from '../../../../api';
 import { RumbleList } from '../../../common';
-import { StudentList } from './StudentList';
+import { SectionStudentList } from './SectionStudentList';
 
 const RenderTeacherViewSection = ({
   section,
@@ -28,7 +28,7 @@ const RenderTeacherViewSection = ({
         </div>
       </div>
       <RumbleList rumbles={rumbleList} />
-      <StudentList section={section} />
+      <SectionStudentList section={section} />
     </div>
   );
 };

@@ -10,3 +10,4 @@ export { RumbleList } from './RumbleList';
 export { SectionList } from './SectionList';
 export * as Select from './Select';
 export { SEO } from './SEO';
+export { Table } from './Table';

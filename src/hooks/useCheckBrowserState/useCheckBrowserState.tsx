@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { Auth, Sections, Submissions } from '../../api';
+import { Auth, Rumbles, Sections, Submissions } from '../../api';
 import { current } from '../../state';
 
 const useCheckBrowserState = (
-  ...values: ('student' | 'sub' | 'section')[]
+  ...values: ('student' | 'sub' | 'section' | 'rumble')[]
 ): { isLoading: boolean } => {
   // Load router state
   const location = useLocation();
@@ -13,6 +13,7 @@ const useCheckBrowserState = (
     section: Sections.ISectionWithRumbles;
     student: Auth.IUser;
     submission: Submissions.ISubItem;
+    rumble: Rumbles.IRumbleWithSectionInfo;
   };
 
   // Set initial loading state
@@ -21,6 +22,7 @@ const useCheckBrowserState = (
   // Load recoil state values
   const [section, setSection] = useRecoilState(current.section);
   const [student, setStudent] = useRecoilState(current.student);
+  const [rumble, setRumble] = useRecoilState(current.rumble);
   const [sub, setSub] = useRecoilState(current.sub);
 
   useEffect(() => {
@@ -30,6 +32,9 @@ const useCheckBrowserState = (
       }
       if (!student && values.includes('student') && state.student) {
         setStudent(state.student);
+      }
+      if (!rumble && values.includes('rumble') && state.rumble) {
+        setRumble(state.rumble);
       }
       if (!sub && values.includes('sub') && state.submission) {
         setSub(state.submission);
