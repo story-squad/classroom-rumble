@@ -4,10 +4,10 @@ import { useSetRecoilState } from 'recoil';
 import { Auth, Sections } from '../../../../../api';
 import { current } from '../../../../../state';
 
-const StudentCard = ({
+const SectionStudentCard = ({
   section,
   student,
-}: IStudentCardProps): React.ReactElement => {
+}: ISectionStudentCardProps): React.ReactElement => {
   const { push } = useHistory();
   const setCurrentSection = useSetRecoilState(current.section);
   const setCurrentStudent = useSetRecoilState(current.student);
@@ -29,9 +29,9 @@ const StudentCard = ({
   );
 };
 
-interface IStudentCardProps {
+interface ISectionStudentCardProps {
   student: Auth.IUser;
   section: Sections.ISectionWithRumbles;
 }
 
-export default StudentCard;
+export default SectionStudentCard;
