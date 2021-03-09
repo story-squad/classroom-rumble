@@ -6,8 +6,6 @@ export { LoadUserData } from './LoadUserData';
 export { LogoutPopup } from './LogoutPopup';
 export { Modal } from './Modal';
 export { PrivateRoute } from './PrivateRoute';
-export { RumbleList } from './RumbleList';
 export { SectionList } from './SectionList';
 export * as Select from './Select';
 export { SEO } from './SEO';
-export { Table } from './Table';

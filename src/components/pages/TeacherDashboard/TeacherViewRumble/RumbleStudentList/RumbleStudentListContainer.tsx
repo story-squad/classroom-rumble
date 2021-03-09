@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Rumbles, Sections, Students } from '../../../../../api';
 import { CouldNotLoad } from '../../../../common';
-import RenderStudentList from './RenderRumbleStudentList';
+import RenderRumbleStudentList from './RenderRumbleStudentList';
 
 const RumbleStudentListContainer = ({
   section,
@@ -13,13 +13,8 @@ const RumbleStudentListContainer = ({
   const [error, setError] = useState<string>();
 
   useEffect(() => {
-    let callback: Promise<Students.IStudentWithSubmissions[]>;
-    // If a rumble is set, get the students based on rumble
-    if (rumble) callback = Students.getWithSubsByRumbleId(rumble.id);
-    // Else just get them based on section
-    else callback = Students.getWithSubsBySectionId(section.id);
-    // Resolve whichever promise you've saved (in the same way)
-    callback
+    setStudentList(undefined);
+    Students.getWithSubsByRumbleId(rumble.id)
       .then((res) => {
         setStudentList(res);
       })
@@ -27,10 +22,11 @@ const RumbleStudentListContainer = ({
         console.log(err);
         setError(err.message);
       });
+    return () => setStudentList(undefined);
   }, [section.id]);
 
   return studentList ? (
-    <RenderStudentList studentList={studentList} section={section} />
+    <RenderRumbleStudentList studentList={studentList} section={section} />
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (
@@ -40,7 +36,7 @@ const RumbleStudentListContainer = ({
 
 interface IRumbleStudentListContainerProps {
   section: Sections.ISectionWithRumbles;
-  rumble?: Rumbles.IRumbleWithSectionInfo;
+  rumble: Rumbles.IRumbleWithSectionInfo;
 }
 
 export default RumbleStudentListContainer;

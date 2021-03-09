@@ -1,6 +1,6 @@
 import React from 'react';
 import { Sections, Students } from '../../../../../api';
-import StudentCard from './RumbleStudentCard';
+import RumbleStudentCard from './RumbleStudentCard';
 
 const RenderRumbleStudentList = ({
   studentList,
@@ -11,7 +11,11 @@ const RenderRumbleStudentList = ({
       <h2>Students</h2>
       <div className="student-list">
         {studentList.map((student) => (
-          <StudentCard student={student} section={section} key={student.id} />
+          <RumbleStudentCard
+            student={student}
+            section={section}
+            key={student.id}
+          />
         ))}
       </div>
     </div>

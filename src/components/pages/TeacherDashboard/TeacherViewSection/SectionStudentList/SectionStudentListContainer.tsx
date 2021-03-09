@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Sections, Students } from '../../../../../api';
 import { CouldNotLoad } from '../../../../common';
-import RenderStudentList from './RenderSectionStudentList';
+import RenderSectionStudentList from './RenderSectionStudentList';
 
 const SectionStudentListContainer = ({
   section,
@@ -23,7 +23,7 @@ const SectionStudentListContainer = ({
   }, [section.id]);
 
   return studentList ? (
-    <RenderStudentList studentList={studentList} section={section} />
+    <RenderSectionStudentList studentList={studentList} section={section} />
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (

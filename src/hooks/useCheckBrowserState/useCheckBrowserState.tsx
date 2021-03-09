@@ -41,7 +41,7 @@ const useCheckBrowserState = (
       }
     }
     setIsLoading(false);
-  }, [state, values]);
+  }, []);
 
   return { isLoading };
 };

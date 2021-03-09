@@ -1,22 +1,37 @@
 import React from 'react';
-import { TableHeading, TableRow } from './TableData';
-import { TableProps } from './TableTypes';
 
-const Table = (props: TableProps): React.ReactElement => {
+const head = ['name', 'password'];
+const row = [{ name: 123, passwprd: '23' }];
+
+const Table = <
+  T extends Record<string, unknown>,
+  U extends { [key in keyof T]: unknown }
+>({}: ITableProps<U>): React.ReactElement => {
   return (
-    <div className="table">
-      <div className="table-header-row">
-        {props.headings.map((h, i) => (
-          <TableHeading {...h} key={i} />
-        ))}
-      </div>
-      <div className="table-body">
-        {props.rows.map((r, i) => (
-          <TableRow headings={props.headings} row={r} key={i} />
-        ))}
-      </div>
+    <div className="table-wrapper">
+      <div>rtabfzfd</div>
     </div>
   );
 };
+
+<Table headers={head} rows={row} />;
+
+interface ITableProps<U extends Record<string, unknown>> {
+  headers: (keyof U)[];
+  rows: U[];
+}
+
+// const Table = <T extends string, U extends Record<T, React.ReactNode>>({
+//   headers,
+//   rows,
+// }: ITableProps<T, U>): React.ReactElement => {};
+
+// const head = ['thing', 'asdf'];
+// interface ITableProps<T extends string> {
+//   headers: T[];
+//   rows: Record<T, React.ReactNode>[];
+// }
+
+// const TDS = () => <Table headers={head} rows={[{}]} />;
 
 export default Table;
