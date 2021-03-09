@@ -2,13 +2,14 @@ import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { Prompts } from '../../../api';
 import { prompts } from '../../../state';
+import { PromptBoxProps } from './PromptBoxTypes';
 import RenderPromptBox from './RenderPromptBox';
 
 /**
- * The prompt box will live within each students Rumble Game instance.
+ * PromptBoxContainer will run a useEffect to check for today's prompt.
  */
 
-const PromptBoxContainer = (): React.ReactElement => {
+const PromptBoxContainer = (props: PromptBoxProps): React.ReactElement => {
   // Grab prompts from recoil state
   const [prompt, setPrompt] = useRecoilState(prompts.currentPrompt);
 
@@ -28,9 +29,9 @@ const PromptBoxContainer = (): React.ReactElement => {
   }, []);
 
   return (
-    <div>
-      <RenderPromptBox />
-    </div>
+    <>
+      <RenderPromptBox {...props} />
+    </>
   );
 };
 
