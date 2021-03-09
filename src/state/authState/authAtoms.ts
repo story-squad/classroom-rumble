@@ -15,3 +15,8 @@ export const logoutModalOpen = atom<boolean>({
   key: 'isLogoutModalOpen',
   default: false,
 });
+
+export const authModalOpen = atom<boolean>({
+  key: 'authModalOpen',
+  default: false,
+});
