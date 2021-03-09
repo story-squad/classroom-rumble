@@ -1,6 +1,6 @@
 import React from 'react';
 import { Rumbles, Sections } from '../../../api';
-import { SectionList } from '../../common';
+import { StudentRumbleList } from './StudentRumbleList';
 
 // Dislay Component for Students to view their sections
 const RenderStudentDashboard = ({
@@ -10,7 +10,7 @@ const RenderStudentDashboard = ({
   return (
     <div className="student-dashboard">
       <h1>Your Dashboard</h1>
-      <SectionList sections={sectionList} />
+      <StudentRumbleList rumbleList={rumbleList} />
     </div>
   );
 };
