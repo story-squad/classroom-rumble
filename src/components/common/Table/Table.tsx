@@ -1,7 +1,7 @@
 import React from 'react';
 
 const head = ['name', 'password'];
-const row = [{ name: 123, passwprd: '23' }];
+const row = [{ name: 123, password: '23' }];
 
 const Table = <
   T extends Record<string, unknown>,
@@ -14,7 +14,9 @@ const Table = <
   );
 };
 
-<Table headers={head} rows={row} />;
+{
+  /* <Table headers={head} rows={row} />; */
+}
 
 interface ITableProps<U extends Record<string, unknown>> {
   headers: (keyof U)[];
