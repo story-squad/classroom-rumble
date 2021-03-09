@@ -1,6 +1,7 @@
 import React from 'react';
 import { Rumbles, Sections } from '../../../api';
 import { RumbleList, SectionList } from '../../common';
+import { PromptBox } from '../../common/PromptBox';
 
 // Dislay Component for Students to view their sections
 const RenderStudentDashboard = ({
@@ -12,6 +13,7 @@ const RenderStudentDashboard = ({
       <h1>Your Dashboard</h1>
       <RumbleList rumbles={rumbleList} />
       <SectionList sections={sectionList} />
+      <PromptBox />
     </div>
   );
 };
