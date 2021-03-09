@@ -1,21 +1,37 @@
 import React from 'react';
-import { Auth } from '../../../../../api';
+import { useHistory } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { Auth, Sections } from '../../../../../api';
+import { current } from '../../../../../state';
 
 const StudentCard = ({
-  codename,
-  email,
-  firstname,
-  lastname,
-}: Auth.IUser): React.ReactElement => {
+  section,
+  student,
+}: IStudentCardProps): React.ReactElement => {
+  const { push } = useHistory();
+  const setCurrentSection = useSetRecoilState(current.section);
+  const setCurrentStudent = useSetRecoilState(current.student);
+
+  const openStudent = () => {
+    setCurrentSection(section);
+    setCurrentStudent(student);
+    push('/dashboard/teacher/student', { student, section });
+  };
+
   return (
-    <div className="student-card">
+    <div className="student-card" onClick={openStudent}>
       <h3>
-        {firstname} {lastname}
+        {student.firstname} {student.lastname}
       </h3>
-      <p>{codename}</p>
-      <p>{email}</p>
+      <p>{student.codename}</p>
+      <p>{student.email}</p>
     </div>
   );
 };
+
+interface IStudentCardProps {
+  student: Auth.IUser;
+  section: Sections.ISectionWithRumbles;
+}
 
 export default StudentCard;

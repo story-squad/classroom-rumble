@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Sections } from '../../../api';
 import { Roles } from '../../../api/Auth';
-import { auth } from '../../../state';
+import { auth, current } from '../../../state';
 
 const TeacherSection = ({
   id,
@@ -17,8 +17,14 @@ const TeacherSection = ({
     else return user.roleId === Roles.user ? 'student' : Roles[user.roleId];
   }, [user]);
 
+  const setCurrentSection = useSetRecoilState(current.section);
+
   const openSection = () => {
-    push(`/dashboard/${role}/section`, { ...section, id, joinCode });
+    const currentSection = { ...section, id, joinCode };
+    setCurrentSection(currentSection);
+    push(`/dashboard/${role}/section`, {
+      section: currentSection,
+    });
   };
 
   return (

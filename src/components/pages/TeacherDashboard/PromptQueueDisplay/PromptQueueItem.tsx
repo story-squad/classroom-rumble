@@ -1,14 +1,26 @@
 import { DateTime } from 'luxon';
 import React from 'react';
-import { IPromptInQueue } from '../../../../api/Prompts';
+import { useHistory } from 'react-router-dom';
+import { Prompts } from '../../../../api';
 
 const PromptQueueItem = ({
   prompt,
   starts_at,
-}: IPromptInQueue): React.ReactElement => {
+  ...promptProps
+}: Prompts.IPromptInQueue): React.ReactElement => {
+  const { push } = useHistory();
+
+  const newRumbleFromThisPrompt = () => {
+    push('/dashboard/teacher/rumble/new', { prompt, ...promptProps });
+  };
+
   return (
-    <div className="prompt-queue-card">
-      <h3>{formatDate(DateTime.fromISO(starts_at))}</h3>
+    <div className="prompt-queue-card" onClick={newRumbleFromThisPrompt}>
+      {starts_at ? (
+        <h3>{formatDate(DateTime.fromISO(starts_at))}</h3>
+      ) : (
+        <h3>Custom</h3>
+      )}
       <p>{prompt}</p>
     </div>
   );
