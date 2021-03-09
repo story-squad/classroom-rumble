@@ -1,6 +1,6 @@
 import React from 'react';
 import { Sections, Students } from '../../../../../api';
-import StudentCard from './SectionStudentCard';
+import SectionStudentCard from './SectionStudentCard';
 
 const RenderSectionStudentList = ({
   studentList,
@@ -11,7 +11,11 @@ const RenderSectionStudentList = ({
       <h2>Students</h2>
       <div className="student-list">
         {studentList.map((student) => (
-          <StudentCard student={student} section={section} key={student.id} />
+          <SectionStudentCard
+            student={student}
+            section={section}
+            key={student.id}
+          />
         ))}
       </div>
     </div>

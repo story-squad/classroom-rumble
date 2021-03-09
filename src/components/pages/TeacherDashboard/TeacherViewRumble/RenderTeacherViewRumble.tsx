@@ -8,7 +8,9 @@ const RenderTeacherViewRumble = ({
 }: IRenderTeacherViewRumbleProps): React.ReactElement => {
   return (
     <div className="teacher-view-rumble">
-      <h2>Rumble</h2>
+      <h2>{section.name}</h2>
+      <h3>Prompt {rumble.promptId}</h3>
+      <h3>Rumble {rumble.id}</h3>
       <RumbleStudentList section={section} rumble={rumble} />
     </div>
   );

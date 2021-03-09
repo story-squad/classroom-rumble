@@ -7,6 +7,7 @@ export const getWithSubsByRumbleId = async (
   const { data } = await axiosWithAuth().get(
     `/api/rumble/rumbles/${rumbleId}/students`,
   );
+  console.log('rumbleId,', rumbleId, data);
   return data;
 };
 
