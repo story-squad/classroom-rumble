@@ -1,8 +1,8 @@
 import { Select } from '../../components/common';
-import { IRumble } from '../Rumbles';
+import { IRumbleWithSectionInfo } from '../Rumbles';
 
 export interface ISectionWithRumbles extends ISection {
-  rumbles: IRumble[];
+  rumbles: IRumbleWithSectionInfo[];
 }
 
 export interface ISection extends INewSectionBody {
