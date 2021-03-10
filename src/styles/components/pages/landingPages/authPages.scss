@@ -6,7 +6,7 @@
 
   h1 {
     @include heading(1.8rem);
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
   }
   & > button {
     display: flex;
@@ -55,11 +55,12 @@
   }
   form {
     width: 100%;
-    margin: 1rem 0;
+    margin: 3rem 0;
 
     input[class='submit'] {
       @include button();
       width: 100%;
+      margin-top: 1rem;
     }
   }
 }
