@@ -7,7 +7,6 @@
   z-index: 100;
   opacity: 1;
   transition: all 0.5s ease-in-out 0s;
-  background-color: #0004;
   overflow-y: scroll;
   cursor: pointer;
 
@@ -31,8 +30,6 @@
     max-width: 96%;
     width: 100%;
     margin: 2rem auto;
-    box-shadow: 5px 5px 15px #333;
-    background-color: $dark-blue;
     border-radius: 5px;
     display: flex;
     flex-flow: column nowrap;
@@ -42,7 +39,6 @@
       width: 100%;
       height: 4rem;
       padding: 0.8rem 3.6rem;
-      background-color: $jade;
       position: relative;
       border-radius: 5px 5px 0 0;
 
@@ -52,7 +48,6 @@
         color: $white;
         font-family: $display-font;
         text-align: center;
-        text-shadow: 0 2px 2px #0003;
       }
 
       .close-button {

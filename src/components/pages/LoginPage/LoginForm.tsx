@@ -42,7 +42,7 @@ const LoginForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
       <Input
         label="Codename"
         name="codename"

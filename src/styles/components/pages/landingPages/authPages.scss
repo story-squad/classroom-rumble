@@ -1,0 +1,59 @@
+.auth-page {
+  padding: 2.5rem;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+
+  h1 {
+    @include heading(1.8rem);
+    margin-bottom: 2rem;
+  }
+  & > button {
+    width: 100%;
+    margin-bottom: 1rem;
+    border: 1px solid $primary-base;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: 1.6rem;
+
+    img {
+    }
+    p {
+      margin: 0;
+      padding-left: 1rem;
+
+      font-weight: 600;
+    }
+  }
+  p {
+    font-size: 1.8rem;
+    line-height: 2.1rem;
+    font-weight: 600;
+    &.small {
+      font-size: 1.2rem;
+      line-height: 1.5rem;
+      font-weight: 400;
+    }
+
+    color: $c-grey-70;
+    text-align: center;
+    margin-bottom: 1rem;
+    a {
+      font-weight: 600;
+      @include text-button($c-grey-80);
+      white-space: nowrap;
+    }
+  }
+  form {
+    width: 100%;
+    margin: 1rem 0;
+
+    input[class='submit'] {
+      @include button();
+      width: 100%;
+    }
+  }
+}
