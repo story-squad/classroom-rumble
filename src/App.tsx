@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import {
   CookiePopup,
+  LandingPageWrapper,
   LoadUserData,
   LogoutPopup,
   PrivateRoute,
@@ -24,13 +25,43 @@ const App = (): React.ReactElement => {
       <LogoutPopup />
       <Switch>
         {/* Public Routes */}
-        <Route exact path="/" component={LandingPage} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/signup" component={SignupPage} />
+        <Route
+          exact
+          path="/"
+          component={() => (
+            <LandingPageWrapper>
+              <LandingPage />
+            </LandingPageWrapper>
+          )}
+        />
+        <Route
+          path="/login"
+          component={() => (
+            <LandingPageWrapper>
+              <LoginPage />
+            </LandingPageWrapper>
+          )}
+        />
+        <Route
+          path="/signup"
+          component={() => (
+            <LandingPageWrapper>
+              <SignupPage />
+            </LandingPageWrapper>
+          )}
+        />
         <Route path="/tos" component={TermsOfService} />
 
         {/* OAuth Redirects */}
-        <Route exact path="/oauth/clever" component={CleverRedirect} />
+        <Route
+          exact
+          path="/oauth/clever"
+          component={() => (
+            <LandingPageWrapper>
+              <CleverRedirect />
+            </LandingPageWrapper>
+          )}
+        />
 
         {/* Private Routes */}
         <PrivateRoute path="/dashboard/teacher" component={TeacherDashboard} />

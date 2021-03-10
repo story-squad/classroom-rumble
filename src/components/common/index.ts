@@ -2,6 +2,7 @@ export { Checkbox } from './Checkbox';
 export { CookiePopup } from './CookiePopup';
 export { CouldNotLoad } from './CouldNotLoad';
 export { Input } from './Input';
+export { LandingPageWrapper } from './LandingPageWrapper';
 export { LoadUserData } from './LoadUserData';
 export { LogoutPopup } from './LogoutPopup';
 export { Modal } from './Modal';
