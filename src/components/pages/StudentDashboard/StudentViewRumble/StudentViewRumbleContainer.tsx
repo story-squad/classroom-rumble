@@ -11,3 +11,6 @@ const StudentViewRumble = (): React.ReactElement => {
 };
 
 export default StudentViewRumble;
+
+// use setTimeout not setInterval
+// idiot remember to lower deno version on laptop
