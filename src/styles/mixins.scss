@@ -33,7 +33,6 @@
 
 @mixin text-button($color, $darken-amt: 15%) {
   color: $color;
-  text-decoration: none;
   cursor: pointer;
   transition: all 0.1s ease-in;
   &:active,
@@ -46,12 +45,18 @@
 @mixin placeholder($color: $c-grey-base) {
   &::placeholder {
     color: $color;
+    font-weight: 400;
+    font-style: italic;
   }
   &:-ms-input-placeholder {
     color: $color;
+    font-weight: 400;
+    font-style: italic;
   }
   ::-ms-input-placeholder {
     color: $color;
+    font-weight: 400;
+    font-style: italic;
   }
 }
 
