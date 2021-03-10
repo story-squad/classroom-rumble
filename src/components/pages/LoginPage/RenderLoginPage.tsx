@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import cleverLogo from '../../../assets/img/clever-square-icon.png';
+import { CleverButton } from '../../common';
 import LoginForm from './LoginForm';
 import { ILoginParams } from './loginTypes';
 
@@ -14,10 +14,7 @@ const RenderLoginPage = ({
         <p>Log in to link your Clever and Story Squad accounts</p>
       ) : (
         <>
-          <button className="clever-signup">
-            <img src={cleverLogo} alt="Clever Company Logo" />
-            <p>Log in using Clever</p>
-          </button>
+          <CleverButton />
           <p className="small">OR</p>
           <p>Log in using email address</p>
         </>
