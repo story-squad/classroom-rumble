@@ -59,7 +59,7 @@ const SignupForm = ({
     }
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
       <Input
         id="firstname"
         name="firstname"
