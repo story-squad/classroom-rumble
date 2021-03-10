@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import cleverLogo from '../../../assets/img/clever-square-icon.png';
+import { CleverButton } from '../../common';
 import SignupForm from './SignupForm';
 import { ISigninProps } from './signupTypes';
 
@@ -8,10 +8,7 @@ const RenderSignupPage = (props: ISigninProps): React.ReactElement => {
   return (
     <div className="signup-page auth-page">
       <h1>Classroom Rumble</h1>
-      <button className="clever-signup">
-        <img src={cleverLogo} alt="Clever Company Logo" />
-        <p>Sign up using Clever</p>
-      </button>
+      <CleverButton signup />
       <p className="small">OR</p>
       <p>Sign up using email address</p>
       <SignupForm {...props} />
