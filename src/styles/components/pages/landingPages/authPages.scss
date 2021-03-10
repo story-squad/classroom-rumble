@@ -4,9 +4,22 @@
   flex-flow: column nowrap;
   align-items: center;
 
+  width: 400px;
+  max-width: 100%;
+  @include bp(tablet) {
+    width: 350px;
+    padding: 4rem 3rem;
+  }
+  @include bp(large) {
+    padding: 6rem 3.5rem;
+  }
+
   h1 {
     @include heading(1.8rem);
     margin-bottom: 3rem;
+    @include bp(360px) {
+      font-size: 2.4rem;
+    }
   }
   & > button {
     display: flex;
