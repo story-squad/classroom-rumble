@@ -2,19 +2,24 @@
   display: flex;
   flex-flow: column nowrap;
   position: relative;
+  margin-bottom: 2rem;
 
   label {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     margin-left: 8px;
   }
-
+  &.error .input-field input {
+    border-color: $red-bright;
+  }
   .input-field {
     position: relative;
     display: flex;
     flex-flow: column nowrap;
-    margin-bottom: 0.5rem;
+    input {
+      @include text-input;
+    }
     .show-hide-btn {
       position: absolute;
       font-size: 2rem;
@@ -27,36 +32,18 @@
       border: none;
       @include text-button(white);
     }
-    input {
-      @include text-input;
-    }
-  }
-  .message {
-    position: relative;
-    bottom: 1.1rem;
-    font-size: 1.3rem;
-    line-height: 1.6rem;
-    color: $white;
-    font-family: $text-font;
-    font-weight: 300;
-    width: 100%;
-    opacity: 0;
-    letter-spacing: 0.06rem;
-    .red {
-      color: $red;
-    }
   }
 
-  // Error styling
-  &.error {
-    input {
-      border-color: $red;
-    }
-    .message {
-      bottom: 0;
-      z-index: 1;
-      transition: all 0.3s ease-in;
-      opacity: 1;
+  .message {
+    font-size: 1rem;
+    line-height: 1.2rem;
+    font-style: italic;
+    color: $c-grey-80;
+    font-weight: 400;
+    width: 100%;
+    margin-top: 0.3rem;
+    .red {
+      color: $red-bright;
     }
   }
 }
