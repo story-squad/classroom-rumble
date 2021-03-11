@@ -59,7 +59,7 @@ const SignupForm = ({
     }
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
       <Input
         id="firstname"
         name="firstname"
@@ -232,17 +232,21 @@ const SignupForm = ({
         id="termsCheckbox"
         name="termsCheckbox"
         label={
-          <>
-            I have read and agree to the&nbsp;
+          <p className="small">
+            I have read and agree to the{' '}
             <Link to="/tos" className="text-button" target="_blank">
               Terms & Conditions
             </Link>
             .
-          </>
+          </p>
         }
         errors={errors}
         register={register}
-        rules={{ required: 'You must agree to the terms!' }}
+        rules={{
+          validate: {
+            isChecked: (value) => value || 'You must accept TOS',
+          },
+        }}
       />
       <input
         className="submit"

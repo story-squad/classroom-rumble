@@ -4,7 +4,7 @@ import { useSetRecoilState } from 'recoil';
 import { Auth } from '../../../api';
 import { Roles } from '../../../api/Auth';
 import { auth } from '../../../state';
-import { query } from '../../../utils';
+import { query, token } from '../../../utils';
 
 /**
  * The Clever redirect page, gets a token from Clever and sends it to
@@ -21,6 +21,7 @@ const CleverRedirectContainer = (): React.ReactElement => {
   const login = useSetRecoilState(auth.isLoggedIn);
 
   useEffect(() => {
+    token.clear();
     if (!code) {
       const params = query.parse<'code'>(search);
       setCode(params.code);
@@ -31,7 +32,7 @@ const CleverRedirectContainer = (): React.ReactElement => {
     if (code) {
       Auth.authorizeWithClever(code)
         .then((res) => {
-          console.log(res);
+          console.log({ res });
           let params: URLSearchParams;
           const userType =
             res.roleId === Roles.user ? 'student' : Roles[res.roleId];

@@ -4,11 +4,13 @@
 // Import Global Variables/Mixins
 @import './globals.scss';
 @import './mixins.scss';
+@import './mediaQueries.scss';
 
 // Google Font Imports
-@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Oswald:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rock+Salt&family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600;1,700&display=swap');
 
 // Page Component Stylesheets
+@import './components/pages/landingPages/landingPages.scss';
 @import './components/pages/teacherDashboard/teacherDashboard.scss';
 
 // Common Component Stylesheets
@@ -17,3 +19,6 @@
 @import './components/common/input.scss';
 @import './components/common/modal.scss';
 @import './components/common/logoutPopup.scss';
+@import './components/common/checkbox.scss';
+@import './components/common/landingPageWrapper.scss';
+@import './components/common/cleverButton.scss';
