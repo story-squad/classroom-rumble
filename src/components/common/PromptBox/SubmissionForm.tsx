@@ -3,12 +3,15 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Submissions } from '../../../api';
 import { auth, prompts, submitModal } from '../../../state';
 import { upload } from '../../../utils';
+import { Modal } from '../Modal';
 
 /**
  * Submission Form allows students to submit an image to the rumble they are currenly in.
  */
 
-export const SubmissionForm = (): React.ReactElement => {
+export const SubmissionForm = (
+  props: Modal.ModalComponentProps,
+): React.ReactElement => {
   // Recoil State for user submissions
   const [file, setFile] = useRecoilState(submitModal.selected);
   const [preview, setPreview] = useRecoilState(submitModal.preview);
@@ -101,9 +104,7 @@ export const SubmissionForm = (): React.ReactElement => {
           // Once the submission is done, show a button.
           <>
             <div className="success">Submission successful!</div>
-            <button onClick={() => console.log('User clicked back to site')}>
-              Back to Site
-            </button>
+            <button onClick={props.closeModal}>Back to Site</button>
           </>
         )}
       </div>

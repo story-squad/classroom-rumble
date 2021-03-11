@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { auth } from '../../../state';
+import { auth, prompts } from '../../../state';
 import { Modal } from '../Modal';
 import { SubmissionForm } from './SubmissionForm';
+
+/**
+ * If a student makes it into a rumble there will be a prompt and countdown timer.
+ * @param Prompt is a string that is pulled directly from a rumb;e.
+ * @returns a submissions form to receive the users image.
+ */
 
 const RenderPromptBox = ({ prompt }: Prompt): React.ReactElement => {
   // Store the user logged in status in a variable from RecoilStateValue
   const isLogged = useRecoilValue(auth.isLoggedIn);
+  const promp = useRecoilValue(prompts.currentPrompt);
 
   // Modal State Handlers
   const [showModal, setShowModal] = useState(false);
@@ -19,7 +26,7 @@ const RenderPromptBox = ({ prompt }: Prompt): React.ReactElement => {
       {isLogged && (
         <Modal.Component
           className="submissions"
-          component={(props) => <SubmissionForm />}
+          component={(props) => <SubmissionForm {...props} />}
           visible={showModal}
           setVisible={setShowModal}
           centered={!!isLogged}
@@ -38,13 +45,11 @@ const RenderPromptBox = ({ prompt }: Prompt): React.ReactElement => {
           <p>Loading Prompt...</p>
         </>
       )}
-      <div className="rumble-countdown">
-        <p>Time Left to Submit!</p>
-      </div>
+      <p className="countdown-display">Time Left to Submit HERE!</p>
       <div className="prompt-footer">
-        {/* <button onClick={toggleModal} disabled={prompt?.submitted}>
-          {prompt?.submitted ? 'Submission Received!' : 'Submit Your Story'}
-        </button> */}
+        <button onClick={toggleModal} disabled={promp?.hasSubmitted}>
+          {promp?.hasSubmitted ? 'Submission Received!' : 'Submit Your Story'}
+        </button>
       </div>
     </div>
   );
