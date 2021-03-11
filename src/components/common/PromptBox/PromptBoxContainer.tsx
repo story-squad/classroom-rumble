@@ -14,6 +14,7 @@ const PromptBoxContainer = (props: PromptBoxProps): React.ReactElement => {
   const [prompt, setPrompt] = useRecoilState(prompts.currentPrompt);
 
   // TODO - what will we use to replace `active` fomr "getTimeUntilEvent"? I assume nothing bc we want to leave the Submit button open for ever
+  // const { active } = time.getTimeUntilEvent('submit');
 
   useEffect(() => {
     if (!prompt) {
