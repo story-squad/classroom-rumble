@@ -1,5 +1,6 @@
 import React from 'react';
 import { Rumbles, Sections } from '../../../../api';
+import { PromptBox } from '../../../common/PromptBox';
 
 const RenderStudentViewRumble = ({
   rumble,
@@ -10,6 +11,8 @@ const RenderStudentViewRumble = ({
       <h2>{section.name}</h2>
       <h3>Prompt {rumble.promptId}</h3>
       <h3>Rumble {rumble.id}</h3>
+
+      <PromptBox />
     </div>
   );
 };
