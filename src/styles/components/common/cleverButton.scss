@@ -16,6 +16,15 @@
     transition: all 0.1s ease-in-out;
   }
 
+  &:disabled {
+    background-color: $w-grey-10;
+    border-color: $w-grey-20;
+    cursor: not-allowed;
+    p {
+      color: $w-grey-40;
+    }
+  }
+
   p {
     margin: 0;
     padding-left: 1rem;

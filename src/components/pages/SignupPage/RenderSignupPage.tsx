@@ -8,8 +8,12 @@ const RenderSignupPage = (props: ISigninProps): React.ReactElement => {
   return (
     <div className="signup-page auth-page">
       <h1>Classroom Rumble</h1>
-      <CleverButton signup />
-      <p className="small">OR</p>
+      {!props.isNew && (
+        <>
+          <CleverButton signup />
+          <p className="small">OR</p>
+        </>
+      )}
       <p>Sign up using email address</p>
       <SignupForm {...props} />
       <p className="small">

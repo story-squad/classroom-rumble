@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { Auth } from '../../../api';
 import cleverLogo from '../../../assets/img/clever-square-icon.png';
+import { auth } from '../../../state';
 
 /** Defaults to Login, pass the `signup` attribute to change text */
 const CleverButton = ({
@@ -7,11 +10,40 @@ const CleverButton = ({
 }: {
   signup?: boolean;
 }): React.ReactElement => {
-  const openClever = () => null;
+  const [loading, setIsLoading] = useRecoilState(
+    auth.loadingCleverLoginButtonURL,
+  );
+  const [url, setUrl] = useRecoilState(auth.cleverLoginButtonURL);
+
+  useEffect(() => {
+    if (!loading && !url) {
+      Auth.cleverButton()
+        .then((res) => {
+          setUrl(res.url);
+          setIsLoading(false);
+        })
+        .catch((err) => console.log({ err }));
+    }
+  }, [loading]);
+
+  const openClever = () => {
+    if (url) window.location.assign(url);
+  };
+
   return (
-    <button className="clever-button">
-      <img src={cleverLogo} alt="Clever Company Logo" />
-      <p>{signup ? 'Sign Up' : 'Log In'} with Clever</p>
+    <button
+      className="clever-button"
+      onClick={openClever}
+      disabled={loading || !url}
+    >
+      {loading || !url ? (
+        <p>Loading Clever Sign On</p>
+      ) : (
+        <>
+          <img src={cleverLogo} alt="Clever Company Logo" />
+          <p>{signup ? 'Sign Up' : 'Log In'} with Clever</p>
+        </>
+      )}
     </button>
   );
 };
