@@ -1,37 +1,40 @@
-import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import React, { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { Prompts } from '../../../api';
-import { prompts } from '../../../state';
-import { PromptBoxProps } from './PromptBoxTypes';
+import { current } from '../../../state';
+import { CouldNotLoad } from '../CouldNotLoad';
 import RenderPromptBox from './RenderPromptBox';
 
 /**
- * PromptBoxContainer will run a useEffect to check for today's prompt.
+ * PromptBoxContainer will run a useEffect to check for the specific Rumbles prompt.
  */
 
-const PromptBoxContainer = (props: PromptBoxProps): React.ReactElement => {
-  // Grab prompts from recoil state
-  const [prompt, setPrompt] = useRecoilState(prompts.currentPrompt);
-
-  // TODO - what will we use to replace `active` fomr "getTimeUntilEvent"? I assume nothing bc we want to leave the Submit button open for ever
-  // const { active } = time.getTimeUntilEvent('submit');
+const PromptBoxContainer = (): React.ReactElement => {
+  const currentRumble = useRecoilValue(current.rumble);
+  const [prompt, setPrompt] = useState<string>();
+  const [error, setError] = useState<null | string>(null);
 
   useEffect(() => {
-    if (!prompt) {
-      Prompts.getCurrent()
-        .then(({ data }) => {
+    if (currentRumble) {
+      Prompts.getPromptById(currentRumble.promptId)
+        .then((data) => {
           console.log('Current Prompt: ', data);
           setPrompt(data);
         })
         .catch((err) => {
-          console.log(err);
+          console.log({ err });
+          setError('There is no prompt for this Rumble.');
         });
     }
   }, []);
 
-  return (
+  return prompt ? (
+    <RenderPromptBox prompt={prompt} />
+  ) : error ? (
+    <CouldNotLoad error={error} />
+  ) : (
     <>
-      <RenderPromptBox {...props} />
+      <p>Loading Prompt...</p>
     </>
   );
 };

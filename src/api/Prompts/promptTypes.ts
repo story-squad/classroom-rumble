@@ -6,7 +6,7 @@ export interface IPrompt extends INewPrompt {
   id: number;
   active: boolean;
   approved: boolean;
-  submitted?: boolean;
+  hasSubmitted?: boolean;
 }
 
 export interface INewPrompt {

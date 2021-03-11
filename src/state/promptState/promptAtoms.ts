@@ -1,5 +1,4 @@
 import { atom } from 'recoil';
-import { Prompts } from '../../api';
 import { IPrompt, IPromptInQueue } from '../../api/Prompts';
 
 export const queue = atom<IPromptInQueue[] | undefined>({
@@ -21,7 +20,8 @@ export const promptOffset = atom({
   key: 'promptOffset',
   default: 0,
 });
-export const currentPrompt = atom<Prompts.IPrompt | null>({
+
+export const currentPrompt = atom<IPrompt | null>({
   key: 'currentPrompt',
   default: null,
 });
