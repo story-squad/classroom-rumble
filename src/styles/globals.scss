@@ -13,11 +13,6 @@ body,
   min-height: 100vh;
 }
 
-// Set the font-size so 1rem = 10px for easier styling
-html {
-  font-size: 62.5%;
-}
-
 // Allow us to flex containers
 .App {
   display: flex;
@@ -25,26 +20,39 @@ html {
 }
 
 // Font Variables
-$text-font: 'Oswald', sans-serif;
-$display-font: 'Bangers', sans-serif;
+$text-font: 'Open Sans', sans-serif;
+$display-font: 'Rock Salt', cursive;
 
-// Media Query Sizes
-$tablet: 650px;
-$large: 800px;
+// Set the font-size so 1rem = 10px for easier styling and
+// also set the base font of the project
+html {
+  font-size: 62.5%;
+  font-family: $text-font;
+}
+* {
+  font-family: $text-font;
+}
 
 // Colors
-$lt-blue: #85c7f2;
-$mid-blue: #3884ff;
-$bright-blue: #2462d9;
-$dark-blue: #40537f;
-$jade: #00b67d;
-$seafoam: #34c9ad;
-$gold: #f7bc50;
-$orange: #f66700;
-$red: #f64141;
-$white: #ffffff;
-$charcoal: #343434;
+$primary-lite: #d5e6fb;
+$primary-base: #5872ff;
+$primary-dark: #093269;
 
-#root {
-  background-color: $dark-blue;
-}
+// Testing different error colors
+$red: #a30015;
+$red-bright: #e0223b;
+
+$w-grey-10: #f1f1f1;
+$w-grey-20: #d0d0d0;
+$w-grey-30: #b6b6b6;
+$w-grey-40: #9c9c9c;
+$w-grey-60: #717171;
+
+$c-grey-base: #8f9bb3;
+$c-grey-20: #cbd2d9;
+$c-grey-40: #7b8794;
+$c-grey-70: #47525d;
+$c-grey-80: #323f4b;
+
+$white: #ffffff;
+$black: #000000;

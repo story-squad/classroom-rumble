@@ -16,7 +16,12 @@ export const logoutModalOpen = atom<boolean>({
   default: false,
 });
 
-export const authModalOpen = atom<boolean>({
-  key: 'authModalOpen',
+export const cleverLoginButtonURL = atom<string | undefined>({
+  key: 'cleverLoginButtonURL',
+  default: undefined,
+});
+
+export const loadingCleverLoginButtonURL = atom<boolean>({
+  key: 'loadingCleverLoginButtonURL',
   default: false,
 });
