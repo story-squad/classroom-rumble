@@ -1,44 +1,31 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Sections } from '../../../../api';
-import { RumbleList } from '../../../common';
-import { StudentList } from './StudentList';
+import { TeacherDashboardRumbleList } from '../TeacherDashboardRumbleList';
+import { SectionStudentList } from './SectionStudentList';
 
 const RenderTeacherViewSection = ({
-  name,
-  gradeId,
-  subjectId,
-  joinCode,
-  id,
-  rumbles,
-  active,
-}: Sections.ISectionWithRumbles): React.ReactElement => {
-  const rumbleList = useMemo(
-    () =>
-      rumbles.map((r) => ({
-        ...r,
-        sectionName: name,
-        sectionId: id,
-      })),
-    [rumbles, name, id],
-  );
+  section,
+}: IRenderTeacherViewSectionProps): React.ReactElement => {
   return (
     <div className="teacher-view-section">
-      <h2>Section: {name}</h2>
+      <h2>Section: {section.name}</h2>
       <div className="section-info">
-        <div>Grade: {gradeId}</div>
-        <div>Subject: {subjectId}</div>
+        <div>Grade: {section.gradeId}</div>
+        <div>Subject: {section.subjectId}</div>
         <div>
           Join URL: http://localhost:3000/dashboard/student/join?joinCode=
-          {joinCode}
-          &sectionId={id}
+          {section.joinCode}
+          &sectionId={section.id}
         </div>
       </div>
-      <RumbleList rumbles={rumbleList} />
-      <StudentList
-        section={{ name, gradeId, subjectId, joinCode, id, active }}
-      />
+      <TeacherDashboardRumbleList sections={[section]} />
+      <SectionStudentList section={section} />
     </div>
   );
 };
+
+interface IRenderTeacherViewSectionProps {
+  section: Sections.ISectionWithRumbles;
+}
 
 export default RenderTeacherViewSection;

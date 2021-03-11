@@ -1,14 +1,20 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import { Auth, Sections } from '../../../../../api';
+import { current } from '../../../../../state';
 
-const StudentCard = ({
+const SectionStudentCard = ({
   section,
   student,
-}: IStudentCardProps): React.ReactElement => {
+}: ISectionStudentCardProps): React.ReactElement => {
   const { push } = useHistory();
+  const setCurrentSection = useSetRecoilState(current.section);
+  const setCurrentStudent = useSetRecoilState(current.student);
 
   const openStudent = () => {
+    setCurrentSection(section);
+    setCurrentStudent(student);
     push('/dashboard/teacher/student', { student, section });
   };
 
@@ -23,9 +29,9 @@ const StudentCard = ({
   );
 };
 
-interface IStudentCardProps {
+interface ISectionStudentCardProps {
   student: Auth.IUser;
-  section: Sections.ISection;
+  section: Sections.ISectionWithRumbles;
 }
 
-export default StudentCard;
+export default SectionStudentCard;
