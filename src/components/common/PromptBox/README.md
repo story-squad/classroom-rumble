@@ -5,10 +5,12 @@ It simply provides a visual of `today's` prompt along with a `Submit` button.
 
 ## Questions For Brandon
 
-- [ ] PromptBoxt as a full page to save clicks?
-- [ ] Do we need `setAuthModalVisible` in RenderPromptBox.ts line 14 if this is going to be a full page?
-- [ ] Do we need `active` for "getTimeUntilEvent"? (`./PromptBoxContainer`). I assume nothing bc we want to leave the Submit button open for ever.
-- [ ] Do we need to check if a user is logged in when rendering the promptBoxModal in `RenderPromptBox.tsx` (line 26)? A Student should already be logged in by this point.
+- [x] PromptBoxt as a full page to save clicks?
+  - PromptBox sits on each rumble stage.
+- [x] Do we need `setAuthModalVisible` in RenderPromptBox.ts line 14 if this is going to be a full page?
+- NO auth modal.
+- [x] Do we need `active` for "getTimeUntilEvent"? (`./PromptBoxContainer`). I assume nothing bc we want to leave the Submit button open for ever.
+- [x] Do we need to check if a user is logged in when rendering the promptBoxModal in `RenderPromptBox.tsx` (line 26)? A Student should already be logged in by this point.
 
 ## Notes on Prompts
 
