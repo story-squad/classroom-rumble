@@ -1,26 +1,29 @@
 import React from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Submissions } from '../../../api';
-import { auth, prompts, submitModal } from '../../../state';
+import { current, prompts, submitModal } from '../../../state';
 import { upload } from '../../../utils';
 
 /**
  * Submission Form allows students to submit an image to the rumble they are currenly in.
  */
 
-export const SubmissionForm = (): React.ReactElement => {
+const SubmissionForm = (): React.ReactElement => {
   // Recoil State for user submissions
   const [file, setFile] = useRecoilState(submitModal.selected);
   const [preview, setPreview] = useRecoilState(submitModal.preview);
   const [error, setError] = useRecoilState(submitModal.error);
   const [loading, setLoading] = useRecoilState(submitModal.loading);
   const [complete, setComplete] = useRecoilState(submitModal.success);
+
   // Where are we tracking markAsSubmitted?
   const markAsSubmitted = useSetRecoilState(prompts.setSubmitted);
-  // Track the users to welcome them to the rumble
-  const user = useRecoilValue(auth.user);
+  // We will always know the rumble if we get this far bc the PromptBox is only rendered within a Rumble.
+  const currentRumble = useRecoilValue(current.rumble);
+  // Ensuring the promptId is a string before it is uploaded
+  const promptId = currentRumble?.promptId.toString();
 
-  // On submit functionality
+  // On submit functionality for user stories (submissions)
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!file) {
@@ -30,7 +33,9 @@ export const SubmissionForm = (): React.ReactElement => {
       try {
         // Create new FormData instance to track our file and pass it to our API call `submitStory`
         const reqBody = new FormData();
-        reqBody.append('image', file);
+        reqBody.append('story', file);
+        // Force Typing as a string bc WE are smarter than our interpereter!!
+        reqBody.append('promptId', promptId as string);
         // ALL GOOD TO UPLOAD!
         // POST a submission here
         await Submissions.submitStory(reqBody)
@@ -74,7 +79,6 @@ export const SubmissionForm = (): React.ReactElement => {
   return (
     <>
       <div className="submission-form">
-        {user && <h2>Hey, {user?.codename}!</h2>}
         <form onSubmit={onSubmit}>
           {preview && (
             <div className="preview">
@@ -106,3 +110,5 @@ export const SubmissionForm = (): React.ReactElement => {
     </>
   );
 };
+
+export default SubmissionForm;
