@@ -6,6 +6,7 @@ import { StudentSectionList } from './StudentSectionList';
 
 // Dislay Component for Students to view their sections
 const RenderStudentDashboard = ({
+  rumbleList,
   sectionList,
 }: IRenderStudentDashboardProps): React.ReactElement => {
   return (
@@ -19,7 +20,7 @@ const RenderStudentDashboard = ({
       ) : (
         <p>Loading Sections...</p>
       )}
-      <StudentRumbleList />
+      <StudentRumbleList rumbleList={rumbleList} />
     </div>
   );
 };
