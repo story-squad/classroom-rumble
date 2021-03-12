@@ -1,18 +1,25 @@
-import React, { useState } from 'react';
-import { StudentViewRumble } from './index';
+import React from 'react';
+import { Rumbles, Sections } from '../../../../api';
+// import { PromptBox } from '../../../common';
 
-const RenderStudentViewRumble = (): React.ReactElement => {
-  const [time, setTime] = useState(true);
-  if (!time) {
-    setTimeout(() => {
-      console.log('Time');
-      console.log(time);
-    }, 15000);
-  } else {
-    clearTimeout();
-  }
-
-  return <>{time ? <div>Show Promopt</div> : <StudentViewRumble />}</>;
+const RenderStudentViewRumble = ({
+  rumble,
+  section,
+}: IRenderStudentViewRumbleProps): React.ReactElement => {
+  return (
+    <div className="student-view-rumble">
+      <h2>{section.name}</h2>
+      <h3>Prompt {rumble.promptId}</h3>
+      <h3>Rumble {rumble.id}</h3>
+      {/* Render the prompt box to the student */}
+      {/* <PromptBox /> */}
+    </div>
+  );
 };
+
+interface IRenderStudentViewRumbleProps {
+  rumble: Rumbles.IRumbleWithSectionInfo;
+  section: Sections.ISectionWithRumbles;
+}
 
 export default RenderStudentViewRumble;

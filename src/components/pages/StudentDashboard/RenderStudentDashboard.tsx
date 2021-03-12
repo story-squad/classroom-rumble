@@ -1,8 +1,7 @@
 import React from 'react';
 import { Rumbles, Sections } from '../../../api';
 import { StudentRumbleList } from './StudentRumbleList';
-// import { StudentViewRumble } from './StudentViewRumble';
-import RenderStudentViewRumble from './StudentViewRumble/RenderStudentViewRumble';
+import { StudentViewRumble } from './StudentViewRumble';
 // Dislay Component for Students to view their sections
 const RenderStudentDashboard = ({
   rumbleList,
@@ -13,7 +12,7 @@ IRenderStudentDashboardProps): React.ReactElement => {
       <h1>Your Dashboard</h1>
       <StudentRumbleList rumbleList={rumbleList} />
       {/* \/ \/ \/ ***THIS IS TEMP *** \/ \/ \/ */}
-      <RenderStudentViewRumble />
+      <StudentViewRumble />
       {/* ^^^^^^^^^^^^ */}
     </div>
   );
