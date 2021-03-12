@@ -8,7 +8,7 @@ import { Modal } from '../../../../common';
 const CreateCustomPromptForm = ({
   closeModal,
 }: Modal.ModalComponentProps): React.ReactElement => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   const setCustomPrompts = useSetRecoilState(prompts.customList);
 
   const onSubmit: SubmitHandler<Prompts.INewPrompt> = async (data) => {
@@ -31,11 +31,26 @@ const CreateCustomPromptForm = ({
           <label htmlFor="customPrompt">New Prompt:</label>
           <textarea
             autoFocus
-            ref={register && register({})}
+            ref={
+              register &&
+              register({
+                required: 'Prompt cannot be empty',
+                minLength: {
+                  value: 10,
+                  message: 'Prompt must be at least 10 characters',
+                },
+              })
+            }
             name="prompt"
             id="customPrompt"
+            rows={5}
             placeholder="Enter custom prompt..."
           />
+          {errors.prompt && (
+            <div className="error">
+              <span>*</span> {errors.prompt.message}!
+            </div>
+          )}
         </div>
         <input type="submit" value="Submit" />
       </form>

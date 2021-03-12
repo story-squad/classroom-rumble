@@ -18,6 +18,7 @@ header {
       flex-flow: row nowrap;
       align-items: center;
       p {
+        cursor: default;
         font-size: 1.2rem;
         color: $white;
 
