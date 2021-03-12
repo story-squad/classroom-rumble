@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import {
   CookiePopup,
+  Header,
   LandingPageWrapper,
   LoadUserData,
   LogoutPopup,
@@ -23,6 +24,7 @@ const App = (): React.ReactElement => {
       <SEO />
       <CookiePopup />
       <LogoutPopup />
+      <PrivateRoute component={Header} />
       <Switch>
         {/* Public Routes */}
         <Route

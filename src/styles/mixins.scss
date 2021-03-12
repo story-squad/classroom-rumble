@@ -5,10 +5,10 @@
 }
 
 // The power of mixins! All your buttons should be consistent with this.
-@mixin button($bgcolor: $primary-base, $font-color: $white) {
+@mixin button($bgcolor: $primary-base, $font-color: $white, $border: none) {
   text-decoration: none;
   cursor: pointer;
-  border: none;
+  border: $border;
   display: block;
 
   background-color: $bgcolor;
@@ -32,13 +32,13 @@
   }
 }
 
-@mixin text-button($color, $darken-amt: 15%) {
+@mixin text-button($color, $fade: 0.25) {
   color: $color;
   cursor: pointer;
   transition: all 0.1s ease-in;
   &:active,
   &:hover {
-    color: darken($color, $darken-amt);
+    color: fade-out($color, $fade);
     transition: all 0.1s ease-in;
   }
 }
