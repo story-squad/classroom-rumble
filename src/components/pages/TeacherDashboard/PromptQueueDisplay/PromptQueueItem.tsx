@@ -11,7 +11,11 @@ const PromptQueueItem = ({
   const { push } = useHistory();
 
   const newRumbleFromThisPrompt = () => {
-    push('/dashboard/teacher/rumble/new', { prompt, ...promptProps });
+    push('/dashboard/teacher/rumble/new', {
+      prompt,
+      starts_at,
+      ...promptProps,
+    });
   };
 
   return (

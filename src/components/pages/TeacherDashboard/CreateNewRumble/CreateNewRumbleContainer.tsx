@@ -7,10 +7,14 @@ const CreateNewRumble = ({
   history,
 }: RouteComponentProps): React.ReactElement => {
   const selectedPrompt = useMemo(
-    () => history.location.state as Prompts.IPrompt | undefined,
+    () => history.location.state as Prompts.IPromptInQueue | undefined,
     [history],
   );
-  return <RenderCreateNewRumble defaultSelected={selectedPrompt} />;
+  return selectedPrompt ? (
+    <RenderCreateNewRumble prompt={selectedPrompt} />
+  ) : (
+    <p>Redirecting...</p>
+  );
 };
 
 export default CreateNewRumble;

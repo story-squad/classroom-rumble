@@ -21,7 +21,7 @@ const CheckboxGroup = ({
             <Checkbox
               key={o.value}
               id={`${id}-${o.value}`}
-              label={<>{o.label}</>}
+              label={<div>{o.label}</div>}
               name={`${name}[${i}]`}
               register={register}
               rules={rules}
