@@ -1,7 +1,7 @@
 import { RegisterOptions, UseFormMethods } from 'react-hook-form';
 
-export interface IOption {
-  value: string | number;
+export interface IOption<T = string | number> {
+  value: T;
   label: string;
 }
 
