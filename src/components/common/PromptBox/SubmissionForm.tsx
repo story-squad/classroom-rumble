@@ -3,15 +3,12 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Submissions } from '../../../api';
 import { auth, prompts, submitModal } from '../../../state';
 import { upload } from '../../../utils';
-import { Modal } from '../Modal';
 
 /**
  * Submission Form allows students to submit an image to the rumble they are currenly in.
  */
 
-export const SubmissionForm = (
-  props: Modal.ModalComponentProps,
-): React.ReactElement => {
+export const SubmissionForm = (): React.ReactElement => {
   // Recoil State for user submissions
   const [file, setFile] = useRecoilState(submitModal.selected);
   const [preview, setPreview] = useRecoilState(submitModal.preview);
@@ -20,8 +17,8 @@ export const SubmissionForm = (
   const [complete, setComplete] = useRecoilState(submitModal.success);
   // Where are we tracking markAsSubmitted?
   const markAsSubmitted = useSetRecoilState(prompts.setSubmitted);
-  // Track the users codename to welcome them to the rumble
-  const codename = useRecoilValue(auth.user);
+  // Track the users to welcome them to the rumble
+  const user = useRecoilValue(auth.user);
 
   // On submit functionality
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -76,9 +73,8 @@ export const SubmissionForm = (
 
   return (
     <>
-      <h1>Tool Tips??</h1>
       <div className="submission-form">
-        {codename && <h2>Hey, {codename}!</h2>}
+        {user && <h2>Hey, {user?.codename}!</h2>}
         <form onSubmit={onSubmit}>
           {preview && (
             <div className="preview">
@@ -104,7 +100,6 @@ export const SubmissionForm = (
           // Once the submission is done, show a button.
           <>
             <div className="success">Submission successful!</div>
-            <button onClick={props.closeModal}>Back to Site</button>
           </>
         )}
       </div>
