@@ -7,7 +7,7 @@
 @import './mediaQueries.scss';
 
 // Google Font Imports
-@import url('https://fonts.googleapis.com/css2?family=Rock+Salt&family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rock+Salt&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
 
 // Page Component Stylesheets
 @import './components/pages/landingPages/landingPages.scss';
@@ -24,3 +24,4 @@
 @import './components/common/cleverButton.scss';
 @import './components/common/header.scss';
 @import './components/common/modal.scss';
+@import './components/common/select.scss';

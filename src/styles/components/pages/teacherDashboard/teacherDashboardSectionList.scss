@@ -1,0 +1,56 @@
+.teacher-dash-section-list-wrapper {
+  padding: 1.5rem;
+  padding-top: 0;
+  @include bp(mid) {
+    padding: 3rem;
+    margin-top: -1rem;
+    padding-top: 0;
+  }
+  .teacher-dash-section-list-container {
+    @include wrapped-container();
+    h2 {
+      color: $c-grey-70;
+      font-size: 1.6rem;
+      line-height: 2rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    button {
+      margin-bottom: 2rem;
+      @include button($white, $primary-base, 1px solid $primary-base);
+      padding: 1rem 2rem;
+      &:hover {
+        background-color: fade-out($primary-base, 0.95);
+      }
+    }
+    .section-list {
+      @include scaling-flexbox;
+      .section-card {
+        @include card($darken-amt: 1%);
+        border: 1px solid $c-grey-20;
+      }
+    }
+  }
+}
+
+.create-new-section-modal {
+  form {
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
+    .form-content {
+      padding: 2rem;
+      border-bottom: 1px solid $w-grey-20;
+      :last-child {
+        margin-bottom: 0;
+      }
+    }
+    input[type='submit'] {
+      margin: 1.6rem 2rem;
+      @include button();
+      padding: 0.8rem 1.6rem;
+      font-size: 1.2rem;
+      align-self: flex-end;
+    }
+  }
+}

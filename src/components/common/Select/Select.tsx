@@ -32,6 +32,7 @@ const Select = ({
           </option>
         ))}
       </select>
+      {!rules?.required && <div className="optional">* Optional</div>}
     </div>
   );
 };
