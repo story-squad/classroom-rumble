@@ -1,17 +1,19 @@
+import moment from 'moment';
+import TimePicker from 'rc-time-picker';
+import 'rc-time-picker/assets/index.css';
 import React, { useMemo } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Prompts, Rumbles } from '../../../../api';
-import { IRumblePostBody } from '../../../../api/Rumbles';
 import { auth, rumbles, sections } from '../../../../state';
-import { CheckboxGroup, Input, Select } from '../../../common';
+import { CheckboxGroup, Select } from '../../../common';
 
 const CreateNewRumbleForm = ({
   prompt,
 }: ICreateNewRumbleFormProps): React.ReactElement => {
   // Functional Hooks
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, control } = useForm();
   const { push } = useHistory();
 
   // Subscribe to state
@@ -25,21 +27,20 @@ const CreateNewRumbleForm = ({
     [sectionList],
   );
 
-  const onSubmit: SubmitHandler<
-    IRumblePostBody & { sectionIds: string[] }
-  > = async ({ sectionIds, ...data }) => {
+  const onSubmit: SubmitHandler<{
+    sectionIds: string[];
+    momentTime: moment.Moment;
+  }> = async ({ sectionIds, momentTime }) => {
     // Parse the ids that have been checked (sectionId[n] is TRUE)
     // return the `value` of the option item at that index
     const idList = sectionOptions
       .filter((op, i) => sectionIds[i])
       .map((op) => op.value);
+    const numMinutes = momentTime.minutes() + 60 * momentTime.hour();
     try {
       if (user) {
         const res = await Rumbles.create(
-          {
-            numMinutes: parseInt(`${data.numMinutes}`, 10),
-            promptId: prompt.id,
-          },
+          { numMinutes, promptId: prompt.id },
           user.id,
           idList,
         );
@@ -65,15 +66,19 @@ const CreateNewRumbleForm = ({
         />
       </div>
       <div className="section-wrapper">
-        <h3>Time to Submit (minutes)</h3>
-        <Input
-          id="newRumbleNumMinutes"
-          name="numMinutes"
-          register={register}
-          type="number"
-          rules={{
-            min: 5 || 'Must be at least 5 minutes!',
-          }}
+        <h3>Set a Timer</h3>
+        <Controller
+          control={control}
+          name="momentTime"
+          defaultValue={moment().hour(1).minute(0)}
+          render={(props) => (
+            <TimePicker
+              {...props}
+              minuteStep={15}
+              showSecond={false}
+              defaultOpenValue={moment().hour(1).minute(0)}
+            />
+          )}
         />
       </div>
       <div className="button-row">

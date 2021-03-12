@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { Rumbles, Sections } from '../../../../api';
@@ -11,6 +11,23 @@ const TeacherDashboardRumbleCard = ({
   const { push } = useHistory();
   const setCurrentSection = useSetRecoilState(current.section);
   const setCurrentRumble = useSetRecoilState(current.rumble);
+
+  // Memoize the minutes and hours to reduce calculations
+  const hours = useMemo(() => Math.floor(rumble.numMinutes / 60), [rumble]);
+  const mins = useMemo(() => rumble.numMinutes % 60, [rumble]);
+  const timeDisplay = useMemo(() => {
+    let res = '';
+    if (hours > 0) {
+      res += hours + ' hr';
+      if (hours > 1) res += 's';
+      if (mins > 0) res += ', ';
+    }
+    if (mins > 0) {
+      res += mins + ' min';
+      if (mins > 1) res += 's';
+    }
+    return res;
+  }, [hours, mins]);
 
   const openCurrentRumble = () => {
     setCurrentRumble(rumble);
@@ -30,7 +47,7 @@ const TeacherDashboardRumbleCard = ({
       </div>
       <div className="content">
         <h3>Length</h3>
-        <h4>{rumble.numMinutes} minutes</h4>
+        <h4>{timeDisplay}</h4>
       </div>
     </div>
   );
