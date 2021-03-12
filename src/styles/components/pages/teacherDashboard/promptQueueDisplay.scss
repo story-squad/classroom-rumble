@@ -3,11 +3,12 @@
   padding: 3rem 1.5rem;
   @include bp(mid) {
     padding: 3rem;
+    padding-bottom: 1rem;
   }
   .prompt-queue-container {
     @include wrapped-container;
     h2 {
-      color: $w-grey-70;
+      color: $w-grey-60;
       font-size: 1.5rem;
       font-weight: 700;
       margin-bottom: 1.5rem;
@@ -69,6 +70,45 @@
           }
         }
       }
+    }
+  }
+}
+
+.custom-prompt-modal {
+  form {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-end;
+    .text-input {
+      padding: 2rem;
+      border-bottom: 1px solid $w-grey-20;
+      display: flex;
+      flex-flow: column;
+      align-items: flex-start;
+
+      label {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+        font-weight: 600;
+      }
+      textarea {
+        @include text-input;
+      }
+      .error {
+        span {
+          color: $red-bright;
+        }
+        margin-top: 1rem;
+        font-size: 1.2rem;
+        font-style: italic;
+        font-weight: 300;
+      }
+    }
+    input[type='submit'] {
+      margin: 1.6rem 2rem;
+      @include button();
+      padding: 0.8rem 1.6rem;
+      font-size: 1.2rem;
     }
   }
 }

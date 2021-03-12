@@ -22,7 +22,7 @@ const PromptQueueDisplayContainer = (): React.ReactElement => {
   }, []);
 
   return promptQueue ? (
-    <RenderPromptQueueDisplay queue={[...customPrompts, ...promptQueue]} />
+    <RenderPromptQueueDisplay queue={[...promptQueue, ...customPrompts]} />
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (

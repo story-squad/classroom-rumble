@@ -12,6 +12,7 @@ const CreateCustomPrompt = ({
       visible={isVisible}
       setVisible={setIsVisible}
       title="Custom Prompt"
+      className="custom-prompt-modal"
       centered
     />
   );
