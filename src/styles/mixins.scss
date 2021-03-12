@@ -1,9 +1,3 @@
-// Add this drop shadow to different containers to give your page a more 3D-feel!
-@mixin drop-shadow($color: #0005) {
-  box-shadow: 0 4px 4px $color;
-  -moz-box-shadow: 0 4px 4px $color;
-}
-
 // The power of mixins! All your buttons should be consistent with this.
 @mixin button($bgcolor: $primary-base, $font-color: $white, $border: none) {
   text-decoration: none;
@@ -81,30 +75,25 @@
   color: $c-grey-80;
 }
 
-@mixin list($listname) {
-  .#{$listname}-list {
-    display: flex;
-    flex-flow: row wrap;
-    padding: 1rem;
-    .#{$listname}-card {
-      width: 30%;
-      margin-right: 2%;
-      margin-bottom: 1rem;
-      padding: 1rem;
-      border: 1px solid black;
-      @include drop-shadow;
-      background-color: $white;
-      &:hover {
-        background-color: #fffc;
-        cursor: pointer;
-      }
-    }
-  }
-}
-
 @mixin heading($font-size: 2rem) {
   font-family: $display-font;
   font-size: $font-size;
   width: 100%;
   text-align: center;
+}
+
+@mixin wrapped-container() {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@mixin clickable-bg($bg-color: $primary-base, $darken-amt: 5%) {
+  cursor: pointer;
+  background-color: $bg-color;
+  transition: all 0.15s ease-in-out;
+  &:hover {
+    background-color: darken($bg-color, $darken-amt);
+    transition: all 0.15s ease-in-out;
+  }
 }

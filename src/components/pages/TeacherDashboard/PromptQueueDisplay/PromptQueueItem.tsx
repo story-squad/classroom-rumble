@@ -15,7 +15,7 @@ const PromptQueueItem = ({
   };
 
   return (
-    <div className="prompt-queue-card" onClick={newRumbleFromThisPrompt}>
+    <div className="prompt-queue-item" onClick={newRumbleFromThisPrompt}>
       {starts_at ? (
         <h3>{formatDate(DateTime.fromISO(starts_at))}</h3>
       ) : (

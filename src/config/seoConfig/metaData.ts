@@ -1,7 +1,7 @@
 export const description =
   'Share your stories with your classrom with our free daily story contest!';
 
-export const title = 'Story Squad - Classroom Rumble';
+export const title = 'Classroom Rumble - Story Squad';
 
 export const twitterHandle = '@story_hq';
 

@@ -1,11 +1,9 @@
-.teacher-dashboard-wrapper {
-  padding: 1rem;
-  h1 {
-    color: $white;
-    font-family: $display-font;
-    font-size: 3rem;
-  }
-  @import './studentList.scss';
-  @import './promptQueueDisplay.scss';
-  @import './submissionList.scss';
+.teacher-dashboard {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
 }
+
+@import './studentList.scss';
+@import './promptQueueDisplay.scss';
+@import './submissionList.scss';

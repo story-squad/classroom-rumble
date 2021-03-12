@@ -1,8 +1,74 @@
-.prompt-queue-display {
-  h2 {
-    color: $white;
-    font-size: 2rem;
-    font-family: $display-font;
+.prompt-queue-wrapper {
+  background-color: $w-grey-10;
+  padding: 3rem 1.5rem;
+  @include bp(mid) {
+    padding: 3rem;
   }
-  @include list('prompt-queue');
+  .prompt-queue-container {
+    @include wrapped-container;
+    h2 {
+      color: $w-grey-70;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    .prompt-queue-list {
+      display: flex;
+      flex-flow: row nowrap;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      @include bp(mid) {
+        overflow: visible;
+        flex-flow: row wrap;
+        padding-bottom: unset;
+      }
+
+      div {
+        padding: 1.6rem;
+        border-radius: 1.6rem;
+        margin-bottom: 2rem;
+        margin-right: 2rem;
+
+        min-width: 20rem;
+        @include bp(mid) {
+          min-width: unset;
+          width: 45%;
+        }
+        @include bp(750px) {
+          width: 30%;
+        }
+
+        &.prompt-queue-item {
+          @include clickable-bg($white, 2.5%);
+          border: 1px solid $c-grey-40;
+          h3 {
+            color: $c-grey-40;
+            font-size: 1.4rem;
+            font-weight: 800;
+            padding-bottom: 0.7rem;
+            border-bottom: 1px solid $c-grey-20;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+          }
+          p {
+            color: $black;
+            font-size: 1.6rem;
+            line-height: 2rem;
+          }
+        }
+
+        &.custom-prompt-button {
+          @include clickable-bg($primary-base);
+          border: 1px solid darken($primary-base, 15%);
+
+          h3 {
+            font-size: 1.8rem;
+            line-height: 2.4rem;
+            color: $white;
+            font-weight: 700;
+          }
+        }
+      }
+    }
+  }
 }

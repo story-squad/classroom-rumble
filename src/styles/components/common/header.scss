@@ -2,9 +2,7 @@ header {
   background-color: $primary-base;
   padding: 1.6rem;
   .header-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+    @include wrapped-container;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
