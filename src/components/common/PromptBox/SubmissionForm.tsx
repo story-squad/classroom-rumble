@@ -18,6 +18,7 @@ const SubmissionForm = (): React.ReactElement => {
 
   // Where are we tracking markAsSubmitted?
   const markAsSubmitted = useSetRecoilState(prompts.setSubmitted);
+
   // We will always know the rumble if we get this far bc the PromptBox is only rendered within a Rumble.
   const currentRumble = useRecoilValue(current.rumble);
   // Ensuring the promptId is a string before it is uploaded
@@ -96,7 +97,7 @@ const SubmissionForm = (): React.ReactElement => {
                 {file ? 'Change Picture' : 'Select a Picture'}
                 <input type="file" onChange={fileSelection} hidden />
               </label>
-              <button type="submit">Submit</button>
+              <button type="submit">Submit Your Story</button>
             </>
           )}
         </form>
