@@ -1,8 +1,8 @@
 import React from 'react';
 import { Sections } from '../../../api';
-import { SectionList } from '../../common';
 import { PromptQueueDisplay } from './PromptQueueDisplay';
 import { TeacherDashboardRumbleList } from './TeacherDashboardRumbleList';
+import { TeacherDashboardSectionList } from './TeacherDashboardSectionList';
 
 const RenderTeacherDashboard = ({
   sectionList,
@@ -14,7 +14,7 @@ const RenderTeacherDashboard = ({
       {sectionList ? (
         <>
           <TeacherDashboardRumbleList sections={sectionList} />
-          <SectionList sections={sectionList} isTeacher />
+          <TeacherDashboardSectionList sections={sectionList} isTeacher />
         </>
       ) : (
         <p>Loading Sections...</p>

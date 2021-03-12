@@ -37,7 +37,7 @@
   }
 }
 
-@mixin placeholder($color: $c-grey-base) {
+@mixin placeholder($color: $slate) {
   &::placeholder {
     color: $color;
     font-weight: 400;
@@ -95,5 +95,62 @@
   &:hover {
     background-color: darken($bg-color, $darken-amt);
     transition: all 0.15s ease-in-out;
+  }
+}
+
+@mixin scaling-flexbox() {
+  display: flex;
+  flex-flow: row nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  @include bp(mid) {
+    overflow: visible;
+    flex-flow: row wrap;
+    padding-bottom: unset;
+  }
+  & > div {
+    min-width: 20rem;
+    @include bp(mid) {
+      min-width: unset;
+      width: 45%;
+    }
+    @include bp(750px) {
+      width: 30%;
+    }
+  }
+}
+
+@mixin card($bg-color: $white, $darken-amt: 5%, $margin: 2rem) {
+  padding: 1.6rem;
+  border-radius: 1.6rem;
+  margin-bottom: $margin;
+  margin-right: $margin;
+  @include clickable-bg($bg-color, $darken-amt);
+  .content {
+    padding: 1rem 0;
+    &:first-of-type {
+      padding-top: 0;
+    }
+    border-bottom: 1px solid $c-grey-20;
+    &:last-of-type {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    width: 100%;
+
+    h3 {
+      font-size: 1.2rem;
+      line-height: 1.4rem;
+      color: $c-grey-40;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    h4 {
+      font-size: 1.8rem;
+      line-height: 2.1rem;
+      font-weight: 600;
+    }
   }
 }
