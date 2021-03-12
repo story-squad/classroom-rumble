@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Prompts, Rumbles } from '../../../../api';
 import { IRumblePostBody } from '../../../../api/Rumbles';
 import { auth, prompts, rumbles, sections } from '../../../../state';
-import { Input, Select } from '../../../common';
+import { CheckboxGroup, Input, Select } from '../../../common';
 
 const CreateNewRumbleForm = ({
   defaultSelected,
@@ -40,7 +40,7 @@ const CreateNewRumbleForm = ({
     });
     return op;
   }, [promptList, promptQueue, customPrompts]);
-  const sectionOptions = useMemo<Select.IOption[]>(
+  const sectionOptions = useMemo<Select.IOption<number>[]>(
     () => sectionList?.map((s) => ({ value: s.id, label: s.name })) ?? [],
     [sectionList],
   );
@@ -48,6 +48,11 @@ const CreateNewRumbleForm = ({
   const onSubmit: SubmitHandler<
     IRumblePostBody & { sectionIds: string[] }
   > = async ({ sectionIds, ...data }) => {
+    console.log(sectionIds);
+    const idList = sectionOptions
+      .filter((op, i) => sectionIds[i])
+      .map((op) => op.value);
+    console.log(idList);
     try {
       if (user) {
         const res = await Rumbles.create(
@@ -56,7 +61,7 @@ const CreateNewRumbleForm = ({
             promptId: parseInt(`${data.promptId}`, 10),
           },
           user.id,
-          sectionIds.map((x) => parseInt(`${x}`, 10)),
+          idList,
         );
         addRumbles(res);
         push('/dashboard/teacher');
@@ -100,11 +105,10 @@ const CreateNewRumbleForm = ({
         }}
       />
 
-      <Select.Component
+      <CheckboxGroup
         id="newRumbleSectionIds"
         name="sectionIds"
         register={register}
-        multiple
         options={sectionOptions}
       />
 

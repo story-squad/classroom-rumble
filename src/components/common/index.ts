@@ -1,4 +1,5 @@
 export { Checkbox } from './Checkbox';
+export { CheckboxGroup } from './CheckboxGroup';
 export { CleverButton } from './CleverButton';
 export { CookiePopup } from './CookiePopup';
 export { CouldNotLoad } from './CouldNotLoad';
