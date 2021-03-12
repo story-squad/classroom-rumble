@@ -2,6 +2,7 @@ export { Checkbox } from './Checkbox';
 export { CleverButton } from './CleverButton';
 export { CookiePopup } from './CookiePopup';
 export { CouldNotLoad } from './CouldNotLoad';
+export { Header } from './Header';
 export { Input } from './Input';
 export { LandingPageWrapper } from './LandingPageWrapper';
 export { LoadUserData } from './LoadUserData';
