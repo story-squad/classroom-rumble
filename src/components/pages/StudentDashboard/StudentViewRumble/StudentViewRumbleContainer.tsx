@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { Students } from '../../../../api';
+import { Rumbles } from '../../../../api';
 import { useCheckBrowserState } from '../../../../hooks';
 import { current } from '../../../../state';
 import RenderStudentViewRumble from './RenderStudentViewRumble';
@@ -18,7 +18,7 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
       console.log('Time');
       if (rumble?.id) {
         setIsFetching(true);
-        Students.getRumbleById(rumble.id)
+        Rumbles.getRumbleById(rumble.id)
           .then((res) => {
             console.log(res);
             setIsFetching(false);
