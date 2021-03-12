@@ -1,1 +1,1 @@
-export { default as StudentViewRumble } from './StudnetViewRumbleContainer';
+export { default as StudentViewRumble } from './StudentViewRumbleContainer';
