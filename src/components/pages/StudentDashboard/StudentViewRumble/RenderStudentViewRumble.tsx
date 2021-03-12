@@ -11,7 +11,7 @@ const RenderStudentViewRumble = ({
       <h2>{section.name}</h2>
       <h3>Prompt {rumble.promptId}</h3>
       <h3>Rumble {rumble.id}</h3>
-      {/* Render the prompt box to the student */}
+      {/* Render the prompt box to the student inside a rumble */}
       <PromptBox />
     </div>
   );
