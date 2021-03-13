@@ -8,7 +8,7 @@ const TeacherViewSectionContainer = (): React.ReactElement => {
   const { isLoading } = useCheckBrowserState('section');
   const section = useRecoilValue(current.section);
 
-  return section ? (
+  return section && !isLoading ? (
     <RenderTeacherViewSection section={section} />
   ) : isLoading ? (
     <p>Loading...</p>
