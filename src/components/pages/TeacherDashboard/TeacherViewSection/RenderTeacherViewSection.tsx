@@ -1,5 +1,6 @@
 import React from 'react';
 import { Sections } from '../../../../api';
+import { helpers } from '../../../../utils';
 import { TeacherDashboardRumbleList } from '../TeacherDashboardRumbleList';
 import { SectionStudentList } from './SectionStudentList';
 
@@ -12,11 +13,7 @@ const RenderTeacherViewSection = ({
       <div className="section-info">
         <div>Grade: {section.gradeId}</div>
         <div>Subject: {section.subjectId}</div>
-        <div>
-          Join URL: http://localhost:3000/dashboard/student/join?joinCode=
-          {section.joinCode}
-          &sectionId={section.id}
-        </div>
+        <div>Join URL: {helpers.joinCode(section)}</div>
       </div>
       <TeacherDashboardRumbleList sections={[section]} />
       <SectionStudentList section={section} />

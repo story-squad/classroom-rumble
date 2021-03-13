@@ -10,7 +10,7 @@ const TeacherViewSubmissionContainer = (): React.ReactElement => {
   const student = useRecoilValue(current.student);
   const submission = useRecoilValue(current.sub);
 
-  return section && student && submission ? (
+  return section && student && submission && !isLoading ? (
     <RenderTeacherViewSubmission
       section={section}
       student={student}
