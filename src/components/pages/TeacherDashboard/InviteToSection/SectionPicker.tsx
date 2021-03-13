@@ -6,7 +6,6 @@ const SectionPicker = ({
   setCurrentSection,
 }: ISectionPickerProps): React.ReactElement => (
   <div className="section-picker">
-    <h3>Invite to Which Class?</h3>
     <div className="section-picker-list">
       {sectionList.map((sec) => (
         <div

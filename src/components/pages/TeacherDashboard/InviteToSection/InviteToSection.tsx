@@ -5,7 +5,9 @@ import { Modal } from '../../../common';
 import InviteCode from './InviteCode';
 import SectionPicker from './SectionPicker';
 
-const InviteToSection = (): React.ReactElement => {
+const InviteToSection = ({
+  disableSectionPicker = false,
+}: IInviteToSectionProps): React.ReactElement => {
   const [isOpen, setIsOpen] = useRecoilState(modals.invite.isOpen);
   const [currentSection, setCurrentSection] = useRecoilState(current.section);
   const clearSection = useResetRecoilState(current.section);
@@ -16,7 +18,11 @@ const InviteToSection = (): React.ReactElement => {
       className="invite-to-section"
       component={() =>
         currentSection ? (
-          <InviteCode section={currentSection} goBack={clearSection} />
+          <InviteCode
+            disableSectionPicker={disableSectionPicker}
+            section={currentSection}
+            goBack={clearSection}
+          />
         ) : (
           <SectionPicker
             sectionList={sectionList}
@@ -27,8 +33,13 @@ const InviteToSection = (): React.ReactElement => {
       visible={isOpen}
       setVisible={setIsOpen}
       centered
+      title={currentSection ? 'Join Link' : 'Select a Class'}
     />
   );
 };
+
+interface IInviteToSectionProps {
+  disableSectionPicker?: boolean;
+}
 
 export default InviteToSection;

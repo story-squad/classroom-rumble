@@ -1,0 +1,32 @@
+.teacher-view-section {
+  .section-info-wrapper {
+    .section-info-container {
+      @include wrapped-container();
+      background-color: $w-grey-10;
+      padding: 2rem 1rem;
+      .content {
+        display: flex;
+        flex-flow: row wrap;
+        .content-item {
+          width: 100%;
+          margin-bottom: 1rem;
+          h3 {
+            color: $c-grey-40;
+            font-weight: 700;
+            font-size: 1.2rem;
+            line-height: 1.5rem;
+          }
+          h4 {
+            color: $c-grey-70;
+            font-weight: 600;
+            font-size: 1.6rem;
+            line-height: 2rem;
+          }
+        }
+      }
+      button {
+        @include button-alt;
+      }
+    }
+  }
+}

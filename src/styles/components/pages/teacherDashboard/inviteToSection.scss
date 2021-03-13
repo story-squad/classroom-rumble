@@ -30,7 +30,9 @@
       .section-picker-item {
         font-size: 1.6rem;
         line-height: 2rem;
-        margin-bottom: 1rem;
+        &:not(:last-of-type) {
+          margin-bottom: 1rem;
+        }
         @include text-button($black);
       }
     }
