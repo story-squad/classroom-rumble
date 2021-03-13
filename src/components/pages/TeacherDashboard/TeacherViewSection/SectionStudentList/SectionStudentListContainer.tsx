@@ -12,6 +12,7 @@ const SectionStudentListContainer = ({
   const [error, setError] = useState<string>();
 
   useEffect(() => {
+    console.log('sectionId', section.id);
     Students.getWithSubsBySectionId(section.id)
       .then((res) => {
         setStudentList(res);

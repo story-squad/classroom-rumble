@@ -9,7 +9,7 @@ const TeacherViewRumbleContainer = (): React.ReactElement => {
   const section = useRecoilValue(current.section);
   const rumble = useRecoilValue(current.rumble);
 
-  return section && rumble ? (
+  return section && rumble && !isLoading ? (
     <RenderTeacherViewRumble rumble={rumble} section={section} />
   ) : isLoading ? (
     <p>Loading...</p>
