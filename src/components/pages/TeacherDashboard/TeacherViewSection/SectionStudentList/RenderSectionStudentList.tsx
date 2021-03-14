@@ -11,10 +11,12 @@ const RenderSectionStudentList = ({
       <div className="student-list-container">
         <div className="student-list">
           <div className="list-header">
-            <div className="list-header-col">Student Name</div>
-            <div className="list-header-col">Last Name</div>
-            <div className="list-header-col">First Name</div>
-            <div className="list-header-col"># of Submissions</div>
+            <div className="row-wrapper">
+              <div className="list-header-col">Student Name</div>
+              <div className="list-header-col">Last Name</div>
+              <div className="list-header-col">First Name</div>
+              <div className="list-header-col"># of Submissions</div>
+            </div>
           </div>
           <div className="list-body">
             {studentList.map((student) => (

@@ -20,12 +20,14 @@ const SectionStudentCard = ({
 
   return (
     <div className="list-body-row" onClick={openStudent}>
-      <div className="list-body-col">
-        {student.firstname} {student.lastname}
+      <div className="row-wrapper">
+        <div className="list-body-col">
+          {student.firstname} {student.lastname}
+        </div>
+        <div className="list-body-col">{student.lastname}</div>
+        <div className="list-body-col">{student.firstname}</div>
+        <div className="list-body-col">{student.submissions.length}</div>
       </div>
-      <div className="list-body-col">{student.lastname}</div>
-      <div className="list-body-col">{student.firstname}</div>
-      <div className="list-body-col">{student.submissions.length}</div>
     </div>
   );
 };
