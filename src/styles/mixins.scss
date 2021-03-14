@@ -90,9 +90,9 @@
   text-align: center;
 }
 
-@mixin wrapped-container() {
+@mixin wrapped-container($max: 1200px) {
   width: 100%;
-  max-width: 1200px;
+  max-width: $max;
   margin: 0 auto;
 }
 
@@ -174,27 +174,33 @@
   }
   #{$row},
   .list-header {
-    display: flex;
-    flex-flow: row nowrap;
-    color: $w-grey-60;
     border-bottom: $border;
+    .row-wrapper {
+      @include wrapped-container(900px);
+      display: flex;
+      flex-flow: row nowrap;
+      color: $w-grey-60;
 
-    #{$col} {
-      padding: 1rem;
-      @include bp(mid) {
-        padding: 1.5rem 2rem;
+      #{$col} {
+        padding: 1rem;
+        @include bp(mid) {
+          padding: 1.5rem 2rem;
+        }
+        @include bp(950px) {
+          padding: 1.5rem 0;
+        }
       }
-    }
-    // this allows us to pass in a helpful list of
-    // column widths into the mixin
-    @for $i from 1 through length($widths) {
-      #{$col}:nth-of-type(#{$i}) {
-        $width: nth($widths, $i);
-        @if $width == 0 {
-          display: none;
-        } @else {
-          display: block;
-          width: nth($widths, $i);
+      // this allows us to pass in a helpful list of
+      // column widths into the mixin
+      @for $i from 1 through length($widths) {
+        #{$col}:nth-of-type(#{$i}) {
+          $width: nth($widths, $i);
+          @if $width == 0 {
+            display: none;
+          } @else {
+            display: block;
+            width: nth($widths, $i);
+          }
         }
       }
     }
