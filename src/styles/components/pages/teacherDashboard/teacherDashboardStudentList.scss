@@ -1,0 +1,21 @@
+.student-list-wrapper {
+  .student-list-container {
+    @include wrapped-container;
+    .student-list {
+      @include table(60%, 0, 0, 40%);
+      @include bp(tablet) {
+        @include table(0, 35%, 35%, 30%);
+      }
+      font-size: 1.4rem;
+      line-height: 1.6rem;
+      .list-header {
+        font-size: 1.2rem;
+        line-height: 1.6rem;
+        font-weight: 600;
+      }
+      .list-body-row {
+        @include clickable-bg($white, 2.5%);
+      }
+    }
+  }
+}

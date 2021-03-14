@@ -162,3 +162,41 @@
     }
   }
 }
+
+@mixin table($widths...) {
+  $col: "[class$='col']";
+  $row: "[class$='row']";
+  $border: 1px solid $c-grey-10;
+
+  .list-header {
+    background-color: $w-grey-05;
+    color: $w-grey-90;
+  }
+  #{$row},
+  .list-header {
+    display: flex;
+    flex-flow: row nowrap;
+    color: $w-grey-60;
+    border-bottom: $border;
+
+    #{$col} {
+      padding: 1rem;
+      @include bp(mid) {
+        padding: 1.5rem 2rem;
+      }
+    }
+    // this allows us to pass in a helpful list of
+    // column widths into the mixin
+    @for $i from 1 through length($widths) {
+      #{$col}:nth-of-type(#{$i}) {
+        $width: nth($widths, $i);
+        @if $width == 0 {
+          display: none;
+        } @else {
+          display: block;
+          width: nth($widths, $i);
+        }
+      }
+    }
+  }
+}

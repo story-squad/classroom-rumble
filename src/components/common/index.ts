@@ -6,6 +6,7 @@ export { CouldNotLoad } from './CouldNotLoad';
 export { Header } from './Header';
 export { Input } from './Input';
 export { LandingPageWrapper } from './LandingPageWrapper';
+export { Loader } from './Loader';
 export { LoadUserData } from './LoadUserData';
 export { LogoutPopup } from './LogoutPopup';
 export { Modal } from './Modal';

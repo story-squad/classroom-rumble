@@ -4,7 +4,9 @@ import TeacherDashboardRumbleCard from './TeacherDashboardRumbleCard';
 
 const TeacherDashboardRumbleList = ({
   sections,
+  visible = true,
 }: ITeacherDashboardRumbleListProps): React.ReactElement => {
+  if (!visible) return <></>;
   return (
     <div className="teacher-dash-rumble-list-wrapper">
       <div className="teacher-dash-rumble-list-container">
@@ -27,6 +29,7 @@ const TeacherDashboardRumbleList = ({
 
 interface ITeacherDashboardRumbleListProps {
   sections: Sections.ISectionWithRumbles[];
+  visible?: boolean;
 }
 
 export default TeacherDashboardRumbleList;
