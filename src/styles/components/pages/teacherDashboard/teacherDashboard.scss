@@ -4,11 +4,11 @@
   align-items: stretch;
 }
 
-@import './studentList.scss';
 @import './promptQueueDisplay.scss';
 @import './submissionList.scss';
 @import './teacherDashboardRumbleList.scss';
 @import './teacherDashboardSectionList.scss';
 @import './createNewRumble.scss';
 @import './inviteToSection.scss';
-@import './teacherViewSection.scss';
+@import './teacherViewSectionPage/teacherViewSection.scss';
+@import './teacherDashboardStudentList.scss';

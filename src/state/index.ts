@@ -6,3 +6,4 @@ export * as prompts from './promptState';
 export * from './reset';
 export * as rumbles from './rumbleState';
 export * as sections from './sectionState';
+export * as students from './studentState';
