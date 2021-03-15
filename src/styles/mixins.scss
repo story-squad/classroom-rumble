@@ -35,6 +35,9 @@
 }
 
 @mixin text-button($color, $fade: 0.25) {
+  border: none;
+  background: none;
+  padding: 0;
   color: $color;
   cursor: pointer;
   transition: all 0.1s ease-in;
@@ -167,9 +170,15 @@
   $border: 1px solid $c-grey-10;
   $content-width: 900px;
 
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+
   .table-header {
     background-color: $w-grey-05;
     color: $w-grey-90;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    font-weight: 600;
   }
 
   .table-row,
@@ -179,9 +188,13 @@
       @include wrapped-container($content-width);
       display: flex;
       flex-flow: row nowrap;
+      align-items: stretch;
       color: $w-grey-60;
 
       .table-col {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
         padding: 1rem;
         @include bp(mid) {
           padding: 1.5rem 2rem;
@@ -198,7 +211,7 @@
           @if $width == 0 {
             display: none;
           } @else {
-            display: block;
+            display: flex;
             width: $width;
           }
         }

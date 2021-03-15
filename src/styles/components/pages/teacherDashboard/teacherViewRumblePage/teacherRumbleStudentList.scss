@@ -1,0 +1,17 @@
+.rumble-student-list-wrapper {
+  .rumble-student-list-container {
+    @include wrapped-container();
+    .rumble-student-list {
+      @include table(60%, 0, 0, 40%);
+      @include bp(tablet) {
+        @include table(0, 35%, 35%, 30%);
+      }
+      .status {
+        font-style: italic;
+        button {
+          @include text-button($primary-base);
+        }
+      }
+    }
+  }
+}
