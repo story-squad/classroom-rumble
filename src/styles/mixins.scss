@@ -165,6 +165,7 @@
 
 @mixin table($widths...) {
   $border: 1px solid $c-grey-10;
+  $content-width: 900px;
 
   .table-header {
     background-color: $w-grey-05;
@@ -175,7 +176,7 @@
   .table-header {
     border-bottom: $border;
     .row-wrapper {
-      @include wrapped-container(900px);
+      @include wrapped-container($content-width);
       display: flex;
       flex-flow: row nowrap;
       color: $w-grey-60;
