@@ -1,4 +1,5 @@
 .teacher-view-rumble {
+  @import './teacherRumbleStudentList.scss';
   .prompt-info-wrapper {
     .prompt-info-container {
       @include wrapped-container();
