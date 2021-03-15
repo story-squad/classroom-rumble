@@ -12,6 +12,9 @@
       align-items: flex-start;
       justify-content: center;
     }
+    @include bp(1200px) {
+      border-radius: 0 0 16px 16px;
+    }
     .content {
       display: flex;
       flex-flow: row wrap;
