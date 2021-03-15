@@ -164,16 +164,15 @@
 }
 
 @mixin table($widths...) {
-  $col: "[class$='col']";
-  $row: "[class$='row']";
   $border: 1px solid $c-grey-10;
 
-  .list-header {
+  .table-header {
     background-color: $w-grey-05;
     color: $w-grey-90;
   }
-  #{$row},
-  .list-header {
+
+  .table-row,
+  .table-header {
     border-bottom: $border;
     .row-wrapper {
       @include wrapped-container(900px);
@@ -181,7 +180,7 @@
       flex-flow: row nowrap;
       color: $w-grey-60;
 
-      #{$col} {
+      .table-col {
         padding: 1rem;
         @include bp(mid) {
           padding: 1.5rem 2rem;
@@ -193,7 +192,7 @@
       // this allows us to pass in a helpful list of
       // column widths into the mixin
       @for $i from 1 through length($widths) {
-        #{$col}:nth-of-type(#{$i}) {
+        .table-col:nth-of-type(#{$i}) {
           $width: nth($widths, $i);
           @if $width == 0 {
             display: none;
