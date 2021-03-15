@@ -1,4 +1,10 @@
 .teacher-view-section {
-  @import './sectionInfo.scss';
   @import './sectionContentSwitcher.scss';
+  .section-info-wrapper {
+    .section-info-container {
+      @include bp(1200px) {
+        border-radius: 0 0 16px 16px;
+      }
+    }
+  }
 }

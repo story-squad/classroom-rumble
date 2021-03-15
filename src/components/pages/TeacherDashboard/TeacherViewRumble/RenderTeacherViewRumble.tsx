@@ -1,24 +1,55 @@
-import React from 'react';
+import { DateTime } from 'luxon';
+import React, { useMemo } from 'react';
 import { Rumbles, Sections } from '../../../../api';
+import { TeacherSectionInfo } from '../TeacherSectionInfo';
 import { RumbleStudentList } from './RumbleStudentList';
 
 const RenderTeacherViewRumble = ({
   rumble,
   section,
+  prompt,
 }: IRenderTeacherViewRumbleProps): React.ReactElement => {
   return (
     <div className="teacher-view-rumble">
-      <h2>{section.name}</h2>
-      <h3>Prompt {rumble.promptId}</h3>
-      <h3>Rumble {rumble.id}</h3>
+      <div className="prompt-info-wrapper">
+        <div className="prompt-info-container">
+          {rumble.end_time ? (
+            <div className="rumble-time">
+              <div>{formatDate(`${rumble.end_time}`)}</div>
+            </div>
+          ) : (
+            <div className="rumble-closed">
+              <p>Rumble Not Open</p>
+            </div>
+          )}
+          <div className="prompt-text">
+            <h2>Prompt</h2>
+            <p>{prompt}</p>
+          </div>
+        </div>
+      </div>
+      <TeacherSectionInfo section={section} />
       <RumbleStudentList section={section} rumble={rumble} />
     </div>
+  );
+};
+
+const formatDate = (date: string): React.ReactNode => {
+  const luxonDate = useMemo(() => DateTime.fromISO(date), [date]);
+  return (
+    <>
+      <div className="date">
+        {luxonDate.toLocaleString({ dateStyle: 'short' })}
+      </div>
+      <div className="day">{luxonDate.toLocaleString({ weekday: 'long' })}</div>
+    </>
   );
 };
 
 interface IRenderTeacherViewRumbleProps {
   rumble: Rumbles.IRumbleWithSectionInfo;
   section: Sections.ISectionWithRumbles;
+  prompt: string;
 }
 
 export default RenderTeacherViewRumble;
