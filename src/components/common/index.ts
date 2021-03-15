@@ -13,3 +13,4 @@ export { Modal } from './Modal';
 export { PrivateRoute } from './PrivateRoute';
 export * as Select from './Select';
 export { SEO } from './SEO';
+export * as Table from './Table';

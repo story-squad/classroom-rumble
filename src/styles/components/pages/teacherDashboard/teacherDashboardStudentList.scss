@@ -13,8 +13,10 @@
         line-height: 1.6rem;
         font-weight: 600;
       }
-      .list-body-row {
-        @include clickable-bg($white, 2.5%);
+      .table-body {
+        .table-row {
+          @include clickable-bg($white, 2.5%);
+        }
       }
     }
   }

@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { Sections, Students } from '../../../../../api';
 import { current } from '../../../../../state';
+import { Table } from '../../../../common';
 
 const SectionStudentCard = ({
   section,
@@ -19,16 +20,14 @@ const SectionStudentCard = ({
   };
 
   return (
-    <div className="list-body-row" onClick={openStudent}>
-      <div className="row-wrapper">
-        <div className="list-body-col">
-          {student.firstname} {student.lastname}
-        </div>
-        <div className="list-body-col">{student.lastname}</div>
-        <div className="list-body-col">{student.firstname}</div>
-        <div className="list-body-col">{student.submissions.length}</div>
-      </div>
-    </div>
+    <Table.Row onClick={openStudent}>
+      <Table.Col>
+        {student.firstname} {student.lastname}
+      </Table.Col>
+      <Table.Col>{student.lastname}</Table.Col>
+      <Table.Col>{student.firstname}</Table.Col>
+      <Table.Col>{student.submissions.length}</Table.Col>
+    </Table.Row>
   );
 };
 
