@@ -1,6 +1,7 @@
 import React from 'react';
 import { Rumbles, Sections } from '../../../../api';
 import { PromptBox } from '../../../common';
+import SubmissionForm from './SubmissionForm';
 
 const RenderStudentViewRumble = ({
   rumble,
@@ -13,6 +14,7 @@ const RenderStudentViewRumble = ({
       <h3>Rumble {rumble.id}</h3>
       {/* Render the prompt box to the student inside a rumble */}
       <PromptBox />
+      <SubmissionForm />
     </div>
   );
 };
