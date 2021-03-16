@@ -1,13 +1,15 @@
 import React, { useMemo } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { Sections } from '../../../../api';
-import { enumData, modals } from '../../../../state';
-import RenderTeacherSectionInfo from './RenderTeacherSectionInfo';
+import { Sections } from '../../../api';
+import { enumData, modals } from '../../../state';
+import RenderSectionInfo from './RenderSectionInfo';
 
-const TeacherSectionInfoContainer = ({
+const SectionInfoContainer = ({
   section,
+  isTeacher = false,
 }: {
   section: Sections.ISectionWithRumbles;
+  isTeacher?: boolean;
 }): React.ReactElement => {
   const gradeEnum = useRecoilValue(enumData.grades);
   const gradeValue = useMemo(() => {
@@ -27,7 +29,8 @@ const TeacherSectionInfoContainer = ({
   };
 
   return (
-    <RenderTeacherSectionInfo
+    <RenderSectionInfo
+      isTeacher={isTeacher}
       section={section}
       openInviteModal={openInviteModal}
       grade={gradeValue}
@@ -36,4 +39,4 @@ const TeacherSectionInfoContainer = ({
   );
 };
 
-export default TeacherSectionInfoContainer;
+export default SectionInfoContainer;

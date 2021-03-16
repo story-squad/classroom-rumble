@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Sections } from '../../../../api';
+import { SectionInfo } from '../../../common';
 import { InviteToSection } from '../InviteToSection';
 import { TeacherDashboardRumbleList } from '../TeacherDashboardRumbleList';
-import { TeacherSectionInfo } from '../TeacherSectionInfo';
 import { SectionStudentList } from './SectionStudentList';
 
 const RenderTeacherViewSection = ({
@@ -15,7 +15,7 @@ const RenderTeacherViewSection = ({
     <>
       <InviteToSection disableSectionPicker />
       <div className="teacher-view-section">
-        <TeacherSectionInfo section={section} />
+        <SectionInfo isTeacher section={section} />
         <div className="section-content-switcher-wrapper">
           <div className="section-content-switcher-container">
             <h3

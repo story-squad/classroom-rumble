@@ -10,12 +10,12 @@
       display: flex;
       flex-flow: row nowrap;
       align-items: flex-start;
-      justify-content: center;
+      justify-content: flex-start;
     }
     .content {
       display: flex;
       flex-flow: row wrap;
-      max-width: 700px;
+      @include wrapped-container(900px);
       @include bp(tablet) {
         justify-content: space-between;
       }

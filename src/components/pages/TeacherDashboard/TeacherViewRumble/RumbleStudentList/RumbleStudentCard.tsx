@@ -24,7 +24,7 @@ const RumbleStudentCard = ({
       submission: student.submissions[0],
     });
   };
-  console.log({ student });
+
   return (
     <Table.Row>
       <Table.Col>

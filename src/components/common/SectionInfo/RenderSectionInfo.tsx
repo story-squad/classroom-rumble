@@ -1,12 +1,13 @@
 import React from 'react';
-import { Sections } from '../../../../api';
+import { Sections } from '../../../api';
 
-const RenderTeacherSectionInfo = ({
+const RenderSectionInfo = ({
   grade,
   subject,
   openInviteModal,
   section,
-}: IRenderTeacherSectionInfoProps): React.ReactElement => (
+  isTeacher,
+}: IRenderSectionInfoProps): React.ReactElement => (
   <div className="section-info-wrapper">
     <div className="section-info-container">
       <div className="content">
@@ -22,17 +23,20 @@ const RenderTeacherSectionInfo = ({
           <h3>Subject</h3>
           <h4>{subject}</h4>
         </div>
+        {isTeacher && (
+          <button onClick={openInviteModal}>Invite Students</button>
+        )}
       </div>
-      <button onClick={openInviteModal}>Invite Students</button>
     </div>
   </div>
 );
 
-interface IRenderTeacherSectionInfoProps {
+interface IRenderSectionInfoProps {
   section: Sections.ISectionWithRumbles;
   openInviteModal: () => void;
   grade: string;
   subject: string;
+  isTeacher: boolean;
 }
 
-export default RenderTeacherSectionInfo;
+export default RenderSectionInfo;
