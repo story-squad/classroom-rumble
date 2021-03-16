@@ -1,7 +1,7 @@
-import React from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import React, { useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Submissions } from '../../../../api';
-import { current, prompts, submitModal } from '../../../../state';
+import { current, submitModal } from '../../../../state';
 import { upload } from '../../../../utils';
 
 /**
@@ -15,9 +15,7 @@ const SubmissionForm = (): React.ReactElement => {
   const [error, setError] = useRecoilState(submitModal.error);
   const [loading, setLoading] = useRecoilState(submitModal.loading);
   const [complete, setComplete] = useRecoilState(submitModal.success);
-
-  // Where are we tracking markAsSubmitted?
-  const markAsSubmitted = useSetRecoilState(prompts.setSubmitted);
+  const [submitted, setSubmitted] = useState(false);
 
   // We will always know the rumble if we get this far bc the PromptBox is only rendered within a Rumble.
   const currentRumble = useRecoilValue(current.rumble);
@@ -47,7 +45,7 @@ const SubmissionForm = (): React.ReactElement => {
             console.log({ err });
           });
         setComplete(true);
-        markAsSubmitted(true);
+        setSubmitted(true);
       } catch (err) {
         if (err?.response?.data?.error) {
           if (err.response.data.error === 'Transcription error')
@@ -101,7 +99,7 @@ const SubmissionForm = (): React.ReactElement => {
             </>
           )}
         </form>
-        {complete && (
+        {submitted && (
           // Once the submission is done, show a button.
           <>
             <div className="success">Submission successful!</div>
