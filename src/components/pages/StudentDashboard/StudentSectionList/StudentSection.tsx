@@ -11,12 +11,12 @@ const StudentSection = ({
 }: ISection): React.ReactElement => {
   return (
     <div className="student-section">
-      {id}
-      {name}
-      {gradeId}
-      {subjectId}
-      {active}
-      {joinCode}
+      <p>ID: {id}</p>
+      <p>Name: {name} </p>
+      <p>Grade ID: {gradeId}</p>
+      <p>Subject ID: {subjectId}</p>
+      <p>ACtive: {active}</p>
+      <p>JoinCode: {joinCode}</p>
     </div>
   );
 };

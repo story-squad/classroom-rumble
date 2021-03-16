@@ -20,3 +20,8 @@ export const rumble = atom<Rumbles.IRumbleWithSectionInfo | undefined>({
   key: 'currentRumbleView',
   default: undefined,
 });
+
+export const hasSubmitted = atom<boolean | undefined>({
+  key: 'currentUserHasSubmitted',
+  default: undefined,
+});

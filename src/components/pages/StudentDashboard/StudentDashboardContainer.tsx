@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { rumbles, sections } from '../../../state';
 import { JoinSectionRedirect } from './JoinSectionRedirect';
 import RenderStudentDashboard from './RenderStudentDashboard';
+import { StudentViewRumble } from './StudentViewRumble';
 
 const StudentDashboardContainer = (): React.ReactElement => {
   const sectionList = useRecoilValue(sections.list);
@@ -26,6 +27,14 @@ const StudentDashboardContainer = (): React.ReactElement => {
           />
         )}
       />
+
+      {/* Route to the current rumble */}
+      <Route
+        exact
+        path="/dashboard/student/rumble"
+        render={() => <StudentViewRumble />}
+      />
+
       {/* Fallback redirect for nonexistent routes */}
       <Route
         path="/dashboard/student"
