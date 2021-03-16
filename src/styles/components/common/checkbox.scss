@@ -7,6 +7,7 @@
   label {
     display: flex;
     flex-flow: row nowrap;
+    cursor: pointer;
 
     & > :not(input) {
       text-align: left;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Sections } from '../../../api';
+import { Loader } from '../../common';
 import { StudentDashboardRumbleList } from './StudentDashboardRumbleList';
 import { StudentSectionList } from './StudentSectionList';
 
@@ -16,7 +17,7 @@ const RenderStudentDashboard = ({
           <StudentSectionList />
         </>
       ) : (
-        <p>Loading Sections...</p>
+        <Loader message="Loading sections" />
       )}
     </div>
   );

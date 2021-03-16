@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Auth, Sections, Submissions } from '../../../../../api';
+import { Sections, Students, Submissions } from '../../../../../api';
 import { CouldNotLoad } from '../../../../common';
 import RenderSubmissionList from './RenderSubmissionList';
 
@@ -7,7 +7,9 @@ const SubmissionListContainer = ({
   student,
   section,
 }: ISubmissionListContainerProps): React.ReactElement => {
-  const [subList, setSubList] = useState<Submissions.ISubItem[]>();
+  const [subList, setSubList] = useState<Submissions.ISubItem[]>(
+    student.submissions,
+  );
   const [error, setError] = useState<string>();
 
   useEffect(() => {
@@ -34,7 +36,7 @@ const SubmissionListContainer = ({
 };
 
 interface ISubmissionListContainerProps {
-  student: Auth.IUser;
+  student: Students.IStudentWithSubmissions;
   section: Sections.ISection;
 }
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { Auth, Rumbles, Sections, Submissions } from '../../api';
+import { Rumbles, Sections, Students, Submissions } from '../../api';
 import { current } from '../../state';
 
 const useCheckBrowserState = (
@@ -11,7 +11,7 @@ const useCheckBrowserState = (
   const location = useLocation();
   const state = location.state as {
     section: Sections.ISectionWithRumbles;
-    student: Auth.IUser;
+    student: Students.IStudentWithSubmissions;
     submission: Submissions.ISubItem;
     rumble: Rumbles.IRumbleWithSectionInfo;
   };

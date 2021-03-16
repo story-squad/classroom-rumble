@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { sections } from '../../../state';
+import { Header } from '../../common';
 import { CreateNewRumble } from './CreateNewRumble';
 import RenderTeacherDashboard from './RenderTeacherDashboard';
 import { TeacherViewRumble } from './TeacherViewRumble';
@@ -13,8 +14,8 @@ const TeacherDashboardContainer = (): React.ReactElement => {
   const sectionList = useRecoilValue(sections.list);
 
   return (
-    <div className="teacher-dashboard-wrapper">
-      <h1>Dashboard</h1>
+    <>
+      <Header />
       <Switch>
         <Route
           exact
@@ -52,7 +53,7 @@ const TeacherDashboardContainer = (): React.ReactElement => {
           component={() => <Redirect to="/dashboard/teacher" />}
         />
       </Switch>
-    </div>
+    </>
   );
 };
 

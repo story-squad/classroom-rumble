@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { Sections, Students } from '../../../../../api';
-import { CouldNotLoad } from '../../../../common';
+import { students } from '../../../../../state';
+import { CouldNotLoad, Loader } from '../../../../common';
 import RenderSectionStudentList from './RenderSectionStudentList';
 
 const SectionStudentListContainer = ({
   section,
+  visible = true,
 }: ISectionStudentListContainerProps): React.ReactElement => {
-  const [studentList, setStudentList] = useState<
-    Students.IStudentWithSubmissions[]
-  >();
+  const [studentList, setStudentList] = useRecoilState(students.list);
   const [error, setError] = useState<string>();
 
   useEffect(() => {
+    console.log('sectionId', section.id);
     Students.getWithSubsBySectionId(section.id)
       .then((res) => {
         setStudentList(res);
@@ -20,19 +22,21 @@ const SectionStudentListContainer = ({
         console.log(err);
         setError(err.message);
       });
-  }, [section.id]);
+  }, [section]);
 
+  if (!visible) return <></>;
   return studentList ? (
     <RenderSectionStudentList studentList={studentList} section={section} />
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (
-    <p>Loading students...</p>
+    <Loader message="Loading students" />
   );
 };
 
 interface ISectionStudentListContainerProps {
   section: Sections.ISectionWithRumbles;
+  visible?: boolean;
 }
 
 export default SectionStudentListContainer;

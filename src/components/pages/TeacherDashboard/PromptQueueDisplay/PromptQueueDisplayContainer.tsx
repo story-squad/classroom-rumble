@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Prompts } from '../../../../api';
 import { prompts } from '../../../../state';
-import { CouldNotLoad } from '../../../common';
+import { CouldNotLoad, Loader } from '../../../common';
 import RenderPromptQueueDisplay from './RenderPromptQueueDisplay';
 
 const PromptQueueDisplayContainer = (): React.ReactElement => {
@@ -22,11 +22,11 @@ const PromptQueueDisplayContainer = (): React.ReactElement => {
   }, []);
 
   return promptQueue ? (
-    <RenderPromptQueueDisplay queue={[...customPrompts, ...promptQueue]} />
+    <RenderPromptQueueDisplay queue={[...promptQueue, ...customPrompts]} />
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (
-    <p>Loading prompt queue</p>
+    <Loader message="Loading prompt queue" />
   );
 };
 

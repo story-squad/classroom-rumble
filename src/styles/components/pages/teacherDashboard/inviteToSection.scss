@@ -1,0 +1,40 @@
+.invite-to-section {
+  h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+  .invite-code {
+    .content {
+      padding: 2rem;
+      border-bottom: 1px solid $w-grey-20;
+      textarea {
+        resize: none;
+        @include text-input;
+      }
+    }
+    .footer {
+      padding: 2rem;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: flex-end;
+      button {
+        @include button;
+        padding: 1rem 2rem;
+      }
+    }
+  }
+  .section-picker {
+    padding: 2rem;
+    .section-picker-list {
+      .section-picker-item {
+        font-size: 1.6rem;
+        line-height: 2rem;
+        &:not(:last-of-type) {
+          margin-bottom: 1rem;
+        }
+        @include text-button($black);
+      }
+    }
+  }
+}

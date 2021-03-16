@@ -1,0 +1,21 @@
+.form-select {
+  display: flex;
+  flex-flow: column nowrap;
+  position: relative;
+  margin-bottom: 1.2rem;
+  &.error select {
+    border-color: $red-bright;
+  }
+
+  select {
+    @include text-input;
+  }
+
+  .optional {
+    margin-top: 0.2rem;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 1.4rem;
+  }
+}

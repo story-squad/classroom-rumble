@@ -1,0 +1,37 @@
+header {
+  background-color: $primary-base;
+  padding: 1.6rem;
+  .header-container {
+    @include wrapped-container;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    h2 {
+      font-family: $display-font;
+      font-size: 1.6rem;
+      @include text-button($white);
+    }
+
+    .user-info {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      p {
+        cursor: default;
+        font-size: 1.2rem;
+        color: $white;
+
+        display: none;
+        @include bp(mid) {
+          display: block;
+        }
+      }
+      svg {
+        margin-left: 1rem;
+        font-size: 2.4rem;
+        @include text-button($white);
+      }
+    }
+  }
+}

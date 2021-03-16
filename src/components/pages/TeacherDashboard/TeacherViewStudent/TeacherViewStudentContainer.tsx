@@ -2,6 +2,7 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { useCheckBrowserState } from '../../../../hooks';
 import { current } from '../../../../state';
+import { Loader } from '../../../common';
 import RenderTeacherViewStudent from './RenderTeacherViewStudent';
 
 const TeacherViewStudentContainer = (): React.ReactElement => {
@@ -9,10 +10,10 @@ const TeacherViewStudentContainer = (): React.ReactElement => {
   const student = useRecoilValue(current.student);
   const section = useRecoilValue(current.section);
 
-  return student && section ? (
+  return student && section && !isLoading ? (
     <RenderTeacherViewStudent student={student} section={section} />
   ) : isLoading ? (
-    <p>Loading...</p>
+    <Loader message="Loading student" />
   ) : (
     <p>Redirecting...</p>
   );
