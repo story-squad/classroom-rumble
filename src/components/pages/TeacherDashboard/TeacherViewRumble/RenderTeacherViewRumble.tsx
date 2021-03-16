@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import React, { useMemo } from 'react';
 import { Rumbles, Sections } from '../../../../api';
-import { TeacherSectionInfo } from '../TeacherSectionInfo';
+import { SectionInfo } from '../../../common/SectionInfo';
 import { RumbleStudentList } from './RumbleStudentList';
 
 const RenderTeacherViewRumble = ({
@@ -28,7 +28,7 @@ const RenderTeacherViewRumble = ({
           </div>
         </div>
       </div>
-      <TeacherSectionInfo section={section} />
+      <SectionInfo section={section} />
       <RumbleStudentList section={section} rumble={rumble} />
     </div>
   );
