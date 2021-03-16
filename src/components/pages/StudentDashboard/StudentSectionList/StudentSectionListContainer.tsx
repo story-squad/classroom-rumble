@@ -6,7 +6,6 @@ import { CouldNotLoad, Loader } from '../../../common';
 import RenderStudentSectionList from './RenderStudentSectionList';
 
 const StudentSectionListContainer = (): React.ReactElement => {
-  // TODO I beleive I need recoil state here to monitor the users section
   const [sectionList, setSectionList] = useRecoilState(sections.list);
   const user = useRecoilValue(auth.user);
 
