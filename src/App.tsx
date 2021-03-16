@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import { Auth } from './api';
 import {
   CookiePopup,
   LandingPageWrapper,
@@ -64,8 +65,16 @@ const App = (): React.ReactElement => {
         />
 
         {/* Private Routes */}
-        <PrivateRoute path="/dashboard/teacher" component={TeacherDashboard} />
-        <PrivateRoute path="/dashboard/student" component={StudentDashboard} />
+        <PrivateRoute
+          path="/dashboard/teacher"
+          userType={Auth.Roles.teacher}
+          component={TeacherDashboard}
+        />
+        <PrivateRoute
+          path="/dashboard/student"
+          userType={Auth.Roles.user}
+          component={StudentDashboard}
+        />
 
         {/* Fallback Route */}
         <Route path="/" component={() => <Redirect to="/" />} />

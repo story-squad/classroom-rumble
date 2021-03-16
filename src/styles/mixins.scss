@@ -1,14 +1,9 @@
-// Add this drop shadow to different containers to give your page a more 3D-feel!
-@mixin drop-shadow($color: #0005) {
-  box-shadow: 0 4px 4px $color;
-  -moz-box-shadow: 0 4px 4px $color;
-}
-
 // The power of mixins! All your buttons should be consistent with this.
-@mixin button($bgcolor: $primary-base, $font-color: $white) {
+@mixin button($bgcolor: $primary-base, $font-color: $white, $border: none) {
   text-decoration: none;
   cursor: pointer;
-  border: none;
+  border: $border;
+  display: block;
 
   background-color: $bgcolor;
   border-radius: 50px;
@@ -31,18 +26,29 @@
   }
 }
 
-@mixin text-button($color, $darken-amt: 15%) {
+@mixin button-alt {
+  @include button($white, $primary-base, 1px solid $primary-base);
+  padding: 1rem 2rem;
+  &:hover {
+    background-color: fade-out($primary-base, 0.95);
+  }
+}
+
+@mixin text-button($color, $fade: 0.25) {
+  border: none;
+  background: none;
+  padding: 0;
   color: $color;
   cursor: pointer;
   transition: all 0.1s ease-in;
   &:active,
   &:hover {
-    color: darken($color, $darken-amt);
+    color: fade-out($color, $fade);
     transition: all 0.1s ease-in;
   }
 }
 
-@mixin placeholder($color: $c-grey-base) {
+@mixin placeholder($color: $slate) {
   &::placeholder {
     color: $color;
     font-weight: 400;
@@ -80,30 +86,136 @@
   color: $c-grey-80;
 }
 
-@mixin list($listname) {
-  .#{$listname}-list {
-    display: flex;
-    flex-flow: row wrap;
-    padding: 1rem;
-    .#{$listname}-card {
-      width: 30%;
-      margin-right: 2%;
-      margin-bottom: 1rem;
-      padding: 1rem;
-      border: 1px solid black;
-      @include drop-shadow;
-      background-color: $white;
-      &:hover {
-        background-color: #fffc;
-        cursor: pointer;
-      }
-    }
-  }
-}
-
 @mixin heading($font-size: 2rem) {
   font-family: $display-font;
   font-size: $font-size;
   width: 100%;
   text-align: center;
+}
+
+@mixin wrapped-container($max: 1200px) {
+  width: 100%;
+  max-width: $max;
+  margin: 0 auto;
+}
+
+@mixin clickable-bg($bg-color: $primary-base, $darken-amt: 5%) {
+  cursor: pointer;
+  background-color: $bg-color;
+  transition: all 0.15s ease-in-out;
+  &:hover {
+    background-color: darken($bg-color, $darken-amt);
+    transition: all 0.15s ease-in-out;
+  }
+}
+
+@mixin scaling-flexbox() {
+  display: flex;
+  flex-flow: row nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  @include bp(mid) {
+    overflow: visible;
+    flex-flow: row wrap;
+    padding-bottom: unset;
+  }
+  & > div {
+    min-width: 20rem;
+    @include bp(mid) {
+      min-width: unset;
+      width: 45%;
+    }
+    @include bp(750px) {
+      width: 30%;
+    }
+  }
+}
+
+@mixin card($bg-color: $white, $darken-amt: 5%, $margin: 2rem) {
+  padding: 1.6rem;
+  border-radius: 1.6rem;
+  margin-bottom: $margin;
+  margin-right: $margin;
+  @include clickable-bg($bg-color, $darken-amt);
+  .content {
+    padding: 1rem 0;
+    &:first-of-type {
+      padding-top: 0;
+    }
+    border-bottom: 1px solid $c-grey-20;
+    &:last-of-type {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    width: 100%;
+
+    h3 {
+      font-size: 1.2rem;
+      line-height: 1.4rem;
+      color: $c-grey-40;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    h4 {
+      font-size: 1.8rem;
+      line-height: 2.1rem;
+      font-weight: 600;
+    }
+  }
+}
+
+@mixin table($widths...) {
+  $border: 1px solid $c-grey-10;
+  $content-width: 900px;
+
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+
+  .table-header {
+    background-color: $w-grey-05;
+    color: $w-grey-90;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    font-weight: 600;
+  }
+
+  .table-row,
+  .table-header {
+    border-bottom: $border;
+    .row-wrapper {
+      @include wrapped-container($content-width);
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: stretch;
+      color: $w-grey-60;
+
+      .table-col {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        padding: 1rem;
+        @include bp(mid) {
+          padding: 1.5rem 2rem;
+        }
+        @include bp(950px) {
+          padding: 1.5rem 0;
+        }
+      }
+      // this allows us to pass in a helpful list of
+      // column widths into the mixin
+      @for $i from 1 through length($widths) {
+        .table-col:nth-of-type(#{$i}) {
+          $width: nth($widths, $i);
+          @if $width == 0 {
+            display: none;
+          } @else {
+            display: flex;
+            width: $width;
+          }
+        }
+      }
+    }
+  }
 }

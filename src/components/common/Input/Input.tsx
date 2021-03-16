@@ -26,7 +26,7 @@ const Input = ({
   };
   return (
     <div className={`form-input${errors[name] ? ' error' : ''}`}>
-      <label htmlFor={id}>{label} :</label>
+      {label && <label htmlFor={id}>{label} :</label>}
       <div className="input-field">
         <input
           id={id}
@@ -66,7 +66,7 @@ interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
   id: string;
   name: string;
-  label: string;
+  label?: string;
   register: UseFormMethods['register'];
   type?: string;
   rules?: RegisterOptions;

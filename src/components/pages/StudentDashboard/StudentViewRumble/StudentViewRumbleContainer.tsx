@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Rumbles } from '../../../../api';
 import { useCheckBrowserState } from '../../../../hooks';
-import { current, submitModal } from '../../../../state';
+import { current } from '../../../../state';
+import { Loader } from '../../../common';
 import RenderStudentViewRumble from './RenderStudentViewRumble';
 import RenderStudentWaitingRoom from './RenderStudentWaitingRoom';
 
@@ -12,7 +13,7 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
   const rumble = useRecoilValue(current.rumble);
   const [endTime, setEndTime] = useState<Date | undefined>(rumble?.end_time);
   const [isFetching, setIsFetching] = useState(false);
-  const successfulSubmission = useRecoilState(submitModal.selected);
+  const successfulSubmission = useRecoilState(current.hasSubmitted);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -46,7 +47,7 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
       <RenderStudentWaitingRoom />
     )
   ) : isLoading ? (
-    <p>Loading...</p>
+    <Loader message="Loading rumble" />
   ) : (
     <p>Redirecting...</p>
   );

@@ -1,0 +1,28 @@
+.section-content-switcher-wrapper {
+  padding: 1.5rem;
+  .section-content-switcher-container {
+    @include wrapped-container;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    max-width: 300px;
+    justify-content: space-around;
+    @include bp(mid) {
+      justify-content: space-between;
+    }
+
+    h3 {
+      &:first-of-type {
+        margin-right: 2rem;
+      }
+      font-size: 2rem;
+      line-height: 2.4rem;
+      @include text-button($primary-base);
+      font-weight: 700;
+
+      &.active {
+        border-bottom: 1px solid $primary-base;
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Submissions } from '../../../../api';
-import { current, submitModal } from '../../../../state';
+import { current } from '../../../../state';
 import { upload } from '../../../../utils';
 
 /**
@@ -10,12 +10,11 @@ import { upload } from '../../../../utils';
 
 const SubmissionForm = (): React.ReactElement => {
   // Recoil State for user submissions
-  const [file, setFile] = useRecoilState(submitModal.selected);
-  const [preview, setPreview] = useRecoilState(submitModal.preview);
-  const [error, setError] = useRecoilState(submitModal.error);
-  const [loading, setLoading] = useRecoilState(submitModal.loading);
-  const [complete, setComplete] = useRecoilState(submitModal.success);
-  const [submitted, setSubmitted] = useState(false);
+  const [file, setFile] = useState<File>();
+  const [preview, setPreview] = useState<string>();
+  const [error, setError] = useState<string>();
+  const [loading, setLoading] = useState(false);
+  const [complete, setComplete] = useRecoilState(current.hasSubmitted);
 
   // We will always know the rumble if we get this far bc the PromptBox is only rendered within a Rumble.
   const currentRumble = useRecoilValue(current.rumble);
@@ -45,7 +44,6 @@ const SubmissionForm = (): React.ReactElement => {
             console.log({ err });
           });
         setComplete(true);
-        setSubmitted(true);
       } catch (err) {
         if (err?.response?.data?.error) {
           if (err.response.data.error === 'Transcription error')
@@ -67,7 +65,7 @@ const SubmissionForm = (): React.ReactElement => {
         if (!upload.isValidImage(selection)) {
           setError('Upload must be an image!');
         } else {
-          setError(null);
+          setError(undefined);
           setFile(selection);
           setPreview(URL.createObjectURL(selection));
         }
@@ -99,7 +97,7 @@ const SubmissionForm = (): React.ReactElement => {
             </>
           )}
         </form>
-        {submitted && (
+        {complete && (
           // Once the submission is done, show a button.
           <>
             <div className="success">Submission successful!</div>

@@ -1,0 +1,24 @@
+.checkbox-group-wrapper {
+  .checkbox-group-container {
+    fieldset {
+      display: flex;
+      flex-flow: column nowrap;
+      @include bp(tablet) {
+        flex-flow: row wrap;
+        .checkbox {
+          width: 45%;
+          margin-right: 5%;
+        }
+      }
+      @include bp(large) {
+        align-items: center;
+        .checkbox {
+          width: 30%;
+          margin-right: 3%;
+        }
+      }
+    }
+    .errors {
+    }
+  }
+}
