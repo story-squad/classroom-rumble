@@ -14,6 +14,9 @@ const PromptBoxContainer = (): React.ReactElement => {
   const [prompt, setPrompt] = useState<string>();
   const [error, setError] = useState<null | string>(null);
 
+  /**
+   * This useEffect will run every where the PromptBox common component renders in order to pull the prompt related to that page. Whether we are in the student or teacher view.
+   */
   useEffect(() => {
     if (currentRumble) {
       Prompts.getPromptById(currentRumble.promptId)

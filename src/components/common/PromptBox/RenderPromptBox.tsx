@@ -1,5 +1,4 @@
 import React from 'react';
-import SubmissionForm from './SubmissionForm';
 
 /**
  * If a student makes it into a rumble there will be a prompt and countdown timer.
@@ -16,18 +15,17 @@ const RenderPromptBox = ({
         {prompt ? (
           // If there is a prompt then load in the message "Today's Prompt"
           <>
-            <h2>Today&apos;s Prompt</h2>
+            <h2>Prompt</h2>
             <p>{prompt}</p>
           </>
         ) : (
-          // TODO - since prompts are not closing ever we are going to display today's prompt at
+          // Since prompts are not closing ever we are going to display today's prompt at
           <>
             <p>Loading Prompt...</p>
           </>
         )}
         <p className="countdown-display">Time Left to Submit HERE!</p>
       </div>
-      <SubmissionForm />
     </div>
   );
 };
