@@ -6,6 +6,7 @@ import { current } from '../../../../state';
 import { Loader } from '../../../common';
 import RenderStudentViewRumble from './RenderStudentViewRumble';
 import RenderStudentWaitingRoom from './RenderStudentWaitingRoom';
+import RenderSubmissionSuccess from './RenderSubmissionSuccess';
 
 const StudentViewRumbleContainer = (): React.ReactElement => {
   const { isLoading } = useCheckBrowserState('section', 'rumble');
@@ -48,6 +49,8 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
     )
   ) : isLoading ? (
     <Loader message="Loading rumble" />
+  ) : successfulSubmission ? (
+    <RenderSubmissionSuccess />
   ) : (
     <p>Redirecting...</p>
   );
