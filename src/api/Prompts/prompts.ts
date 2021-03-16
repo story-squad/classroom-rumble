@@ -19,3 +19,13 @@ export const getPrompts = async (offset: number): Promise<IPrompt[]> => {
   );
   return data;
 };
+
+/**
+ * Get the prompt associated with whichever Rumble Instance a student joins.
+ * @param promptId is the prompt for the specific Rumble a student clicks on
+ * @returns a prompt type of string.
+ */
+export const getPromptById = async (promptId: number): Promise<string> => {
+  const { data } = await axiosWithAuth().get(`/api/prompts/${promptId}`);
+  return data.prompt;
+};
