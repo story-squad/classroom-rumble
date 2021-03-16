@@ -1,14 +1,25 @@
 import React from 'react';
 import { Rumbles, Sections } from '../../../api';
+import { StudentDashboardRumbleList } from './StudentDashboardRumbleList';
 import { StudentRumbleList } from './StudentRumbleList';
+import { StudentSectionList } from './StudentSectionList';
+
 // Dislay Component for Students to view their sections
 const RenderStudentDashboard = ({
   rumbleList,
-}: // sectionList,
-IRenderStudentDashboardProps): React.ReactElement => {
+  sectionList,
+}: IRenderStudentDashboardProps): React.ReactElement => {
   return (
     <div className="student-dashboard">
       <h1>Your Dashboard</h1>
+      {sectionList ? (
+        <>
+          <StudentDashboardRumbleList sections={sectionList} />
+          <StudentSectionList />
+        </>
+      ) : (
+        <p>Loading Sections...</p>
+      )}
       <StudentRumbleList rumbleList={rumbleList} />
     </div>
   );

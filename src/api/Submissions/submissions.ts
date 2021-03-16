@@ -10,3 +10,13 @@ export const getSubsForStudentInSection = async (
   );
   return data;
 };
+
+export const submitStory = async (
+  body: FormData,
+): Promise<{ message: string }> => {
+  const { data } = await axiosWithAuth().post(
+    `/api/submissions?sourceId=2`,
+    body,
+  );
+  return data;
+};

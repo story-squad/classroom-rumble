@@ -20,3 +20,8 @@ export const promptOffset = atom({
   key: 'promptOffset',
   default: 0,
 });
+
+export const currentPrompt = atom<IPrompt | null>({
+  key: 'currentPrompt',
+  default: null,
+});
