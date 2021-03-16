@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal } from '../../../common';
+import { Modal } from '../../../../common';
 import CreateNewSectionForm from './CreateNewSectionForm';
 
 const CreateNewSection = ({
@@ -11,7 +11,9 @@ const CreateNewSection = ({
       visible={isVisible}
       setVisible={setIsVisible}
       component={CreateNewSectionForm}
-      title="Create New Section"
+      className="create-new-section-modal"
+      title="Add New Class"
+      centered
     />
   );
 };

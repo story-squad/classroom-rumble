@@ -1,62 +1,48 @@
+import moment from 'moment';
+import TimePicker from 'rc-time-picker';
+import 'rc-time-picker/assets/index.css';
 import React, { useMemo } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Prompts, Rumbles } from '../../../../api';
-import { IRumblePostBody } from '../../../../api/Rumbles';
-import { auth, prompts, rumbles, sections } from '../../../../state';
-import { Input, Select } from '../../../common';
+import { auth, rumbles, sections } from '../../../../state';
+import { CheckboxGroup, Select } from '../../../common';
 
 const CreateNewRumbleForm = ({
-  defaultSelected,
+  prompt,
 }: ICreateNewRumbleFormProps): React.ReactElement => {
-  const { register, handleSubmit } = useForm();
+  // Functional Hooks
+  const { register, handleSubmit, control } = useForm();
   const { push } = useHistory();
 
-  const [promptList, setPromptList] = useRecoilState(prompts.list);
-  const [promptOffset, setPromptOffset] = useRecoilState(prompts.promptOffset);
-
-  const promptQueue = useRecoilValue(prompts.queue);
-  const customPrompts = useRecoilValue(prompts.customList);
+  // Subscribe to state
   const sectionList = useRecoilValue(sections.list);
   const user = useRecoilValue(auth.user);
-
   const addRumbles = useSetRecoilState(rumbles.addRumbles);
 
-  const promptOptions = useMemo<Select.IOption[]>(() => {
-    const op: Select.IOption[] = [];
-    promptList.forEach((p) => op.push({ value: p.id, label: p.prompt }));
-    // Add custom unique prompts to the option list!
-    customPrompts.forEach((p) => {
-      if (!op.some((opItem) => opItem.value === p.id)) {
-        op.push({ value: p.id, label: p.prompt });
-      }
-    });
-    // Restrict duplicates from showing in the select!
-    promptQueue?.forEach((p) => {
-      if (!op.some((opItem) => opItem.value === p.id)) {
-        op.push({ value: p.id, label: p.prompt });
-      }
-    });
-    return op;
-  }, [promptList, promptQueue, customPrompts]);
-  const sectionOptions = useMemo<Select.IOption[]>(
+  // Parse the user's section list into a usable option type
+  const sectionOptions = useMemo<Select.IOption<number>[]>(
     () => sectionList?.map((s) => ({ value: s.id, label: s.name })) ?? [],
     [sectionList],
   );
 
-  const onSubmit: SubmitHandler<
-    IRumblePostBody & { sectionIds: string[] }
-  > = async ({ sectionIds, ...data }) => {
+  const onSubmit: SubmitHandler<{
+    sectionIds: string[];
+    momentTime: moment.Moment;
+  }> = async ({ sectionIds, momentTime }) => {
+    // Parse the ids that have been checked (sectionId[n] is TRUE)
+    // return the `value` of the option item at that index
+    const idList = sectionOptions
+      .filter((op, i) => sectionIds[i])
+      .map((op) => op.value);
+    const numMinutes = momentTime.minutes() + 60 * momentTime.hour();
     try {
       if (user) {
         const res = await Rumbles.create(
-          {
-            numMinutes: parseInt(`${data.numMinutes}`, 10),
-            promptId: parseInt(`${data.promptId}`, 10),
-          },
+          { numMinutes, promptId: prompt.id },
           user.id,
-          sectionIds.map((x) => parseInt(`${x}`, 10)),
+          idList,
         );
         addRumbles(res);
         push('/dashboard/teacher');
@@ -66,55 +52,47 @@ const CreateNewRumbleForm = ({
     }
   };
 
-  const loadMorePrompts = async () => {
-    try {
-      const promptResponse = await Prompts.getPrompts(promptOffset);
-      setPromptList((prev) => [...prev, ...promptResponse]);
-      setPromptOffset((prev) => prev + 5);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const goBack = () => push('/dashboard/teacher');
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Select.Component
-        id="promptIdNewRumble"
-        name="promptId"
-        register={register}
-        options={promptOptions}
-        defaultValue={defaultSelected?.id}
-      />
-      <button onClick={loadMorePrompts} type="button">
-        Load More Prompts
-      </button>
-
-      <Input
-        id="newRumbleNumMinutes"
-        name="numMinutes"
-        label="Submission Time (minutes)"
-        register={register}
-        type="number"
-        rules={{
-          min: 5 || 'Must be at least 5 minutes!',
-        }}
-      />
-
-      <Select.Component
-        id="newRumbleSectionIds"
-        name="sectionIds"
-        register={register}
-        multiple
-        options={sectionOptions}
-      />
-
-      <input type="submit" value="Submit" />
+      <div className="section-wrapper">
+        <h3>Select Class(es)</h3>
+        <CheckboxGroup
+          id="newRumbleSectionIds"
+          name="sectionIds"
+          register={register}
+          options={sectionOptions}
+        />
+      </div>
+      <div className="section-wrapper">
+        <h3>Set a Timer</h3>
+        <Controller
+          control={control}
+          name="momentTime"
+          defaultValue={moment().hour(1).minute(0)}
+          render={(props) => (
+            <TimePicker
+              {...props}
+              minuteStep={15}
+              showSecond={false}
+              defaultOpenValue={moment().hour(1).minute(0)}
+            />
+          )}
+        />
+      </div>
+      <div className="button-row">
+        <button type="button" onClick={goBack}>
+          Cancel
+        </button>
+        <input type="submit" value="Create" />
+      </div>
     </form>
   );
 };
 
 interface ICreateNewRumbleFormProps {
-  defaultSelected?: Prompts.IPrompt;
+  prompt: Prompts.IPrompt;
 }
 
 export default CreateNewRumbleForm;

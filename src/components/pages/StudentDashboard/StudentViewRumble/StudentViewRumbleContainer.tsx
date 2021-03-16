@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { Rumbles } from '../../../../api';
 import { useCheckBrowserState } from '../../../../hooks';
 import { current } from '../../../../state';
+import { Loader } from '../../../common';
 import RenderStudentViewRumble from './RenderStudentViewRumble';
 import RenderStudentWaitingRoom from './RenderStudentWaitingRoom';
 
@@ -45,7 +46,7 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
       <RenderStudentWaitingRoom />
     )
   ) : isLoading ? (
-    <p>Loading...</p>
+    <Loader message="Loading rumble" />
   ) : (
     <p>Redirecting...</p>
   );
