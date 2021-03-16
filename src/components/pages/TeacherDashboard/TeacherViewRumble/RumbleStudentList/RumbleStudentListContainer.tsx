@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Rumbles, Sections, Students } from '../../../../../api';
-import { CouldNotLoad } from '../../../../common';
+import { CouldNotLoad, Loader } from '../../../../common';
 import RenderRumbleStudentList from './RenderRumbleStudentList';
 
 const RumbleStudentListContainer = ({
-  section,
   rumble,
+  section,
 }: IRumbleStudentListContainerProps): React.ReactElement => {
   const [studentList, setStudentList] = useState<
     Students.IStudentWithSubmissions[]
@@ -13,6 +13,7 @@ const RumbleStudentListContainer = ({
   const [error, setError] = useState<string>();
 
   useEffect(() => {
+    console.log('rumbleId', rumble.id);
     setStudentList(undefined);
     Students.getWithSubsByRumbleId(rumble.id)
       .then((res) => {
@@ -22,21 +23,20 @@ const RumbleStudentListContainer = ({
         console.log(err);
         setError(err.message);
       });
-    return () => setStudentList(undefined);
-  }, [section.id]);
+  }, [section, rumble]);
 
-  return studentList ? (
+  return studentList && section ? (
     <RenderRumbleStudentList studentList={studentList} section={section} />
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (
-    <p>Loading students...</p>
+    <Loader message="Loading students" />
   );
 };
 
 interface IRumbleStudentListContainerProps {
-  section: Sections.ISectionWithRumbles;
   rumble: Rumbles.IRumbleWithSectionInfo;
+  section: Sections.ISectionWithRumbles;
 }
 
 export default RumbleStudentListContainer;

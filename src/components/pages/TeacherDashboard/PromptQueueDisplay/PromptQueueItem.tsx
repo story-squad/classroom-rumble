@@ -11,11 +11,15 @@ const PromptQueueItem = ({
   const { push } = useHistory();
 
   const newRumbleFromThisPrompt = () => {
-    push('/dashboard/teacher/rumble/new', { prompt, ...promptProps });
+    push('/dashboard/teacher/rumble/new', {
+      prompt,
+      starts_at,
+      ...promptProps,
+    });
   };
 
   return (
-    <div className="prompt-queue-card" onClick={newRumbleFromThisPrompt}>
+    <div className="prompt-queue-item" onClick={newRumbleFromThisPrompt}>
       {starts_at ? (
         <h3>{formatDate(DateTime.fromISO(starts_at))}</h3>
       ) : (

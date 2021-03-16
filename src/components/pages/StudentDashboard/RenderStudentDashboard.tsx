@@ -1,5 +1,6 @@
 import React from 'react';
 import { Rumbles, Sections } from '../../../api';
+import { Loader } from '../../common';
 import { StudentDashboardRumbleList } from './StudentDashboardRumbleList';
 import { StudentRumbleList } from './StudentRumbleList';
 import { StudentSectionList } from './StudentSectionList';
@@ -18,7 +19,7 @@ const RenderStudentDashboard = ({
           <StudentSectionList />
         </>
       ) : (
-        <p>Loading Sections...</p>
+        <Loader message="Loading sections" />
       )}
       <StudentRumbleList rumbleList={rumbleList} />
     </div>

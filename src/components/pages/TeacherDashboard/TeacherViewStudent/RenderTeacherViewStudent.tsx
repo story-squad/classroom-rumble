@@ -1,5 +1,5 @@
 import React from 'react';
-import { Auth, Sections } from '../../../../api';
+import { Sections, Students } from '../../../../api';
 import { SubmissionList } from './SubmissionList';
 
 const RenderTeacherViewStudent = ({
@@ -20,7 +20,7 @@ const RenderTeacherViewStudent = ({
 };
 
 interface IRenderTeacherViewStudentProps {
-  student: Auth.IUser;
+  student: Students.IStudentWithSubmissions;
   section: Sections.ISection;
 }
 

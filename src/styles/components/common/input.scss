@@ -10,9 +10,6 @@
     margin-bottom: 4px;
     margin-left: 8px;
   }
-  &.error .input-field input {
-    border-color: $red-bright;
-  }
   .input-field {
     position: relative;
     display: flex;
@@ -32,6 +29,9 @@
       border: none;
       @include text-button(white);
     }
+  }
+  &.error .input-field input {
+    border-color: $red-bright;
   }
 
   .message {

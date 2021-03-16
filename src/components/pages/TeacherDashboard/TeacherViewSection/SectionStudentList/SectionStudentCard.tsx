@@ -1,8 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { Auth, Sections } from '../../../../../api';
+import { Sections, Students } from '../../../../../api';
 import { current } from '../../../../../state';
+import { Table } from '../../../../common';
 
 const SectionStudentCard = ({
   section,
@@ -19,18 +20,19 @@ const SectionStudentCard = ({
   };
 
   return (
-    <div className="student-card" onClick={openStudent}>
-      <h3>
+    <Table.Row onClick={openStudent}>
+      <Table.Col>
         {student.firstname} {student.lastname}
-      </h3>
-      <p>{student.codename}</p>
-      <p>{student.email}</p>
-    </div>
+      </Table.Col>
+      <Table.Col>{student.lastname}</Table.Col>
+      <Table.Col>{student.firstname}</Table.Col>
+      <Table.Col>{student.submissions.length}</Table.Col>
+    </Table.Row>
   );
 };
 
 interface ISectionStudentCardProps {
-  student: Auth.IUser;
+  student: Students.IStudentWithSubmissions;
   section: Sections.ISectionWithRumbles;
 }
 

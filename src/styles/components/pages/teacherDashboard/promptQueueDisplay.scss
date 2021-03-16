@@ -1,8 +1,91 @@
-.prompt-queue-display {
-  h2 {
-    color: $white;
-    font-size: 2rem;
-    font-family: $display-font;
+.prompt-queue-wrapper {
+  background-color: $w-grey-10;
+  padding: 3rem 1.5rem;
+  @include bp(mid) {
+    padding: 3rem;
+    padding-bottom: 1rem;
   }
-  @include list('prompt-queue');
+  .prompt-queue-container {
+    @include wrapped-container;
+    h2 {
+      color: $w-grey-60;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    .prompt-queue-list {
+      @include scaling-flexbox();
+      div {
+        @include card;
+        &.prompt-queue-item {
+          border: 1px solid $c-grey-40;
+          h3 {
+            color: $c-grey-40;
+            font-size: 1.4rem;
+            font-weight: 800;
+            padding-bottom: 0.7rem;
+            border-bottom: 1px solid $c-grey-20;
+            text-transform: uppercase;
+          }
+          p {
+            color: $black;
+            font-size: 1.6rem;
+            line-height: 2rem;
+            margin: 1.6rem 0 1rem;
+          }
+        }
+
+        &.custom-prompt-button {
+          @include clickable-bg($primary-base);
+          border: 1px solid darken($primary-base, 15%);
+
+          h3 {
+            font-size: 1.8rem;
+            line-height: 2.4rem;
+            color: $white;
+            font-weight: 700;
+          }
+        }
+      }
+    }
+  }
+}
+
+.custom-prompt-modal {
+  form {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-end;
+    .text-input {
+      padding: 2rem;
+      border-bottom: 1px solid $w-grey-20;
+      display: flex;
+      flex-flow: column;
+      align-items: flex-start;
+
+      label {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+        font-weight: 600;
+      }
+      textarea {
+        @include text-input;
+      }
+      .error {
+        span {
+          color: $red-bright;
+        }
+        margin-top: 1rem;
+        font-size: 1.2rem;
+        font-style: italic;
+        font-weight: 300;
+      }
+    }
+    input[type='submit'] {
+      margin: 1.6rem 2rem;
+      @include button();
+      padding: 0.8rem 1.6rem;
+      font-size: 1.2rem;
+    }
+  }
 }
