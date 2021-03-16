@@ -1,10 +1,14 @@
 import React from 'react';
+import { Header } from '../../../common';
 
 const RenderStudentWaitingRoom = (): React.ReactElement => {
   return (
-    <div className="waiting-room-wrapper">
-      Please Wait For Your Teacher To Start The Rumble
-    </div>
+    <>
+      <Header />
+      <div className="waiting-room-wrapper">
+        Please Wait For Your Teacher To Start The Rumble
+      </div>
+    </>
   );
 };
 
