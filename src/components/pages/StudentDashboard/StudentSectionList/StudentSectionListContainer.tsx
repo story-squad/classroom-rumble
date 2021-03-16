@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Sections } from '../../../../api';
 import { auth, sections } from '../../../../state';
-import { CouldNotLoad } from '../../../common';
+import { CouldNotLoad, Loader } from '../../../common';
 import RenderStudentSectionList from './RenderStudentSectionList';
 
 const StudentSectionListContainer = (): React.ReactElement => {
@@ -33,10 +33,7 @@ const StudentSectionListContainer = (): React.ReactElement => {
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (
-    <>
-      <p>Loading Section List...</p>
-      <p>**Loader will live here**</p>
-    </>
+    <Loader message="Loading sections" />
   );
 };
 

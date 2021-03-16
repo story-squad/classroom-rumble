@@ -2,6 +2,7 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { useCheckBrowserState } from '../../../../hooks';
 import { current } from '../../../../state';
+import { Loader } from '../../../common';
 import RenderTeacherViewSubmission from './RenderTeacherViewSubmission';
 
 const TeacherViewSubmissionContainer = (): React.ReactElement => {
@@ -17,7 +18,7 @@ const TeacherViewSubmissionContainer = (): React.ReactElement => {
       submission={submission}
     />
   ) : isLoading ? (
-    <p>Loading...</p>
+    <Loader message="Loading submission" />
   ) : (
     <p>REDIRECTING</p>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Rumbles } from '../../../../api';
+import { Loader } from '../../../common';
 import RenderRumbleList from './RenderStudentRumbleList';
 
 const StudentRumbleListContainer = ({
@@ -8,7 +9,7 @@ const StudentRumbleListContainer = ({
   return rumbleList ? (
     <RenderRumbleList rumbles={rumbleList} />
   ) : (
-    <p>Loading Rumbles...</p>
+    <Loader message="Loading rumbles" />
   );
 };
 

@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { Prompts } from '../../../../api';
 import { useCheckBrowserState } from '../../../../hooks';
 import { current } from '../../../../state';
+import { Loader } from '../../../common';
 import RenderTeacherViewRumble from './RenderTeacherViewRumble';
 
 const TeacherViewRumbleContainer = (): React.ReactElement => {
@@ -32,7 +33,7 @@ const TeacherViewRumbleContainer = (): React.ReactElement => {
       prompt={prompt}
     />
   ) : isLoading || promptIsLoading ? (
-    <p>Loading...</p>
+    <Loader message="Loading rumble" />
   ) : (
     <p>Redirecting...</p>
   );
