@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Rumbles, Sections, Students } from '../../../../../api';
-import { CouldNotLoad } from '../../../../common';
+import { CouldNotLoad, Loader } from '../../../../common';
 import RenderRumbleStudentList from './RenderRumbleStudentList';
 
 const RumbleStudentListContainer = ({
@@ -30,7 +30,7 @@ const RumbleStudentListContainer = ({
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (
-    <p>Loading students...</p>
+    <Loader message="Loading students" />
   );
 };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Sections } from '../../../api';
+import { Loader } from '../../common';
 import { PromptQueueDisplay } from './PromptQueueDisplay';
 import { TeacherDashboardRumbleList } from './TeacherDashboardRumbleList';
 import { TeacherDashboardSectionList } from './TeacherDashboardSectionList';
@@ -17,7 +18,7 @@ const RenderTeacherDashboard = ({
           <TeacherDashboardSectionList sections={sectionList} isTeacher />
         </>
       ) : (
-        <p>Loading Sections...</p>
+        <Loader message="Loading sections" />
       )}
     </div>
   );

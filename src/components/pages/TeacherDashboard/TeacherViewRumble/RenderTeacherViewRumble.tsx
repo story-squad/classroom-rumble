@@ -39,7 +39,7 @@ const formatDate = (date: string): React.ReactNode => {
   return (
     <>
       <div className="date">
-        {luxonDate.toLocaleString({ dateStyle: 'short' })}
+        {luxonDate.toLocaleString(DateTime.DATE_SHORT)}
       </div>
       <div className="day">{luxonDate.toLocaleString({ weekday: 'long' })}</div>
     </>
