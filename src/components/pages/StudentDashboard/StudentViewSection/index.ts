@@ -1,1 +1,1 @@
-export { default as StudentViewSection } from './StudentViewSectionContainer';
+export { default as StudentViewRumbles } from './StudentViewRumblesContainer';
