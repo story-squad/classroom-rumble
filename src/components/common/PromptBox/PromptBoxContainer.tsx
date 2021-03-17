@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { Prompts } from '../../../api';
 import { current } from '../../../state';
 import { CouldNotLoad } from '../CouldNotLoad';
+import { Loader } from '../Loader';
 import RenderPromptBox from './RenderPromptBox';
 
 /**
@@ -37,7 +38,7 @@ const PromptBoxContainer = (): React.ReactElement => {
     <CouldNotLoad error={error} />
   ) : (
     <>
-      <p>Loading Prompt...</p>
+      <Loader message={'Prompt'} />
     </>
   );
 };
