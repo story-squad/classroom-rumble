@@ -1,4 +1,5 @@
-import React from 'react';
+import { DateTime } from 'luxon';
+import React, { useMemo } from 'react';
 
 /**
  * If a student makes it into a rumble there will be a prompt and countdown timer.
@@ -8,30 +9,52 @@ import React from 'react';
 
 const RenderPromptBox = ({
   prompt,
+  endTime,
 }: IRenderPromptBoxProps): React.ReactElement => {
+  const [date, weekday] = useFormatDate(`${endTime || ''}`);
+  // const [date, weekday] = useFormatDate('');
+
   return (
-    <div className="prompt-box">
-      <div className="prompt-and-timer">
-        {prompt ? (
-          // If there is a prompt then load in the message "Today's Prompt"
-          <>
+    <div className="prompt-info-wrapper">
+      <div className="prompt-info-container">
+        <div className="prompt-info-content">
+          {date && weekday && (
+            <div className="end-time-large">
+              <div className="date">{date}</div>
+              <div className="day">{weekday}</div>
+            </div>
+          )}
+          <div className="prompt-text">
             <h2>Prompt</h2>
+            {date && weekday && (
+              <div className="end-time-small">
+                {date} {weekday}
+              </div>
+            )}
             <p>{prompt}</p>
-          </>
-        ) : (
-          // Since prompts are not closing ever we are going to display today's prompt at
-          <>
-            <p>Loading Prompt...</p>
-          </>
-        )}
-        <p className="countdown-display">Time Left to Submit HERE!</p>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
+const useFormatDate = (
+  date: string | undefined,
+): [date: string | undefined, weekday: string | undefined] => {
+  const luxonDate = useMemo(() => DateTime.fromISO(date || ''), [date]);
+
+  return luxonDate.isValid
+    ? [
+        luxonDate.toLocaleString(DateTime.DATE_SHORT),
+        luxonDate.toLocaleString({ weekday: 'long' }),
+      ]
+    : [undefined, undefined];
+};
+
 interface IRenderPromptBoxProps {
   prompt: string;
+  endTime?: Date;
 }
 
 export default RenderPromptBox;
