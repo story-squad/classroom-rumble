@@ -24,3 +24,13 @@ export const getRumbleById = async (rumbleId: number): Promise<IRumble> => {
   const { data } = await axiosWithAuth().get(`api/rumble/rumbles/${rumbleId}`);
   return data;
 };
+
+export const startRumble = async (
+  rumbleId: number,
+  sectionId: number,
+): Promise<Date> => {
+  const { data } = await axiosWithAuth().put(
+    `/api/rumble/rumbles/${rumbleId}/section/${sectionId}/start`,
+  );
+  return data;
+};
