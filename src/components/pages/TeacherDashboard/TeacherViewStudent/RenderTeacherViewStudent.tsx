@@ -8,11 +8,25 @@ const RenderTeacherViewStudent = ({
 }: IRenderTeacherViewStudentProps): React.ReactElement => {
   return (
     <div className="teacher-view-student">
-      <h2>
-        {student.firstname} {student.lastname} <em>({student.codename})</em>
-      </h2>
-      <div className="student-info">
-        <div>Email: {student.email}</div>
+      <div className="student-info-wrapper">
+        <div className="student-info-container">
+          <div className="content">
+            <div className="content-item">
+              <h3>Student Name</h3>
+              <h4>
+                {student.firstname} {student.lastname}
+              </h4>
+            </div>
+            <div className="content-item">
+              <h3>Codename</h3>
+              <h4>{student.codename}</h4>
+            </div>
+            <div className="content-item">
+              <h3>Email</h3>
+              <h4>{student.email}</h4>
+            </div>
+          </div>
+        </div>
       </div>
       <SubmissionList student={student} section={section} />
     </div>
