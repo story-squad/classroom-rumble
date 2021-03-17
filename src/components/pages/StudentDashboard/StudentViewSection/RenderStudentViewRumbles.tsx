@@ -5,7 +5,7 @@ import { StudentDashboardRumbleList } from '../StudentDashboardRumbleList';
 
 const RenderStudentViewRumbles = ({
   section,
-}: IRenderStudentViewSectionProps): React.ReactElement => {
+}: IRenderStudentViewRumblesProps): React.ReactElement => {
   return (
     <>
       <SectionInfo section={section} />
@@ -22,7 +22,7 @@ const RenderStudentViewRumbles = ({
   );
 };
 
-interface IRenderStudentViewSectionProps {
+interface IRenderStudentViewRumblesProps {
   section: Sections.ISectionWithRumbles;
 }
 

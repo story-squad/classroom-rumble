@@ -2,7 +2,7 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { useCheckBrowserState } from '../../../../hooks';
 import { current } from '../../../../state';
-import { RenderStudentViewRumbles } from './RenderStudentViewRumbles';
+import RenderStudentViewRumbles from './RenderStudentViewRumbles';
 
 const StudentViewSectionContainer = (): React.ReactElement => {
   const { isLoading } = useCheckBrowserState('section');
