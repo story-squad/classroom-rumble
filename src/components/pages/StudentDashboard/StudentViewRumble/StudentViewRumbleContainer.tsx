@@ -18,24 +18,27 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
   const successfulSubmission = useRecoilState(current.hasSubmitted);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      console.log('Time');
-      if (rumble?.id) {
-        setIsFetching(true);
-        Rumbles.getRumbleById(rumble.id)
-          .then((res) => {
-            console.log(res);
-            setIsFetching(false);
-            if (res.end_time) {
-              setEndTime(res.end_time);
-            }
-          })
-          .catch((err) => {
-            setIsFetching(false);
-            console.log(err);
-          });
-      }
-    }, 20000);
+    let timer: NodeJS.Timeout;
+    if (!endTime) {
+      timer = setTimeout(() => {
+        console.log('Time');
+        if (rumble?.id) {
+          setIsFetching(true);
+          Rumbles.getRumbleById(rumble.id)
+            .then((res) => {
+              console.log(res);
+              setIsFetching(false);
+              if (res.end_time) {
+                setEndTime(res.end_time);
+              }
+            })
+            .catch((err) => {
+              setIsFetching(false);
+              console.log(err);
+            });
+        }
+      }, 20000);
+    }
     return () => {
       clearTimeout(timer);
     };
@@ -43,15 +46,15 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
 
   // Rumble End time needs too be checked by api call
   return section && rumble ? (
-    endTime ? (
+    successfulSubmission ? (
+      <RenderSubmissionSuccess />
+    ) : endTime ? (
       <RenderStudentViewRumble rumble={rumble} section={section} />
     ) : (
       <RenderStudentWaitingRoom />
     )
   ) : isLoading ? (
-    <Loader message={'Loading rumble'} />
-  ) : successfulSubmission ? (
-    <RenderSubmissionSuccess />
+    <Loader message="Loading rumble" />
   ) : (
     <p>Redirecting...</p>
   );

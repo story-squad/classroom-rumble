@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Submissions } from '../../../../../api';
 import { current } from '../../../../../state';
+import { Table } from '../../../../common';
 
 const SubmissionCard = ({
   score,
@@ -33,13 +34,10 @@ const SubmissionCard = ({
   };
 
   return (
-    <div className="submission-card" onClick={openSubView}>
-      <h3>
-        {codename} - {score}
-      </h3>
-      <img width="100" height="100" src={src} alt="" />
-      <p>{prompt}</p>
-    </div>
+    <Table.Row onClick={openSubView}>
+      <Table.Col>{prompt}</Table.Col>
+      <Table.Col>{score}</Table.Col>
+    </Table.Row>
   );
 };
 export default SubmissionCard;

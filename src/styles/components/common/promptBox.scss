@@ -1,0 +1,61 @@
+.prompt-info-wrapper {
+  .prompt-info-container {
+    @include wrapped-container();
+    background-color: $w-grey-10;
+    border-radius: 1.6rem;
+    padding: 1.6rem;
+    @include bp(tablet) {
+      padding: 3rem 1.6rem;
+    }
+    .prompt-info-content {
+      @include wrapped-container(900px);
+      position: relative;
+      display: flex;
+      flex-flow: column nowrap;
+      @include bp(mid) {
+        flex-direction: row;
+      }
+      .end-time-large {
+        display: none;
+        @include bp(mid) {
+          display: block;
+          width: 30%;
+        }
+        font-size: 1.6rem;
+        line-height: 2rem;
+        font-weight: 600;
+        color: $c-grey-70;
+      }
+      .prompt-text {
+        flex-grow: 1;
+        h2 {
+          font-size: 2rem;
+          color: $w-grey-50;
+          font-weight: 700;
+          margin-bottom: 1rem;
+        }
+        .end-time-small {
+          @include bp(mid) {
+            display: none;
+          }
+          font-size: 1.6rem;
+          color: $c-grey-70;
+          font-weight: 600;
+          margin-bottom: 1.6rem;
+        }
+        p {
+          font-size: 1.4rem;
+          line-height: 2rem;
+          color: $c-grey-80;
+        }
+      }
+      .start-rumble-button {
+        margin-top: 1rem;
+        button {
+          @include button-alt;
+        }
+      }
+    }
+  }
+  margin: 1rem;
+}
