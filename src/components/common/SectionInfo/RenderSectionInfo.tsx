@@ -7,6 +7,7 @@ const RenderSectionInfo = ({
   openInviteModal,
   section,
   isTeacher,
+  studentName,
 }: IRenderSectionInfoProps): React.ReactElement => (
   <div className="section-info-wrapper">
     <div className="section-info-container">
@@ -23,6 +24,12 @@ const RenderSectionInfo = ({
           <h3>Subject</h3>
           <h4>{subject}</h4>
         </div>
+        {studentName && (
+          <div className="content-item">
+            <h3>Student Name</h3>
+            <h4>{studentName}</h4>
+          </div>
+        )}
         {isTeacher && (
           <button onClick={openInviteModal}>Invite Students</button>
         )}
@@ -37,6 +44,7 @@ interface IRenderSectionInfoProps {
   grade: string;
   subject: string;
   isTeacher: boolean;
+  studentName?: string;
 }
 
 export default RenderSectionInfo;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import { Sections, Students } from '../../../../../api';
 import { current } from '../../../../../state';
 import { Table } from '../../../../common';
@@ -12,10 +12,12 @@ const SectionStudentCard = ({
   const { push } = useHistory();
   const setCurrentSection = useSetRecoilState(current.section);
   const setCurrentStudent = useSetRecoilState(current.student);
+  const clearCurrentRumble = useResetRecoilState(current.rumble);
 
   const openStudent = () => {
     setCurrentSection(section);
     setCurrentStudent(student);
+    clearCurrentRumble();
     push('/dashboard/teacher/student', { student, section });
   };
 
