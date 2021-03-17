@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon';
 import React, { useMemo } from 'react';
-import { Rumbles } from '../../../api';
 
 /**
  * If a student makes it into a rumble there will be a prompt and countdown timer.
@@ -10,9 +9,9 @@ import { Rumbles } from '../../../api';
 
 const RenderPromptBox = ({
   prompt,
-  rumble,
+  endTime,
 }: IRenderPromptBoxProps): React.ReactElement => {
-  const [date, weekday] = useFormatDate(`${rumble.end_time}`);
+  const [date, weekday] = useFormatDate(`${endTime || ''}`);
   // const [date, weekday] = useFormatDate('');
 
   return (
@@ -55,7 +54,7 @@ const useFormatDate = (
 
 interface IRenderPromptBoxProps {
   prompt: string;
-  rumble: Rumbles.IRumbleWithSectionInfo;
+  endTime?: Date;
 }
 
 export default RenderPromptBox;

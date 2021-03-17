@@ -34,8 +34,8 @@ const PromptBoxContainer = ({
     }
   }, []);
 
-  return promptState && currentRumble ? (
-    <RenderPromptBox prompt={promptState} rumble={currentRumble} />
+  return promptState ? (
+    <RenderPromptBox prompt={promptState} endTime={currentRumble?.end_time} />
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (
