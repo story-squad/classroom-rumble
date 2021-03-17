@@ -3,7 +3,7 @@ import { Sections } from '../../../../api';
 import { SectionInfo } from '../../../common/SectionInfo';
 import { StudentDashboardRumbleList } from '../StudentDashboardRumbleList';
 
-const RenderStudentViewRumble = ({
+const RenderStudentViewRumbles = ({
   section,
 }: IRenderStudentViewSectionProps): React.ReactElement => {
   return (
@@ -26,4 +26,4 @@ interface IRenderStudentViewSectionProps {
   section: Sections.ISectionWithRumbles;
 }
 
-export default RenderStudentViewRumble;
+export default RenderStudentViewRumbles;
