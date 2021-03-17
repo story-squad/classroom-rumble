@@ -49,7 +49,7 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
       <RenderStudentWaitingRoom />
     )
   ) : isLoading ? (
-    <Loader message="Loading rumble" />
+    <Loader message={'Loading rumble'} />
   ) : successfulSubmission ? (
     <RenderSubmissionSuccess />
   ) : (
