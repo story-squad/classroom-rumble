@@ -88,11 +88,7 @@
           padding: 1.1rem 2rem;
         }
         button {
-          @include button($white, $primary-base, 1px solid $primary-base);
-          padding: 1rem 2rem;
-          &:hover {
-            background-color: fade-out($primary-base, 0.95);
-          }
+          @include button-alt;
         }
         & > * {
           width: 45%;
