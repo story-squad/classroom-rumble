@@ -22,8 +22,8 @@ const RenderPromptBox = ({
         <div className="prompt-info-content">
           {endTime && (
             <div className="end-time-large">
-              <div className="date">{date}</div>
               <div className="day">{weekday}</div>
+              <div className="date">{date}</div>
             </div>
           )}
           <div className="prompt-text">

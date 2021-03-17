@@ -6,7 +6,7 @@ import { current } from '../../../../state';
 import { Loader } from '../../../common';
 import RenderStudentViewRumble from './RenderStudentViewRumble';
 import RenderStudentWaitingRoom from './RenderStudentWaitingRoom';
-// import RenderSubmissionSuccess from './RenderSubmissionSuccess';
+import RenderSubmissionSuccess from './RenderSubmissionSuccess';
 
 const StudentViewRumbleContainer = (): React.ReactElement => {
   const { isLoading } = useCheckBrowserState('section', 'rumble');
@@ -14,7 +14,7 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
   const rumble = useRecoilValue(current.rumble);
   const [endTime, setEndTime] = useState<Date | undefined>(rumble?.end_time);
   const [isFetching, setIsFetching] = useState(false);
-  // const successfulSubmission = useRecoilState(current.hasSubmitted);
+  const successfulSubmission = useRecoilValue(current.hasSubmitted);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -45,10 +45,9 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
 
   // Rumble End time needs too be checked by api call
   return section && rumble ? (
-    // successfulSubmission ? (
-    //   <RenderSubmissionSuccess />
-    // ) :
-    endTime ? (
+    successfulSubmission ? (
+      <RenderSubmissionSuccess />
+    ) : endTime ? (
       <RenderStudentViewRumble rumble={rumble} section={section} />
     ) : (
       <RenderStudentWaitingRoom />
