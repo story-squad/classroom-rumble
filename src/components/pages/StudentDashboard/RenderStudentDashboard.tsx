@@ -1,13 +1,11 @@
 import React from 'react';
-import { Rumbles, Sections } from '../../../api';
+import { Sections } from '../../../api';
 import { Loader } from '../../common';
 import { StudentDashboardRumbleList } from './StudentDashboardRumbleList';
-import { StudentRumbleList } from './StudentRumbleList';
 import { StudentSectionList } from './StudentSectionList';
 
 // Dislay Component for Students to view their sections
 const RenderStudentDashboard = ({
-  rumbleList,
   sectionList,
 }: IRenderStudentDashboardProps): React.ReactElement => {
   return (
@@ -21,14 +19,12 @@ const RenderStudentDashboard = ({
       ) : (
         <Loader message="Loading sections" />
       )}
-      <StudentRumbleList rumbleList={rumbleList} />
     </div>
   );
 };
 
 interface IRenderStudentDashboardProps {
   sectionList: Sections.ISectionWithRumbles[];
-  rumbleList: Rumbles.IRumbleWithSectionInfo[];
 }
 
 export default RenderStudentDashboard;
