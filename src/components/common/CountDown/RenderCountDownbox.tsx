@@ -8,12 +8,14 @@ const RenderCountDownBox = ({
   seconds,
 }: IRenderCountDownBoxProps): React.ReactElement => {
   return (
-    <div>
+    <div className="count-down-wrapper">
       <h2>Rumble Timer</h2>
-      {hours < 10 && '0'}
-      {hours}:{minutes < 10 && '0'}
-      {minutes}:{seconds < 10 && '0'}
-      {seconds}
+      <div className="time-count">
+        {hours < 10 && '0'}
+        {hours}:{minutes < 10 && '0'}
+        {minutes}:{seconds < 10 && '0'}
+        {seconds}
+      </div>
     </div>
   );
 };
