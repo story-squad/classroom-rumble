@@ -10,6 +10,8 @@ import React, { useMemo } from 'react';
 const RenderPromptBox = ({
   prompt,
   endTime,
+  isTeacher,
+  startRumble,
 }: IRenderPromptBoxProps): React.ReactElement => {
   const [date, weekday] = useFormatDate(`${endTime || ''}`);
   // const [date, weekday] = useFormatDate('');
@@ -18,7 +20,7 @@ const RenderPromptBox = ({
     <div className="prompt-info-wrapper">
       <div className="prompt-info-container">
         <div className="prompt-info-content">
-          {date && weekday && (
+          {endTime && (
             <div className="end-time-large">
               <div className="date">{date}</div>
               <div className="day">{weekday}</div>
@@ -33,6 +35,11 @@ const RenderPromptBox = ({
             )}
             <p>{prompt}</p>
           </div>
+          {isTeacher && !endTime && (
+            <div className="start-rumble-button">
+              <button onClick={startRumble}>Start Rumble</button>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -55,6 +62,8 @@ const useFormatDate = (
 interface IRenderPromptBoxProps {
   prompt: string;
   endTime?: Date;
+  isTeacher: boolean;
+  startRumble?: () => void;
 }
 
 export default RenderPromptBox;

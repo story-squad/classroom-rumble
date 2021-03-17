@@ -10,7 +10,7 @@ const RenderTeacherViewRumble = ({
 }: IRenderTeacherViewRumbleProps): React.ReactElement => {
   return (
     <div className="teacher-view-rumble">
-      <PromptBox prompt={prompt} />
+      <PromptBox prompt={prompt} isTeacher />
       <SectionInfo section={section} />
       <RumbleStudentList section={section} rumble={rumble} />
     </div>

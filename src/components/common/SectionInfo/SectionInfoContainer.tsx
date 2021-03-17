@@ -7,9 +7,11 @@ import RenderSectionInfo from './RenderSectionInfo';
 const SectionInfoContainer = ({
   section,
   isTeacher = false,
+  studentName,
 }: {
   section: Sections.ISectionWithRumbles;
   isTeacher?: boolean;
+  studentName?: string;
 }): React.ReactElement => {
   const gradeEnum = useRecoilValue(enumData.grades);
   const gradeValue = useMemo(() => {
@@ -35,6 +37,7 @@ const SectionInfoContainer = ({
       openInviteModal={openInviteModal}
       grade={gradeValue}
       subject={subjectValue}
+      studentName={studentName}
     />
   );
 };

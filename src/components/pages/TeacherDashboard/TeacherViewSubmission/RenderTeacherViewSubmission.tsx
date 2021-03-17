@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Auth, Sections, Submissions } from '../../../../api';
+import { PromptBox, SectionInfo } from '../../../common';
 
 const RenderTeacherViewSubmission = ({
   submission,
   section,
   student,
 }: IRenderTeacherViewSubmissionProps): React.ReactElement => {
+  const studentName = useMemo(
+    () => `${student.firstname} ${student.lastname}`,
+    [student],
+  );
   return (
     <div className="teacher-view-submission">
-      <h2>Submission</h2>
-      <img src={submission.src} width="100" height="100" />
+      <PromptBox prompt={submission.prompt} />
+      <SectionInfo section={section} studentName={studentName} />
+      <div className="image-wrapper">
+        <div className="image-container">
+          <img src={submission.src} />
+        </div>
+      </div>
     </div>
   );
 };

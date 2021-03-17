@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { Prompts } from '../../../api';
+import { Prompts, Rumbles } from '../../../api';
 import { current } from '../../../state';
 import { CouldNotLoad } from '../CouldNotLoad';
 import { Loader } from '../Loader';
@@ -12,8 +12,11 @@ import RenderPromptBox from './RenderPromptBox';
 
 const PromptBoxContainer = ({
   prompt,
+  isTeacher = false,
 }: IPromptBoxContainerProps): React.ReactElement => {
   const currentRumble = useRecoilValue(current.rumble);
+  const currentSection = useRecoilValue(current.section);
+  const [endTime, setEndTime] = useState(currentRumble?.end_time);
   const [promptState, setPrompt] = useState<string | undefined>(prompt);
   const [error, setError] = useState<null | string>(null);
 
@@ -34,8 +37,30 @@ const PromptBoxContainer = ({
     }
   }, []);
 
+  const startRumble = useCallback(async (): Promise<void> => {
+    try {
+      if (currentRumble?.end_time) {
+        setEndTime(currentRumble.end_time);
+      } else {
+        const newEndTime = await Rumbles.startRumble(
+          currentRumble?.id || 0,
+          currentSection?.id || 0,
+        );
+        console.log({ newEndTime });
+        setEndTime(newEndTime);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }, [currentRumble]);
+
   return promptState ? (
-    <RenderPromptBox prompt={promptState} endTime={currentRumble?.end_time} />
+    <RenderPromptBox
+      prompt={promptState}
+      endTime={endTime}
+      isTeacher={isTeacher}
+      startRumble={isTeacher ? startRumble : undefined}
+    />
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (
@@ -45,6 +70,7 @@ const PromptBoxContainer = ({
 
 interface IPromptBoxContainerProps {
   prompt?: string;
+  isTeacher?: boolean;
 }
 
 export default PromptBoxContainer;
