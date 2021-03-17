@@ -29,7 +29,7 @@ const StudentViewPastRumbleDetailsContainer = (): React.ReactElement => {
     <CouldNotLoad error={error} />
   ) : (
     <>
-      <Loader message={'Submission'} />
+      <Loader message={'Loading Submission'} />
     </>
   );
 };

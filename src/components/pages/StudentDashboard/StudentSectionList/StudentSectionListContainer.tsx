@@ -32,7 +32,7 @@ const StudentSectionListContainer = (): React.ReactElement => {
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (
-    <Loader message="Loading sections" />
+    <Loader message={'Loading sections'} />
   );
 };
 

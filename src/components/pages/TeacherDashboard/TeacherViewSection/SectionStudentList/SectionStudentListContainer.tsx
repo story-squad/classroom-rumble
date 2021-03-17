@@ -30,7 +30,7 @@ const SectionStudentListContainer = ({
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (
-    <Loader message="Loading students" />
+    <Loader message={'Loading students'} />
   );
 };
 

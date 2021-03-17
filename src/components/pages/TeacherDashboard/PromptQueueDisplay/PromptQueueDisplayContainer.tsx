@@ -26,7 +26,7 @@ const PromptQueueDisplayContainer = (): React.ReactElement => {
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (
-    <Loader message="Loading prompt queue" />
+    <Loader message={'Loading prompt queue'} />
   );
 };
 
