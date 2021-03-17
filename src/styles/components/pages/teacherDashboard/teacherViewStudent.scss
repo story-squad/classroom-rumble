@@ -1,0 +1,20 @@
+.teacher-view-student {
+  .student-info-wrapper {
+    .student-info-container {
+      @include wrapped-container();
+      @include title-section;
+    }
+  }
+  .submission-list-wrapper {
+    .submission-list-container {
+      @include wrapped-container;
+      .submission-list {
+        @include table(75%, 25%);
+
+        .table-row {
+          @include clickable-bg($white);
+        }
+      }
+    }
+  }
+}
