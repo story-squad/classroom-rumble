@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { Rumbles } from '../../../../api';
 import { useCheckBrowserState } from '../../../../hooks';
 import { current } from '../../../../state';

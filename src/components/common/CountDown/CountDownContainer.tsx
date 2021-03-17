@@ -47,7 +47,7 @@ const CountDownContainer = ({
       seconds={timeLeft.sec}
     />
   ) : (
-    <>Rumble Over</>
+    <div className="count-down-end">Rumble Over</div>
   );
 };
 
