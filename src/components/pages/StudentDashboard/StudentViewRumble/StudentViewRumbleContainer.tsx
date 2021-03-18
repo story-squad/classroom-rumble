@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { Rumbles } from '../../../../api';
 import { useCheckBrowserState } from '../../../../hooks';
 import { current } from '../../../../state';
@@ -14,7 +14,7 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
   const rumble = useRecoilValue(current.rumble);
   const [endTime, setEndTime] = useState<Date | undefined>(rumble?.end_time);
   const [isFetching, setIsFetching] = useState(false);
-  const successfulSubmission = useRecoilState(current.hasSubmitted);
+  const successfulSubmission = useRecoilValue(current.hasSubmitted);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
