@@ -2,6 +2,7 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { useCheckBrowserState } from '../../../../hooks';
 import { current } from '../../../../state';
+import { Loader } from '../../../common';
 import RenderStudentViewRumbles from './RenderStudentViewRumbles';
 
 const StudentViewSectionContainer = (): React.ReactElement => {
@@ -11,7 +12,7 @@ const StudentViewSectionContainer = (): React.ReactElement => {
   return section && !isLoading ? (
     <RenderStudentViewRumbles section={section} />
   ) : isLoading ? (
-    <p>Loading...</p>
+    <Loader message="Loading section" />
   ) : (
     <p>Redirecting...</p>
   );
