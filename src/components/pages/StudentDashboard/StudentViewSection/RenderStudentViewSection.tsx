@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { Sections } from '../../../../api';
 import { SectionInfo } from '../../../common/SectionInfo';
 import { StudentRumbleList } from '../StudentRumbleList';
-const RenderStudentViewRumbles = ({
+const RenderStudentViewSection = ({
   section,
 }: IRenderStudentViewRumblesProps): React.ReactElement => {
   const currentRumbles = useMemo(
@@ -45,4 +45,4 @@ interface IRenderStudentViewRumblesProps {
   section: Sections.ISectionWithRumbles;
 }
 
-export default RenderStudentViewRumbles;
+export default RenderStudentViewSection;
