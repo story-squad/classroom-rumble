@@ -1,5 +1,5 @@
 import React from 'react';
-import { ISection } from '../../../../api/Sections';
+import { Sections } from '../../../../api';
 import StudentSection from './StudentSection';
 
 const RenderStudentSectionList = ({
@@ -18,7 +18,7 @@ const RenderStudentSectionList = ({
 };
 
 interface RenderStudentDashboardProps {
-  studentSections: ISection[];
+  studentSections: Sections.ISectionWithRumbles[];
 }
 
 export default RenderStudentSectionList;
