@@ -20,12 +20,20 @@ const StudentRumble = ({
       ...rumbleInfo,
     };
     setCurrentRumble(currentRumble);
-    push('/dashboard/student/rumble', { rumble: currentRumble });
+    // When a student opens up a past rumble we want them to view their details for that rumble.
+    push('/dashboard/student/rumble/details', { rumble: currentRumble });
   };
   return (
-    <div className="rumble-item" onClick={openRumble}>
-      <h3>{sectionName}</h3>
-      <p>This rumble is {numMinutes} minutes long!</p>
+    <div className="rumble-item">
+      <div className="content">
+        <h3>Class Name</h3>
+        <h4>{sectionName}</h4>
+      </div>
+      <div className="content">
+        <button onClick={openRumble}>
+          {rumbleInfo.end_time ? 'View Rumble' : 'View Details'}
+        </button>
+      </div>
     </div>
   );
 };
