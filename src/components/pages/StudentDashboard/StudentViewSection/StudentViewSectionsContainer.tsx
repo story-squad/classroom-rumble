@@ -3,14 +3,14 @@ import { useRecoilValue } from 'recoil';
 import { useCheckBrowserState } from '../../../../hooks';
 import { current } from '../../../../state';
 import { Loader } from '../../../common';
-import RenderStudentViewRumbles from './RenderStudentViewRumbles';
+import RenderStudentViewSection from './RenderStudentViewSection';
 
 const StudentViewSectionContainer = (): React.ReactElement => {
   const { isLoading } = useCheckBrowserState('section');
   const section = useRecoilValue(current.section);
 
   return section && !isLoading ? (
-    <RenderStudentViewRumbles section={section} />
+    <RenderStudentViewSection section={section} />
   ) : isLoading ? (
     <Loader message="Loading section" />
   ) : (
