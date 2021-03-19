@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { Students } from '../../../../api';
-import { ISubItem } from '../../../../api/Submissions';
+import { Students, Submissions } from '../../../../api';
 import { auth, current } from '../../../../state';
 import { CouldNotLoad, Loader } from '../../../common';
 import RenderStudentViewPastRumbleDetails from './RenderStudentViewPastRumbleDetails';
@@ -11,7 +10,7 @@ const StudentViewPastRumbleDetailsContainer = (): React.ReactElement => {
   const user = useRecoilValue(auth.user);
   const section = useRecoilValue(current.section);
 
-  const [submission, setSubmission] = useState<ISubItem[]>([]);
+  const [submission, setSubmission] = useState<Submissions.ISubItem[]>([]);
   const [error, setError] = useState<null | string>(null);
 
   useEffect(() => {
@@ -33,7 +32,7 @@ const StudentViewPastRumbleDetailsContainer = (): React.ReactElement => {
     }
   }, [rumble, user]);
 
-  return submission ? (
+  return submission && section ? (
     <RenderStudentViewPastRumbleDetails
       section={section}
       submission={submission}
