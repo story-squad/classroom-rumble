@@ -13,6 +13,7 @@ const Header = (): React.ReactElement => {
   );
   const { push } = useHistory();
   const goToDashboard = () => push(`/dashboard/${userType}`);
+  const goToProfile = () => push('/dashboard/student/profile');
 
   return (
     <header className="header-wrapper">
@@ -20,7 +21,9 @@ const Header = (): React.ReactElement => {
         <h2 onClick={goToDashboard}>Classroom Rumble</h2>
         <div className="user-info">
           <p>Welcome back, {user?.firstname}</p>
-          <HiUserCircle />
+          <div onClick={goToProfile}>
+            <HiUserCircle />
+          </div>
         </div>
       </div>
     </header>
