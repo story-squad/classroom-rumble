@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Submissions } from '../../../../api';
 import { current } from '../../../../state';
 import { upload } from '../../../../utils';
@@ -15,6 +15,7 @@ const SubmissionForm = (): React.ReactElement => {
   const [error, setError] = useState<string>();
   const [loading, setLoading] = useState(false);
   const [complete, setComplete] = useRecoilState(current.hasSubmitted);
+  const setSubmission = useSetRecoilState(current.sub);
 
   // We will always know the rumble if we get this far bc the PromptBox is only rendered within a Rumble.
   const currentRumble = useRecoilValue(current.rumble);

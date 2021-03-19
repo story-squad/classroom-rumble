@@ -18,7 +18,7 @@ const TeacherViewSubmissionContainer = (): React.ReactElement => {
       submission={submission}
     />
   ) : isLoading ? (
-    <Loader message="Loading submission" />
+    <Loader message={'Loading submission'} />
   ) : (
     <p>REDIRECTING</p>
   );

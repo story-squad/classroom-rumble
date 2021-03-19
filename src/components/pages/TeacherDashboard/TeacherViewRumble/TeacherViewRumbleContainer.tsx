@@ -33,7 +33,7 @@ const TeacherViewRumbleContainer = (): React.ReactElement => {
       prompt={prompt}
     />
   ) : isLoading || promptIsLoading ? (
-    <Loader message="Loading rumble" />
+    <Loader message={'Loading rumble'} />
   ) : (
     <p>Redirecting...</p>
   );
