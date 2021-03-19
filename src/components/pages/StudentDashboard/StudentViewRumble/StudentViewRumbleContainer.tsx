@@ -15,6 +15,7 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
+    console.log({ rumble, endTime });
     let timer: NodeJS.Timeout;
     if (!endTime) {
       timer = setTimeout(() => {
@@ -40,6 +41,10 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
       clearTimeout(timer);
     };
   }, [rumble, isFetching]);
+
+  useEffect(() => {
+    if (rumble) setEndTime(rumble.end_time);
+  }, [rumble]);
 
   return section && rumble && endTime && !isLoading ? (
     <StudentRumbleRedirect

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { Submissions } from '../../../../../api';
-import { current } from '../../../../../state';
-import { upload } from '../../../../../utils';
+import { Submissions } from '../../../../../../api';
+import { current } from '../../../../../../state';
+import { upload } from '../../../../../../utils';
 
 /**
  * Submission Form allows students to submit an image to the rumble they are currenly in.

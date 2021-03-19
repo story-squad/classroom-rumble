@@ -1,11 +1,11 @@
 import React from 'react';
-import { Sections, Submissions } from '../../../../api';
-import { PromptBox, SectionInfo } from '../../../common';
+import { Sections, Submissions } from '../../../../../../api';
+import { PromptBox, SectionInfo } from '../../../../../common';
 
-const RenderStudentViewPastRumbleDetails = ({
+const RenderPastRumbleDetails = ({
   submission,
   section,
-}: IRenderStudentViewPastRumbleDetailProps): React.ReactElement => {
+}: IRenderPastRumbleDetailProps): React.ReactElement => {
   return (
     <div className="past-rumble-details-container">
       <SectionInfo section={section} />
@@ -15,9 +15,9 @@ const RenderStudentViewPastRumbleDetails = ({
   );
 };
 
-interface IRenderStudentViewPastRumbleDetailProps {
+interface IRenderPastRumbleDetailProps {
   submission: Submissions.ISubItem[];
   section: Sections.ISectionWithRumbles;
 }
 
-export default RenderStudentViewPastRumbleDetails;
+export default RenderPastRumbleDetails;
