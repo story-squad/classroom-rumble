@@ -5,6 +5,7 @@ import { sections } from '../../../state';
 import { JoinSectionRedirect } from './JoinSectionRedirect';
 import RenderStudentDashboard from './RenderStudentDashboard';
 import { StudentViewRumble } from './StudentViewRumble';
+import { StudentViewSection } from './StudentViewSection';
 
 const StudentDashboardContainer = (): React.ReactElement => {
   const sectionList = useRecoilValue(sections.list);
@@ -20,6 +21,11 @@ const StudentDashboardContainer = (): React.ReactElement => {
         exact
         path="/dashboard/student"
         render={() => <RenderStudentDashboard sectionList={sectionList} />}
+      />
+      <Route
+        exact
+        path="/dashboard/student/section"
+        component={StudentViewSection}
       />
 
       {/* Route to the current rumble */}
