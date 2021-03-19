@@ -1,0 +1,7 @@
+.student-dashboard {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+}
+
+@import './studentDashboardRumbleList.scss';

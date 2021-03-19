@@ -1,15 +1,31 @@
 import React from 'react';
-import { TeacherSectionList } from './TeacherSectionList';
-import { CreateNewSectionForm } from './CreateNewSectionForm';
+import { Sections } from '../../../api';
+import { Loader } from '../../common';
+import { PromptQueueDisplay } from './PromptQueueDisplay';
+import { TeacherDashboardRumbleList } from './TeacherDashboardRumbleList';
+import { TeacherDashboardSectionList } from './TeacherDashboardSectionList';
 
-const RenderTeacherDashboard = (): React.ReactElement => {
+const RenderTeacherDashboard = ({
+  sectionList,
+}: IRenderTeacherDashboardProps): React.ReactElement => {
   return (
     <div className="teacher-dashboard">
-      <h1>Dashboard</h1>
-      <TeacherSectionList />
-      <CreateNewSectionForm />
+      <PromptQueueDisplay />
+
+      {sectionList ? (
+        <>
+          <TeacherDashboardRumbleList sections={sectionList} />
+          <TeacherDashboardSectionList sections={sectionList} />
+        </>
+      ) : (
+        <Loader message={'Loading sections'} />
+      )}
     </div>
   );
 };
+
+interface IRenderTeacherDashboardProps {
+  sectionList: Sections.ISectionWithRumbles[];
+}
 
 export default RenderTeacherDashboard;

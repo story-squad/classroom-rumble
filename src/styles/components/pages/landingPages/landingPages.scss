@@ -1,0 +1,42 @@
+@import './authPages.scss';
+.landing-page {
+  padding: 2rem;
+  display: flex;
+  flex-flow: column;
+
+  width: 400px;
+  max-width: 100%;
+  @include bp(tablet) {
+    width: 350px;
+    padding: 4rem 3rem;
+  }
+  @include bp(large) {
+    padding: 6rem 3.5rem;
+  }
+
+  h1 {
+    @include heading(1.8rem);
+    margin-bottom: 3rem;
+    @include bp(360px) {
+      font-size: 2.4rem;
+    }
+  }
+  p {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 1.6rem;
+    line-height: 1.8rem;
+  }
+  div {
+    width: 300px;
+    max-width: 100%;
+    margin: 0 auto 1rem;
+    display: block;
+    a {
+      @include button();
+    }
+    &[class^='signup'] a {
+      @include button($primary-lite, $black);
+    }
+  }
+}

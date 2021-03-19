@@ -1,0 +1,33 @@
+.clever-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 1.6rem;
+  cursor: pointer;
+
+  background-color: $white;
+  border: 1px solid $primary-base;
+  transition: all 0.1s ease-in-out;
+  &:hover,
+  &:focus {
+    background-color: lighten($primary-base, 30%);
+    border-color: darken($primary-base, 20%);
+    transition: all 0.1s ease-in-out;
+  }
+
+  &:disabled {
+    background-color: $w-grey-10;
+    border-color: $w-grey-20;
+    cursor: not-allowed;
+    p {
+      color: $w-grey-40;
+    }
+  }
+
+  p {
+    margin: 0;
+    padding-left: 1rem;
+    font-weight: 600;
+  }
+}

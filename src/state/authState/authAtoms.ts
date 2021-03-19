@@ -15,3 +15,13 @@ export const logoutModalOpen = atom<boolean>({
   key: 'isLogoutModalOpen',
   default: false,
 });
+
+export const cleverLoginButtonURL = atom<string | undefined>({
+  key: 'cleverLoginButtonURL',
+  default: undefined,
+});
+
+export const loadingCleverLoginButtonURL = atom<boolean>({
+  key: 'loadingCleverLoginButtonURL',
+  default: false,
+});
