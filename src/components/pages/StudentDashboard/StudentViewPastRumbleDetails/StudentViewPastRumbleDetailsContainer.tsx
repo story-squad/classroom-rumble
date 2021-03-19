@@ -9,6 +9,8 @@ import RenderStudentViewPastRumbleDetails from './RenderStudentViewPastRumbleDet
 const StudentViewPastRumbleDetailsContainer = (): React.ReactElement => {
   const rumble = useRecoilValue(current.rumble);
   const user = useRecoilValue(auth.user);
+  const section = useRecoilValue(current.section);
+
   const [submission, setSubmission] = useState<ISubItem[]>([]);
   const [error, setError] = useState<null | string>(null);
 
@@ -32,7 +34,10 @@ const StudentViewPastRumbleDetailsContainer = (): React.ReactElement => {
   }, [rumble, user]);
 
   return submission ? (
-    <RenderStudentViewPastRumbleDetails submission={submission} />
+    <RenderStudentViewPastRumbleDetails
+      section={section}
+      submission={submission}
+    />
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (
