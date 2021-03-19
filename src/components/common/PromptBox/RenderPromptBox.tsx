@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 import React, { useMemo } from 'react';
+import { CountDown } from '../CountDown';
 
 /**
  * If a student makes it into a rumble there will be a prompt and countdown timer.
@@ -15,15 +16,14 @@ const RenderPromptBox = ({
 }: IRenderPromptBoxProps): React.ReactElement => {
   const [date, weekday] = useFormatDate(`${endTime || ''}`);
   // const [date, weekday] = useFormatDate('');
-
   return (
     <div className="prompt-info-wrapper">
       <div className="prompt-info-container">
         <div className="prompt-info-content">
           {endTime && (
             <div className="end-time-large">
-              <div className="date">{date}</div>
               <div className="day">{weekday}</div>
+              <div className="date">{date}</div>
             </div>
           )}
           <div className="prompt-text">
@@ -35,9 +35,17 @@ const RenderPromptBox = ({
             )}
             <p>{prompt}</p>
           </div>
-          {isTeacher && !endTime && (
+          {/* THIS NEEDS WORK */}
+          {isTeacher && !endTime ? (
             <div className="start-rumble-button">
               <button onClick={startRumble}>Start Rumble</button>
+            </div>
+          ) : !endTime ? (
+            //back to studentdashboard
+            <>Redirecting ... </>
+          ) : (
+            <div>
+              <CountDown endTime={endTime} />
             </div>
           )}
         </div>
