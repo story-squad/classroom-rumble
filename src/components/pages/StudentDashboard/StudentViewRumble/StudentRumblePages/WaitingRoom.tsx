@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RenderStudentWaitingRoom = (): React.ReactElement => {
+const WaitingRoom = (): React.ReactElement => {
   return (
     <div className="waiting-room-wrapper">
       Please Wait For Your Teacher To Start The Rumble
@@ -8,4 +8,4 @@ const RenderStudentWaitingRoom = (): React.ReactElement => {
   );
 };
 
-export default RenderStudentWaitingRoom;
+export default WaitingRoom;
