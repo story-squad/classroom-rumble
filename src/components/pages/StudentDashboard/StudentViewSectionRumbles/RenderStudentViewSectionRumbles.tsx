@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import React, { useMemo } from 'react';
 import { Sections } from '../../../../api';
-import { SectionInfo } from '../../../common/SectionInfo';
+import { SectionInfo } from '../../../common';
 import { StudentRumbleList } from '../StudentRumbleList';
 const RenderStudentViewSectionRumbles = ({
   section,
