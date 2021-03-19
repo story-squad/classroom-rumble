@@ -1,1 +1,1 @@
-export { default as StudentViewSection } from './StudentViewSectionsContainer';
+export { default as StudentViewSection } from './StudentViewSectionContainer';

@@ -1,1 +1,1 @@
-export { default as StudentRumbleList } from './StudentRumbleListContainer';
+export { default as StudentRumbleList } from './StudentRumbleList';

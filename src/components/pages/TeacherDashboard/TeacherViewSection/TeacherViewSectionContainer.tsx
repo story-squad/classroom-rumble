@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router';
 import { useRecoilValue } from 'recoil';
 import { useCheckBrowserState } from '../../../../hooks';
 import { current } from '../../../../state';
@@ -12,9 +13,9 @@ const TeacherViewSectionContainer = (): React.ReactElement => {
   return section && !isLoading ? (
     <RenderTeacherViewSection section={section} />
   ) : isLoading ? (
-    <Loader message={'Loading section'} />
+    <Loader message="Loading section" />
   ) : (
-    <p>Redirecting...</p>
+    <Redirect to="/dashboard/teacher" />
   );
 };
 
