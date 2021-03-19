@@ -1,0 +1,5 @@
+.student-dash-rumble-list-wrapper {
+  .student-dash-rumble-list-container {
+    @include wrapped-container();
+  }
+}

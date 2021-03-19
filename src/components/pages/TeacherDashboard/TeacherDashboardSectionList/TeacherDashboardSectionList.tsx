@@ -40,7 +40,6 @@ const RenderTeacherDashboardSectionList = ({
 
 interface ITeacherDashboardSectionListProps {
   sections: Sections.ISectionWithRumbles[];
-  isTeacher?: boolean;
 }
 
 export default RenderTeacherDashboardSectionList;

@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { Auth, Sections } from '../../../../api';
-import { auth, current } from '../../../../state';
+import { useSetRecoilState } from 'recoil';
+import { Sections } from '../../../../api';
+import { current } from '../../../../state';
 
 const StudentSection = ({
   active,
@@ -14,15 +14,10 @@ const StudentSection = ({
   ...section
 }: Sections.ISectionWithRumbles): React.ReactElement => {
   const { push } = useHistory();
-  const user = useRecoilValue(auth.user);
-  const role = useMemo(
-    () => (user?.roleId === Auth.Roles.user ? 'student' : 'teacher'),
-    [user],
-  );
 
   const setCurrentSection = useSetRecoilState(current.section);
 
-  const openSectionList = () => {
+  const openSection = () => {
     const currentSection = {
       ...section,
       id,
@@ -33,12 +28,12 @@ const StudentSection = ({
       gradeId,
     };
     setCurrentSection(currentSection);
-    push(`/dashboard/${role}/section`, {
+    push('/dashboard/student/section', {
       section: currentSection,
     });
   };
   return (
-    <div className="student-section" onClick={openSectionList}>
+    <div className="student-section" onClick={openSection}>
       <p>ID: {id}</p>
       <p>Name: {name} </p>
       <p>Grade ID: {gradeId}</p>

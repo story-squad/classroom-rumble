@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { Auth, Sections } from '../../../../api';
-import { auth, current, enumData } from '../../../../state';
+import { Sections } from '../../../../api';
+import { current, enumData } from '../../../../state';
 
 const TeacherDashboardSectionCard = ({
   id,
@@ -10,11 +10,6 @@ const TeacherDashboardSectionCard = ({
   ...section
 }: Sections.ISectionWithRumbles): React.ReactElement => {
   const { push } = useHistory();
-  const user = useRecoilValue(auth.user);
-  const role = useMemo(
-    () => (user?.roleId === Auth.Roles.user ? 'student' : 'teacher'),
-    [user],
-  );
 
   const gradeEnum = useRecoilValue(enumData.grades);
   const subjectEnum = useRecoilValue(enumData.subjects);
@@ -23,7 +18,7 @@ const TeacherDashboardSectionCard = ({
   const openSection = () => {
     const currentSection = { ...section, id, joinCode };
     setCurrentSection(currentSection);
-    push(`/dashboard/${role}/section`, {
+    push('/dashboard/teacher/section', {
       section: currentSection,
     });
   };

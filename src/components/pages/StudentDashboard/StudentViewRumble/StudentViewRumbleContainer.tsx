@@ -1,14 +1,11 @@
-import { DateTime } from 'luxon';
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Rumbles } from '../../../../api';
 import { useCheckBrowserState } from '../../../../hooks';
 import { current } from '../../../../state';
 import { Loader } from '../../../common';
-import { PastRumbleDetails } from '../StudentViewPastRumbleDetails';
-import RenderStudentViewRumble from './RenderStudentViewRumble';
-import RenderStudentWaitingRoom from './RenderStudentWaitingRoom';
-import RenderSubmissionSuccess from './RenderSubmissionSuccess';
+import { WaitingRoom } from './StudentRumblePages';
+import StudentRumbleRedirect from './StudentRumbleRedirect';
 
 const StudentViewRumbleContainer = (): React.ReactElement => {
   const { isLoading } = useCheckBrowserState('section', 'rumble');
@@ -16,9 +13,9 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
   const rumble = useRecoilValue(current.rumble);
   const [endTime, setEndTime] = useState<Date | undefined>(rumble?.end_time);
   const [isFetching, setIsFetching] = useState(false);
-  const successfulSubmission = useRecoilValue(current.hasSubmitted);
 
   useEffect(() => {
+    console.log({ rumble, endTime });
     let timer: NodeJS.Timeout;
     if (!endTime) {
       timer = setTimeout(() => {
@@ -45,27 +42,23 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
     };
   }, [rumble, isFetching]);
 
-  // Rumble End time needs too be checked by api call
-  return section && rumble ? (
-    successfulSubmission ? (
-      <RenderSubmissionSuccess />
-    ) : endTime ? (
-      isRumbleEnded(`${endTime}`) ? (
-        <PastRumbleDetails />
-      ) : (
-        <RenderStudentViewRumble rumble={rumble} section={section} />
-      )
-    ) : (
-      <RenderStudentWaitingRoom />
-    )
+  useEffect(() => {
+    if (rumble) setEndTime(rumble.end_time);
+  }, [rumble]);
+
+  return section && rumble && endTime && !isLoading ? (
+    <StudentRumbleRedirect
+      section={section}
+      endTime={endTime}
+      rumble={rumble}
+    />
   ) : isLoading ? (
     <Loader message="Loading rumble" />
+  ) : !endTime ? (
+    <WaitingRoom />
   ) : (
     <p>Redirecting...</p>
   );
 };
-
-const isRumbleEnded = (endTime: string) =>
-  DateTime.fromISO(endTime) <= DateTime.now();
 
 export default StudentViewRumbleContainer;

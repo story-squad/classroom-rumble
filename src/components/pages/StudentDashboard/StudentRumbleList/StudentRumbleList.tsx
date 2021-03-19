@@ -5,7 +5,6 @@ import StudentRumble from './StudentRumble';
 const RenderStudentRumbleList = ({
   rumbles,
 }: IRenderStudentRumbleListProps): React.ReactElement => {
-  console.log(rumbles);
   return (
     <div className="rumble-list">
       <h2>Rumbles</h2>

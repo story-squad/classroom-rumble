@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { Students, Submissions } from '../../../../api';
-import { auth, current } from '../../../../state';
-import { CouldNotLoad, Loader } from '../../../common';
-import RenderStudentViewPastRumbleDetails from './RenderStudentViewPastRumbleDetails';
+import { Students, Submissions } from '../../../../../../api';
+import { auth, current } from '../../../../../../state';
+import { CouldNotLoad, Loader } from '../../../../../common';
+import RenderPastRumbleDetails from './RenderPastRumbleDetails';
 
-const StudentViewPastRumbleDetailsContainer = (): React.ReactElement => {
+const PastRumbleDetailsContainer = (): React.ReactElement => {
   const rumble = useRecoilValue(current.rumble);
   const user = useRecoilValue(auth.user);
   const section = useRecoilValue(current.section);
@@ -33,10 +33,7 @@ const StudentViewPastRumbleDetailsContainer = (): React.ReactElement => {
   }, [rumble, user]);
 
   return submission && section ? (
-    <RenderStudentViewPastRumbleDetails
-      section={section}
-      submission={submission}
-    />
+    <RenderPastRumbleDetails section={section} submission={submission} />
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (
@@ -46,4 +43,4 @@ const StudentViewPastRumbleDetailsContainer = (): React.ReactElement => {
   );
 };
 
-export default StudentViewPastRumbleDetailsContainer;
+export default PastRumbleDetailsContainer;

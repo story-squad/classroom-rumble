@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import React, { useEffect, useState } from 'react';
 import RenderCountDownBox from './RenderCountDownbox';
 
@@ -7,14 +8,21 @@ const CountDownContainer = ({
   endTime,
 }: ICountDownContainerProps): React.ReactElement => {
   const calculateTimeLeft = () => {
-    const time = endTime;
-    const difference = +new Date(`${time}`) - +new Date();
-    let timeLeft = { hours: 0, min: 0, sec: 0 };
-    if (difference > 0) {
+    const difference = DateTime.fromISO(`${endTime}`).diffNow([
+      'hours',
+      'minutes',
+      'second',
+    ]);
+    let timeLeft = {
+      hours: 0,
+      min: 0,
+      sec: 0,
+    };
+    if (difference.valueOf() > 0) {
       timeLeft = {
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        min: Math.floor((difference / 1000 / 60) % 60),
-        sec: Math.floor((difference / 1000) % 60),
+        hours: difference.hours,
+        min: difference.minutes,
+        sec: difference.seconds,
       };
     }
     return timeLeft;
