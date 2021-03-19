@@ -44,6 +44,11 @@ export const signupWithClever = async (
   return data;
 };
 
+export const cleverButton = async (): Promise<{ url: string }> => {
+  const { data } = await axiosWithoutAuth().get('/api/auth/o/clever/button');
+  return data;
+};
+
 type CleverAuthResponseType =
   | {
       actionType: 'SUCCESS';
@@ -78,7 +83,7 @@ interface ICleverTeacher {
   sections: string[];
 }
 
-type CleverSubjectType =
+export type CleverSubjectType =
   | 'english/language arts'
   | 'math'
   | 'science'

@@ -1,11 +1,11 @@
 import { axiosWithAuth } from '../axiosWithConfig';
-import { ISection } from './sectionTypes';
+import { ISectionWithRumbles } from './sectionTypes';
 
 export const joinSection = async (
   body: { joinCode: string },
   sectionId: number,
   studentId: number,
-): Promise<ISection> => {
+): Promise<ISectionWithRumbles> => {
   const { data } = await axiosWithAuth().post(
     `/api/rumble/sections/${sectionId}/students/${studentId}`,
     body,

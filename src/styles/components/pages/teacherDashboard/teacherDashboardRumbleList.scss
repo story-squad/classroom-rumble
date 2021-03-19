@@ -1,0 +1,23 @@
+.teacher-dash-rumble-list-wrapper {
+  padding: 3rem 1.5rem;
+  @include bp(mid) {
+    padding: 3rem;
+  }
+  .teacher-dash-rumble-list-container {
+    @include wrapped-container();
+    h2 {
+      color: $c-grey-70;
+      font-size: 1.6rem;
+      line-height: 2rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    .rumble-list {
+      @include scaling-flexbox;
+      .rumble-card {
+        @include card($darken-amt: 1%);
+        border: 1px solid $c-grey-20;
+      }
+    }
+  }
+}

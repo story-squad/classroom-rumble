@@ -1,0 +1,99 @@
+.create-new-rumble-wrapper {
+  .create-new-rumble-container {
+    @include wrapped-container();
+    padding: 0 1rem;
+
+    .prompt-display {
+      background-color: $w-grey-10;
+      padding: 1.6rem;
+      border-radius: 0 0 1.6rem 1.6rem;
+      margin-bottom: 2rem;
+      @include bp(mid) {
+        padding: 3rem;
+      }
+      h2 {
+        color: $w-grey-50;
+        font-size: 2rem;
+        line-height: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 0.4rem;
+        text-transform: uppercase;
+      }
+      h3 {
+        color: $c-grey-70;
+        font-size: 1.4rem;
+        line-height: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 1.6rem;
+      }
+      p {
+        font-size: 1.6rem;
+        line-height: 2rem;
+        color: $w-grey-90;
+      }
+    }
+    form {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: flex-end;
+      .section-wrapper {
+        width: 100%;
+        background-color: $w-grey-10;
+        padding: 1.6rem;
+        border-radius: 1.6rem;
+        margin-bottom: 2rem;
+        @include bp(mid) {
+          padding: 3rem;
+        }
+        h3 {
+          color: $w-grey-50;
+          font-size: 1.4rem;
+          line-height: 1.8rem;
+          font-weight: 700;
+          margin-bottom: 0.4rem;
+        }
+        .checkbox-group-wrapper {
+          .checkbox {
+            margin-top: 1rem;
+            margin-bottom: 0;
+            label {
+              align-items: center;
+              div {
+                margin-left: 1rem;
+                font-size: 1.6rem;
+                line-height: 2rem;
+              }
+            }
+          }
+        }
+        .form-input {
+          width: 200px;
+          max-width: 100%;
+          margin: 1rem 0 0;
+          input {
+            background-color: $white;
+          }
+        }
+      }
+
+      .button-row {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
+        width: 400px;
+        max-width: 100%;
+        input[type='submit'] {
+          @include button();
+          padding: 1.1rem 2rem;
+        }
+        button {
+          @include button-alt;
+        }
+        & > * {
+          width: 45%;
+        }
+      }
+    }
+  }
+}

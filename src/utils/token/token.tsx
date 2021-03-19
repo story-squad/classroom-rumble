@@ -21,7 +21,7 @@ export const get = (): string | undefined => {
     // jwt_decode will throw an error if the token is invalid
     const decodedToken: DecodedToken = jwt_decode(token);
     // If the token is expired, we will also throw an error
-    if (Date.now() >= decodedToken.exp * 1000) throw new Error();
+    if (Date.now() >= decodedToken.exp) throw new Error();
     return token ?? undefined;
   } catch (err) {
     console.log(err);
