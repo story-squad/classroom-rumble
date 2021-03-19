@@ -1,6 +1,6 @@
 import React from 'react';
 import { Sections } from '../../../api';
-import { Header, Loader } from '../../common';
+import { Loader } from '../../common';
 import { StudentDashboardRumbleList } from './StudentDashboardRumbleList';
 import { StudentSectionList } from './StudentSectionList';
 
@@ -9,20 +9,17 @@ const RenderStudentDashboard = ({
   sectionList,
 }: IRenderStudentDashboardProps): React.ReactElement => {
   return (
-    <>
-      <Header />
-      <div className="student-dashboard">
-        <h1>Your Dashboard</h1>
-        {sectionList ? (
-          <>
-            <StudentDashboardRumbleList sections={sectionList} />
-            <StudentSectionList />
-          </>
-        ) : (
-          <Loader message={'Loading sections'} />
-        )}
-      </div>
-    </>
+    <div className="student-dashboard">
+      <h1>Your Dashboard</h1>
+      {sectionList ? (
+        <>
+          <StudentDashboardRumbleList sections={sectionList} />
+          <StudentSectionList />
+        </>
+      ) : (
+        <Loader message={'Loading sections'} />
+      )}
+    </div>
   );
 };
 

@@ -1,20 +1,17 @@
 import React from 'react';
 import { Rumbles, Sections } from '../../../../api';
-import { Header, PromptBox, SectionInfo } from '../../../common';
+import { PromptBox, SectionInfo } from '../../../common';
 import SubmissionForm from './SubmissionForm';
 
 const RenderStudentViewRumble = ({
   section,
 }: IRenderStudentViewRumbleProps): React.ReactElement => {
   return (
-    <>
-      <Header />
-      <div className="student-view-rumble">
-        <SectionInfo section={section} />
-        <PromptBox />
-        <SubmissionForm />
-      </div>
-    </>
+    <div className="student-view-rumble">
+      <SectionInfo section={section} />
+      <PromptBox />
+      <SubmissionForm />
+    </div>
   );
 };
 

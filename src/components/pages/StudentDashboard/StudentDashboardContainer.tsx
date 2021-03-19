@@ -2,9 +2,9 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { sections } from '../../../state';
+import { Header } from '../../common';
 import { JoinSectionRedirect } from './JoinSectionRedirect';
 import RenderStudentDashboard from './RenderStudentDashboard';
-import { PastRumbleDetails } from './StudentViewPastRumbleDetails';
 import { StudentViewRumble } from './StudentViewRumble';
 import { StudentViewSectionRumbles } from './StudentViewSectionRumbles';
 
@@ -12,39 +12,37 @@ const StudentDashboardContainer = (): React.ReactElement => {
   const sectionList = useRecoilValue(sections.list);
 
   return (
-    <Switch>
-      <Route
-        exact
-        path="/dashboard/student/join"
-        component={JoinSectionRedirect}
-      />
-      <Route
-        exact
-        path="/dashboard/student"
-        render={() => <RenderStudentDashboard sectionList={sectionList} />}
-      />
-      <Route
-        exact
-        path="/dashboard/student/rumble/details"
-        render={() => <PastRumbleDetails />}
-      />
-      <Route
-        exact
-        path="/dashboard/student/section"
-        component={() => <StudentViewSectionRumbles />}
-      />
-      {/* Route to the current rumble */}
-      <Route
-        exact
-        path="/dashboard/student/rumble"
-        render={() => <StudentViewRumble />}
-      />
-      {/* Fallback redirect for nonexistent routes */}
-      <Route
-        path="/dashboard/student"
-        component={() => <Redirect to="/dashboard/student" />}
-      />
-    </Switch>
+    <>
+      <Header />
+      <Switch>
+        <Route
+          exact
+          path="/dashboard/student/join"
+          component={JoinSectionRedirect}
+        />
+        <Route
+          exact
+          path="/dashboard/student"
+          render={() => <RenderStudentDashboard sectionList={sectionList} />}
+        />
+        <Route
+          exact
+          path="/dashboard/student/section"
+          component={() => <StudentViewSectionRumbles />}
+        />
+        {/* Route to the current rumble */}
+        <Route
+          exact
+          path="/dashboard/student/rumble"
+          render={() => <StudentViewRumble />}
+        />
+        {/* Fallback redirect for nonexistent routes */}
+        <Route
+          path="/dashboard/student"
+          component={() => <Redirect to="/dashboard/student" />}
+        />
+      </Switch>
+    </>
   );
 };
 
