@@ -83,7 +83,7 @@ interface ICleverTeacher {
   sections: string[];
 }
 
-type CleverSubjectType =
+export type CleverSubjectType =
   | 'english/language arts'
   | 'math'
   | 'science'
