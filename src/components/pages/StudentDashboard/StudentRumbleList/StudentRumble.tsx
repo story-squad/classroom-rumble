@@ -21,7 +21,7 @@ const StudentRumble = ({
     };
     setCurrentRumble(currentRumble);
     // When a student opens up a past rumble we want them to view their details for that rumble.
-    push('/dashboard/student/rumble/details', { rumble: currentRumble });
+    push('/dashboard/student/rumble', { rumble: currentRumble });
   };
   return (
     <div className="rumble-item">

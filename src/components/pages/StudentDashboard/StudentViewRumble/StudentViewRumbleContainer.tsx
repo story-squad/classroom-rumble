@@ -1,9 +1,11 @@
+import { DateTime } from 'luxon';
 import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Rumbles } from '../../../../api';
 import { useCheckBrowserState } from '../../../../hooks';
 import { current } from '../../../../state';
 import { Loader } from '../../../common';
+import { PastRumbleDetails } from '../StudentViewPastRumbleDetails';
 import RenderStudentViewRumble from './RenderStudentViewRumble';
 import RenderStudentWaitingRoom from './RenderStudentWaitingRoom';
 import RenderSubmissionSuccess from './RenderSubmissionSuccess';
@@ -49,7 +51,11 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
     successfulSubmission ? (
       <RenderSubmissionSuccess />
     ) : endTime ? (
-      <RenderStudentViewRumble rumble={rumble} section={section} />
+      isRumbleEnded(`${endTime}`) ? (
+        <PastRumbleDetails />
+      ) : (
+        <RenderStudentViewRumble rumble={rumble} section={section} />
+      )
     ) : (
       <RenderStudentWaitingRoom />
     )
@@ -59,5 +65,8 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
     <p>Redirecting...</p>
   );
 };
+
+const isRumbleEnded = (endTime: string) =>
+  DateTime.fromISO(endTime) <= DateTime.now();
 
 export default StudentViewRumbleContainer;
