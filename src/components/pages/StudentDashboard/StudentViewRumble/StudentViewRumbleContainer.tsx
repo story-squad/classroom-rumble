@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import React, { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { Rumbles } from '../../../../api';
 import { useCheckBrowserState } from '../../../../hooks';
 import { current } from '../../../../state';
@@ -16,8 +16,7 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
   const rumble = useRecoilValue(current.rumble);
   const [endTime, setEndTime] = useState<Date | undefined>(rumble?.end_time);
   const [isFetching, setIsFetching] = useState(false);
-  // Check if the user has submitted yet in order to properly render the proper Student Rumble pages.
-  const successfulSubmission = useRecoilState(current.hasSubmitted);
+  const successfulSubmission = useRecoilValue(current.hasSubmitted);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
