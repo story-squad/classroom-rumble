@@ -9,7 +9,7 @@ const StudentRumbleListContainer = ({
   return rumbleList ? (
     <RenderRumbleList rumbles={rumbleList} />
   ) : (
-    <Loader message="Loading rumbles" />
+    <Loader message={'Loading rumbles'} />
   );
 };
 

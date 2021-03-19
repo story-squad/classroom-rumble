@@ -18,7 +18,7 @@ const RenderTeacherDashboard = ({
           <TeacherDashboardSectionList sections={sectionList} isTeacher />
         </>
       ) : (
-        <Loader message="Loading sections" />
+        <Loader message={'Loading sections'} />
       )}
     </div>
   );

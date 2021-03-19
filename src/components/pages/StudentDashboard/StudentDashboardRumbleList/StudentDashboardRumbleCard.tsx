@@ -11,6 +11,7 @@ const StudentRumble = ({
   const { push } = useHistory();
   const setCurrentSection = useSetRecoilState(current.section);
   const setCurrentRumble = useSetRecoilState(current.rumble);
+
   const openCurrentRumble = () => {
     setCurrentRumble(rumble);
     setCurrentSection(section);

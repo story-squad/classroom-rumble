@@ -30,7 +30,7 @@ const RumbleStudentListContainer = ({
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (
-    <Loader message="Loading students" />
+    <Loader message={'Loading students'} />
   );
 };
 

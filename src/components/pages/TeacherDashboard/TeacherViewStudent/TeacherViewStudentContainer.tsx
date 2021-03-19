@@ -13,7 +13,7 @@ const TeacherViewStudentContainer = (): React.ReactElement => {
   return student && section && !isLoading ? (
     <RenderTeacherViewStudent student={student} section={section} />
   ) : isLoading ? (
-    <Loader message="Loading student" />
+    <Loader message={'Loading student'} />
   ) : (
     <p>Redirecting...</p>
   );
