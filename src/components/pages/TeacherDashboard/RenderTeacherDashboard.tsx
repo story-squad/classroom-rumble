@@ -15,7 +15,7 @@ const RenderTeacherDashboard = ({
       {sectionList ? (
         <>
           <TeacherDashboardRumbleList sections={sectionList} />
-          <TeacherDashboardSectionList sections={sectionList} isTeacher />
+          <TeacherDashboardSectionList sections={sectionList} />
         </>
       ) : (
         <Loader message={'Loading sections'} />

@@ -2,14 +2,14 @@ import React from 'react';
 import { Sections } from '../../../../api';
 import StudentSection from './StudentSection';
 
-const RenderStudentSectionList = ({
-  studentSections,
-}: RenderStudentDashboardProps): React.ReactElement => {
+const StudentSectionListContainer = ({
+  sectionList,
+}: IStudentSectionListContainerProps): React.ReactElement => {
   return (
     <div className="section-list-wrapper">
       <h1>YOUR SECTIONS</h1>
       <div className="section-list">
-        {studentSections?.map((sec) => (
+        {sectionList?.map((sec) => (
           <StudentSection {...sec} key={sec.id} />
         ))}
       </div>
@@ -17,8 +17,8 @@ const RenderStudentSectionList = ({
   );
 };
 
-interface RenderStudentDashboardProps {
-  studentSections: Sections.ISectionWithRumbles[];
+interface IStudentSectionListContainerProps {
+  sectionList: Sections.ISectionWithRumbles[];
 }
 
-export default RenderStudentSectionList;
+export default StudentSectionListContainer;

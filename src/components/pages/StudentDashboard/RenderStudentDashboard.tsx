@@ -10,11 +10,10 @@ const RenderStudentDashboard = ({
 }: IRenderStudentDashboardProps): React.ReactElement => {
   return (
     <div className="student-dashboard">
-      <h1>Your Dashboard</h1>
       {sectionList ? (
         <>
           <StudentDashboardRumbleList sections={sectionList} />
-          <StudentSectionList />
+          <StudentSectionList sectionList={sectionList} />
         </>
       ) : (
         <Loader message="Loading sections" />
