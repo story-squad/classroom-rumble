@@ -3,9 +3,8 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { Rumbles, Sections } from '../../../../api';
 import { current } from '../../../../state';
-import { PastRumbleDetails } from '../StudentViewPastRumbleDetails';
-import { SubmissionSuccess } from './StudentRumblePages';
-import { StudentSubmissionPage } from './StudentSubmissionPage';
+import { PastRumbleDetails, SubmissionSuccess } from './StudentRumblePages';
+import { StudentSubmissionPage } from './StudentRumblePages/';
 
 const StudentRumbleRedirect = ({
   endTime,

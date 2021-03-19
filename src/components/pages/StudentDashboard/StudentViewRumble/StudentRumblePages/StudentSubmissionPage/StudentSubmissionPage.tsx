@@ -1,6 +1,6 @@
 import React from 'react';
-import { Rumbles, Sections } from '../../../../../api';
-import { PromptBox, SectionInfo } from '../../../../common';
+import { Rumbles, Sections } from '../../../../../../api';
+import { PromptBox, SectionInfo } from '../../../../../common';
 import SubmissionForm from './SubmissionForm';
 
 const RenderStudentViewRumble = ({
