@@ -70,6 +70,7 @@
       }
       textarea {
         @include text-input;
+        resize: none;
       }
       .error {
         span {

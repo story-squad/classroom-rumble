@@ -1,6 +1,7 @@
 import React from 'react';
-import surfer from '../../../../utils/images/female-surfer.svg';
-const RenderSubmissionSuccess = (): React.ReactElement => {
+import surfer from '../../../../../assets/img/female-surfer.svg';
+
+const SubmissionSuccess = (): React.ReactElement => {
   return (
     <div className="submission-success-wrapper">
       <div className="success-image-wrapper">
@@ -13,4 +14,4 @@ const RenderSubmissionSuccess = (): React.ReactElement => {
   );
 };
 
-export default RenderSubmissionSuccess;
+export default SubmissionSuccess;
