@@ -1,9 +1,12 @@
-.student-dash-rumble-list-wrapper {
-  padding: 2rem 1.5rem;
+.student-dash-section-list-wrapper {
+  padding: 1.5rem;
+  padding-top: 0;
   @include bp(mid) {
     padding: 3rem;
+    margin-top: -1rem;
+    padding-top: 0;
   }
-  .student-dash-rumble-list-container {
+  .student-dash-section-list-container {
     @include wrapped-container();
     h2 {
       color: $c-grey-70;
@@ -12,9 +15,9 @@
       font-weight: 600;
       margin-bottom: 1.5rem;
     }
-    .rumble-list {
+    .section-list {
       @include scaling-flexbox;
-      .rumble-card {
+      .section-card {
         @include card($darken-amt: 1%);
         border: 1px solid $c-grey-20;
       }
