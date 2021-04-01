@@ -13,6 +13,8 @@ const StudentRumbleRedirect = ({
 }: IStudentRumbleRedirectProps): React.ReactElement => {
   const successfulSubmission = useRecoilValue(current.hasSubmitted);
 
+  // TODO - add checks for if the feedback phase has been started and if it's also been completed
+
   if (isRumbleEnded(`${endTime}`)) {
     return <PastRumbleDetails />;
   } else if (successfulSubmission) {
