@@ -5,15 +5,12 @@ import { Logout } from '../Logout';
 
 const Menu = (): React.ReactElement => {
   return (
-    <div>
+    <>
       <Logout />
       <div>
-        <p>Menu Thing</p>
+        <a>Menu Thing</a>
       </div>
-      <div>
-        <p>Menu Thing 2</p>
-      </div>
-    </div>
+    </>
   );
 };
 
