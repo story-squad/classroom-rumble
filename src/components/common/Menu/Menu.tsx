@@ -7,9 +7,9 @@ const Menu = (): React.ReactElement => {
   return (
     <>
       <Logout />
-      <div>
+      {/* <div>
         <a>Menu Thing</a>
-      </div>
+      </div> */}
     </>
   );
 };
