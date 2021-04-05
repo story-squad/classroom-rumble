@@ -5,7 +5,6 @@ import { reset } from '../../../state';
 import { token } from '../../../utils';
 
 const Logout = (): React.ReactElement => {
-  // const [isVisible, setIsVisible] = useRecoilState(auth.logoutModalOpen);
   const { push } = useHistory();
   const resetRecoilState = useSetRecoilState(reset);
   const logout = () => {
@@ -15,7 +14,7 @@ const Logout = (): React.ReactElement => {
     push('/');
   };
   return (
-    <div className="logout">
+    <div>
       <p onClick={logout}>Logout</p>
     </div>
   );
