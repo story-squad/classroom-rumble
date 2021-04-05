@@ -5,10 +5,11 @@
   position: absolute;
   right: 1.6em;
   top: 40px;
-  width: 125px;
   padding: 5px;
+  width: 125px;
   border-radius: 0px 0px 5px 5px;
   border: 1px solid $w-grey-20;
+  border-top: none;
   a {
     font-family: $text-font;
     color: $black;
