@@ -1,0 +1,9 @@
+.waiting-room-wrapper {
+  @include wrapped-container;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  font-size: 1.6rem;
+  height: 560px;
+}
