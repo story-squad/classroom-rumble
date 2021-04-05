@@ -1,0 +1,17 @@
+.menu {
+  @include wrapped-container;
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  line-height: 1.5em;
+  align-items: flex-end;
+  div {
+    width: 100px;
+  }
+  p {
+    font-family: $text-font;
+    color: $black;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+}
