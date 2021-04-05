@@ -4,6 +4,7 @@ import { useHistory } from 'react-router';
 import { useRecoilValue } from 'recoil';
 import { Auth } from '../../../api';
 import { auth } from '../../../state';
+import { Logout } from '../Logout';
 
 const Header = (): React.ReactElement => {
   const user = useRecoilValue(auth.user);
@@ -22,6 +23,7 @@ const Header = (): React.ReactElement => {
           <p>Welcome back, {user?.firstname}</p>
           <HiUserCircle />
         </div>
+        <Logout />
       </div>
     </header>
   );

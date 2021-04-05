@@ -5,7 +5,6 @@ import {
   CookiePopup,
   LandingPageWrapper,
   LoadUserData,
-  LogoutPopup,
   PrivateRoute,
   SEO,
   TermsOfService,
@@ -23,7 +22,6 @@ const App = (): React.ReactElement => {
       <LoadUserData />
       <SEO />
       <CookiePopup />
-      <LogoutPopup />
       <Switch>
         {/* Public Routes */}
         <Route

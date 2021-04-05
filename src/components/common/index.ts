@@ -10,7 +10,7 @@ export { Input } from './Input';
 export { LandingPageWrapper } from './LandingPageWrapper';
 export { Loader } from './Loader';
 export { LoadUserData } from './LoadUserData';
-export { LogoutPopup } from './LogoutPopup';
+// export { Logout } from './Logout';
 export { Modal } from './Modal';
 export { PrivateRoute } from './PrivateRoute';
 export { PromptBox } from './PromptBox';
