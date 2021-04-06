@@ -5,7 +5,7 @@ import { useHistory } from 'react-router';
 import { useRecoilValue } from 'recoil';
 import { Auth } from '../../../api';
 import { auth } from '../../../state';
-import { Menu } from '../Menu';
+import { Menu } from './Menu';
 
 const Header = (): React.ReactElement => {
   const user = useRecoilValue(auth.user);
@@ -35,11 +35,7 @@ const Header = (): React.ReactElement => {
             className="ignore-onclickoutside"
             onClick={handleClickBtn}
           />
-          {openMenu && (
-            <div className="menu" ref={ref}>
-              <Menu />
-            </div>
-          )}
+          {openMenu && <Menu ref={ref} />}
         </div>
       </div>
     </header>
