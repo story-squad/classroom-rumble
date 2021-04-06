@@ -1,29 +1,30 @@
 import React from 'react';
 import { Submissions } from '../../../../../../api';
+import FeedbackForm from './FeedbackForm';
 
 const FeedbackSubmissionCard = ({
   submission,
+  subNumber,
 }: IFeedbackSubmissionCardProps): React.ReactElement => {
   return (
     <div>
-      <div>
-        <img src={submission.src}></img>
-        <a>View Larger Image</a>
-        {/* modal to larger image */}
-      </div>
-      <form>
-        <h2>FEEDBACK</h2>
-        <label>
-          How much did you want the main characters to succeed?
-          <input type="radio"></input>
-        </label>
-      </form>
+      <h2>Feedback #{subNumber}</h2>
+      <img
+        aria-label="Handwritten Story"
+        src={submission.src}
+        width="200px"
+        height="300px"
+      ></img>
+      <a>View Larger Image</a>
+      {/* modal to larger image */}
+      <FeedbackForm subNumber={subNumber} />
     </div>
   );
 };
 
 interface IFeedbackSubmissionCardProps {
   submission: Submissions.ISubItem;
+  subNumber: number;
 }
 
 export default FeedbackSubmissionCard;
