@@ -1,0 +1,23 @@
+.submission-success-wrapper {
+  @include wrapped-container;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .success-image-wrapper {
+    margin-top: 50px;
+    img {
+      width: 300px;
+      @include bp($tablet) {
+        width: 400px;
+      }
+    }
+  }
+  p {
+    font-size: 18px;
+    margin-top: 20px;
+    @include bp($mid) {
+      font-size: 20px;
+    }
+  }
+}
