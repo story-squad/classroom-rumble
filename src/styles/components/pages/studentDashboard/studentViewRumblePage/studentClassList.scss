@@ -9,8 +9,9 @@
   }
   .section-content {
     @include scaling-flexbox;
-    justify-content: space-between;
     .rumble-item {
+      margin-right: 30px;
+      margin-bottom: 30px;
       padding: 20px;
       border: 1px solid $w-grey-40;
       border-radius: 20px;
