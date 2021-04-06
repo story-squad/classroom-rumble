@@ -35,7 +35,11 @@ const Header = (): React.ReactElement => {
             className="ignore-onclickoutside"
             onClick={handleClickBtn}
           />
-          {openMenu && <Menu ref={ref} />}
+          {openMenu && (
+            <div className="header-menu" ref={ref}>
+              <Menu />
+            </div>
+          )}
         </div>
       </div>
     </header>
