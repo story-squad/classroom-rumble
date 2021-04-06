@@ -12,16 +12,15 @@ header {
       font-size: 1.6rem;
       @include text-button($white);
     }
-
     .user-info {
       display: flex;
       flex-flow: row nowrap;
       align-items: center;
+      position: relative;
       p {
         cursor: default;
         font-size: 1.2rem;
         color: $white;
-
         display: none;
         @include bp(mid) {
           display: block;

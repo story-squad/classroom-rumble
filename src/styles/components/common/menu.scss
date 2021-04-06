@@ -1,0 +1,26 @@
+.header-menu {
+  text-align: center;
+  line-height: 1.5em;
+  position: absolute;
+  right: 1.6em;
+  top: 40px;
+  width: 125px;
+  border-radius: 0px 0px 5px 5px;
+  border: 1px solid $w-grey-20;
+  border-top: none;
+  cursor: pointer;
+  background-color: $white;
+  div {
+    padding: 1rem;
+    &:hover {
+      background-color: darken($white, 15%);
+    }
+    a {
+      font-family: $text-font;
+      font-weight: 600;
+      color: $c-grey-80;
+      font-size: 1.6rem;
+      line-height: 2rem;
+    }
+  }
+}
