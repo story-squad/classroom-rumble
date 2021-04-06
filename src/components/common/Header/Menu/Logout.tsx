@@ -1,8 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 import { useSetRecoilState } from 'recoil';
-import { reset } from '../../../state';
-import { token } from '../../../utils';
+import { reset } from '../../../../state';
+import { token } from '../../../../utils';
 
 const Logout = (): React.ReactElement => {
   const { push } = useHistory();
