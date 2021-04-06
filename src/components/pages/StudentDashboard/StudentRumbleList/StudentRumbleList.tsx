@@ -6,12 +6,15 @@ const RenderStudentRumbleList = ({
   rumbles,
 }: IRenderStudentRumbleListProps): React.ReactElement => {
   return (
-    <div className="rumble-list">
-      <h2>Rumbles</h2>
+    <>
+      {/* <div className="rumble-list-wrapper"> */}
+      {/* Is this h2 needed? */}
+      {/* <h2>Rumbles</h2> */}
       {rumbles.map((r) => (
         <StudentRumble key={r.id} {...r} />
       ))}
-    </div>
+      {/* </div> */}
+    </>
   );
 };
 
