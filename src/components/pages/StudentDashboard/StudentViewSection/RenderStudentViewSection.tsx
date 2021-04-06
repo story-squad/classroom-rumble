@@ -15,9 +15,13 @@ const RenderStudentViewSectionRumbles = ({
         <div className="section-content-switcher-wrapper">
           <div className="section-content-switcher-container">
             <h3>Current Rumbles</h3>
-            <StudentRumbleList rumbles={currentRumbles} />
+            <div className="section-content">
+              <StudentRumbleList rumbles={currentRumbles} />
+            </div>
             <h3>Past Rumbles</h3>
-            <StudentRumbleList rumbles={pastRumbles} />
+            <div className="section-content">
+              <StudentRumbleList rumbles={pastRumbles} />
+            </div>
           </div>
         </div>
       </div>
