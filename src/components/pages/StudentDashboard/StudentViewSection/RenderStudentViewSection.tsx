@@ -10,6 +10,7 @@ const RenderStudentViewSectionRumbles = ({
   section,
 }: IRenderStudentViewSectionRumblesProps): React.ReactElement => {
   const [currentRumbles, pastRumbles] = useRumbleFilter(section.rumbles);
+  console.log(currentRumbles);
   return (
     <>
       <SectionInfo section={section} />
@@ -22,27 +23,27 @@ const RenderStudentViewSectionRumbles = ({
                 <div className="section-content">
                   <StudentRumbleList rumbles={currentRumbles} />
                 </div>
+              </>
+            ) : (
+              <div>
+                <h3>Current Rumbles</h3>
+                <p>You don&apos;t have any current rumbles.</p>
+                <img src={emptyMail} alt="You don't have any current rumbles" />
+              </div>
+            )}
+            {pastRumbles.length ? (
+              <>
                 <h3>Past Rumbles</h3>
                 <div className="section-content">
                   <StudentRumbleList rumbles={pastRumbles} />
                 </div>
               </>
             ) : (
-              <>
-                <h3>Current Rumbles</h3>
-                <div>
-                  <p>You don&apos;t have any current rumbles.</p>
-                  <img
-                    src={emptyMail}
-                    alt="You don't have any current rumbles"
-                  />
-                </div>
+              <div>
                 <h3>Past Rumbles</h3>
-                <div>
-                  <p>You don&apos;t have any classes yet.</p>
-                  <img src={rocketBoy} alt="You don't have any classes" />
-                </div>
-              </>
+                <p>You don&apos;t have any classes yet.</p>
+                <img src={rocketBoy} alt="You don't have any classes" />
+              </div>
             )}
           </div>
         </div>
