@@ -17,6 +17,11 @@
       justify-content: center;
       flex-direction: column;
       align-items: center;
+      .error {
+        font-size: 14px;
+        color: $red-bright;
+        font-weight: bold;
+      }
       .preview {
         img {
           max-height: 250px;
