@@ -25,6 +25,7 @@
       .preview {
         img {
           max-height: 250px;
+          max-width: 100%;
         }
       }
       label {
@@ -40,6 +41,7 @@
           @include button-alt;
         }
       }
+      //This Button is The Submit Your Story Button ****
       button {
         position: absolute;
         bottom: 0px;

@@ -82,7 +82,7 @@ const SubmissionForm = (): React.ReactElement => {
               <div className="preview">
                 <img src={preview} alt="Upload preview" />
                 <div className={`loader${loading ? ' visible' : ''}`}>
-                  {/* <p>** barloader **</p> ?? */}
+                  {/* <p>** barloader **</p> ?? What is this for? */}
                 </div>
               </div>
             )}
