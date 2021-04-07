@@ -18,6 +18,7 @@ const RenderStudentViewSectionRumbles = ({
         <div className="section-content-switcher-wrapper">
           <div className="section-content-switcher-container">
             {currentRumbles.length ? (
+              // Checks if there are any current rumbles if not renders an image
               <>
                 <h3>Current Rumbles</h3>
                 <div className="section-content">
@@ -32,6 +33,7 @@ const RenderStudentViewSectionRumbles = ({
               </div>
             )}
             {pastRumbles.length ? (
+              //Checks if there are any past rumbles if not renders an image
               <>
                 <h3>Past Rumbles</h3>
                 <div className="section-content">
