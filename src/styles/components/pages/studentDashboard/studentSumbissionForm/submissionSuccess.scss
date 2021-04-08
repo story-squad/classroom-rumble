@@ -14,10 +14,10 @@
     }
   }
   p {
-    font-size: 18px;
+    font-size: 1.8rem;
     margin-top: 20px;
     @include bp($mid) {
-      font-size: 20px;
+      font-size: 2rem;
     }
   }
 }
