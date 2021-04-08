@@ -11,6 +11,8 @@ const RenderFeedback = (): React.ReactElement => {
 
   useEffect(() => {
     if (rumble?.id && student?.id) {
+      // To test remove rumble and student id from params and comment out the call in feedback.ts
+      // uncomment and return dummydata then click on rumble
       Feedback.getSubmissionFeedback(rumble.id, student.id)
         .then((res) => {
           console.log(res);
@@ -22,7 +24,8 @@ const RenderFeedback = (): React.ReactElement => {
     }
   }, [rumble, student]);
   console.log(feedback);
-  return <div>Hey I am Feedback</div>;
+
+  return <div className="feedback-wrapper">Hey I am Feedback</div>;
 };
 
 export default RenderFeedback;

@@ -13,6 +13,7 @@ export const getSubmissionFeedback = async (
   const { data } = await axiosWithAuth().get(
     `/api/rumble/rumbles/${rumbleId}/feedback?studentId=${studentId}`,
   );
+  // *** DUMMY DATA ***
   //   const data: IFeedback[] = [
   //     { id: 1, voterId: 2, submissionId: 1, score1: 3, score2: 1, score3: 5 },
   //   ];
