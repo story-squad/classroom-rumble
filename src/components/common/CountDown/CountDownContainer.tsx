@@ -31,7 +31,7 @@ const CountDownContainer = ({
   const [total, setTotal] = useState<number>();
 
   const sum = (a: number, b: number, c: number) => {
-    const totalTime = a + b + c;
+    const totalTime = a * 60 * 60 + b * 60 + c;
     setTotal(totalTime);
   };
 
