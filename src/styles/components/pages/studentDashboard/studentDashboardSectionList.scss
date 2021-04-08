@@ -15,8 +15,7 @@
       font-weight: 600;
       margin-bottom: 1.5rem;
     }
-    .section-list,
-    .rumble-list {
+    .section-list {
       @include scaling-flexbox;
       .section-card {
         @include card($darken-amt: 1%);
