@@ -2,7 +2,7 @@ import { axiosWithAuth } from '../axiosWithConfig';
 import {
   IRumble,
   IRumblePostBody,
-  IRumbleWithSectionInfo,
+  IRumbleWithSectionInfo
 } from './rumbleTypes';
 
 export const create = async (
@@ -31,6 +31,14 @@ export const startRumble = async (
 ): Promise<Date> => {
   const { data } = await axiosWithAuth().put(
     `/api/rumble/rumbles/${rumbleId}/section/${sectionId}/start`,
+  );
+  return data;
+};
+
+// Q: What will the return look like? Used <Date> as placeholder
+export const startFeedback = async (rumbleId: number): Promise<Date> => {
+  const { data } = await axiosWithAuth().put(
+    `/api/rumble/rumbles/${rumbleId}/feedback/start`,
   );
   return data;
 };
