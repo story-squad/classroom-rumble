@@ -2,7 +2,7 @@ import { axiosWithAuth } from '../axiosWithConfig';
 import {
   IRumble,
   IRumblePostBody,
-  IRumbleWithSectionInfo
+  IRumbleWithSectionInfo,
 } from './rumbleTypes';
 
 export const create = async (
