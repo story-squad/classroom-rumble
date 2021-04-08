@@ -36,16 +36,18 @@ const RenderPromptBox = ({
             <p>{prompt}</p>
           </div>
           {/* THIS NEEDS WORK */}
-          {isTeacher &&
-            (!endTime ? (
-              <div className="start-rumble-button">
-                <button onClick={startRumble}>Start Rumble</button>
-              </div>
-            ) : (
-              <div>
-                <CountDown endTime={endTime} />
-              </div>
-            ))}
+          {isTeacher && !endTime ? (
+            <div className="start-rumble-button">
+              <button onClick={startRumble}>Start Rumble</button>
+            </div>
+          ) : !endTime ? (
+            //back to studentdashboard
+            <>Redirecting ... </>
+          ) : (
+            <div>
+              <CountDown endTime={endTime} />
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -56,10 +58,6 @@ const useFormatDate = (
   date: string | undefined,
 ): [date: string | undefined, weekday: string | undefined] => {
   const luxonDate = useMemo(() => DateTime.fromISO(date || ''), [date]);
-  /**
-   * Pass endtime into fromISO
-   * if before endtime dispay countdown, else display start feedback button
-   */
 
   return luxonDate.isValid
     ? [
