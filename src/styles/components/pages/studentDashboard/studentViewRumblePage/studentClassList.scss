@@ -12,7 +12,8 @@
     font-size: 1.6rem;
     margin-bottom: 10px;
   }
-  .section-content {
+  .section-content,
+  .rumble-list {
     @include scaling-flexbox;
     justify-content: space-betw;
     .rumble-item {
