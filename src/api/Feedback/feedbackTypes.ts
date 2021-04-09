@@ -2,9 +2,9 @@ export interface IFeedback {
   id: number;
   voterId: number;
   submissionId: number;
-  score1?: number;
-  score2?: number;
-  score3?: number;
+  score1: number;
+  score2: number;
+  score3: number;
 }
 
 // const x = [
