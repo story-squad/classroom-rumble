@@ -1,14 +1,10 @@
 import { RegisterOptions, UseFormMethods } from 'react-hook-form';
-
-export interface IOption<T = string | number> {
-  value: T;
-  label: string;
-}
+import { FormTypes } from '../../../types';
 
 export interface ISelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {
   name: string;
-  options?: IOption[];
+  options?: FormTypes.IOption[];
   register: UseFormMethods['register'];
   type?: string;
   rules?: RegisterOptions;

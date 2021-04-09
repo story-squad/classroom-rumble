@@ -7,7 +7,8 @@ import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Prompts, Rumbles } from '../../../../api';
 import { auth, rumbles, sections } from '../../../../state';
-import { CheckboxGroup, Select } from '../../../common';
+import { FormTypes } from '../../../../types';
+import { CheckboxGroup } from '../../../common';
 
 const CreateNewRumbleForm = ({
   prompt,
@@ -22,7 +23,7 @@ const CreateNewRumbleForm = ({
   const addRumbles = useSetRecoilState(rumbles.addRumbles);
 
   // Parse the user's section list into a usable option type
-  const sectionOptions = useMemo<Select.IOption<number>[]>(
+  const sectionOptions = useMemo<FormTypes.IOption<number>[]>(
     () => sectionList?.map((s) => ({ value: s.id, label: s.name })) ?? [],
     [sectionList],
   );
