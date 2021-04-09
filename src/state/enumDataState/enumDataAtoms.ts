@@ -1,12 +1,12 @@
 import { atom } from 'recoil';
-import { Select } from '../../components/common';
+import { FormTypes } from '../../types';
 
-export const grades = atom<Select.IOption[] | undefined>({
+export const grades = atom<FormTypes.IOption[] | undefined>({
   key: 'gradeDropdownOptions',
   default: undefined,
 });
 
-export const subjects = atom<Select.IOption[] | undefined>({
+export const subjects = atom<FormTypes.IOption[] | undefined>({
   key: 'subjectDropdownOptions',
   default: undefined,
 });
