@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Submissions } from '../../../../../../api';
+import activeUpload from '../../../../../../assets/img/activeUpload.svg';
 import { current } from '../../../../../../state';
 import { upload } from '../../../../../../utils';
-
 /**
  * Submission Form allows students to submit an image to the rumble they are currenly in.
  */
@@ -74,14 +74,14 @@ const SubmissionForm = (): React.ReactElement => {
   };
 
   return (
-    <>
-      <div className="submission-form">
-        <form onSubmit={onSubmit}>
+    <div className="submission-form-wrapper">
+      <div className="submission-form-container">
+        <form onSubmit={onSubmit} className="submission-form">
           {preview && (
             <div className="preview">
               <img src={preview} alt="Upload preview" />
               <div className={`loader${loading ? ' visible' : ''}`}>
-                <p>** barloader **</p>
+                {/* <p>** barloader **</p> ?? What is this for? */}
               </div>
             </div>
           )}
@@ -90,21 +90,27 @@ const SubmissionForm = (): React.ReactElement => {
             // If the submission hasn't been processed successfully
             <>
               <label className={file ? 'selected' : ''}>
-                {file ? 'Change Picture' : 'Select a Picture'}
+                {file ? (
+                  <span>Change Picture</span>
+                ) : (
+                  <div>
+                    <img src={activeUpload} />
+                    <span>Upload File</span>
+                  </div>
+                )}
                 <input type="file" onChange={fileSelection} hidden />
               </label>
               <button type="submit">Submit Your Story</button>
             </>
           )}
         </form>
-        {complete && (
-          // Once the submission is done, show a button.
-          <>
-            <div className="success">Submission successful!</div>
-          </>
-        )}
       </div>
-    </>
+
+      {complete && (
+        // Once the submission is done, show a button.
+        <div className="success">Submission successful!</div>
+      )}
+    </div>
   );
 };
 
