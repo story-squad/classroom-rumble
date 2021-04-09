@@ -1,4 +1,4 @@
-import { Select } from '../../components/common';
+import { FormTypes } from '../../types';
 import { IRumbleWithSectionInfo } from '../Rumbles';
 
 export interface ISectionWithRumbles extends ISection {
@@ -18,6 +18,6 @@ export interface INewSectionBody {
 }
 
 export interface ISectionEnumData {
-  grades: Select.IOption[];
-  subjects: Select.IOption[];
+  grades: FormTypes.IOption[];
+  subjects: FormTypes.IOption[];
 }

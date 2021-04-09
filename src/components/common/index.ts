@@ -13,6 +13,7 @@ export { LoadUserData } from './LoadUserData';
 export { Modal } from './Modal';
 export { PrivateRoute } from './PrivateRoute';
 export { PromptBox } from './PromptBox';
+export { RadioGroup } from './RadioGroup';
 export { SectionInfo } from './SectionInfo';
 export * as Select from './Select';
 export { SEO } from './SEO';
