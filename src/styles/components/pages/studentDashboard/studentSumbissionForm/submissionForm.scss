@@ -1,0 +1,53 @@
+.submission-form-wrapper {
+  @include wrapped-container;
+  height: 470px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  .submission-form-container {
+    width: 100%;
+    border: 1px dashed $w-grey-40;
+    border-radius: 20px;
+    padding: 20px;
+    .submission-form {
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      .error {
+        font-size: 1.4rem;
+        color: $red-bright;
+        font-weight: bold;
+      }
+      .preview {
+        img {
+          max-height: 250px;
+          max-width: 100%;
+        }
+      }
+      label {
+        max-width: 300px;
+        div {
+          display: flex;
+          text-align: center;
+          flex-direction: column;
+          cursor: pointer;
+        }
+        span {
+          margin-top: 20px;
+          @include button-alt;
+        }
+      }
+      //This Button is The Submit Your Story Button ****
+      button {
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        @include button-alt;
+      }
+    }
+  }
+}
