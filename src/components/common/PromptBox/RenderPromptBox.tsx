@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
+import { useCalculateTimeLeft } from '../../../hooks';
 import { CountDown } from '../CountDown';
 
 /**
@@ -15,7 +16,24 @@ const RenderPromptBox = ({
   startRumble,
 }: IRenderPromptBoxProps): React.ReactElement => {
   const [date, weekday] = useFormatDate(`${endTime || ''}`);
-  // const [date, weekday] = useFormatDate('');
+  const [
+    summedTimeLeft,
+    formattedTimeLeft,
+    calculateTimeLeft,
+  ] = useCalculateTimeLeft(endTime);
+
+  useEffect(() => {
+    if (summedTimeLeft !== 0) {
+      const timer: NodeJS.Timeout = setTimeout(() => {
+        calculateTimeLeft();
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+    if (summedTimeLeft <= 0) {
+      console.log('do logic here');
+    }
+  });
+
   return (
     <div className="prompt-info-wrapper">
       <div className="prompt-info-container">
@@ -43,9 +61,14 @@ const RenderPromptBox = ({
           ) : !endTime ? (
             //back to studentdashboard
             <>Redirecting ... </>
+          ) : summedTimeLeft === 0 ? (
+            <div>Hi!</div>
           ) : (
             <div>
-              <CountDown endTime={endTime} />
+              <CountDown
+                summedTimeLeft={summedTimeLeft}
+                formattedTimeLeft={formattedTimeLeft}
+              />
             </div>
           )}
         </div>
