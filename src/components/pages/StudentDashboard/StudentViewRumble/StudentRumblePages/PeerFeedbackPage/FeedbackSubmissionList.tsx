@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SubmitHandler, useForm, useFormContext } from 'react-hook-form';
+import { SubmitHandler, useFormContext } from 'react-hook-form';
 import { Submissions } from '../../../../../../api';
 import { ISubItem } from '../../../../../../api/Submissions';
 import { CouldNotLoad } from '../../../../../common/CouldNotLoad';
@@ -10,7 +10,6 @@ const FeedbackSubmissionList = (): React.ReactElement => {
   const [submissions, setSubmissions] = useState<ISubItem[]>();
   const [error, setError] = useState<null | string>(null);
   const { handleSubmit } = useFormContext();
-  const { formState } = useForm();
 
   useEffect(() => {
     Submissions.getSubmissionsForFeedback()
@@ -36,9 +35,7 @@ const FeedbackSubmissionList = (): React.ReactElement => {
           subNumber={index + 1}
         />
       ))}
-      <button onClick={handleSubmit(onSubmit)} disabled={!formState.isValid}>
-        Submit
-      </button>
+      <button onClick={handleSubmit(onSubmit)}>Submit</button>
     </div>
   ) : error ? (
     <CouldNotLoad error={error} />
