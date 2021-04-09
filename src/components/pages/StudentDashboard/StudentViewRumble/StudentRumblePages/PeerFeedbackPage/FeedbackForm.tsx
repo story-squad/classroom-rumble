@@ -38,6 +38,7 @@ const FeedbackForm = ({
             register={register}
             options={radioRange}
             rules={{ required: 'Please choose a value from 1-5!' }}
+            errors={errors}
           />
         </div>
         <div>
@@ -50,6 +51,7 @@ const FeedbackForm = ({
             register={register}
             options={radioRange}
             rules={{ required: 'Please choose a value from 1-5!' }}
+            errors={errors}
           />
         </div>
       </form>
