@@ -1,90 +1,43 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { RadioGroup } from '../../../../../common/RadioGroup/index';
 
 const FeedbackForm = ({
   subNumber,
 }: IFeedbackFormProps): React.ReactElement => {
-  const { register } = useFormContext();
+  const { register, errors } = useFormContext();
+
+  const radioRange = [
+    { label: '1', value: '1' },
+    { label: '2', value: '2' },
+    { label: '3', value: '3' },
+    { label: '4', value: '4' },
+    { label: '5', value: '5' },
+  ];
+
   return (
     <div>
       <h2>FEEDBACK</h2>
       <form>
         <div>
           <p>How much did you want the main characters to succeed?</p>
-          <label>1</label>
-          <input
-            type="radio"
-            name={`Story${subNumber}-Q1`}
-            value="1"
-            ref={register}
-          />
-          <label>2</label>
-          <input
-            type="radio"
-            name={`Story${subNumber}-Q1`}
-            value="2"
-            ref={register}
-          />
-          <label>3</label>
-          <input
-            type="radio"
-            name={`Story${subNumber}-Q1`}
-            value="3"
-            ref={register}
-          />
-          <label>4</label>
-          <input
-            type="radio"
-            name={`Story${subNumber}-Q1`}
-            value="4"
-            ref={register}
-          />
-          <label>5</label>
-          <input
-            type="radio"
-            name={`Story${subNumber}-Q1`}
-            value="5"
-            ref={register}
+          <RadioGroup
+            name={`Submission${subNumber}-Q1`}
+            register={register}
+            options={radioRange}
+            rules={{ required: 'Please choose a value from 1-5!' }}
+            errors={errors}
           />
         </div>
         <div>
           <p>
             How interested were you in finding out what happens in the Story?
           </p>
-          <label>1</label>
-          <input
-            type="radio"
-            name={`Story${subNumber}-Q2`}
-            value="1"
-            ref={register}
-          />
-          <label>2</label>
-          <input
-            type="radio"
-            name={`Story${subNumber}-Q2`}
-            value="2"
-            ref={register}
-          />
-          <label>3</label>
-          <input
-            type="radio"
-            name={`Story${subNumber}-Q2`}
-            value="3"
-            ref={register}
-          />
-          <label>4</label>
-          <input
-            type="radio"
-            name={`Story${subNumber}-Q2`}
-            value="4"
-            ref={register}
-          />
-          <label>5</label>
-          <input
-            type="radio"
-            name={`Story${subNumber}-Q2`}
-            value="5"
-            ref={register}
+          <RadioGroup
+            name={`Submission${subNumber}-Q2`}
+            register={register}
+            options={radioRange}
+            rules={{ required: 'Please choose a value from 1-5!' }}
           />
         </div>
         <div>
@@ -92,40 +45,11 @@ const FeedbackForm = ({
             How easily did the descriptions allow you to imagine the setting and
             action?
           </p>
-          <label>1</label>
-          <input
-            type="radio"
-            name={`Story${subNumber}-Q3`}
-            value="1"
-            ref={register}
-          />
-          <label>2</label>
-          <input
-            type="radio"
-            name={`Story${subNumber}-Q3`}
-            value="2"
-            ref={register}
-          />
-          <label>3</label>
-          <input
-            type="radio"
-            name={`Story${subNumber}-Q3`}
-            value="3"
-            ref={register}
-          />
-          <label>4</label>
-          <input
-            type="radio"
-            name={`Story${subNumber}-Q3`}
-            value="4"
-            ref={register}
-          />
-          <label>5</label>
-          <input
-            type="radio"
-            name={`Story${subNumber}-Q3`}
-            value="5"
-            ref={register}
+          <RadioGroup
+            name={`Submission${subNumber}-Q3`}
+            register={register}
+            options={radioRange}
+            rules={{ required: 'Please choose a value from 1-5!' }}
           />
         </div>
       </form>
