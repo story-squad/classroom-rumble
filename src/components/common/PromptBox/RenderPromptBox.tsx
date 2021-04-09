@@ -62,7 +62,9 @@ const RenderPromptBox = ({
             //back to studentdashboard
             <>Redirecting ... </>
           ) : summedTimeLeft === 0 ? (
-            <div>Hi!</div>
+            <div className="start-rumble-button">
+              <button onClick={startFeedback}>Start Feedback</button>
+            </div>
           ) : (
             <div>
               <CountDown
@@ -75,6 +77,10 @@ const RenderPromptBox = ({
       </div>
     </div>
   );
+};
+
+const startFeedback = () => {
+  return;
 };
 
 const useFormatDate = (
