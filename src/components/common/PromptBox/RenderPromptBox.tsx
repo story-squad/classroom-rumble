@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
-import React, { useEffect, useMemo } from 'react';
-import { useCalculateTimeLeft } from '../../../hooks';
+import React, { useMemo } from 'react';
+import { useCountDown } from '../../../hooks';
 import { CountDown } from '../CountDown';
 
 /**
@@ -16,26 +16,7 @@ const RenderPromptBox = ({
   startRumble,
 }: IRenderPromptBoxProps): React.ReactElement => {
   const [date, weekday] = useFormatDate(`${endTime || ''}`);
-  const [
-    summedTimeLeft,
-    formattedTimeLeft,
-    calculateTimeLeft,
-  ] = useCalculateTimeLeft(endTime);
-
-  // this initializes the timer, otherwise it only appears after a one-second delay
-  useEffect(() => {
-    calculateTimeLeft();
-  }, [endTime]);
-
-  // this functions as a timer until the countdown reaches 0.
-  useEffect(() => {
-    if (summedTimeLeft !== 0) {
-      const timer: NodeJS.Timeout = setTimeout(() => {
-        calculateTimeLeft();
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
-  });
+  const [display, isCountDownFinished] = useCountDown(endTime);
 
   const handleStartFeedback = () => {
     // call startFeedback api call here.  How do we want to pass in rumbleId?
@@ -68,15 +49,15 @@ const RenderPromptBox = ({
           ) : !endTime ? (
             //back to studentdashboard
             <>Redirecting ... </>
-          ) : summedTimeLeft === 0 ? (
+          ) : isCountDownFinished ? (
             <div className="start-rumble-button">
               <button onClick={handleStartFeedback}>Start Feedback</button>
             </div>
           ) : (
             <div>
               <CountDown
-                summedTimeLeft={summedTimeLeft}
-                formattedTimeLeft={formattedTimeLeft}
+                displayTime={display}
+                isCountDownFinished={isCountDownFinished}
               />
             </div>
           )}

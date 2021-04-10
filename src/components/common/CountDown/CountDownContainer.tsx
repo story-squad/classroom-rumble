@@ -1,27 +1,22 @@
 import React from 'react';
-import { IFormattedTimeLeft } from '../../../hooks/useCalculateTimeLeft/useCalculateTimeLeft';
 import RenderCountDownBox from './RenderCountDownbox';
 
 //Does all the lifting
 
 const CountDownContainer = ({
-  summedTimeLeft,
-  formattedTimeLeft,
+  displayTime,
+  isCountDownFinished,
 }: ICountDownContainerProps): React.ReactElement => {
-  return summedTimeLeft ? (
-    <RenderCountDownBox
-      hours={formattedTimeLeft.hours}
-      minutes={formattedTimeLeft.minutes}
-      seconds={formattedTimeLeft.seconds}
-    />
-  ) : (
+  return isCountDownFinished ? (
     <div className="count-down-end">Rumble Over</div>
+  ) : (
+    <RenderCountDownBox displayTime={displayTime} />
   );
 };
 
 interface ICountDownContainerProps {
-  summedTimeLeft: number | undefined;
-  formattedTimeLeft: IFormattedTimeLeft;
+  displayTime: () => string;
+  isCountDownFinished: boolean;
 }
 
 export default CountDownContainer;
