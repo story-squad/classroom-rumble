@@ -5,7 +5,7 @@ import { CountDown } from '../CountDown';
 
 /**
  * If a student makes it into a rumble there will be a prompt and countdown timer.
- * @param Prompt is a string that is pulled directly from a rumb;e.
+ * @param Prompt is a string that is pulled directly from a rumble.
  * @returns a submissions form to receive the users image.
  */
 
@@ -22,15 +22,18 @@ const RenderPromptBox = ({
     calculateTimeLeft,
   ] = useCalculateTimeLeft(endTime);
 
+  // this initializes the timer, otherwise it only appears after a one-second delay
+  useEffect(() => {
+    calculateTimeLeft();
+  }, [endTime]);
+
+  // this functions as a timer until the countdown reaches 0.
   useEffect(() => {
     if (summedTimeLeft !== 0) {
       const timer: NodeJS.Timeout = setTimeout(() => {
         calculateTimeLeft();
       }, 1000);
       return () => clearTimeout(timer);
-    }
-    if (summedTimeLeft <= 0) {
-      console.log('do logic here');
     }
   });
 

@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import { useState } from 'react';
 
 /**
- *
+ * This hook contains logic to receive and endtime and calculate the time left, both formatted and as a summed time in seconds.
  * @param endTime this will be compared to current time to find difference
  * @returns [summedTimeLeft : number, formattedTimeLeft : {hours, minutes, seconds}, calculateTimeLeft : ()]
  */
