@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon';
 import React, { useEffect, useMemo } from 'react';
+import { Rumbles } from '../../../api/';
+import { startFeedback } from '../../../api/Rumbles';
 import { useCalculateTimeLeft } from '../../../hooks';
 import { CountDown } from '../CountDown';
 
@@ -14,6 +16,7 @@ const RenderPromptBox = ({
   endTime,
   isTeacher,
   startRumble,
+  rumble,
 }: IRenderPromptBoxProps): React.ReactElement => {
   const [date, weekday] = useFormatDate(`${endTime || ''}`);
   const [
@@ -36,6 +39,10 @@ const RenderPromptBox = ({
       return () => clearTimeout(timer);
     }
   });
+
+  const handleStartFeedback = () => {
+    return startFeedback(rumble.id);
+  };
 
   return (
     <div className="prompt-info-wrapper">
@@ -66,7 +73,7 @@ const RenderPromptBox = ({
             <>Redirecting ... </>
           ) : summedTimeLeft === 0 ? (
             <div className="start-rumble-button">
-              <button onClick={startFeedback}>Start Feedback</button>
+              <button onClick={handleStartFeedback}>Start Feedback</button>
             </div>
           ) : (
             <div>
@@ -80,10 +87,6 @@ const RenderPromptBox = ({
       </div>
     </div>
   );
-};
-
-const startFeedback = () => {
-  return;
 };
 
 const useFormatDate = (
@@ -104,6 +107,7 @@ interface IRenderPromptBoxProps {
   endTime?: Date;
   isTeacher: boolean;
   startRumble?: () => void;
+  rumble: Rumbles.IRumbleWithSectionInfo;
 }
 
 export default RenderPromptBox;
