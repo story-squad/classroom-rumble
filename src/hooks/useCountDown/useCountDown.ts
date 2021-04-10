@@ -2,16 +2,16 @@ import { DateTime, Duration } from 'luxon';
 import { useEffect, useState } from 'react';
 
 /**
- * This hook contains logic to receive and endtime and calculate the time left, both formatted and as a summed time in seconds.
- * @param endTime this will be compared to current time to find difference
- * @returns [summedTimeLeft : number, formattedTimeLeft : {hours, minutes, seconds}, calculateTimeLeft : ()]
+ * This hook is intended to receive an endTime and be used to display a countdown.  It's very untuitive to use
+ * @param endTime this will be passed into fromISO(), so must be typed/formatted appropriately
+ * @returns [display : () => string (hh:mm:ss), finished : boolean]
  */
 const useCountDown = (endTime: Date | undefined): [() => string, boolean] => {
   // the difference between the current time and end time in seconds
   const timeInSeconds = DateTime.fromISO(`${endTime}`)
     .diffNow(['second'])
     .toObject().seconds;
-  // the current time
+
   const currentTime = DateTime.local().set({ millisecond: 0 });
   const [now, setNow] = useState(currentTime);
   const [end, setEnd] = useState(currentTime.plus({ seconds: timeInSeconds }));
