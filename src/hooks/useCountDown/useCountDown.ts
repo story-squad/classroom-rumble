@@ -47,6 +47,7 @@ const useCountDown = (endTime: Date | undefined): [() => string, boolean] => {
         setNow(DateTime.local().set({ millisecond: 0 }));
       }, 1000),
     );
+    setEnd(currentTime.plus({ seconds: timeInSeconds }));
   }, [endTime]);
 
   /**
