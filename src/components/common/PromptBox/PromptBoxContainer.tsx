@@ -13,7 +13,6 @@ import RenderPromptBox from './RenderPromptBox';
 const PromptBoxContainer = ({
   prompt,
   isTeacher = false,
-  rumble,
 }: IPromptBoxContainerProps): React.ReactElement => {
   const currentRumble = useRecoilValue(current.rumble);
   const currentSection = useRecoilValue(current.section);
@@ -61,7 +60,6 @@ const PromptBoxContainer = ({
       endTime={endTime}
       isTeacher={isTeacher}
       startRumble={isTeacher ? startRumble : undefined}
-      rumble={rumble}
     />
   ) : error ? (
     <CouldNotLoad error={error} />
@@ -73,7 +71,6 @@ const PromptBoxContainer = ({
 interface IPromptBoxContainerProps {
   prompt?: string;
   isTeacher?: boolean;
-  rumble: Rumbles.IRumbleWithSectionInfo;
 }
 
 export default PromptBoxContainer;
