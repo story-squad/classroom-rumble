@@ -18,7 +18,7 @@ const FeedbackForm = ({
   return (
     <div>
       <h2>FEEDBACK</h2>
-      <form>
+      <div>
         <div>
           <p>How much did you want the main characters to succeed?</p>
           <RadioGroup
@@ -54,7 +54,7 @@ const FeedbackForm = ({
             errors={errors}
           />
         </div>
-      </form>
+      </div>
     </div>
   );
 };

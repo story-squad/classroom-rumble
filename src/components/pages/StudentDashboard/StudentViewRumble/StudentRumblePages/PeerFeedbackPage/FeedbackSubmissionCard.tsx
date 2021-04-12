@@ -14,7 +14,7 @@ const FeedbackSubmissionCard = ({
         src={submission.src}
         width="200px"
         height="300px"
-      ></img>
+      />
       <a>View Larger Image</a>
       {/* modal to larger image */}
       <FeedbackForm subNumber={subNumber} />
