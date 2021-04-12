@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Submissions } from '../../../../../../api';
 import { current } from '../../../../../../state';
-import { Loader } from '../../../../../common';
+import { CouldNotLoad, Loader } from '../../../../../common';
 import RenderPeerFeedback from './RenderPeerFeedback';
 
 const PeerFeedbackContainer = (): React.ReactElement => {
@@ -22,11 +22,9 @@ const PeerFeedbackContainer = (): React.ReactElement => {
   }, []);
 
   return section ? (
-    <RenderPeerFeedback
-      section={section}
-      error={error}
-      submissions={submissions}
-    />
+    <RenderPeerFeedback section={section} submissions={submissions} />
+  ) : error ? (
+    <CouldNotLoad error={error} />
   ) : (
     <Loader message={'Loading Feedback'} />
   );
