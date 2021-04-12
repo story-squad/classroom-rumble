@@ -2,7 +2,9 @@ import { DateTime, Duration } from 'luxon';
 import { useEffect, useState } from 'react';
 
 /**
- * This hook is intended to receive an endTime and be used to display a countdown.  It's very untuitive to use
+ * This hook is intended to receive an endTime and be used to display a countdown.
+ * To use, just call display() where you would like the countdown to be viewed.
+ * Optionally, can use finished boolean for conditional renders, etc
  * @param endTime this will be passed into fromISO(), so must be typed/formatted appropriately
  * @returns [display : () => string (hh:mm:ss), finished : boolean]
  */
