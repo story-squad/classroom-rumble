@@ -18,10 +18,6 @@ const RenderPastRumbleDetails = ({
       <PromptBox />
       <Feedback />
       <div className="rumble-details-submission">
-        {/* {submission.map(({ src }) => {
-          <Submission submission={src} />;
-          console.log('I AM INSIDE');
-        })} */}
         <Submission submission={submission} />
       </div>
     </div>

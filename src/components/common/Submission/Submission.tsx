@@ -10,7 +10,7 @@ const Submission = ({ submission }: ISubmissionProps): React.ReactElement => {
     </div>
   );
 };
-
+// ToDO add fullscreen view on click
 interface ISubmissionProps {
   submission: Submissions.ISubItem;
 }
