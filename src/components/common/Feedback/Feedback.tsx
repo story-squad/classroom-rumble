@@ -7,6 +7,19 @@ const RenderFeedback = (): React.ReactElement => {
   const rumble = useRecoilValue(current.rumble);
   const student = useRecoilValue(auth.user);
   const [feedback, setFeedback] = useState<Feedback.IFeedback[]>();
+  // Is making these state neccesary?
+  const [total, setTotals] = useState<
+    { score1: number; score2: number; score3: number } | undefined
+  >();
+  const [averages, setAverages] = useState<
+    | {
+        score1: number;
+        score2: number;
+        score3: number;
+      }
+    | undefined
+  >();
+  //  *** ^^^^ ***
 
   useEffect(() => {
     if (rumble?.id && student?.id) {
@@ -24,24 +37,41 @@ const RenderFeedback = (): React.ReactElement => {
   }, [rumble, student]);
 
   // console.log('Feedback', feedback);
-
-  const submissionScores = feedback?.map(({ score1, score2, score3 }) => {
-    return { score1: score1 ?? 0, score2: score2 ?? 0, score3: score3 ?? 0 };
-  });
-
-  const totals = submissionScores?.reduce((acc, cur) => ({
-    score1: acc.score1 + cur.score1,
-    score2: acc.score2 + cur.score2,
-    score3: acc.score3 + cur.score3,
-  }));
-
   useEffect(() => {
+    const submissionScores = feedback?.map(({ score1, score2, score3 }) => {
+      return { score1: score1 ?? 0, score2: score2 ?? 0, score3: score3 ?? 0 };
+    });
+
+    const totals = submissionScores?.reduce((acc, cur) => ({
+      score1: acc.score1 + cur.score1,
+      score2: acc.score2 + cur.score2,
+      score3: acc.score3 + cur.score3,
+    }));
+
+    const average = () => {
+      if (total && feedback) {
+        return {
+          score1: total.score1 / feedback?.length,
+          score2: total.score2 / feedback?.length,
+          score3: total.score3 / feedback?.length,
+        };
+      }
+    };
+    setAverages(average());
+    setTotals(totals);
     // console.log('Sub', submissionScores);
-    console.log('Totals', totals);
-    // console.log('Length', arrayLength);
+    // console.log('Totals', totals);
+    console.log('Totals', averages);
   }, [feedback]);
 
-  return <div className="feedback-wrapper">Hey I am Feedback</div>;
+  return (
+    <div className="feedback-wrapper">
+      <h2>Hey I am Feedback</h2>
+      <div>{averages?.score1}</div>
+      <div>{averages?.score2}</div>
+      <div>{averages?.score3}</div>
+    </div>
+  );
 };
 
 export default RenderFeedback;
