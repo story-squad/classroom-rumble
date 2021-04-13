@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  FormProvider,
-  SubmitHandler,
-  useForm,
-  useFormContext,
-} from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { Sections, Submissions } from '../../../../../../api';
 import { PromptBox, SectionInfo } from '../../../../../common';
 import FeedbackSubmissionCard from './FeedbackSubmissionCard';
@@ -17,7 +12,6 @@ const RenderPeerFeedback = ({
     mode: 'onChange',
     reValidateMode: 'onChange',
   });
-  const { handleSubmit, formState } = useFormContext();
 
   const onSubmit: SubmitHandler<Record<string, unknown>> = (data) => {
     console.log(data);
@@ -29,7 +23,10 @@ const RenderPeerFeedback = ({
       <PromptBox />
       <FormProvider {...methods}>
         {submissions && (
-          <form className="submission-list" onSubmit={handleSubmit(onSubmit)}>
+          <form
+            className="submission-list"
+            onSubmit={methods.handleSubmit(onSubmit)}
+          >
             {submissions.map((submission, index) => (
               <FeedbackSubmissionCard
                 key={submission.id}
@@ -37,7 +34,7 @@ const RenderPeerFeedback = ({
                 subNumber={index + 1}
               />
             ))}
-            <button disabled={!formState.isValid}>Submit</button>
+            <button disabled={!methods.formState.isValid}>Submit</button>
           </form>
         )}
       </FormProvider>
@@ -47,7 +44,6 @@ const RenderPeerFeedback = ({
 
 interface IRenderPeerFeedbackProps {
   section: Sections.ISectionWithRumbles;
-  // Ask about types for submission and error
   submissions: Submissions.ISubItem[] | undefined;
 }
 
