@@ -9,7 +9,7 @@ const PastRumbleDetailsContainer = (): React.ReactElement => {
   const rumble = useRecoilValue(current.rumble);
   const user = useRecoilValue(auth.user);
   const section = useRecoilValue(current.section);
-
+  // Removed []
   const [submission, setSubmission] = useState<Submissions.ISubItem>();
   const [error, setError] = useState<null | string>(null);
 
