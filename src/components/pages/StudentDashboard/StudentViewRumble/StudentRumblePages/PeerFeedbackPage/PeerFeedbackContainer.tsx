@@ -7,18 +7,22 @@ import RenderPeerFeedback from './RenderPeerFeedback';
 
 const PeerFeedbackContainer = (): React.ReactElement => {
   const section = useRecoilValue(current.section);
+  const rumble = useRecoilValue(current.rumble);
+  const student = useRecoilValue(current.student);
   const [error, setError] = useState<null | string>(null);
   const [submissions, setSubmissions] = useState<Submissions.ISubItem[]>();
 
   useEffect(() => {
-    Submissions.getSubmissionsForFeedback()
-      .then((res) => {
-        setSubmissions(res);
-      })
-      .catch((err) => {
-        console.log({ err });
-        setError('There are no user submissions for feedback.');
-      });
+    if (rumble?.id && student?.id) {
+      Submissions.getSubmissionsForFeedback(rumble.id, student.id)
+        .then((res) => {
+          setSubmissions(res);
+        })
+        .catch((err) => {
+          console.log({ err });
+          setError('There are no user submissions for feedback.');
+        });
+    }
   }, []);
 
   return section ? (
