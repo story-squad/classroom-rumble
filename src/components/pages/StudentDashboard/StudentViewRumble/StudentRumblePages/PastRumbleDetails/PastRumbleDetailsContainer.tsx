@@ -10,19 +10,18 @@ const PastRumbleDetailsContainer = (): React.ReactElement => {
   const user = useRecoilValue(auth.user);
   const section = useRecoilValue(current.section);
 
-  const [submission, setSubmission] = useState<Submissions.ISubItem[]>([]);
+  const [submission, setSubmission] = useState<Submissions.ISubItem>();
   const [error, setError] = useState<null | string>(null);
 
   useEffect(() => {
-    console.log('rumbleId & userId: ', {
-      rumbleId: rumble?.id,
-      userId: user?.id,
-    });
-
+    // console.log('rumbleId & userId: ', {
+    //   rumbleId: rumble?.id,
+    //   userId: user?.id,
+    // });
     if (rumble && user && !submission) {
       Students.getSubForRumble(rumble.id, user.id)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           setSubmission(res);
         })
         .catch((err) => {
