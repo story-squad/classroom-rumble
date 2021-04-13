@@ -13,11 +13,11 @@ const RenderPastRumbleDetails = ({
 }: IRenderPastRumbleDetailProps): React.ReactElement => {
   console.log(submission);
   return (
-    <div className="past-rumble-details-container">
+    <div className="view-submission-container">
       <SectionInfo section={section} />
       <PromptBox />
-      <Feedback />
-      <div className="rumble-details-submission">
+      <div className="submission-details">
+        <Feedback />
         <Submission submission={submission} />
       </div>
     </div>

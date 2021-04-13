@@ -1,0 +1,41 @@
+.view-submission-container {
+  @include wrapped-container();
+  .submission-details {
+    h2 {
+      color: $w-grey-40;
+      font-size: 2em;
+    }
+    .feedback-wrapper {
+      .feedback-container {
+        @include table(70%, 30%, 0, 0);
+      }
+    }
+    .image-wrapper {
+      .image-container {
+        text-align: left;
+        @include wrapped-container();
+        background-color: $w-grey-05;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 1rem;
+        @include bp(mid) {
+          padding: 2rem;
+        }
+        @include bp(tablet) {
+          padding: 3rem;
+        }
+        img {
+          //   @include wrapped-container(300px);
+        }
+        a {
+          font-size: 1.6em;
+          font-weight: 500;
+          cursor: pointer;
+          color: #5872ff;
+        }
+      }
+    }
+  }
+}

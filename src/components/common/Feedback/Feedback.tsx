@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
+import { Table } from '..';
 import { Feedback } from '../../../api';
 import { auth, current } from '../../../state';
 
@@ -8,7 +9,6 @@ const RenderFeedback = (): React.ReactElement => {
   const student = useRecoilValue(auth.user);
   const [feedback, setFeedback] = useState<Feedback.IFeedback[]>();
   // Is making these state neccesary?
-
   const [averages, setAverages] = useState<{
     score1: number;
     score2: number;
@@ -54,13 +54,28 @@ const RenderFeedback = (): React.ReactElement => {
 
   return (
     <div className="feedback-wrapper">
-      <h2>Hey I am Feedback</h2>
+      <h2>FEEDBACK</h2>
       {averages && (
-        <>
-          <div>{averages.score1}</div>
-          <div>{averages.score2}</div>
-          <div>{averages.score3}</div>
-        </>
+        <div className="feedback-container">
+          <Table.Header>
+            <Table.Col>Questions</Table.Col>
+            <Table.Col>Rating out of 5</Table.Col>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row>
+              <Table.Col>Is this the first question?</Table.Col>
+              <Table.Col>{averages.score1}</Table.Col>
+            </Table.Row>
+            <Table.Row>
+              <Table.Col>Is this the second question?</Table.Col>
+              <Table.Col>{averages.score2}</Table.Col>
+            </Table.Row>
+            <Table.Row>
+              <Table.Col>Is this the third question?</Table.Col>
+              <Table.Col>{averages.score3}</Table.Col>
+            </Table.Row>
+          </Table.Body>
+        </div>
       )}
     </div>
   );
