@@ -63,15 +63,15 @@ const RenderFeedback = (): React.ReactElement => {
           </Table.Header>
           <Table.Body>
             <Table.Row>
-              <Table.Col>Is this the first question?</Table.Col>
+              <Table.Col>1. Is this the first question?</Table.Col>
               <Table.Col>{averages.score1}</Table.Col>
             </Table.Row>
             <Table.Row>
-              <Table.Col>Is this the second question?</Table.Col>
+              <Table.Col>2. Is this the second question?</Table.Col>
               <Table.Col>{averages.score2}</Table.Col>
             </Table.Row>
             <Table.Row>
-              <Table.Col>Is this the third question?</Table.Col>
+              <Table.Col>3. Is this the third question?</Table.Col>
               <Table.Col>{averages.score3}</Table.Col>
             </Table.Row>
           </Table.Body>

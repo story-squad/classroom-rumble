@@ -1,0 +1,37 @@
+.submission-details {
+  @include wrapped-container();
+  background-color: $w-grey-05;
+  display: flex;
+  flex-direction: row-reverse;
+  h2 {
+    color: $w-grey-40;
+    font-size: 2em;
+  }
+  .feedback-wrapper {
+    @include wrapped-container();
+    .feedback-container {
+      background-color: #fff;
+      @include table(70%, 30%, 0, 0);
+    }
+  }
+  .image-wrapper {
+    .image-container {
+      @include wrapped-container();
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      img {
+        padding: 0px 50px;
+        max-height: 300px;
+      }
+      a {
+        font-size: 1.6em;
+        font-weight: 500;
+        cursor: pointer;
+        color: #5872ff;
+      }
+    }
+  }
+}
