@@ -1,0 +1,50 @@
+.controls {
+  height: 12vh;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: $white;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.15s ease-in;
+    &:hover {
+      opacity: 1;
+      transition: opacity 0.15s ease-in;
+    }
+  }
+  .top-controls {
+    background-color: #000c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #fff2;
+    button {
+      height: 4vh;
+      width: 100%;
+      font-size: 5vh;
+    }
+  }
+  .bottom-controls {
+    background-color: #000;
+    flex-grow: 1;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    button {
+      font-size: 5vh;
+      height: 5vh;
+      &:not(:last-of-type) {
+        margin-right: 1rem;
+      }
+    }
+  }
+}

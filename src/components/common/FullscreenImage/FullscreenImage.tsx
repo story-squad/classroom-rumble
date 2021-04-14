@@ -12,7 +12,7 @@ import { Submissions } from '../../../api';
 import { Loader } from '../Loader';
 
 const FullscreenImage = (props: FullscreenImageProps): React.ReactElement => {
-  const [showInfo, setShowInfo] = useState(true);
+  const [showInfo, setShowInfo] = useState(false);
 
   const closeModal = () => {
     console.log('Close Modal');

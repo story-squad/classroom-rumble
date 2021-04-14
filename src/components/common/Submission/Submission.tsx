@@ -15,6 +15,7 @@ const Submission = ({ submission }: ISubmissionProps): React.ReactElement => {
               isVisible={isVisible}
               setIsVisible={setIsVisible}
             />
+            <div className="placeholder" />
             <a onClick={() => setIsVisible(!isVisible)}>Close</a>
           </>
         ) : (

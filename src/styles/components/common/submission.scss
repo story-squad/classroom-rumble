@@ -18,6 +18,7 @@
       width: 90%;
       @include table(70%, 30%, 0, 0);
       margin: auto;
+      margin-top: 2rem;
     }
   }
   .image-wrapper {
@@ -28,6 +29,10 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
+      .placeholder {
+        height: 300px;
+        width: 242px;
+      }
       img {
         padding: 2rem 5rem;
         max-height: 300px;
