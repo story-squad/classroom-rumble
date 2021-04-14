@@ -27,3 +27,11 @@ export interface IDSResponse {
   score: number;
   rotation: number;
 }
+
+export interface IRequestBody {
+  submissionId: number;
+  voterId: number;
+  score1: number;
+  score2: number;
+  score3: number;
+}
