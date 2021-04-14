@@ -1,20 +1,37 @@
 import React from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { Sections, Submissions } from '../../../../../../api';
+import { Sections, Students, Submissions } from '../../../../../../api';
 import { PromptBox, SectionInfo } from '../../../../../common';
 import FeedbackSubmissionCard from './FeedbackSubmissionCard';
 
 const RenderPeerFeedback = ({
   section,
   submissions,
+  student,
 }: IRenderPeerFeedbackProps): React.ReactElement => {
   const methods = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
   });
 
-  const onSubmit: SubmitHandler<Record<string, unknown>> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<Record<string, unknown>> = (
+    data: Record<string, unknown>,
+  ) => {
+    const body: Record<string, unknown>[] = [];
+    const radioValue = Object.values(data);
+
+    submissions &&
+      radioValue &&
+      submissions.forEach((submission) => {
+        body.push({
+          submissionId: submission?.id,
+          voterId: student?.id,
+          score1: Number(radioValue.shift()),
+          score2: Number(radioValue.shift()),
+          score3: Number(radioValue.shift()),
+        });
+      });
+    Submissions.submitFeedback(body);
   };
 
   return (
@@ -45,6 +62,7 @@ const RenderPeerFeedback = ({
 interface IRenderPeerFeedbackProps {
   section: Sections.ISectionWithRumbles;
   submissions: Submissions.ISubItem[] | undefined;
+  student: Students.IStudentWithSubmissions | undefined;
 }
 
 export default RenderPeerFeedback;
