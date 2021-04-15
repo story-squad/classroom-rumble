@@ -1,20 +1,18 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Sections } from '../../../../api';
-import { current } from '../../../../state';
+import { current, enumData } from '../../../../state';
 
 const StudentSection = ({
-  active,
   id,
-  gradeId,
   joinCode,
-  name,
-  subjectId,
   ...section
 }: Sections.ISectionWithRumbles): React.ReactElement => {
   const { push } = useHistory();
 
+  const gradeEnum = useRecoilValue(enumData.grades);
+  const subjectEnum = useRecoilValue(enumData.subjects);
   const setCurrentSection = useSetRecoilState(current.section);
 
   const openSection = () => {
@@ -22,10 +20,6 @@ const StudentSection = ({
       ...section,
       id,
       joinCode,
-      active,
-      name,
-      subjectId,
-      gradeId,
     };
     setCurrentSection(currentSection);
     push('/dashboard/student/section', {
@@ -33,13 +27,23 @@ const StudentSection = ({
     });
   };
   return (
-    <div className="student-section" onClick={openSection}>
-      <p>ID: {id}</p>
-      <p>Name: {name} </p>
-      <p>Grade ID: {gradeId}</p>
-      <p>Subject ID: {subjectId}</p>
-      <p>Active: {active}</p>
-      <p>JoinCode: {joinCode}</p>
+    <div className="section-card" onClick={openSection}>
+      <div className="content">
+        <h3>Class Name</h3>
+        <h4>{section.name}</h4>
+      </div>
+      <div className="content">
+        <h3>Subject</h3>
+        <h4>
+          {subjectEnum?.filter((x) => x.value === section.subjectId)[0].label}
+        </h4>
+      </div>
+      <div className="content">
+        <h3>Grade</h3>
+        <h4>
+          {gradeEnum?.filter((x) => x.value === section.gradeId)[0].label}
+        </h4>
+      </div>
     </div>
   );
 };
