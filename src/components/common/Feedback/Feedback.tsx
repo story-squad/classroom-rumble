@@ -33,7 +33,9 @@ const RenderFeedback = (): React.ReactElement => {
       return;
     } else {
       if (feedback.length <= 0) return;
+      // This keeps this from breaking ^^
       const submissionScores = feedback.map(({ score1, score2, score3 }) => {
+        // loops through the feedback array and pulls all the scores in to its own array
         return {
           score1: score1 ?? 0,
           score2: score2 ?? 0,
@@ -41,12 +43,14 @@ const RenderFeedback = (): React.ReactElement => {
         };
       });
       const totals = submissionScores.reduce((acc, cur) => ({
+        //totals all the scores up from the submissions array
         score1: acc.score1 + cur.score1,
         score2: acc.score2 + cur.score2,
         score3: acc.score3 + cur.score3,
       }));
 
       setAverages({
+        // This averages all the scores and sets them to state
         score1: parseFloat((totals.score1 / feedback.length).toFixed(2)),
         score2: parseFloat((totals.score2 / feedback.length).toFixed(2)),
         score3: parseFloat((totals.score3 / feedback.length).toFixed(2)),
@@ -58,6 +62,7 @@ const RenderFeedback = (): React.ReactElement => {
     <div className="feedback-wrapper">
       <h2>FEEDBACK</h2>
       {averages ? (
+        // If there are no averages show that there is no feedback yet else show the table with feedback
         <div className="feedback-container">
           <Table.Header>
             <Table.Col>Questions</Table.Col>
