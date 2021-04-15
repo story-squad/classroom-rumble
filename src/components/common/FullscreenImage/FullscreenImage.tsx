@@ -9,6 +9,7 @@ import {
 } from 'react-icons/md';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import { Submissions } from '../../../api';
+import { useKeyPress } from '../../../hooks';
 import { Loader } from '../Loader';
 
 const FullscreenImage = (props: FullscreenImageProps): React.ReactElement => {
@@ -33,6 +34,8 @@ const FullscreenImage = (props: FullscreenImageProps): React.ReactElement => {
     if (props.isVisible) window.addEventListener('resize', resizeHandler);
     return () => window.removeEventListener('resize', resizeHandler);
   }, [props.isVisible]);
+
+  useKeyPress({ key: 'Escape' || 'Esc', action: () => closeModal() });
 
   return props.isVisible ? (
     <TransformWrapper

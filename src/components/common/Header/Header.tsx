@@ -4,6 +4,7 @@ import { HiUserCircle } from 'react-icons/hi';
 import { useHistory } from 'react-router';
 import { useRecoilValue } from 'recoil';
 import { Auth } from '../../../api';
+import { useKeyPress } from '../../../hooks';
 import { auth } from '../../../state';
 import { Menu } from './Menu';
 
@@ -24,6 +25,8 @@ const Header = (): React.ReactElement => {
   const handleClickBtn = () => {
     setOpenMenu(!openMenu);
   };
+
+  useKeyPress({ key: 'Escape' || 'Esc', action: () => setOpenMenu(false) });
 
   return (
     <header className="header-wrapper">
