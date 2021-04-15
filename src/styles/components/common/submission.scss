@@ -1,0 +1,61 @@
+// TODO split the styles for feedback and submission
+.submission-details {
+  @include wrapped-container();
+  background-color: $w-grey-10;
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 3rem 0rem;
+  border-radius: 1rem;
+  h2 {
+    color: $w-grey-40;
+    font-size: 2em;
+    width: 90%;
+    margin: auto;
+  }
+  .feedback-wrapper {
+    @include wrapped-container();
+    .feedback-container {
+      background-color: #fff;
+      width: 90%;
+      @include table(70%, 30%, 0, 0);
+      margin: auto;
+      margin-top: 2rem;
+    }
+    .message {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      line-height: 5rem;
+      p {
+        font-weight: 600;
+        font-size: 1.8rem;
+      }
+    }
+  }
+  .image-wrapper {
+    .image-container {
+      text-align: center;
+      @include wrapped-container();
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      .placeholder {
+        height: 300px;
+        width: 242px;
+      }
+      img {
+        padding: 2rem 5rem;
+        max-height: 300px;
+      }
+      a {
+        font-size: 1.6em;
+        font-weight: 500;
+        cursor: pointer;
+        color: #5872ff;
+      }
+    }
+  }
+}

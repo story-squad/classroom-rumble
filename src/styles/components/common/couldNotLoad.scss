@@ -1,0 +1,18 @@
+.could-not-load {
+  @include wrapped-container;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  img {
+    max-width: 500px;
+    width: 100%;
+  }
+  .message {
+    font-size: 1.5rem;
+    text-align: center;
+    @include bp($mid) {
+      font-size: 2rem;
+    }
+  }
+}

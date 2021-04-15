@@ -3,26 +3,20 @@ import { useRecoilValue } from 'recoil';
 import { Students, Submissions } from '../../../../../../api';
 import { auth, current } from '../../../../../../state';
 import { CouldNotLoad, Loader } from '../../../../../common';
-import RenderPastRumbleDetails from './RenderPastRumbleDetails';
+import RenderPastRumbleDetails from './RenderViewSubmission';
 
 const PastRumbleDetailsContainer = (): React.ReactElement => {
   const rumble = useRecoilValue(current.rumble);
   const user = useRecoilValue(auth.user);
   const section = useRecoilValue(current.section);
-
-  const [submission, setSubmission] = useState<Submissions.ISubItem[]>([]);
+  const [submission, setSubmission] = useState<Submissions.ISubItem>();
   const [error, setError] = useState<null | string>(null);
 
   useEffect(() => {
-    console.log('rumbleId & userId: ', {
-      rumbleId: rumble?.id,
-      userId: user?.id,
-    });
-
     if (rumble && user && !submission) {
       Students.getSubForRumble(rumble.id, user.id)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           setSubmission(res);
         })
         .catch((err) => {
@@ -37,9 +31,7 @@ const PastRumbleDetailsContainer = (): React.ReactElement => {
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (
-    <>
-      <Loader message={'Loading Submission'} />
-    </>
+    <Loader message={'Loading Submission'} />
   );
 };
 
