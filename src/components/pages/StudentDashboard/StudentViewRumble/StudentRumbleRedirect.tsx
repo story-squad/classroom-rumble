@@ -3,7 +3,8 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { Rumbles, Sections } from '../../../../api';
 import { current } from '../../../../state';
-import { PastRumbleDetails, SubmissionSuccess } from './StudentRumblePages';
+import PeerFeedbackContainer from '../StudentViewRumble/StudentRumblePages/PeerFeedbackPage/PeerFeedbackContainer';
+import { SubmissionSuccess } from './StudentRumblePages';
 import { StudentSubmissionPage } from './StudentRumblePages/';
 
 const StudentRumbleRedirect = ({
@@ -13,9 +14,12 @@ const StudentRumbleRedirect = ({
 }: IStudentRumbleRedirectProps): React.ReactElement => {
   const successfulSubmission = useRecoilValue(current.hasSubmitted);
   // TODO - add checks for if the feedback phase has been started and if it's also been completed
+  const feedbackStarted = true;
+  if (feedbackStarted) {
+    return <PeerFeedbackContainer />;
 
-  if (isRumbleEnded(`${endTime}`)) {
-    return <PastRumbleDetails />;
+    // if (isRumbleEnded(`${endTime}`)) {
+    //   return <PastRumbleDetails />;
   } else if (successfulSubmission) {
     // Student has already submitted
     return <SubmissionSuccess />;
