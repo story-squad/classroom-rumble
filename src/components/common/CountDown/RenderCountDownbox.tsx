@@ -6,13 +6,13 @@ const RenderCountDownBox = ({
   return (
     <div className="count-down-wrapper">
       <h2>Rumble Timer</h2>
-      <div className="time-count">{displayTime()}</div>
+      <div className="time-count">{displayTime}</div>
     </div>
   );
 };
 
 interface IRenderCountDownBoxProps {
-  displayTime: () => string;
+  displayTime: string;
 }
 
 export default RenderCountDownBox;

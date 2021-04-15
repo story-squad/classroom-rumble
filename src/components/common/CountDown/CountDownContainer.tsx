@@ -15,7 +15,7 @@ const CountDownContainer = ({
 };
 
 interface ICountDownContainerProps {
-  displayTime: () => string;
+  displayTime: string;
   isCountDownFinished: boolean;
 }
 

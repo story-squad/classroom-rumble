@@ -35,10 +35,6 @@ export const startRumble = async (
   return data;
 };
 
-// Q: What will the return look like? Used <Date> as placeholder
-export const startFeedback = async (rumbleId: number): Promise<Date> => {
-  const { data } = await axiosWithAuth().put(
-    `/api/rumble/rumbles/${rumbleId}/feedback/start`,
-  );
-  return data;
+export const startFeedback = async (rumbleId: number): Promise<void> => {
+  await axiosWithAuth().put(`/api/rumble/rumbles/${rumbleId}/feedback/start`);
 };
