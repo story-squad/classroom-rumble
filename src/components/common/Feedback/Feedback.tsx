@@ -19,7 +19,6 @@ const RenderFeedback = (): React.ReactElement => {
       // To test remove rumble and student id from params and comment out the call in feedback.ts
       // uncomment and return dummydata then click on rumble
       Feedback.getSubmissionFeedback(rumble.id, student.id)
-
         .then((res) => {
           setFeedback(res);
         })
@@ -28,10 +27,12 @@ const RenderFeedback = (): React.ReactElement => {
         });
     }
   }, [rumble, student]);
-  console.log(feedback?.length);
+  console.log(averages);
   useEffect(() => {
-    if (feedback?.length) {
-      if (feedback.length > 0) return;
+    if (!feedback) {
+      return;
+    } else {
+      if (feedback.length <= 0) return;
       const submissionScores = feedback.map(({ score1, score2, score3 }) => {
         return {
           score1: score1 ?? 0,
@@ -56,7 +57,7 @@ const RenderFeedback = (): React.ReactElement => {
   return (
     <div className="feedback-wrapper">
       <h2>FEEDBACK</h2>
-      {feedback && averages ? (
+      {averages ? (
         <div className="feedback-container">
           <Table.Header>
             <Table.Col>Questions</Table.Col>
