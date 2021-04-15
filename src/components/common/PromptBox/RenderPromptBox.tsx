@@ -1,10 +1,11 @@
 import { DateTime } from 'luxon';
 import React, { useMemo } from 'react';
+import { useCountDown } from '../../../hooks';
 import { CountDown } from '../CountDown';
 
 /**
  * If a student makes it into a rumble there will be a prompt and countdown timer.
- * @param Prompt is a string that is pulled directly from a rumb;e.
+ * @param Prompt is a string that is pulled directly from a rumble.
  * @returns a submissions form to receive the users image.
  */
 
@@ -15,7 +16,12 @@ const RenderPromptBox = ({
   startRumble,
 }: IRenderPromptBoxProps): React.ReactElement => {
   const [date, weekday] = useFormatDate(`${endTime || ''}`);
-  // const [date, weekday] = useFormatDate('');
+  const [display, isCountDownFinished] = useCountDown(endTime);
+
+  const handleStartFeedback = () => {
+    // call startFeedback api call here.  How do we want to pass in rumbleId?
+  };
+
   return (
     <div className="prompt-info-wrapper">
       <div className="prompt-info-container">
@@ -43,9 +49,16 @@ const RenderPromptBox = ({
           ) : !endTime ? (
             //back to studentdashboard
             <>Redirecting ... </>
+          ) : isCountDownFinished ? (
+            <div className="start-rumble-button">
+              <button onClick={handleStartFeedback}>Start Feedback</button>
+            </div>
           ) : (
             <div>
-              <CountDown endTime={endTime} />
+              <CountDown
+                displayTime={display}
+                isCountDownFinished={isCountDownFinished}
+              />
             </div>
           )}
         </div>

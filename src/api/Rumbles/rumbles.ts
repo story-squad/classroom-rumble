@@ -34,3 +34,7 @@ export const startRumble = async (
   );
   return data;
 };
+
+export const startFeedback = async (rumbleId: number): Promise<void> => {
+  await axiosWithAuth().put(`/api/rumble/rumbles/${rumbleId}/feedback/start`);
+};
