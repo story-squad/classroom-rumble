@@ -3,6 +3,9 @@
   }
   .section-info-wrapper {
   }
+  .feedback-wrapper {
+    @include wrapped-container();
+  }
   .image-wrapper {
     .image-container {
       @include wrapped-container();

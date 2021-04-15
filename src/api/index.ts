@@ -1,4 +1,5 @@
 export * as Auth from './Auth';
+export * as Feedback from './Feedback';
 export * as InitialState from './InitialState';
 export * as Prompts from './Prompts';
 export * as Rumbles from './Rumbles';
