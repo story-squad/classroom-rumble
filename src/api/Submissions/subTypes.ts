@@ -28,6 +28,7 @@ export interface IDSResponse {
   rotation: number;
 }
 
+// TODO rename this
 export interface IRequestBody {
   submissionId: number;
   voterId: number;

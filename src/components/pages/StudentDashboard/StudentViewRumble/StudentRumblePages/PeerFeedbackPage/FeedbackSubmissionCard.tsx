@@ -6,6 +6,7 @@ const FeedbackSubmissionCard = ({
   submission,
   subNumber,
 }: IFeedbackSubmissionCardProps): React.ReactElement => {
+  // TODO use victor's submission component
   return (
     <div>
       <h2>Feedback #{subNumber}</h2>

@@ -13,17 +13,16 @@ const PeerFeedbackContainer = (): React.ReactElement => {
   const [submissions, setSubmissions] = useState<Submissions.ISubItem[]>();
 
   useEffect(() => {
-    // if (rumble?.id && student?.id) {
-    // Submissions.getSubmissionsForFeedback(rumble.id, student.id) // Use for real API call
-    Submissions.getSubmissionsForFeedback() // Use for faker API call
-      .then((res) => {
-        setSubmissions(res);
-      })
-      .catch((err) => {
-        console.log({ err });
-        setError('There are no user submissions for feedback.');
-      });
-    // }
+    if (rumble?.id && student?.id) {
+      Submissions.getSubmissionsForFeedback(rumble.id, student.id) // Use for real API call
+        .then((res) => {
+          setSubmissions(res);
+        })
+        .catch((err) => {
+          console.log({ err });
+          setError('There are no user submissions for feedback.');
+        });
+    }
   }, []);
 
   return section ? (

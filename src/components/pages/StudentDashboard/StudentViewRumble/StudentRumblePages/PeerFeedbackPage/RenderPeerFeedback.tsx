@@ -14,12 +14,14 @@ const RenderPeerFeedback = ({
     reValidateMode: 'onChange',
   });
 
+  // TODO better type interfaces for form data
   const onSubmit: SubmitHandler<Record<string, unknown>> = (
     data: Record<string, unknown>,
   ) => {
     const body: Record<string, unknown>[] = [];
     const radioValue = Object.values(data);
 
+    // TODO find a more readable way to parse the body
     submissions &&
       radioValue &&
       submissions.forEach((submission) => {

@@ -1,8 +1,11 @@
 import { axiosWithAuth } from './../axiosWithConfig';
 import { IRequestBody, ISubItem } from './subTypes';
 
-export const getSubmissionsForFeedback = async (): Promise<ISubItem[]> => {
-  return [
+export const getSubmissionsForFeedback = async (
+  rumbleId: number,
+  studentId: number,
+): Promise<ISubItem[]> => {
+  const data = [
     {
       codename: 'A Codename',
       id: 1,
@@ -34,17 +37,11 @@ export const getSubmissionsForFeedback = async (): Promise<ISubItem[]> => {
       userId: 3,
     },
   ];
+  // const { data } = await axiosWithAuth().get(
+  //   `api/rumble/rumbles/${rumbleId}/feedback?studentId=${studentId}`,
+  // );
+  return data;
 };
-
-// export const getSubmissionsForFeedback = async (
-//   rumbleId: number,
-//   studentId: number,
-// ): Promise<ISubItem[]> => {
-//   const { data } = await axiosWithAuth().get(
-//     `api/rumble/rumbles/${rumbleId}/feedback?studentId=${studentId}`,
-//   );
-//   return data;
-// };
 
 export const submitFeedback = async (
   body: Record<string, unknown>[],
