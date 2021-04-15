@@ -35,7 +35,7 @@ const FullscreenImage = (props: FullscreenImageProps): React.ReactElement => {
     return () => window.removeEventListener('resize', resizeHandler);
   }, [props.isVisible]);
 
-  useKeyPress({ key: 'Escape' || 'Esc', action: () => closeModal() });
+  useKeyPress({ key: 'Escape' || 'Esc', action: closeModal });
 
   return props.isVisible ? (
     <TransformWrapper

@@ -31,9 +31,7 @@ const PastRumbleDetailsContainer = (): React.ReactElement => {
   ) : error ? (
     <CouldNotLoad error={error} />
   ) : (
-    <>
-      <Loader message={'Loading Submission'} />
-    </>
+    <Loader message={'Loading Submission'} />
   );
 };
 

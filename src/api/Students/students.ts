@@ -23,7 +23,6 @@ export const getWithSubsBySectionId = async (
 export const getSubForRumble = async (
   rumbleId: number,
   studentId: number,
-  //Removed []
 ): Promise<ISubItem> => {
   const { data } = await axiosWithAuth().get(
     `/api/rumble/rumbles/${rumbleId}/students/${studentId}`,

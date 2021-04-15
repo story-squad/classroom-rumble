@@ -20,7 +20,11 @@ const Submission = ({ submission }: ISubmissionProps): React.ReactElement => {
           </>
         ) : (
           <>
-            <img src={submission.src} />
+            <img
+              src={submission.src}
+              alt={`Submission by: ${submission.codename}`}
+              onClick={() => setIsVisible(!isVisible)}
+            />
             <a onClick={() => setIsVisible(!isVisible)}>View Larger</a>
           </>
         )}

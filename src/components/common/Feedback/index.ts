@@ -1,1 +1,1 @@
-export { default as Feedback } from './Feedback';
+export { default as Feedback } from './FeedbackContainer';
