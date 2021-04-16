@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Feedback } from '../../../api';
-import { auth, current } from '../../../state';
+import { current } from '../../../state';
 import { Loader } from '../Loader';
 import { IAverages } from './feedbackTypes';
 import RenderFeedback from './RenderFeedback';
 
 const FeedbackContainer = (): React.ReactElement => {
-  const rumble = useRecoilValue(current.rumble);
-  const student = useRecoilValue(auth.user);
-  const [feedback, setFeedback] = useState<Feedback.IFeedback[]>();
+  const submission = useRecoilValue(current.sub);
+  const [feedback, setFeedback] = useRecoilState(current.feedbackForSubmission);
   const [averages, setAverages] = useState<IAverages>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (rumble?.id && student?.id) {
+    if (submission) {
       // To test remove rumble and student id from params and comment out the call in feedback.ts
       // uncomment and return dummydata then click on rumble
-      Feedback.getSubmissionFeedback(rumble.id, student.id)
+      Feedback.getSubmissionFeedback(submission.id)
         .then((res) => {
           setFeedback(res);
         })
@@ -28,7 +27,7 @@ const FeedbackContainer = (): React.ReactElement => {
           setLoading(false);
         });
     }
-  }, [rumble, student]);
+  }, [submission]);
 
   useEffect(() => {
     console.log({ feedback });

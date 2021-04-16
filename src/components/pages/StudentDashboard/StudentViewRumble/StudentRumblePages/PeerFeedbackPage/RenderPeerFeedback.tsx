@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { Sections, Students, Submissions } from '../../../../../../api';
+import { Auth, Sections, Submissions } from '../../../../../../api';
 import { PromptBox, SectionInfo } from '../../../../../common';
 import FeedbackSubmissionCard from './FeedbackSubmissionCard';
 
@@ -63,8 +63,8 @@ const RenderPeerFeedback = ({
 
 interface IRenderPeerFeedbackProps {
   section: Sections.ISectionWithRumbles;
-  submissions: Submissions.ISubItem[] | undefined;
-  student: Students.IStudentWithSubmissions | undefined;
+  submissions: Submissions.ISubItem[];
+  student: Auth.IUser;
 }
 
 export default RenderPeerFeedback;

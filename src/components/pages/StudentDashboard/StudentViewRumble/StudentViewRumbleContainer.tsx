@@ -15,12 +15,10 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
-    console.log({ rumble, endTime });
     let timer: NodeJS.Timeout;
     if (!endTime) {
       timer = setTimeout(() => {
-        console.log('Time');
-        if (rumble?.id) {
+        if (!isLoading && rumble) {
           setIsFetching(true);
           Rumbles.getRumbleById(rumble.id)
             .then((res) => {
@@ -32,7 +30,7 @@ const StudentViewRumbleContainer = (): React.ReactElement => {
             })
             .catch((err) => {
               setIsFetching(false);
-              console.log(err);
+              console.log({ err });
             });
         }
       }, 20000);

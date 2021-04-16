@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { Prompts, Rumbles } from '../../../api';
+import { Feedback, Prompts, Rumbles } from '../../../api';
+import { useCheckBrowserState } from '../../../hooks';
 import { current } from '../../../state';
 import { CouldNotLoad } from '../CouldNotLoad';
 import { Loader } from '../Loader';
@@ -14,6 +15,7 @@ const PromptBoxContainer = ({
   prompt,
   isTeacher = false,
 }: IPromptBoxContainerProps): React.ReactElement => {
+  const {} = useCheckBrowserState('rumble', 'section');
   const currentRumble = useRecoilValue(current.rumble);
   const currentSection = useRecoilValue(current.section);
   const [endTime, setEndTime] = useState(currentRumble?.end_time);
@@ -37,7 +39,7 @@ const PromptBoxContainer = ({
     }
   }, []);
 
-  const startRumble = useCallback(async (): Promise<void> => {
+  const startRumble = async (): Promise<void> => {
     try {
       if (currentRumble?.end_time) {
         setEndTime(currentRumble.end_time);
@@ -52,7 +54,18 @@ const PromptBoxContainer = ({
     } catch (err) {
       console.log(err);
     }
-  }, [currentRumble]);
+  };
+
+  const startFeedback = async () => {
+    try {
+      if (currentRumble) {
+        // No return, dont save as a variable
+        await Feedback.startFeedback(currentRumble?.id);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return promptState ? (
     <RenderPromptBox
@@ -60,6 +73,7 @@ const PromptBoxContainer = ({
       endTime={endTime}
       isTeacher={isTeacher}
       startRumble={isTeacher ? startRumble : undefined}
+      startFeedback={startFeedback}
     />
   ) : error ? (
     <CouldNotLoad error={error} />

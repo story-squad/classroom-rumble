@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Submissions } from '../../../../../../api';
-import { current } from '../../../../../../state';
+import { auth, current } from '../../../../../../state';
 import { CouldNotLoad, Loader } from '../../../../../common';
 import RenderPeerFeedback from './RenderPeerFeedback';
 
 const PeerFeedbackContainer = (): React.ReactElement => {
   const section = useRecoilValue(current.section);
   const rumble = useRecoilValue(current.rumble);
-  const student = useRecoilValue(current.student);
+  const user = useRecoilValue(auth.user);
   const [error, setError] = useState<null | string>(null);
   const [submissions, setSubmissions] = useState<Submissions.ISubItem[]>();
 
   useEffect(() => {
-    if (rumble?.id && student?.id) {
-      Submissions.getSubmissionsForFeedback(rumble.id, student.id) // Use for real API call
+    if (rumble && user) {
+      Submissions.getSubmissionsForFeedback(rumble.id, user.id) // Use for real API call
         .then((res) => {
           setSubmissions(res);
         })
@@ -23,13 +23,13 @@ const PeerFeedbackContainer = (): React.ReactElement => {
           setError('There are no user submissions for feedback.');
         });
     }
-  }, []);
+  }, [rumble, user]);
 
-  return section ? (
+  return section && submissions && user ? (
     <RenderPeerFeedback
       section={section}
       submissions={submissions}
-      student={student}
+      student={user}
     />
   ) : error ? (
     <CouldNotLoad error={error} />
