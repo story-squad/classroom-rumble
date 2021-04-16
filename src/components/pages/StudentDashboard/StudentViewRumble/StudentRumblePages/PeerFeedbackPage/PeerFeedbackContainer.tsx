@@ -13,9 +13,11 @@ const PeerFeedbackContainer = (): React.ReactElement => {
   const [submissions, setSubmissions] = useState<Submissions.ISubItem[]>();
 
   useEffect(() => {
+    console.log({ rumble, user });
     if (rumble && user) {
       Submissions.getSubmissionsForFeedback(rumble.id, user.id) // Use for real API call
         .then((res) => {
+          console.log('subs for fe4edback', { res });
           setSubmissions(res);
         })
         .catch((err) => {
