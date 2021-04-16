@@ -20,8 +20,6 @@ const StudentRumbleRedirect = ({
   const [feedbackForSub, setFeedbackForSub] = useRecoilState(
     current.feedbackForSubmission,
   );
-  // Feedback that the user has given to OTHERS in the rumble
-  const [feedback, setFeedback] = useState<Feedback.IFeedback[]>();
   // Whether or not the user has given feedback to others yet
   const [feedbackComplete, setFeedbackComplete] = useState<boolean>();
 

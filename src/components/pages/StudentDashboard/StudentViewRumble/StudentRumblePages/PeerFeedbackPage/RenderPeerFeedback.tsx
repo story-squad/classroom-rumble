@@ -41,21 +41,19 @@ const RenderPeerFeedback = ({
       <SectionInfo section={section} />
       <PromptBox />
       <FormProvider {...methods}>
-        {submissions && (
-          <form
-            className="submission-list"
-            onSubmit={methods.handleSubmit(onSubmit)}
-          >
-            {submissions.map((submission, index) => (
-              <FeedbackSubmissionCard
-                key={submission.id}
-                submission={submission}
-                subNumber={index + 1}
-              />
-            ))}
-            <button disabled={!methods.formState.isValid}>Submit</button>
-          </form>
-        )}
+        <form
+          className="submission-list"
+          onSubmit={methods.handleSubmit(onSubmit)}
+        >
+          {submissions.map((submission, index) => (
+            <FeedbackSubmissionCard
+              key={submission.id}
+              submission={submission}
+              subNumber={index + 1}
+            />
+          ))}
+          <button disabled={!methods.formState.isValid}>Submit</button>
+        </form>
       </FormProvider>
     </div>
   );
