@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { Students, Submissions } from '../../../../../../api';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { Students } from '../../../../../../api';
 import { auth, current } from '../../../../../../state';
 import { CouldNotLoad, Loader } from '../../../../../common';
 import RenderPastRumbleDetails from './RenderViewSubmission';
@@ -9,7 +9,7 @@ const PastRumbleDetailsContainer = (): React.ReactElement => {
   const rumble = useRecoilValue(current.rumble);
   const user = useRecoilValue(auth.user);
   const section = useRecoilValue(current.section);
-  const [submission, setSubmission] = useState<Submissions.ISubItem>();
+  const [submission, setSubmission] = useRecoilState(current.sub);
   const [error, setError] = useState<null | string>(null);
 
   useEffect(() => {

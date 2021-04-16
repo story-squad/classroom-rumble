@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { Rumbles, Sections, Students, Submissions } from '../../api';
+import { Feedback, Rumbles, Sections, Students, Submissions } from '../../api';
 
 export const student = atom<Students.IStudentWithSubmissions | undefined>({
   key: 'currentStudentView',
@@ -24,4 +24,9 @@ export const rumble = atom<Rumbles.IRumbleWithSectionInfo | undefined>({
 export const hasSubmitted = atom<boolean>({
   key: 'currentUserHasSubmitted',
   default: false,
+});
+
+export const feedbackForSubmission = atom<Feedback.IFeedback[] | undefined>({
+  key: 'feedbackItemsForCurrentSubmission',
+  default: undefined,
 });

@@ -14,13 +14,10 @@ const RenderPromptBox = ({
   endTime,
   isTeacher,
   startRumble,
+  startFeedback,
 }: IRenderPromptBoxProps): React.ReactElement => {
   const [date, weekday] = useFormatDate(`${endTime || ''}`);
   const [display, isCountDownFinished] = useCountDown(endTime);
-
-  const handleStartFeedback = () => {
-    // call startFeedback api call here.  How do we want to pass in rumbleId?
-  };
 
   return (
     <div className="prompt-info-wrapper">
@@ -41,7 +38,7 @@ const RenderPromptBox = ({
             )}
             <p>{prompt}</p>
           </div>
-          {/* THIS NEEDS WORK */}
+          {/* TODO THIS NEEDS WORK */}
           {isTeacher && !endTime ? (
             <div className="start-rumble-button">
               <button onClick={startRumble}>Start Rumble</button>
@@ -49,9 +46,9 @@ const RenderPromptBox = ({
           ) : !endTime ? (
             //back to studentdashboard
             <>Redirecting ... </>
-          ) : isCountDownFinished ? (
+          ) : isCountDownFinished && isTeacher ? (
             <div className="start-rumble-button">
-              <button onClick={handleStartFeedback}>Start Feedback</button>
+              <button onClick={startFeedback}>Start Feedback</button>
             </div>
           ) : (
             <div>
@@ -85,6 +82,7 @@ interface IRenderPromptBoxProps {
   endTime?: Date;
   isTeacher: boolean;
   startRumble?: () => void;
+  startFeedback?: () => void;
 }
 
 export default RenderPromptBox;
