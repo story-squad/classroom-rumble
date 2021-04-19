@@ -25,14 +25,19 @@
       flex-direction: column;
       max-width: 100%;
       .placeholder {
-        height: 300px;
-        width: 242px;
+        // This has to be the same size as the img
+        // img size is hard coded
+        // ??better way to do this so it looks good without hard coding size
+        @include bp($tablet) {
+          height: 500px;
+          width: 400px;
+        }
       }
       img {
+        padding: 0rem 2rem;
         margin-top: 2rem;
-        width: 90%;
+        width: 100%;
         @include bp($tablet) {
-          padding: 0rem 2rem;
           height: 500px;
           width: 400px;
         }
