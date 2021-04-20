@@ -13,25 +13,28 @@ const TeacherDashboardRumbleList = ({
       <div className="teacher-dash-rumble-list-container">
         <h2>Current Rumbles</h2>
         <div className="rumble-list">
-          {sections.length <= 0 ? (
-            <div>
-              <h3>Current Rumbles</h3>
-              <p>You don&apos;t have any current rumbles.</p>
-              <img src={emptyMail} alt="You don't have any current rumbles" />
-            </div>
-          ) : (
-            <>
-              {sections?.map((sec) =>
+          <>
+            {sections?.map((sec, i) =>
+              sec.rumbles.length > 0 ? (
                 sec.rumbles.map((rum) => (
                   <TeacherDashboardRumbleCard
                     key={rum.id}
                     section={sec}
                     rumble={rum}
                   />
-                )),
-              )}
-            </>
-          )}
+                ))
+              ) : (
+                <div key={i}>
+                  <h3>Current Rumbles</h3>
+                  <p>You don&apos;t have any current rumbles.</p>
+                  <img
+                    src={emptyMail}
+                    alt="You don't have any current rumbles"
+                  />
+                </div>
+              ),
+            )}
+          </>
         </div>
       </div>
     </div>
