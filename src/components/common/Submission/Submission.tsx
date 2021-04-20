@@ -6,8 +6,8 @@ const Submission = ({ submission }: ISubmissionProps): React.ReactElement => {
   const [isVisible, setIsVisible] = useState(false);
   return (
     <div className="image-wrapper">
+      <h2>SUBMISSION</h2>
       <div className="image-container">
-        <h2>SUBMISSION</h2>
         {isVisible ? (
           <>
             <FullscreenImage

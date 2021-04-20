@@ -3,54 +3,47 @@
   @include wrapped-container();
   background-color: $w-grey-10;
   display: flex;
-  flex-direction: row-reverse;
   padding: 3rem 0rem;
   border-radius: 1rem;
+  flex-direction: column-reverse;
+  margin-top: 1rem;
+  @include bp($tablet) {
+    flex-direction: row-reverse;
+  }
   h2 {
     color: $w-grey-40;
     font-size: 2em;
     width: 90%;
     margin: auto;
   }
-  .feedback-wrapper {
-    @include wrapped-container();
-    .feedback-container {
-      background-color: #fff;
-      width: 90%;
-      @include table(70%, 30%, 0, 0);
-      margin: auto;
-      margin-top: 2rem;
-    }
-    .message {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      line-height: 5rem;
-      p {
-        font-weight: 600;
-        font-size: 1.8rem;
-      }
-    }
-  }
   .image-wrapper {
     .image-container {
-      text-align: center;
       @include wrapped-container();
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
+      max-width: 100%;
       .placeholder {
-        height: 300px;
-        width: 242px;
+        // This has to be the same size as the img
+        // img size is hard coded
+        // ??better way to do this so it looks good without hard coding size
+        @include bp($tablet) {
+          height: 500px;
+          width: 400px;
+        }
       }
       img {
-        padding: 2rem 5rem;
-        max-height: 300px;
+        padding: 0rem 2rem;
+        margin-top: 2rem;
+        width: 100%;
+        @include bp($tablet) {
+          height: 500px;
+          width: 400px;
+        }
       }
       a {
+        margin-top: 2rem;
         font-size: 1.6em;
         font-weight: 500;
         cursor: pointer;
