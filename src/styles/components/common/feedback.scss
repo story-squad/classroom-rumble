@@ -1,0 +1,30 @@
+.feedback-wrapper {
+  @include wrapped-container();
+  margin-top: 2rem;
+  @include bp($tablet) {
+    margin-top: 0;
+  }
+  .feedback-container {
+    background-color: #fff;
+    width: 90%;
+    margin: auto;
+    @include table(60%, 40%, 0, 0);
+    margin-top: 2rem;
+    @include bp($tablet) {
+      @include table(65%, 35%, 0, 0);
+    }
+  }
+  .message {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    line-height: 5rem;
+    p {
+      font-weight: 600;
+      font-size: 1.8rem;
+    }
+  }
+}
+
