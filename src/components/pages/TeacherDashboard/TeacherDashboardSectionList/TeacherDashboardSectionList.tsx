@@ -17,7 +17,6 @@ const RenderTeacherDashboardSectionList = ({
   const openInviteModal = () => setInviteModalOpen(true);
   const sectionList = useRecoilValue(list);
 
-  console.log(sectionList);
   return (
     <>
       <div className="teacher-dash-section-list-wrapper">
@@ -33,7 +32,6 @@ const RenderTeacherDashboardSectionList = ({
       {sectionList.length <= 0 ? (
         <div>
           <p>You don&apos;t have any classes yet. Let&apos;s get started!</p>
-
           <button onClick={openSectionModal}>Add Class</button>
           <img src={rocketBoy} alt="You don't have any classes" />
         </div>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Sections } from '../../../../api';
-import emptyMail from '../../../../assets/img/empty_inbox.svg';
 import TeacherDashboardRumbleCard from './TeacherDashboardRumbleCard';
 
 const TeacherDashboardRumbleList = ({
@@ -14,25 +13,28 @@ const TeacherDashboardRumbleList = ({
         <h2>Current Rumbles</h2>
         <div className="rumble-list">
           <>
-            {sections?.map((sec, i) =>
-              sec.rumbles.length > 0 ? (
+            {console.log(sections)}
+            {sections?.map(
+              (sec) =>
+                // sec.rumbles.length > 0 ? (
+                // TODO *BUG* Figure out why it is rerendering no current rumble for each class
                 sec.rumbles.map((rum) => (
                   <TeacherDashboardRumbleCard
                     key={rum.id}
                     section={sec}
                     rumble={rum}
                   />
-                ))
-              ) : (
-                <div key={i}>
-                  <h3>Current Rumbles</h3>
-                  <p>You don&apos;t have any current rumbles.</p>
-                  <img
-                    src={emptyMail}
-                    alt="You don't have any current rumbles"
-                  />
-                </div>
-              ),
+                )),
+              // ) : (
+              //   <div key={i}>
+              //     <h3>Current Rumbles</h3>
+              //     <p>You don&apos;t have any current rumbles.</p>
+              //     <img
+              //       src={emptyMail}
+              //       alt="You don't have any current rumbles"
+              //     />
+              //   </div>
+              // ),
             )}
           </>
         </div>
