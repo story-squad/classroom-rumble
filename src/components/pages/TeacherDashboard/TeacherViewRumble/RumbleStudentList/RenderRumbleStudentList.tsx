@@ -25,25 +25,25 @@ const RenderRumbleStudentList = ({
             <Table.Col>First Name</Table.Col>
             <Table.Col>Submission Status</Table.Col>
           </Table.Header>
-          <Table.Body>
-            {studentList.length > 0 ? (
-              <>
-                {studentList.map((student) => (
-                  <RumbleStudentCard
-                    student={student}
-                    section={section}
-                    key={student.id}
-                  />
-                ))}
-              </>
-            ) : (
-              <>
-                <p>There are no students in this class &nbsp;</p>
-                <button onClick={openInviteModal}>Invite to Class</button>
-                <img src={noStudents} alt="you have no students" />
-              </>
-            )}
-          </Table.Body>
+          {studentList.length > 0 ? (
+            <Table.Body>
+              {studentList.map((student) => (
+                <RumbleStudentCard
+                  student={student}
+                  section={section}
+                  key={student.id}
+                />
+              ))}
+            </Table.Body>
+          ) : (
+            <div>
+              <p className="message">
+                There are no students in this class &nbsp;
+              </p>
+              <button onClick={openInviteModal}>Invite to Class</button>
+              <img src={noStudents} alt="you have no students" />
+            </div>
+          )}
         </div>
       </div>
     </div>

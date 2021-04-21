@@ -33,6 +33,10 @@
         border: 1px solid $c-grey-20;
       }
     }
+    .teacher-dash-no-sections {
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
 

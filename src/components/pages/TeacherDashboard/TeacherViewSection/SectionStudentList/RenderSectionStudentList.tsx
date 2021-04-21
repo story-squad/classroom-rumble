@@ -1,5 +1,8 @@
 import React from 'react';
+import { useSetRecoilState } from 'recoil';
 import { Sections, Students } from '../../../../../api';
+import noStudents from '../../../../../assets/img/no-students.svg';
+import { modals } from '../../../../../state';
 import { Table } from '../../../../common';
 import SectionStudentCard from './SectionStudentCard';
 
@@ -7,6 +10,9 @@ const RenderSectionStudentList = ({
   studentList,
   section,
 }: IRenderSectionStudentListProps): React.ReactElement => {
+  const setInviteModalOpen = useSetRecoilState(modals.invite.isOpen);
+  const openInviteModal = () => setInviteModalOpen(true);
+
   return (
     <div className="student-list-wrapper">
       <div className="student-list-container">
@@ -17,15 +23,25 @@ const RenderSectionStudentList = ({
             <Table.Col>First Name</Table.Col>
             <Table.Col># of Submissions</Table.Col>
           </Table.Header>
-          <Table.Body>
-            {studentList.map((student) => (
-              <SectionStudentCard
-                student={student}
-                section={section}
-                key={student.id}
-              />
-            ))}
-          </Table.Body>
+          {studentList.length > 0 ? (
+            <Table.Body>
+              {studentList.map((student) => (
+                <SectionStudentCard
+                  student={student}
+                  section={section}
+                  key={student.id}
+                />
+              ))}
+            </Table.Body>
+          ) : (
+            <div>
+              <p className="message">
+                There are no students in this class &nbsp;
+              </p>
+              <button onClick={openInviteModal}>Invite to Class</button>
+              <img src={noStudents} alt="you have no students" />
+            </div>
+          )}
         </div>
       </div>
     </div>

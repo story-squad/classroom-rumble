@@ -18,37 +18,39 @@ const RenderTeacherDashboardSectionList = ({
   const sectionList = useRecoilValue(list);
 
   return (
-    <>
-      <div className="teacher-dash-section-list-wrapper">
-        <div className="teacher-dash-section-list-container">
-          <h2>Classes</h2>
-        </div>
+    <div className="teacher-dash-section-list-wrapper">
+      <div className="teacher-dash-section-list-container">
+        <h2>Classes</h2>
+        <CreateNewSection
+          isVisible={newSectionOpen}
+          setIsVisible={setNewSectionOpen}
+        />
+        <InviteToSection />
+        {sectionList.length <= 0 ? (
+          <div className="teacher-dash-no-sections">
+            <div className="teacher-no-section-text">
+              <p className="message">
+                You don&apos;t have any classes yet. Let&apos;s get started!
+              </p>
+              <button onClick={openSectionModal}>Add Class</button>
+            </div>
+            <img src={rocketBoy} alt="You don't have any classes" />
+          </div>
+        ) : (
+          <>
+            <div className="button-row">
+              <button onClick={openSectionModal}>Add Class</button>
+              <button onClick={openInviteModal}>Invite to Class</button>
+            </div>
+            <div className="section-list">
+              {sections?.map((sec) => (
+                <Section {...sec} key={sec.id} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
-      <CreateNewSection
-        isVisible={newSectionOpen}
-        setIsVisible={setNewSectionOpen}
-      />
-      <InviteToSection />
-      {sectionList.length <= 0 ? (
-        <div>
-          <p>You don&apos;t have any classes yet. Let&apos;s get started!</p>
-          <button onClick={openSectionModal}>Add Class</button>
-          <img src={rocketBoy} alt="You don't have any classes" />
-        </div>
-      ) : (
-        <>
-          <div className="button-row">
-            <button onClick={openSectionModal}>Add Class</button>
-            <button onClick={openInviteModal}>Invite to Class</button>
-          </div>
-          <div className="section-list">
-            {sections?.map((sec) => (
-              <Section {...sec} key={sec.id} />
-            ))}
-          </div>
-        </>
-      )}
-    </>
+    </div>
   );
 };
 
