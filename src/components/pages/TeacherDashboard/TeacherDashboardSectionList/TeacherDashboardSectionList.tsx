@@ -27,19 +27,19 @@ const RenderTeacherDashboardSectionList = ({
         />
         <InviteToSection />
         {sectionList.length <= 0 ? (
-          <div className="teacher-dash-no-sections">
-            <div className="teacher-no-section-text">
+          <div>
+            <div className="message-text-container">
               <p className="message">
                 You don&apos;t have any classes yet. Let&apos;s get started!
               </p>
-              <button onClick={openSectionModal}>Add Class</button>
+              <button onClick={openSectionModal}>Add New Class</button>
             </div>
             <img src={rocketBoy} alt="You don't have any classes" />
           </div>
         ) : (
           <>
             <div className="button-row">
-              <button onClick={openSectionModal}>Add Class</button>
+              <button onClick={openSectionModal}>Add New Class</button>
               <button onClick={openInviteModal}>Invite to Class</button>
             </div>
             <div className="section-list">

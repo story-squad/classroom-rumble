@@ -2,6 +2,7 @@
   .rumble-student-list-container {
     @include wrapped-container();
     .rumble-student-list {
+      @import '../teacherNoStudents.scss';
       @include table(60%, 0, 0, 40%);
       @include bp(tablet) {
         @include table(0, 35%, 35%, 30%);

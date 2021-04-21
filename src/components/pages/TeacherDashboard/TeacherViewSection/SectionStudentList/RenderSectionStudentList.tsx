@@ -17,24 +17,26 @@ const RenderSectionStudentList = ({
     <div className="student-list-wrapper">
       <div className="student-list-container">
         <div className="student-list">
-          <Table.Header>
-            <Table.Col>Student Name</Table.Col>
-            <Table.Col>Last Name</Table.Col>
-            <Table.Col>First Name</Table.Col>
-            <Table.Col># of Submissions</Table.Col>
-          </Table.Header>
           {studentList.length > 0 ? (
-            <Table.Body>
-              {studentList.map((student) => (
-                <SectionStudentCard
-                  student={student}
-                  section={section}
-                  key={student.id}
-                />
-              ))}
-            </Table.Body>
+            <>
+              <Table.Header>
+                <Table.Col>Student Name</Table.Col>
+                <Table.Col>Last Name</Table.Col>
+                <Table.Col>First Name</Table.Col>
+                <Table.Col># of Submissions</Table.Col>
+              </Table.Header>
+              <Table.Body>
+                {studentList.map((student) => (
+                  <SectionStudentCard
+                    student={student}
+                    section={section}
+                    key={student.id}
+                  />
+                ))}
+              </Table.Body>
+            </>
           ) : (
-            <div>
+            <div className="message-text-container">
               <p className="message">
                 There are no students in this class &nbsp;
               </p>

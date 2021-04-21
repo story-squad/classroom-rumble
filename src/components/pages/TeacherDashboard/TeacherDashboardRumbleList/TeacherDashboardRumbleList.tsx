@@ -10,6 +10,7 @@ const TeacherDashboardRumbleList = ({
   const [rumbleLength, setRumbleLength] = useState<number>();
 
   useEffect(() => {
+    // This gets the total amount of rumbles
     const sectionRumbles = sections.map((sec) => {
       return sec.rumbles.length;
     });
@@ -29,9 +30,11 @@ const TeacherDashboardRumbleList = ({
           {!sections || (sections && rumbleLength === 0) ? (
             // If there are no sections show that there is alsp no rubmles
             <div>
-              <p className="message">
-                You don&apos;t have any current rumbles.
-              </p>
+              <div className="message-text-container">
+                <p className="message">
+                  You don&apos;t have any current rumbles.
+                </p>
+              </div>
               <img src={emptyMail} alt="You don't have any current rumbles" />
             </div>
           ) : (

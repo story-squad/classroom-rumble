@@ -19,24 +19,26 @@ const RenderRumbleStudentList = ({
       <div className="rumble-student-list-container">
         <div className="rumble-student-list">
           <InviteToSection />
-          <Table.Header>
-            <Table.Col>Student Name</Table.Col>
-            <Table.Col>Last Name</Table.Col>
-            <Table.Col>First Name</Table.Col>
-            <Table.Col>Submission Status</Table.Col>
-          </Table.Header>
           {studentList.length > 0 ? (
-            <Table.Body>
-              {studentList.map((student) => (
-                <RumbleStudentCard
-                  student={student}
-                  section={section}
-                  key={student.id}
-                />
-              ))}
-            </Table.Body>
+            <>
+              <Table.Header>
+                <Table.Col>Student Name</Table.Col>
+                <Table.Col>Last Name</Table.Col>
+                <Table.Col>First Name</Table.Col>
+                <Table.Col>Submission Status</Table.Col>
+              </Table.Header>
+              <Table.Body>
+                {studentList.map((student) => (
+                  <RumbleStudentCard
+                    student={student}
+                    section={section}
+                    key={student.id}
+                  />
+                ))}
+              </Table.Body>
+            </>
           ) : (
-            <div>
+            <div className="message-text-container">
               <p className="message">
                 There are no students in this class &nbsp;
               </p>
