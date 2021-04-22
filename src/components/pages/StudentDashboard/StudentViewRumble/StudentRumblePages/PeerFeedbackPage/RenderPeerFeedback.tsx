@@ -49,7 +49,11 @@ const RenderPeerFeedback = ({
               subNumber={index + 1}
             />
           ))}
-          <button disabled={!methods.formState.isValid}>Submit</button>
+          <div className="button-area">
+            <button disabled={!methods.formState.isValid}>
+              SUBMIT FEEDBACK
+            </button>
+          </div>
         </form>
       </FormProvider>
     </div>

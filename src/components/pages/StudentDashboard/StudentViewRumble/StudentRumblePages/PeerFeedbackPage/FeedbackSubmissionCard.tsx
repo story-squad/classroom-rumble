@@ -12,8 +12,8 @@ const FeedbackSubmissionCard = ({
     <div className="feedback-form-details">
       <h2>Story #{subNumber}</h2>
       <div className="card-content">
-        <div className="image-wrapper">
-          <div className="image-container">
+        <div>
+          <div>
             <Submission submission={submission} />
           </div>
         </div>

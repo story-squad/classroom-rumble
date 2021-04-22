@@ -44,7 +44,7 @@ const FeedbackForm = ({
             errors={errors}
           />
         </div>
-        <label className="radio-labels">Not at all</label>
+
         <div className="radio-wrapper">
           <p>
             How easily did the descriptions allow you to imagine the setting and

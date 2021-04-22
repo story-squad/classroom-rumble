@@ -1,3 +1,9 @@
+button {
+  @include button-alt;
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
 .feedback-form-details {
   @include wrapped-container();
   background-color: $w-grey-10;
@@ -18,21 +24,22 @@
 
   .card-content {
     display: flex;
+    max-width: 100%;
     @include bp($mid) {
       flex-wrap: wrap;
     }
     @include bp($tablet) {
     }
-    border: 10px solid red;
   }
 
   .radio-button-section {
     display: flex;
     flex-flow: column;
-    border: 10px solid pink;
     margin-left: 3rem;
-    width: 100%;
+    max-width: 100%;
     padding-top: 1rem;
+    @include bp($mid) {
+    }
   }
   .radio-wrapper {
     padding: 2rem;
@@ -40,12 +47,10 @@
   .radio-group-wrapper {
     display: flex;
     flex-flow: column nowrap;
-    // align-items: center;
     align-content: stretch;
-    // justify-content: center;
+    justify-content: left;
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
-    // border: 10px solid green;
   }
 
   .radio-group-list {
@@ -65,46 +70,41 @@
     display: flex;
     align-items: center;
   }
-
-  .radio-labels {
-    border: 10px solid red;
-    padding-top: 0;
+  label {
+    align-content: center;
+    padding-left: 0.7rem;
   }
-
-  .image-container {
-    @include wrapped-container();
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    @include bp($mid) {
-      justify-items: center;
+  .image-wrapper {
+    .image-container {
+      @include wrapped-container();
+      display: flex;
       align-items: center;
-    }
-
-    .placeholder {
-      height: 300px;
-      width: 242px;
-      @include bp($tablet) {
+      justify-content: center;
+      flex-direction: column;
+      max-width: 100%;
+      .placeholder {
+        @include bp($tablet) {
+          height: 500px;
+          width: 400px;
+        }
       }
-    }
-    img {
-      padding: 0rem 2rem;
-      margin-top: 2rem;
-      width: 100%;
-    }
-    @include bp($mid) {
-      height: 500px;
-      width: 400px;
-      align-items: center;
-    }
-    a {
-      margin-top: 2rem;
-      font-size: 1.6em;
-      font-weight: 500;
-      cursor: pointer;
-      color: #5872ff;
+      img {
+        padding: 0rem 2rem;
+        margin-top: 2rem;
+        width: 100%;
+
+        @include bp($mid) {
+          height: 500px;
+          width: 400px;
+        }
+      }
+      a {
+        margin-top: 2rem;
+        font-size: 1.6em;
+        font-weight: 500;
+        cursor: pointer;
+        color: #5872ff;
+      }
     }
   }
 }
