@@ -6,6 +6,7 @@
       @include bp(tablet) {
         @include table(0, 35%, 35%, 30%);
       }
+      // ***
       div {
         display: flex;
         flex-flow: column wrap;
@@ -22,9 +23,13 @@
             background: none;
             color: $primary-base;
             cursor: pointer;
+            &:focus {
+              outline: none;
+            }
           }
         }
       }
+      // ***
       .table-body {
         .table-row {
           @include clickable-bg($white, 2.5%);
