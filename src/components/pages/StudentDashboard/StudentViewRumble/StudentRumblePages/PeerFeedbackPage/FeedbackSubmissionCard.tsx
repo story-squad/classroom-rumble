@@ -1,5 +1,6 @@
 import React from 'react';
 import { Submissions } from '../../../../../../api';
+import { Submission } from '../../../../../common';
 import FeedbackForm from './FeedbackForm';
 
 const FeedbackSubmissionCard = ({
@@ -8,17 +9,18 @@ const FeedbackSubmissionCard = ({
 }: IFeedbackSubmissionCardProps): React.ReactElement => {
   // TODO use victor's submission component
   return (
-    <div>
-      <h2>Feedback #{subNumber}</h2>
-      <img
-        aria-label="Handwritten Story"
-        src={submission.src}
-        width="200px"
-        height="300px"
-      />
-      <a>View Larger Image</a>
-      {/* modal to larger image */}
-      <FeedbackForm subNumber={subNumber} />
+    <div className="feedback-form-details">
+      <h2>Story #{subNumber}</h2>
+      <div className="card-content">
+        <div className="image-wrapper">
+          <div className="image-container">
+            <Submission submission={submission} />
+          </div>
+        </div>
+        <div>
+          <FeedbackForm subNumber={subNumber} />
+        </div>
+      </div>
     </div>
   );
 };

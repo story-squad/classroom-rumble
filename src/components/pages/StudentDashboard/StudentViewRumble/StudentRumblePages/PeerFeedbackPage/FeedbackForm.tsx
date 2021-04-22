@@ -16,23 +16,26 @@ const FeedbackForm = ({
   ];
 
   return (
-    <div>
-      <h2>FEEDBACK</h2>
+    <div className="radio-button-section">
+      <h2 className="form-header">FEEDBACK</h2>
       <div>
-        <div>
+        <div className="radio-wrapper">
           <p>How much did you want the main characters to succeed?</p>
-          <RadioGroup
-            name={`Submission${subNumber}-Q1`}
-            register={register}
-            options={radioRange}
-            rules={{ required: 'Please choose a value from 1-5!' }}
-            errors={errors}
-          />
+          <div className="radios" data-type="horizontal">
+            <RadioGroup
+              name={`Submission${subNumber}-Q1`}
+              register={register}
+              options={radioRange}
+              rules={{ required: 'Please choose a value from 1-5!' }}
+              errors={errors}
+            />
+          </div>
         </div>
-        <div>
+        <div className="radio-wrapper">
           <p>
             How interested were you in finding out what happens in the Story?
           </p>
+
           <RadioGroup
             name={`Submission${subNumber}-Q2`}
             register={register}
@@ -41,7 +44,8 @@ const FeedbackForm = ({
             errors={errors}
           />
         </div>
-        <div>
+        <label className="radio-labels">Not at all</label>
+        <div className="radio-wrapper">
           <p>
             How easily did the descriptions allow you to imagine the setting and
             action?
