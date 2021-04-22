@@ -1,0 +1,11 @@
+button {
+  &.default {
+    @include button($primary-lite, $black);
+  }
+  &.primary {
+    @include button-alt();
+  }
+  &.text {
+    @include text-button($primary-base);
+  }
+}
