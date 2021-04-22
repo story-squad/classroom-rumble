@@ -27,5 +27,5 @@ export const getSubForRumble = async (
   const { data } = await axiosWithAuth().get(
     `/api/rumble/rumbles/${rumbleId}/students/${studentId}`,
   );
-  return data;
+  return data !== '' ? data : undefined;
 };
