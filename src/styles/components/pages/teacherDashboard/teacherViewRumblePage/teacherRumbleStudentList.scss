@@ -15,6 +15,9 @@
           font-size: 16px;
           font-weight: 600;
           text-align: center;
+          P {
+            color: $c-grey-80;
+          }
           button {
             margin-top: 1rem;
             font-size: 14px;

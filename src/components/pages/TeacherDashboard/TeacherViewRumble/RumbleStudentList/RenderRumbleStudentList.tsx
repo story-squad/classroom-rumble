@@ -41,7 +41,9 @@ const RenderRumbleStudentList = ({
             <div>
               <div className="message-text-container">
                 <p>There are no students in this class &nbsp;</p>
-                <button onClick={openInviteModal}>Invite to Class</button>
+                <span>
+                  <button onClick={openInviteModal}>Invite to Class</button>
+                </span>
               </div>
               <img src={noStudents} alt="you have no students" />
             </div>
