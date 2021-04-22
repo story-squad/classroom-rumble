@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Sections } from '../../../../api';
 import rocketBoy from '../../../../assets/img/rocket_boy.svg';
+import talk from '../../../../assets/img/Speach.svg';
 import { modals } from '../../../../state';
 import { list } from '../../../../state/sectionState';
 import { InviteToSection } from '../InviteToSection';
@@ -27,14 +28,20 @@ const RenderTeacherDashboardSectionList = ({
         />
         <InviteToSection />
         {sectionList.length <= 0 ? (
-          <div>
-            <div className="message-text-container">
-              <p className="message">
-                You don&apos;t have any classes yet. Let&apos;s get started!
-              </p>
-              <button onClick={openSectionModal}>Add New Class</button>
+          <div className="no-sections">
+            <div>
+              <img
+                className="speach"
+                src={talk}
+                alt="You don't have any classes yet. Let's get started!"
+                onClick={openSectionModal}
+              />
+              <img
+                className="rocket"
+                src={rocketBoy}
+                alt="You don't have any classes"
+              />
             </div>
-            <img src={rocketBoy} alt="You don't have any classes" />
           </div>
         ) : (
           <>

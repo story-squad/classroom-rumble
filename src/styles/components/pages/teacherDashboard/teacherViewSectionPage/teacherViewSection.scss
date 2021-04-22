@@ -1,6 +1,5 @@
 .teacher-view-section {
   @import './sectionContentSwitcher.scss';
-  @import '../teacherNoStudents.scss';
   .section-info-wrapper {
     .section-info-container {
       @include bp(1200px) {

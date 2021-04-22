@@ -2,21 +2,6 @@
   display: flex;
   flex-flow: column nowrap;
   align-items: stretch;
-  @import '../teacherNoStudents.scss';
-  // .message-text-container {
-  //   .message {
-  //     font-size: 1.2rem;
-  //     padding: 0.8rem 0rem;
-  //     width: 100%;
-  //   }
-  //   button {
-  //     padding: 0;
-  //     border: none;
-  //     background: none;
-  //     cursor: pointer;
-  //     color: $primary-base;
-  //   }
-  // }
 }
 
 @import './promptQueueDisplay.scss';

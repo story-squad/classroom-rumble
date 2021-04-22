@@ -1,6 +1,6 @@
 import React from 'react';
 import { Sections } from '../../../../api';
-import emptyMail from '../../../../assets/img/empty_inbox.svg';
+import emptyMail from '../../../../assets/img/norumbles.svg';
 import rocketBoy from '../../../../assets/img/rocket_boy.svg';
 import { useRumbleFilter } from '../../../../hooks';
 import { SectionInfo } from '../../../common';
@@ -26,7 +26,6 @@ const RenderStudentViewSectionRumbles = ({
             ) : (
               <div>
                 <h3>Current Rumbles</h3>
-                <p>You don&apos;t have any current rumbles.</p>
                 <img src={emptyMail} alt="You don't have any current rumbles" />
               </div>
             )}
