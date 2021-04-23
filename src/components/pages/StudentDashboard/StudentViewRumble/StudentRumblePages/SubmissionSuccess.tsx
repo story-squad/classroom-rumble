@@ -1,5 +1,5 @@
 import React from 'react';
-import surfer from '../../../../../assets/img/female-surfer.svg';
+import surfer from '../../../../../assets/img/female_surfer.svg';
 
 const SubmissionSuccess = (): React.ReactElement => {
   return (

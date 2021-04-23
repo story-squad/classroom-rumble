@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { Auth } from '../../../api';
-import cleverLogo from '../../../assets/img/clever-square-icon.png';
+import cleverLogo from '../../../assets/img/clever_square_icon.png';
 import { auth } from '../../../state';
 
 /** Defaults to Login, pass the `signup` attribute to change text */
