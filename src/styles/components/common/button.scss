@@ -1,4 +1,4 @@
-button {
+.button {
   &.default {
     @include button($primary-lite, $black);
   }
