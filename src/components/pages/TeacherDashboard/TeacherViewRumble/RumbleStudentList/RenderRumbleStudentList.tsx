@@ -4,7 +4,6 @@ import { Sections, Students } from '../../../../../api';
 import noStudents from '../../../../../assets/img/no_students.svg';
 import { modals } from '../../../../../state';
 import { Table } from '../../../../common';
-import { InviteToSection } from '../../InviteToSection';
 import RumbleStudentCard from './RumbleStudentCard';
 
 const RenderRumbleStudentList = ({
@@ -18,7 +17,6 @@ const RenderRumbleStudentList = ({
     <div className="rumble-student-list-wrapper">
       <div className="rumble-student-list-container">
         <div className="rumble-student-list">
-          <InviteToSection />
           {studentList.length > 0 ? (
             <>
               <Table.Header>

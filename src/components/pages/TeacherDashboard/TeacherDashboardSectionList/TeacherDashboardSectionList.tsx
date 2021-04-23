@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { Sections } from '../../../../api';
 import rocketBoy from '../../../../assets/img/rocket_boy.svg';
-import talk from '../../../../assets/img/Speach.svg';
+import talk from '../../../../assets/img/speech.svg';
 import { modals } from '../../../../state';
-import { list } from '../../../../state/sectionState';
 import { InviteToSection } from '../InviteToSection';
 import { CreateNewSection } from './CreateNewSection';
 import Section from './TeacherDashboardSectionCard';
@@ -16,7 +15,6 @@ const RenderTeacherDashboardSectionList = ({
   const [newSectionOpen, setNewSectionOpen] = useState(false);
   const openSectionModal = () => setNewSectionOpen(true);
   const openInviteModal = () => setInviteModalOpen(true);
-  const sectionList = useRecoilValue(list);
 
   return (
     <div className="teacher-dash-section-list-wrapper">
@@ -27,7 +25,7 @@ const RenderTeacherDashboardSectionList = ({
           setIsVisible={setNewSectionOpen}
         />
         <InviteToSection />
-        {sectionList.length <= 0 ? (
+        {sections.length <= 0 ? (
           <div className="no-sections">
             <div>
               <img
