@@ -17,7 +17,7 @@ const Button = ({
       type={htmlType}
       {...props}
     >
-      {!loading ? message : <ClipLoader size="16" />}
+      {loading ? message : <ClipLoader />}
     </button>
   );
 };
