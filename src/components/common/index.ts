@@ -1,3 +1,4 @@
+export { Button } from './Button';
 export { Checkbox } from './Checkbox';
 export { CheckboxGroup } from './CheckboxGroup';
 export { CleverButton } from './CleverButton';
@@ -21,3 +22,4 @@ export { SEO } from './SEO';
 export { Submission } from './Submission';
 export * as Table from './Table';
 export { TermsOfService } from './TermsOfService';
+
