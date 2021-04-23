@@ -2,13 +2,13 @@ import React from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 const Button = ({
-  type,
+  type = 'default',
   loading = false,
-  message,
   onClick,
   htmlType,
+  children,
   ...props
-}: IButtonProps): React.ReactElement => {
+}: React.PropsWithChildren<IButtonProps>): React.ReactElement => {
   //   const [state, setState] = useState({ loading: false });
   return (
     <button
@@ -17,7 +17,7 @@ const Button = ({
       type={htmlType}
       {...props}
     >
-      {!loading ? message : <ClipLoader />}
+      {!loading ? children : <ClipLoader />}
     </button>
   );
 };
@@ -26,9 +26,8 @@ interface IButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
   onClick?: () => void;
   loading?: boolean;
-  type: 'default' | 'primary' | 'text';
+  type?: 'default' | 'primary' | 'secondary' | 'text';
   htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
-  message: string;
 }
 
 export default Button;
