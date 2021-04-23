@@ -6,6 +6,34 @@
       @include bp(tablet) {
         @include table(0, 35%, 35%, 30%);
       }
+      // *** This probably can be but in its own file along with the teacherDashboardStudentList style for the same things
+      div {
+        display: flex;
+        flex-flow: column wrap;
+        margin-top: 2rem;
+        .message-text-container {
+          font-size: 16px;
+          font-weight: 600;
+          text-align: center;
+          P {
+            color: $c-grey-80;
+          }
+          button {
+            margin-top: 1rem;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 0;
+            border: none;
+            background: none;
+            color: $primary-base;
+            cursor: pointer;
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+      }
+      // ***
       .status {
         font-style: italic;
         button {

@@ -6,6 +6,33 @@
       @include bp(tablet) {
         @include table(0, 35%, 35%, 30%);
       }
+      // ***
+      div {
+        display: flex;
+        flex-flow: column wrap;
+        .message-text-container {
+          font-size: 16px;
+          font-weight: 600;
+          text-align: center;
+          P {
+            color: $c-grey-80;
+          }
+          button {
+            margin-top: 1rem;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 0;
+            border: none;
+            background: none;
+            color: $primary-base;
+            cursor: pointer;
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+      }
+      // ***
       .table-body {
         .table-row {
           @include clickable-bg($white, 2.5%);
