@@ -1,6 +1,6 @@
 import React from 'react';
 import { Sections } from '../../../../api';
-import emptyMail from '../../../../assets/img/norumbles.svg';
+import emptyMail from '../../../../assets/img/no_rumbles.svg';
 import rocketBoy from '../../../../assets/img/rocket_boy.svg';
 import { useRumbleFilter } from '../../../../hooks';
 import { SectionInfo } from '../../../common';

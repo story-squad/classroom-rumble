@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSetRecoilState } from 'recoil';
 import { Sections, Students } from '../../../../../api';
-import noStudents from '../../../../../assets/img/no-students.svg';
+import noStudents from '../../../../../assets/img/no_students.svg';
 import { modals } from '../../../../../state';
 import { Table } from '../../../../common';
 import SectionStudentCard from './SectionStudentCard';
@@ -37,7 +37,7 @@ const RenderSectionStudentList = ({
               </Table.Body>
             </>
           ) : (
-            <div>
+            <div className="no-students">
               <div className="message-text-container">
                 <p>There are no students in this class &nbsp;</p>
                 <span>

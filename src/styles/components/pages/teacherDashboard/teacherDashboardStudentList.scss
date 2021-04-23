@@ -7,7 +7,7 @@
         @include table(0, 35%, 35%, 30%);
       }
       // ***
-      div {
+      .no-students {
         display: flex;
         flex-flow: column wrap;
         .message-text-container {

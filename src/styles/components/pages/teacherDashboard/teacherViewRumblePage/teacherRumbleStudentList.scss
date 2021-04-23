@@ -6,8 +6,7 @@
       @include bp(tablet) {
         @include table(0, 35%, 35%, 30%);
       }
-      // *** This probably can be but in its own file along with the teacherDashboardStudentList style for the same things
-      div {
+      .no-students {
         display: flex;
         flex-flow: column wrap;
         margin-top: 2rem;

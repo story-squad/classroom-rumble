@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Sections } from '../../../../api';
-import emptyMail from '../../../../assets/img/norumbles.svg';
+import emptyMail from '../../../../assets/img/no_rumbles.svg';
 import TeacherDashboardRumbleCard from './TeacherDashboardRumbleCard';
 
 const TeacherDashboardRumbleList = ({
