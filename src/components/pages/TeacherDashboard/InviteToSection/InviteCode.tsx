@@ -2,6 +2,7 @@ import React from 'react';
 import { useClipboard } from 'use-clipboard-copy';
 import { Sections } from '../../../../api';
 import { helpers } from '../../../../utils';
+import { Button } from '../../../common';
 
 const InviteCode = ({
   section,
@@ -21,12 +22,16 @@ const InviteCode = ({
           onClick={clipboard.copy}
         />
       </div>
-      {!disableSectionPicker && (
-        <div className="footer">
-          <button onClick={clipboard.copy}>Click To Copy</button>
-          <button onClick={goBack}>Pick a Different Class</button>
-        </div>
-      )}
+      <div className="footer">
+        {!disableSectionPicker && (
+          <Button type="secondary" onClick={goBack}>
+            Pick a Different Class
+          </Button>
+        )}
+        <Button type="primary" onClick={clipboard.copy}>
+          Click To Copy
+        </Button>
+      </div>
     </div>
   );
 };

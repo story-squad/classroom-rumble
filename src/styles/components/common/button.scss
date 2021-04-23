@@ -1,9 +1,12 @@
 .button {
   margin: 0 auto;
   &.default {
-    @include button($primary-lite, $black);
+    @include button();
   }
   &.primary {
+    @include button();
+  }
+  &.secondary {
     @include button-alt();
   }
   &.text {
