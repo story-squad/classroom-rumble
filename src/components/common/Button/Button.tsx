@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 const Button = ({
@@ -6,24 +6,19 @@ const Button = ({
   loading = false,
   message,
   onClick,
+  htmlType,
+  ...props
 }: IButtonProps): React.ReactElement => {
-  const buttonType = useMemo(() => {
-    switch (type) {
-      case 'primary':
-        return 'primary';
-      case 'text':
-        return 'text';
-      case 'default':
-        return 'default';
-    }
-  }, [type]);
   //   const [state, setState] = useState({ loading: false });
   return (
-    <div className="button">
-      <button onClick={onClick} className={buttonType}>
-        {!loading ? message : <ClipLoader />}
-      </button>
-    </div>
+    <button
+      onClick={onClick}
+      className={`button ${type}`}
+      type={htmlType}
+      {...props}
+    >
+      {!loading ? message : <ClipLoader size="16" />}
+    </button>
   );
 };
 
