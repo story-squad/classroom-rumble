@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Sections } from '../../../../api';
+import React, { useMemo } from 'react';
+import { Rumbles, Sections } from '../../../../api';
 import emptyMail from '../../../../assets/img/no_rumbles.svg';
 import TeacherDashboardRumbleCard from './TeacherDashboardRumbleCard';
 
@@ -7,41 +7,45 @@ const TeacherDashboardRumbleList = ({
   sections,
   visible = true,
 }: ITeacherDashboardRumbleListProps): React.ReactElement => {
-  const [rumbleLength, setRumbleLength] = useState<number>();
-
-  useEffect(() => {
-    // This gets the total amount of rumbles
-    const sectionRumbles = sections.map((sec) => {
-      return sec.rumbles.length;
-    });
-
-    const totalRumbles = sectionRumbles.reduce((acc, cur) => {
-      return acc + cur;
-    }, 0);
-    setRumbleLength(totalRumbles);
+  // TODO Make this reusable
+  // be able to control which rumbles are filtered in with props
+  // boolean
+  const currentRumbles = useMemo(() => {
+    return sections.reduce<Rumbles.IRumbleWithSectionInfo[]>((acc, cur) => {
+      return [
+        ...acc,
+        ...cur.rumbles
+          .filter((rumble) =>
+            ['ACTIVE', 'FEEDBACK', 'INACTIVE'].includes(rumble.phase),
+          )
+          .map((rumble) => ({ ...rumble, section: cur })),
+      ];
+    }, []);
   }, [sections]);
 
+  console.log(currentRumbles);
   if (!visible) return <></>;
   return (
     <div className="teacher-dash-rumble-list-wrapper">
       <div className="teacher-dash-rumble-list-container">
         <h2>Current Rumbles</h2>
-        {!sections || (sections && rumbleLength === 0) ? (
+        {!sections || !currentRumbles ? (
           // If there are no sections show that there is alsp no rubmles
-          // Div is for centering purposes
           <img src={emptyMail} alt="You don't have any current rumbles" />
         ) : (
           <div className="rumble-list">
-            {sections?.map((sec) =>
-              // putting statment here renders it as many times as there are sections
-              sec.rumbles.map((rum) => (
-                <TeacherDashboardRumbleCard
-                  key={rum.id}
-                  section={sec}
-                  rumble={rum}
-                />
-              )),
-            )}
+            {currentRumbles?.map((rumble) => (
+              // TODO *** CHANGE THIS AS This IS TEMPORARY
+              <TeacherDashboardRumbleCard
+                key={rumble.id}
+                section={
+                  ((rumble as unknown) as {
+                    section: Sections.ISectionWithRumbles;
+                  }).section
+                }
+                rumble={rumble}
+              />
+            ))}
           </div>
         )}
       </div>
