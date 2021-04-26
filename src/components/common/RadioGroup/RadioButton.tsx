@@ -13,7 +13,6 @@ const RadioButton = ({
     <div className="radio-button">
       <label>{label}</label>
       <input type="radio" name={name} value={value} ref={register} {...props} />
-      <label>Not at all</label>
     </div>
   );
 };

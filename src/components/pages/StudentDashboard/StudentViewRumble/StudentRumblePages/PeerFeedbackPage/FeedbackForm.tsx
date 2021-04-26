@@ -14,14 +14,15 @@ const FeedbackForm = ({
     { label: '4', value: '4' },
     { label: '5', value: '5' },
   ];
-
   return (
     <div className="radio-button-section">
       <h2 className="form-header">FEEDBACK</h2>
       <div>
         <div className="radio-wrapper">
-          <p>How much did you want the main characters to succeed?</p>
-          <div className="radios" data-type="horizontal">
+          <p className="form-questions">
+            How much did you want the main characters to succeed?
+          </p>
+          <div className="radios">
             <RadioGroup
               name={`Submission${subNumber}-Q1`}
               register={register}
@@ -29,10 +30,14 @@ const FeedbackForm = ({
               rules={{ required: 'Please choose a value from 1-5!' }}
               errors={errors}
             />
+            <div className="footers-1">
+              <p className="footer1">Not at all</p>
+              <p className="footer2"> A lot</p>
+            </div>
           </div>
         </div>
         <div className="radio-wrapper">
-          <p>
+          <p className="form-questions">
             How interested were you in finding out what happens in the Story?
           </p>
 
@@ -43,12 +48,16 @@ const FeedbackForm = ({
             rules={{ required: 'Please choose a value from 1-5!' }}
             errors={errors}
           />
+          <div className="footers-2">
+            <p className="footer1">Not interested</p>
+            <p className="footer2"> Very interested</p>
+          </div>
         </div>
 
         <div className="radio-wrapper">
-          <p>
-            How easily did the descriptions allow you to imagine the setting and
-            action?
+          <p className="form-questions">
+            How easily did the descriptions allow you to imagine the <br />
+            setting and action?
           </p>
           <RadioGroup
             name={`Submission${subNumber}-Q3`}
@@ -57,6 +66,10 @@ const FeedbackForm = ({
             rules={{ required: 'Please choose a value from 1-5!' }}
             errors={errors}
           />
+          <div className="footers-3">
+            <p className="footer1">Not easily</p>
+            <p className="footer2"> Very easily </p>
+          </div>
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ const FeedbackSubmissionCard = ({
       <h2>Story #{subNumber}</h2>
       <div className="card-content">
         <div>
-          <div>
+          <div className="submission-details">
             <Submission submission={submission} />
           </div>
         </div>

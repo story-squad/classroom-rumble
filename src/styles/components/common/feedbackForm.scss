@@ -21,6 +21,9 @@ button {
     width: 90%;
     margin: auto;
   }
+  .form-header {
+    margin-right: 5.2rem;
+  }
 
   .card-content {
     display: flex;
@@ -28,6 +31,7 @@ button {
     @include bp($mid) {
       flex-wrap: wrap;
     }
+
     @include bp($tablet) {
     }
   }
@@ -38,41 +42,87 @@ button {
     margin-left: 3rem;
     max-width: 100%;
     padding-top: 1rem;
+    // border: 10px solid green;
     @include bp($mid) {
     }
   }
   .radio-wrapper {
     padding: 2rem;
   }
+  .form-questions {
+    font-size: 1.5rem;
+    color: #535353;
+    margin-left: -2rem;
+  }
   .radio-group-wrapper {
     display: flex;
     flex-flow: column nowrap;
-    align-content: stretch;
-    justify-content: left;
+    // align-content: stretch;
+    // justify-content: left;
+    // align-items: flex-start;
     padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    width: 115%;
+    margin-left: -5rem;
   }
 
   .radio-group-list {
     display: flex;
-    flex-flow: table-row;
-    width: 100%;
-    justify-content: space-evenly;
-    align-content: center;
-    border-bottom: 2px solid grey;
-    padding-bottom: 2rem;
+    justify-content: space-around;
+    color: $w-grey-40;
+    padding-bottom: 0.5rem;
   }
 
   input[type='radio'] {
     margin-top: 1rem;
     margin-bottom: 1rem;
-    transform: scale(1.5);
+    transform: scale(2);
     display: flex;
     align-items: center;
+    color: $w-grey-40;
   }
   label {
     align-content: center;
     padding-left: 0.7rem;
+    font-size: 1.4rem;
+  }
+  .footers-1,
+  .footers-2,
+  .footers-3 {
+    display: flex;
+    // border: 10px solid red;
+    width: 100%;
+    margin-left: -2rem;
+    font-size: 1.3rem;
+    color: $w-grey-40;
+    padding-bottom: 3rem;
+  }
+
+  .footers-1,
+  .footers-2 {
+    border-bottom: 2px solid grey;
+  }
+
+  .footer2 {
+    margin-left: auto;
+    // border: 10px solid green;
+  }
+}
+.submission-details {
+  @include wrapped-container();
+  background-color: $w-grey-10;
+  display: flex;
+  padding: 3rem 0rem;
+  border-radius: 1rem;
+  flex-direction: column-reverse;
+  margin-top: 1rem;
+  @include bp($tablet) {
+    flex-direction: row-reverse;
+  }
+  h2 {
+    color: $w-grey-40;
+    font-size: 2em;
+    width: 90%;
+    margin: auto;
   }
   .image-wrapper {
     .image-container {
@@ -83,6 +133,9 @@ button {
       flex-direction: column;
       max-width: 100%;
       .placeholder {
+        // This has to be the same size as the img
+        // img size is hard coded
+        // ??better way to do this so it looks good without hard coding size
         @include bp($tablet) {
           height: 500px;
           width: 400px;
@@ -92,8 +145,7 @@ button {
         padding: 0rem 2rem;
         margin-top: 2rem;
         width: 100%;
-
-        @include bp($mid) {
+        @include bp($tablet) {
           height: 500px;
           width: 400px;
         }
