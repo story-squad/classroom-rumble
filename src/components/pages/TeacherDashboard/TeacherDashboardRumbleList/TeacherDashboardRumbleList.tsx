@@ -4,20 +4,17 @@ import emptyMail from '../../../../assets/img/no_rumbles.svg';
 import TeacherDashboardRumbleCard from './TeacherDashboardRumbleCard';
 
 const TeacherDashboardRumbleList = ({
+  phases = ['ACTIVE', 'FEEDBACK', 'INACTIVE', 'COMPLETE'],
+  title,
   sections,
   visible = true,
 }: ITeacherDashboardRumbleListProps): React.ReactElement => {
-  // TODO Make this reusable
-  // be able to control which rumbles are filtered in with props
-  // boolean
   const currentRumbles = useMemo(() => {
     return sections.reduce<Rumbles.IRumbleWithSectionInfo[]>((acc, cur) => {
       return [
         ...acc,
         ...cur.rumbles
-          .filter((rumble) =>
-            ['ACTIVE', 'FEEDBACK', 'INACTIVE'].includes(rumble.phase),
-          )
+          .filter((rumble) => phases.includes(rumble.phase))
           .map((rumble) => ({ ...rumble, section: cur })),
       ];
     }, []);
@@ -28,8 +25,8 @@ const TeacherDashboardRumbleList = ({
   return (
     <div className="teacher-dash-rumble-list-wrapper">
       <div className="teacher-dash-rumble-list-container">
-        <h2>Current Rumbles</h2>
-        {!sections || !currentRumbles ? (
+        {title && <h2>{title}</h2>}
+        {!sections || currentRumbles.length === 0 ? (
           // If there are no sections show that there is alsp no rubmles
           <img src={emptyMail} alt="You don't have any current rumbles" />
         ) : (
@@ -56,6 +53,8 @@ const TeacherDashboardRumbleList = ({
 interface ITeacherDashboardRumbleListProps {
   sections: Sections.ISectionWithRumbles[];
   visible?: boolean;
+  phases?: Rumbles.RumblePhases[];
+  title?: string;
 }
 
 export default TeacherDashboardRumbleList;

@@ -14,7 +14,11 @@ const RenderTeacherDashboard = ({
 
       {sectionList ? (
         <>
-          <TeacherDashboardRumbleList sections={sectionList} />
+          <TeacherDashboardRumbleList
+            sections={sectionList}
+            phases={['ACTIVE', 'FEEDBACK', 'INACTIVE']}
+            title="Current Rumbles"
+          />
           <TeacherDashboardSectionList sections={sectionList} />
         </>
       ) : (
