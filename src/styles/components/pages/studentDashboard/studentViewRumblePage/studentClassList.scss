@@ -12,6 +12,18 @@
     font-size: 1.6rem;
     margin-bottom: 10px;
   }
+  .current-rumbles {
+    padding: 0px 3rem;
+    @include bp($xlarge) {
+      padding: 0px 0rem;
+    }
+  }
+  .past-rumbles {
+    padding: 0px 3rem;
+    @include bp($xlarge) {
+      padding: 0px 0rem;
+    }
+  }
   .section-content,
   .rumble-list {
     @include scaling-flexbox;
