@@ -7,17 +7,16 @@
     font-weight: bold;
     color: $c-grey-40;
     margin: 20px 0px;
-  }
-  p {
-    font-size: 1.6rem;
-    margin-bottom: 10px;
-  }
-  .current-rumbles {
     padding: 0px 3rem;
     @include bp($xlarge) {
       padding: 0px 0rem;
     }
   }
+  p {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+  }
+  .current-rumbles,
   .past-rumbles {
     padding: 0px 3rem;
     @include bp($xlarge) {
@@ -27,7 +26,10 @@
   .section-content,
   .rumble-list {
     @include scaling-flexbox;
-    justify-content: space-betw;
+    @include bp($xlarge) {
+      padding: 0px 0rem;
+    }
+    padding: 0px 3rem;
     .rumble-item {
       padding: 20px;
       border: 1px solid $w-grey-40;
@@ -37,11 +39,18 @@
       .content {
         line-height: 5em;
         h3 {
-          font-size: 1.8rem;
           margin: 0px 0px;
+          padding: 0px;
+          font-size: 1.6rem;
+          @include bp($xlarge) {
+            font-size: 1.8rem;
+          }
         }
         h4 {
           font-size: 1.6rem;
+          @include bp($xlarge) {
+            font-size: 1.8rem;
+          }
         }
         button {
           @include button-alt;

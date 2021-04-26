@@ -6,11 +6,11 @@ const RenderStudentRumbleList = ({
   rumbles,
 }: IRenderStudentRumbleListProps): React.ReactElement => {
   return (
-    <div className="rumble-list">
+    <>
       {rumbles.map((r) => (
         <StudentRumble key={r.id} {...r} />
       ))}
-    </div>
+    </>
   );
 };
 

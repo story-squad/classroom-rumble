@@ -18,29 +18,40 @@ const RenderStudentViewSectionRumbles = ({
           <div className="section-content-switcher-container">
             {currentRumbles.length ? (
               // Checks if there are any current rumbles if not renders an image
-              <div className="current-rumbles">
+              <>
                 <h3>Current Rumbles</h3>
-                <p>You don&apos;t have any current rumbles.</p>
-                <img src={emptyMail} alt="You don't have any current rumbles" />
-              </div>
+                <div className="rumble-list">
+                  <StudentRumbleList rumbles={currentRumbles} />
+                </div>
+              </>
             ) : (
               <>
                 <h3>Current Rumbles</h3>
-                <StudentRumbleList rumbles={currentRumbles} />
+                <div className="current-rumbles">
+                  <p>You don&apos;t have any current rumbles.</p>
+                  <img
+                    src={emptyMail}
+                    alt="You don't have any current rumbles"
+                  />
+                </div>
               </>
             )}
             {pastRumbles.length ? (
               //Checks if there are any past rumbles if not renders an image
               <>
                 <h3>Past Rumbles</h3>
-                <StudentRumbleList rumbles={pastRumbles} />
+                <div className="rumble-list">
+                  <StudentRumbleList rumbles={pastRumbles} />
+                </div>
               </>
             ) : (
-              <div className="past-rumbles">
+              <>
                 <h3>Past Rumbles</h3>
-                <p>You don&apos;t have any past rumbles.</p>
-                <img src={emptyMail} alt="You don't have any past rumbles" />
-              </div>
+                <div className="past-rumbles">
+                  <p>You don&apos;t have any past rumbles.</p>
+                  <img src={emptyMail} alt="You don't have any past rumbles" />
+                </div>
+              </>
             )}
           </div>
         </div>
