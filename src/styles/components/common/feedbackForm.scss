@@ -11,12 +11,12 @@
     margin-bottom: 1rem;
   }
   @include bp($large) {
-    float: right;
+    margin-left: 101rem;
     margin-bottom: 1rem;
   }
 }
 
-.feedback-form-details {
+.feedback-form-details1 {
   @include wrapped-container();
   background-color: $w-grey-10;
   padding: 3rem 0rem;
@@ -31,20 +31,28 @@
   }
   @include bp($tablet) {
     border: none;
+    @include wrapped-container();
+    padding: 3rem 0rem;
+    border-radius: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
   }
-  h2 {
+  .form-header {
     color: $w-grey-40;
     font-size: 2em;
     width: 90%;
-    margin: auto;
-  }
-  .form-header {
+
     margin-right: 8rem;
+  }
+  .card-header {
+    color: $w-grey-40;
+    font-size: 2em;
+    width: 30%;
+    margin-left: 3rem;
   }
 
   .card-content {
     display: flex;
-    max-width: 100%;
 
     @include bp($mid) {
       flex-wrap: wrap;

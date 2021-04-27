@@ -9,12 +9,16 @@ const FeedbackSubmissionCard = ({
 }: IFeedbackSubmissionCardProps): React.ReactElement => {
   // TODO use victor's submission component
   return (
-    <div className="feedback-form-details">
-      <h2>Story #{subNumber}</h2>
+    <div className="feedback-form-details1">
+      <h2 className="card-header">Story #{subNumber}</h2>
       <div className="card-content">
         <div>
           <div className="submission-details">
-            <Submission submission={submission} />
+            <Submission
+              // title="Story #"
+              // {...subNumber}
+              submission={submission}
+            />
           </div>
         </div>
         <div>
