@@ -26,6 +26,8 @@
 
   @include bp($mid) {
     border: 1px dashed black;
+    margin: 1.5rem;
+    max-width: 95%;
   }
   @include bp($tablet) {
     border: none;
