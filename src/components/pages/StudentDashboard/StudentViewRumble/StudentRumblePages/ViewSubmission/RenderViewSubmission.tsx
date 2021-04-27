@@ -18,7 +18,7 @@ const RenderPastRumbleDetails = ({
       <PromptBox />
       <div className="submission-details">
         <Feedback />
-        <Submission title="SUBMISSIONS" submission={submission} />
+        <Submission title="SUBMISSION" submission={submission} />
       </div>
     </div>
   );
