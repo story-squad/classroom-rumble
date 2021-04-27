@@ -1,7 +1,6 @@
 import React from 'react';
 import { RegisterOptions, UseFormMethods } from 'react-hook-form';
 import { FormTypes } from '../../../types';
-import FeedbackFormRadioGroupFooter from './FeedbackFormRadioGroupFooter';
 import RadioButton from './RadioButton';
 
 const RadioGroup = ({
@@ -24,7 +23,7 @@ const RadioGroup = ({
           />
         ))}
       </div>
-      {<FeedbackFormRadioGroupFooter />}
+
       {errors[name] && <div className="error">{errors[name].message}</div>}
     </div>
   );

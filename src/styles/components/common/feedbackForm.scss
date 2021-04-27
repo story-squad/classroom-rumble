@@ -1,7 +1,19 @@
-button {
-  @include button-alt;
-  padding-left: 5rem;
-  padding-right: 5rem;
+.submit-form-button {
+  @include button;
+  @mixin button {
+  }
+  padding-left: 7rem;
+  padding-right: 7rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  @include bp($mid) {
+    margin-left: 10rem;
+    margin-bottom: 1rem;
+  }
+  @include bp($large) {
+    float: right;
+    margin-bottom: 1rem;
+  }
 }
 
 .feedback-form-details {
@@ -11,9 +23,12 @@ button {
   border-radius: 1rem;
   margin-top: 1rem;
   margin-bottom: 1.5rem;
+
   @include bp($mid) {
+    border: 1px dashed black;
   }
   @include bp($tablet) {
+    border: none;
   }
   h2 {
     color: $w-grey-40;
@@ -22,12 +37,13 @@ button {
     margin: auto;
   }
   .form-header {
-    margin-right: 5.2rem;
+    margin-right: 8rem;
   }
 
   .card-content {
     display: flex;
     max-width: 100%;
+
     @include bp($mid) {
       flex-wrap: wrap;
     }
@@ -40,10 +56,13 @@ button {
     display: flex;
     flex-flow: column;
     margin-left: 3rem;
-    max-width: 100%;
+    max-width: 140%;
     padding-top: 1rem;
-    // border: 10px solid green;
+
     @include bp($mid) {
+    }
+    @include bp($large) {
+      width: 200%;
     }
   }
   .radio-wrapper {
@@ -57,11 +76,8 @@ button {
   .radio-group-wrapper {
     display: flex;
     flex-flow: column nowrap;
-    // align-content: stretch;
-    // justify-content: left;
-    // align-items: flex-start;
     padding-top: 1.5rem;
-    width: 115%;
+    width: 109%;
     margin-left: -5rem;
   }
 
@@ -85,28 +101,41 @@ button {
     padding-left: 0.7rem;
     font-size: 1.4rem;
   }
-  .footers-1,
-  .footers-2,
-  .footers-3 {
+  .footer-section-1,
+  .footer-section-2,
+  .footer-section-3 {
     display: flex;
-    // border: 10px solid red;
     width: 100%;
-    margin-left: -2rem;
+    margin-left: -2.5rem;
     font-size: 1.3rem;
     color: $w-grey-40;
     padding-bottom: 3rem;
+    @include bp($large) {
+      // margin-left: -2rem;
+    }
   }
 
-  .footers-1,
-  .footers-2 {
+  .footer-section-1,
+  .footer-section-2 {
     border-bottom: 2px solid grey;
   }
 
   .footer2 {
     margin-left: auto;
-    // border: 10px solid green;
+    margin-right: 2rem;
+  }
+  .footer1 {
+    margin-left: 2rem;
+    @include bp($mid) {
+      margin-left: 0rem;
+    }
+    @include bp($large) {
+      margin-left: 2rem;
+    }
   }
 }
+
+//same styling that is on the submission component
 .submission-details {
   @include wrapped-container();
   background-color: $w-grey-10;

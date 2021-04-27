@@ -30,7 +30,7 @@ const FeedbackForm = ({
               rules={{ required: 'Please choose a value from 1-5!' }}
               errors={errors}
             />
-            <div className="footers-1">
+            <div className="footer-section-1">
               <p className="footer1">Not at all</p>
               <p className="footer2"> A lot</p>
             </div>
@@ -38,7 +38,7 @@ const FeedbackForm = ({
         </div>
         <div className="radio-wrapper">
           <p className="form-questions">
-            How interested were you in finding out what happens in the Story?
+            How interested were you in finding out what happens in the story?
           </p>
 
           <RadioGroup
@@ -48,7 +48,7 @@ const FeedbackForm = ({
             rules={{ required: 'Please choose a value from 1-5!' }}
             errors={errors}
           />
-          <div className="footers-2">
+          <div className="footer-section-2">
             <p className="footer1">Not interested</p>
             <p className="footer2"> Very interested</p>
           </div>
@@ -56,8 +56,8 @@ const FeedbackForm = ({
 
         <div className="radio-wrapper">
           <p className="form-questions">
-            How easily did the descriptions allow you to imagine the <br />
-            setting and action?
+            How easily did the descriptions allow you to imagine the setting and
+            action?
           </p>
           <RadioGroup
             name={`Submission${subNumber}-Q3`}
@@ -66,7 +66,7 @@ const FeedbackForm = ({
             rules={{ required: 'Please choose a value from 1-5!' }}
             errors={errors}
           />
-          <div className="footers-3">
+          <div className="footer-section-3">
             <p className="footer1">Not easily</p>
             <p className="footer2"> Very easily </p>
           </div>
