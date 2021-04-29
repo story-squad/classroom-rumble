@@ -29,6 +29,20 @@ const StudentRumble = ({
     return res;
   }, [hours, mins]);
 
+  const status = useMemo(() => {
+    switch (rumble.phase) {
+      case 'ACTIVE':
+      case 'FEEDBACK':
+        return 'Active';
+      // TODO what should complete say
+      case 'COMPLETE':
+        return 'Closed';
+      case 'INACTIVE':
+      default:
+        return 'Scheduled';
+    }
+  }, [rumble]);
+
   const openCurrentRumble = () => {
     setCurrentRumble(rumble);
     setCurrentSection(section);
@@ -42,7 +56,7 @@ const StudentRumble = ({
       </div>
       <div className="content">
         <h3>Status</h3>
-        <h4>{rumble.end_time ? 'Active' : 'Scheduled'}</h4>
+        <h4>{status}</h4>
       </div>
       <div className="content">
         <h3>Length</h3>
