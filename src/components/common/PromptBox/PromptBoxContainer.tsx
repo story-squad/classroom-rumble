@@ -73,7 +73,7 @@ const PromptBoxContainer = ({
       endTime={endTime}
       isTeacher={isTeacher}
       startRumble={isTeacher ? startRumble : undefined}
-      startFeedback={startFeedback}
+      startFeedback={isTeacher ? startFeedback : undefined}
     />
   ) : error ? (
     <CouldNotLoad error={error} />
