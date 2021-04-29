@@ -6,13 +6,22 @@
   padding-right: 7rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  @include bp($mid) {
-    margin-left: 10rem;
+  @include bp(375px) {
+    margin-left: 6rem;
     margin-bottom: 1rem;
   }
-  @include bp($large) {
-    margin-left: 101rem;
+
+  @include bp($mid) {
+    margin-left: 19rem;
     margin-bottom: 1rem;
+  }
+  @include bp($tablet) {
+    float: right;
+  }
+  @include bp($large) {
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    float: right;
   }
 }
 
@@ -24,13 +33,26 @@
   margin-top: 1rem;
   margin-bottom: 1.5rem;
 
+  @include bp(375px) {
+    @include wrapped-container();
+    padding: 2rem 0rem;
+    border-radius: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    margin-left: 1.5rem;
+    width: 90%;
+  }
+
   @include bp($mid) {
-    border: 1px dashed black;
-    margin: 1.5rem;
-    max-width: 95%;
+    @include wrapped-container();
+    padding: 3rem 0rem;
+    border-radius: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    margin-left: 1.5rem;
+    width: 95%;
   }
   @include bp($tablet) {
-    border: none;
     @include wrapped-container();
     padding: 3rem 0rem;
     border-radius: 1rem;
@@ -54,6 +76,9 @@
   .card-content {
     display: flex;
 
+    @include bp(375px) {
+      flex-wrap: wrap;
+    }
     @include bp($mid) {
       flex-wrap: wrap;
     }
@@ -65,14 +90,22 @@
   .radio-button-section {
     display: flex;
     flex-flow: column;
-    margin-left: 3rem;
+    // margin-left: 3rem;
     max-width: 140%;
     padding-top: 1rem;
+    @include bp(375px) {
+      justify-content: center;
+      margin-left: 1rem;
+      width: 95%;
+    }
 
     @include bp($mid) {
+      justify-content: center;
+      margin-left: 2rem;
+      width: 90%;
     }
     @include bp($large) {
-      width: 200%;
+      width: 130%;
     }
   }
   .radio-wrapper {
@@ -88,7 +121,14 @@
     flex-flow: column nowrap;
     padding-top: 1.5rem;
     width: 109%;
-    margin-left: -5rem;
+    margin-left: -4rem;
+
+    @include bp(375px) {
+      width: 125%;
+    }
+    @include bp($mid) {
+      width: 120%;
+    }
   }
 
   .radio-group-list {
@@ -116,10 +156,14 @@
   .footer-section-3 {
     display: flex;
     width: 100%;
-    margin-left: -2.5rem;
+    // margin-left: -2.5rem;
     font-size: 1.3rem;
     color: $w-grey-40;
     padding-bottom: 3rem;
+    @include bp(375px) {
+      margin-left: -1.5rem;
+      width: 110%;
+    }
     @include bp($large) {
       // margin-left: -2rem;
     }
@@ -133,9 +177,15 @@
   .footer2 {
     margin-left: auto;
     margin-right: 2rem;
+    @include bp(375px) {
+      margin-right: 1rem;
+    }
   }
   .footer1 {
     margin-left: 2rem;
+    @include bp(375px) {
+      margin-left: 0rem;
+    }
     @include bp($mid) {
       margin-left: 0rem;
     }
