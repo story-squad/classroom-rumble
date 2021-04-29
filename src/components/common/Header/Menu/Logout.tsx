@@ -14,8 +14,8 @@ const Logout = (): React.ReactElement => {
     push('/');
   };
   return (
-    <div>
-      <a onClick={logout}>Logout</a>
+    <div onClick={logout}>
+      <p>Logout</p>
     </div>
   );
 };
