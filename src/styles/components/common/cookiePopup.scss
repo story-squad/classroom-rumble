@@ -3,7 +3,8 @@
   bottom: 0;
   width: 100%;
   background-color: #fffd;
-  padding: 1rem;
+  border-top: 1px solid $c-grey-10;
+  padding: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,11 +15,11 @@
 
     h3 {
       color: #5872ff;
-      text-shadow: 0 2px 2px #0005;
       font-size: 3rem;
       line-height: 3.4rem;
-      font-family: $display-font;
+      font-family: $text-font;
       margin-bottom: 0.5rem;
+      font-weight: 700;
     }
     p {
       font-family: $text-font;
@@ -27,7 +28,6 @@
       font-weight: 300;
       letter-spacing: 0.03rem;
       color: #323f4b;
-      margin-bottom: 1rem;
     }
     .popup-bottom {
       display: flex;
@@ -40,13 +40,15 @@
         display: flex;
         flex-flow: row nowrap;
         align-items: center;
+        cursor: pointer;
 
         input {
           margin-right: 1rem;
         }
       }
       button {
-        @include button(orange);
+        @include button();
+        padding: 0.75rem 2rem;
       }
     }
   }
