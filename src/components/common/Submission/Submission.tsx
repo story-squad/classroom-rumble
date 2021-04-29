@@ -9,7 +9,7 @@ const Submission = ({
   const [isVisible, setIsVisible] = useState(false);
   return (
     <div className="image-wrapper">
-      <h2>{title}</h2>
+      {title && <h2>{title}</h2>}
       <div className="image-container">
         {isVisible ? (
           <>
