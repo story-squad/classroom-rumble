@@ -2,7 +2,9 @@ import React, { useMemo } from 'react';
 import { useHistory } from 'react-router';
 import { useSetRecoilState } from 'recoil';
 import { Rumbles, Sections } from '../../../../api';
+import time_lady from '../../../../assets/img/waiting_time.svg';
 import { current } from '../../../../state';
+import { Button } from '../../../common';
 
 const StudentRumble = ({
   section,
@@ -48,20 +50,37 @@ const StudentRumble = ({
     setCurrentSection(section);
     push('/dashboard/student/rumble', { section, rumble });
   };
+
+  console.log(rumble);
+
   return (
-    <div className="rumble-card" onClick={openCurrentRumble}>
+    <div className="rumble-card">
       <div className="content">
         <h3>Class Name</h3>
         <h4>{rumble.sectionName}</h4>
       </div>
-      <div className="content">
-        <h3>Status</h3>
-        <h4>{status}</h4>
-      </div>
-      <div className="content">
-        <h3>Length</h3>
-        <h4>{timeDisplay}</h4>
-      </div>
+      {status !== 'Scheduled' ? (
+        <>
+          <div className="content">
+            <h3>Status</h3>
+            <h4>{status}</h4>
+          </div>
+          <div className="student-button-container">
+            <div className="content">
+              <h3>Length</h3>
+              <h4>{timeDisplay}</h4>
+            </div>
+            <Button type="primary-with-arrow" onClick={openCurrentRumble}>
+              View Rumble
+            </Button>
+          </div>
+        </>
+      ) : (
+        <div className="scheduled-rumble">
+          <img src={time_lady} alt="please wait for teacher to start rumble" />
+          <p>Waiting for the teacher to start the rumble.</p>
+        </div>
+      )}
     </div>
   );
 };

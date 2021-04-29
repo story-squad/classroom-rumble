@@ -6,11 +6,21 @@
   &.primary {
     @include button();
   }
+  &.primary-with-arrow {
+    @include button();
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      margin-left: 0.5rem;
+    }
+  }
   &.secondary {
     @include button-alt();
   }
   &.secondary-with-arrow {
     @include button-alt();
+    justify-content: center;
     display: flex;
     align-items: center;
     img {

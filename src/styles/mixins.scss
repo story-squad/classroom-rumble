@@ -125,7 +125,7 @@
       min-width: unset;
       width: 45%;
     }
-    @include bp(750px) {
+    @include bp(900px) {
       width: 30%;
     }
   }
@@ -159,9 +159,12 @@
     }
 
     h4 {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       line-height: 2.1rem;
       font-weight: 600;
+      @include bp(tablet) {
+        font-size: 1.75rem;
+      }
     }
   }
 }
