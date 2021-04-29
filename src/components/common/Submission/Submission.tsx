@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { Submissions } from '../../../api';
 import { FullscreenImage } from '../FullscreenImage';
 
-const Submission = ({ submission }: ISubmissionProps): React.ReactElement => {
+const Submission = ({
+  submission,
+  title,
+}: ISubmissionProps): React.ReactElement => {
   const [isVisible, setIsVisible] = useState(false);
   return (
     <div className="image-wrapper">
-      <h2>SUBMISSION</h2>
+      <h2>{title}</h2>
       <div className="image-container">
         {isVisible ? (
           <>
@@ -35,6 +38,7 @@ const Submission = ({ submission }: ISubmissionProps): React.ReactElement => {
 // ToDO add fullscreen view on click
 interface ISubmissionProps {
   submission: Submissions.ISubItem;
+  title?: string;
 }
 
 export default Submission;
