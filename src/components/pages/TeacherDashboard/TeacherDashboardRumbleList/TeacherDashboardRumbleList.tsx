@@ -31,7 +31,7 @@ const TeacherDashboardRumbleList = ({
           // Div is for centering purposes
           <div className="no-rumbles">
             <div className="message-text-container">
-              <p>You don&apos;t have any classes yet.</p>
+              <p>You don&apos;t have any rumbles yet.</p>
             </div>
             <img src={emptyMail} alt="You don't have any current rumbles" />
           </div>

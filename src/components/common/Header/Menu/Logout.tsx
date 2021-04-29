@@ -15,7 +15,7 @@ const Logout = (): React.ReactElement => {
   };
   return (
     <div onClick={logout}>
-      <a>Logout</a>
+      <p>Logout</p>
     </div>
   );
 };

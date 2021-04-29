@@ -20,9 +20,7 @@ const RenderStudentViewSectionRumbles = ({
               // Checks if there are any current rumbles if not renders an image
               <>
                 <h3>Current Rumbles</h3>
-                <div className="rumble-list">
-                  <StudentRumbleList rumbles={currentRumbles} />
-                </div>
+                <StudentRumbleList rumbles={currentRumbles} />
               </>
             ) : (
               <>
@@ -40,9 +38,7 @@ const RenderStudentViewSectionRumbles = ({
               //Checks if there are any past rumbles if not renders an image
               <>
                 <h3>Past Rumbles</h3>
-                <div className="rumble-list">
-                  <StudentRumbleList rumbles={pastRumbles} />
-                </div>
+                <StudentRumbleList rumbles={pastRumbles} />
               </>
             ) : (
               <>
