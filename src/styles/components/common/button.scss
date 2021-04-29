@@ -9,6 +9,14 @@
   &.secondary {
     @include button-alt();
   }
+  &.secondary-with-arrow {
+    @include button-alt();
+    display: flex;
+    align-items: center;
+    img {
+      margin-left: 0.5rem;
+    }
+  }
   &.text {
     @include text-button($primary-base);
   }

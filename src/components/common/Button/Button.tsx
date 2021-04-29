@@ -1,5 +1,6 @@
 import React from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
+import arrow from '../../../assets/img/button_arrow.svg';
 
 const Button = ({
   type = 'default',
@@ -17,7 +18,16 @@ const Button = ({
       type={htmlType}
       {...props}
     >
-      {!loading ? children : <ClipLoader />}
+      {!loading ? (
+        <>
+          {children}
+          {type === 'secondary-with-arrow' && (
+            <img src={arrow} alt="button arrow" />
+          )}
+        </>
+      ) : (
+        <ClipLoader />
+      )}
     </button>
   );
 };
@@ -26,7 +36,7 @@ interface IButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
   onClick?: () => void;
   loading?: boolean;
-  type?: 'default' | 'primary' | 'secondary' | 'text';
+  type?: 'default' | 'primary' | 'secondary' | 'secondary-with-arrow' | 'text';
   htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
 }
 
