@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Rumbles, Sections } from '../../../../api';
-import emptyMail from '../../../../assets/img/no_rumbles.svg';
+import emptyMail from '../../../../assets/img/empty_inbox.svg';
 import TeacherDashboardRumbleCard from './TeacherDashboardRumbleCard';
 
 const TeacherDashboardRumbleList = ({
@@ -28,7 +28,13 @@ const TeacherDashboardRumbleList = ({
         {title && <h2>{title}</h2>}
         {!sections || currentRumbles.length === 0 ? (
           // If there are no sections show that there is alsp no rubmles
-          <img src={emptyMail} alt="You don't have any current rumbles" />
+          // Div is for centering purposes
+          <div className="no-rumbles">
+            <div className="message-text-container">
+              <p>You don&apos;t have any rumbles yet.</p>
+            </div>
+            <img src={emptyMail} alt="You don't have any current rumbles" />
+          </div>
         ) : (
           <div className="rumble-list">
             {currentRumbles?.map((rumble) => (

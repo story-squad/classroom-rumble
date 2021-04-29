@@ -1,7 +1,6 @@
 import React from 'react';
 import { Sections } from '../../../../api';
-import emptyMail from '../../../../assets/img/no_rumbles.svg';
-import rocketBoy from '../../../../assets/img/rocket_boy.svg';
+import emptyMail from '../../../../assets/img/empty_inbox.svg';
 import { useRumbleFilter } from '../../../../hooks';
 import { SectionInfo } from '../../../common';
 import { StudentRumbleList } from '../StudentRumbleList';
@@ -24,10 +23,16 @@ const RenderStudentViewSectionRumbles = ({
                 <StudentRumbleList rumbles={currentRumbles} />
               </>
             ) : (
-              <div>
+              <>
                 <h3>Current Rumbles</h3>
-                <img src={emptyMail} alt="You don't have any current rumbles" />
-              </div>
+                <div className="current-rumbles">
+                  <p>You don&apos;t have any current rumbles.</p>
+                  <img
+                    src={emptyMail}
+                    alt="You don't have any current rumbles"
+                  />
+                </div>
+              </>
             )}
             {pastRumbles.length ? (
               //Checks if there are any past rumbles if not renders an image
@@ -36,11 +41,13 @@ const RenderStudentViewSectionRumbles = ({
                 <StudentRumbleList rumbles={pastRumbles} />
               </>
             ) : (
-              <div>
+              <>
                 <h3>Past Rumbles</h3>
-                <p>You don&apos;t have any classes yet.</p>
-                <img src={rocketBoy} alt="You don't have any classes" />
-              </div>
+                <div className="past-rumbles">
+                  <p>You don&apos;t have any past rumbles.</p>
+                  <img src={emptyMail} alt="You don't have any past rumbles" />
+                </div>
+              </>
             )}
           </div>
         </div>
