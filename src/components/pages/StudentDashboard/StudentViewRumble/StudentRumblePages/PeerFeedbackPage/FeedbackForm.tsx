@@ -30,9 +30,9 @@ const FeedbackForm = ({
               rules={{ required: 'Please choose a value from 1-5!' }}
               errors={errors}
             />
-            <div className="footer-section-1">
-              <p className="footer1">Not at all</p>
-              <p className="footer2"> A lot</p>
+            <div className="footer-section">
+              <p>Not at all</p>
+              <p>A lot</p>
             </div>
           </div>
         </div>
@@ -41,34 +41,37 @@ const FeedbackForm = ({
             How interested were you in finding out what happens in the story?
           </p>
 
-          <RadioGroup
-            name={`Submission${subNumber}-Q2`}
-            register={register}
-            options={radioRange}
-            rules={{ required: 'Please choose a value from 1-5!' }}
-            errors={errors}
-          />
-          <div className="footer-section-2">
-            <p className="footer1">Not interested</p>
-            <p className="footer2"> Very interested</p>
+          <div className="radios">
+            <RadioGroup
+              name={`Submission${subNumber}-Q2`}
+              register={register}
+              options={radioRange}
+              rules={{ required: 'Please choose a value from 1-5!' }}
+              errors={errors}
+            />
+            <div className="footer-section">
+              <p>Not interested</p>
+              <p>Very interested</p>
+            </div>
           </div>
         </div>
-
         <div className="radio-wrapper">
           <p className="form-questions">
             How easily did the descriptions allow you to imagine the setting and
             action?
           </p>
-          <RadioGroup
-            name={`Submission${subNumber}-Q3`}
-            register={register}
-            options={radioRange}
-            rules={{ required: 'Please choose a value from 1-5!' }}
-            errors={errors}
-          />
-          <div className="footer-section-3">
-            <p className="footer1">Not easily</p>
-            <p className="footer2"> Very easily </p>
+          <div className="radios">
+            <RadioGroup
+              name={`Submission${subNumber}-Q3`}
+              register={register}
+              options={radioRange}
+              rules={{ required: 'Please choose a value from 1-5!' }}
+              errors={errors}
+            />
+            <div className="footer-section">
+              <p>Not easily</p>
+              <p>Very easily</p>
+            </div>
           </div>
         </div>
       </div>

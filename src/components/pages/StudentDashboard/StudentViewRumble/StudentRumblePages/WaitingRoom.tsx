@@ -1,5 +1,5 @@
 import React from 'react';
-import timelady from '../../../../../assets/img/waiting-time.svg';
+import timelady from '../../../../../assets/img/waiting_time.svg';
 
 const WaitingRoom = (): React.ReactElement => {
   return (

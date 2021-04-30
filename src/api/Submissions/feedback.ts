@@ -46,9 +46,6 @@ export const getSubmissionsForFeedback = async (
 export const submitFeedback = async (
   body: Record<string, unknown>[],
 ): Promise<IRequestBody[]> => {
-  const { data } = await axiosWithAuth().put(
-    `/api/submissions/1/feedback`,
-    body,
-  );
+  const { data } = await axiosWithAuth().put(`/api/rumble/feedback`, body);
   return data;
 };

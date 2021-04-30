@@ -1,0 +1,15 @@
+.button {
+  margin: 0 auto;
+  &.default {
+    @include button();
+  }
+  &.primary {
+    @include button();
+  }
+  &.secondary {
+    @include button-alt();
+  }
+  &.text {
+    @include text-button($primary-base);
+  }
+}

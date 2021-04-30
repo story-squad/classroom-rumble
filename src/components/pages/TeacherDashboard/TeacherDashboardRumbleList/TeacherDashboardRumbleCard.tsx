@@ -28,6 +28,19 @@ const TeacherDashboardRumbleCard = ({
     }
     return res;
   }, [hours, mins]);
+  const status = useMemo(() => {
+    switch (rumble.phase) {
+      case 'ACTIVE':
+      case 'FEEDBACK':
+        return 'Active';
+      // TODO what should complete say
+      case 'COMPLETE':
+        return 'Closed';
+      case 'INACTIVE':
+      default:
+        return 'Scheduled';
+    }
+  }, [rumble]);
 
   const openCurrentRumble = () => {
     setCurrentRumble(rumble);
@@ -41,11 +54,11 @@ const TeacherDashboardRumbleCard = ({
         <h3>Class Name</h3>
         <h4>{rumble.sectionName}</h4>
       </div>
-      <div className="content">
+      <div className="content status">
         <h3>Status</h3>
-        <h4>{rumble.end_time ? 'Active' : 'Scheduled'}</h4>
+        <h4>{status}</h4>
       </div>
-      <div className="content">
+      <div className="content time">
         <h3>Length</h3>
         <h4>{timeDisplay}</h4>
       </div>

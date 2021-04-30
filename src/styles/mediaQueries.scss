@@ -1,6 +1,7 @@
 $mid: 500px;
 $tablet: 650px;
 $large: 800px;
+$xlarge: 1200px;
 
 @mixin bp($point) {
   @if $point == mid {

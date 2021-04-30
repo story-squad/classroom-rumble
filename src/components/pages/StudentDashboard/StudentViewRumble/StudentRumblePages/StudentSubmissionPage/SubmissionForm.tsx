@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Submissions } from '../../../../../../api';
-import activeUpload from '../../../../../../assets/img/activeUpload.svg';
+import activeUpload from '../../../../../../assets/img/active_upload.svg';
 import { current } from '../../../../../../state';
 import { upload } from '../../../../../../utils';
 /**
