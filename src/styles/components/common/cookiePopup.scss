@@ -1,0 +1,55 @@
+.cookie-popup {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #fffd;
+  border-top: 1px solid $c-grey-10;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  .popup-content {
+    width: 400px;
+    max-width: 100%;
+
+    h3 {
+      color: #5872ff;
+      font-size: 3rem;
+      line-height: 3.4rem;
+      font-family: $text-font;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    p {
+      font-family: $text-font;
+      font-size: 1.4rem;
+      line-height: 1.6rem;
+      font-weight: 300;
+      letter-spacing: 0.03rem;
+      color: #323f4b;
+    }
+    .popup-bottom {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      label {
+        color: #323f4b;
+        font-family: $text-font;
+        font-size: 1.2rem;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        cursor: pointer;
+
+        input {
+          margin-right: 1rem;
+        }
+      }
+      button {
+        @include button();
+        padding: 0.75rem 2rem;
+      }
+    }
+  }
+}

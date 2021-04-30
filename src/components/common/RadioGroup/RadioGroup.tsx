@@ -23,6 +23,7 @@ const RadioGroup = ({
           />
         ))}
       </div>
+
       {errors[name] && <div className="error">{errors[name].message}</div>}
     </div>
   );
@@ -35,6 +36,7 @@ interface IRadioGroupProps {
   rules?: RegisterOptions;
   options?: FormTypes.IOption[];
   errors?: UseFormMethods['errors'];
+  // footer?: React.ReactNode;
 }
 
 export default RadioGroup;
