@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 import { useSetRecoilState } from 'recoil';
 import { Rumbles, Sections } from '../../../../api';
 import time_lady from '../../../../assets/img/waiting_time.svg';
+import { useRumbleStatus } from '../../../../hooks';
 import { current } from '../../../../state';
 import { Button } from '../../../common';
 
@@ -13,6 +14,7 @@ const StudentRumble = ({
   const { push } = useHistory();
   const setCurrentSection = useSetRecoilState(current.section);
   const setCurrentRumble = useSetRecoilState(current.rumble);
+  const [status] = useRumbleStatus(rumble.phase);
 
   // Memoize the minutes and hours to reduce calculations
   const hours = useMemo(() => Math.floor(rumble.numMinutes / 60), [rumble]);
@@ -30,20 +32,6 @@ const StudentRumble = ({
     }
     return res;
   }, [hours, mins]);
-
-  const status = useMemo(() => {
-    switch (rumble.phase) {
-      case 'ACTIVE':
-      case 'FEEDBACK':
-        return 'Active';
-      // TODO what should complete say
-      case 'COMPLETE':
-        return 'Closed';
-      case 'INACTIVE':
-      default:
-        return 'Scheduled';
-    }
-  }, [rumble]);
 
   const openCurrentRumble = () => {
     setCurrentRumble(rumble);
