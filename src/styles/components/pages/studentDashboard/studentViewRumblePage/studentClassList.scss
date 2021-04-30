@@ -12,6 +12,7 @@
       padding: 0;
     }
   }
+  // this affects card p tags could & > be added?
   p {
     font-size: 1.6rem;
     margin-bottom: 1.5rem;
@@ -55,6 +56,18 @@
         button {
           @include button-alt;
         }
+      }
+    }
+    .scheduled-rumble {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      font-size: 1.4rem;
+      font-weight: 600;
+      text-align: center;
+      line-height: 2.1rem;
+      img {
+        max-width: 150px;
       }
     }
   }

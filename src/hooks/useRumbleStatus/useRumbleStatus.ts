@@ -1,7 +1,9 @@
 import { useMemo } from 'react';
 import { Rumbles } from '../../api';
 
-const useRumbleStatus = (rumble: Rumbles.RumblePhases): string[] => {
+const useRumbleStatus = (
+  rumble: Rumbles.RumblePhases,
+): ['Active' | 'Complete' | 'Scheduled'] => {
   const status = useMemo(() => {
     switch (rumble) {
       case 'ACTIVE':
@@ -9,7 +11,7 @@ const useRumbleStatus = (rumble: Rumbles.RumblePhases): string[] => {
         return 'Active';
       // TODO what should complete say
       case 'COMPLETE':
-        return 'Closed';
+        return 'Complete';
       case 'INACTIVE':
       default:
         return 'Scheduled';
