@@ -62,10 +62,10 @@ const RenderPromptBox = ({
               <div className="start-rumble-button">
                 <button onClick={startFeedback}>Start Feedback</button>
               </div>
-            ) : phase === `FEEDBACK` ? (
-              <div className="count-down-end">Feedback Phase Started</div>
             ) : (
-              <div>Inactive</div>
+              phase === `FEEDBACK` && (
+                <div className="count-down-end">Feedback Phase Started</div>
+              )
             )
           ) : (
             <div>
