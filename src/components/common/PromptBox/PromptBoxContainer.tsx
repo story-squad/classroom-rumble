@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Feedback, Prompts, Rumbles } from '../../../api';
-import { useCheckBrowserState } from '../../../hooks';
+import { useAsync, useCheckBrowserState } from '../../../hooks';
 import { current } from '../../../state';
 import { CouldNotLoad } from '../CouldNotLoad';
 import { Loader } from '../Loader';
@@ -11,33 +11,44 @@ import RenderPromptBox from './RenderPromptBox';
  * PromptBoxContainer will run a useEffect to check for the specific Rumbles prompt.
  */
 
+// TODO see if we needd the API call
 const PromptBoxContainer = ({
-  prompt,
+  prompt: promptProp,
   isTeacher = false,
 }: IPromptBoxContainerProps): React.ReactElement => {
-  const {} = useCheckBrowserState('rumble', 'section');
+  useCheckBrowserState('rumble', 'section');
   const currentRumble = useRecoilValue(current.rumble);
   const currentSection = useRecoilValue(current.section);
   const [endTime, setEndTime] = useState(currentRumble?.end_time);
-  const [promptState, setPrompt] = useState<string | undefined>(prompt);
-  const [error, setError] = useState<null | string>(null);
+  const [prompt, setPrompt] = useState<string | undefined>(promptProp);
 
-  /**
-   * This useEffect will run every where the PromptBox common component renders in order to pull the prompt related to that page. Whether we are in the student or teacher view.
-   */
+  // this was before the useAsync hook
+  // const [error, setError] = useState<Error>();
+  // const [loading, setLoading] = useState(false);
+  // useEffect(() => {
+  //   if (currentRumble && !prompt) {
+  //     Prompts.getPromptById(currentRumble.promptId)
+  //       .then((data) => {
+  //         console.log('Current Prompt: ', data);
+  //         setPrompt(data);
+  //       })
+  //       .catch((err) => {
+  //         console.log({ err });
+  //         setError('There is no prompt for this Rumble.');
+  //       });
+  //   }
+  // }, [currentRumble]);
+
+  const [getPromptById, loading, , error] = useAsync({
+    asyncFunction: Prompts.getPromptById,
+    setter: setPrompt,
+  });
+
   useEffect(() => {
     if (currentRumble && !prompt) {
-      Prompts.getPromptById(currentRumble.promptId)
-        .then((data) => {
-          console.log('Current Prompt: ', data);
-          setPrompt(data);
-        })
-        .catch((err) => {
-          console.log({ err });
-          setError('There is no prompt for this Rumble.');
-        });
+      getPromptById(currentRumble.promptId);
     }
-  }, []);
+  }, [currentRumble]);
 
   const startRumble = async (): Promise<void> => {
     try {
@@ -67,16 +78,16 @@ const PromptBoxContainer = ({
     }
   };
 
-  return promptState ? (
+  return prompt && !loading ? (
     <RenderPromptBox
-      prompt={promptState}
+      prompt={prompt}
       endTime={endTime}
       isTeacher={isTeacher}
       startRumble={isTeacher ? startRumble : undefined}
       startFeedback={isTeacher ? startFeedback : undefined}
     />
   ) : error ? (
-    <CouldNotLoad error={error} />
+    <CouldNotLoad error={error.message} />
   ) : (
     <Loader message="Loading prompt" />
   );

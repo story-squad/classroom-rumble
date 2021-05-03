@@ -16,12 +16,15 @@ export default function useAsync<FunctionReturn, Params extends unknown[]>({
   const [value, setValue] = useState<FunctionReturn>();
   const [error, setError] = useState<Error>();
 
+  // If a custom state setter was defined in the function arguments, then use that,
+  // else use the state setter from useState (setValue)
   const updateState = setter ?? setValue;
 
   const execute = useCallback(
     async (...params: Params) => {
       try {
         setLoading(true);
+        setError(undefined);
         const response = await asyncFunction(...params);
         updateState(response);
       } catch (err) {
