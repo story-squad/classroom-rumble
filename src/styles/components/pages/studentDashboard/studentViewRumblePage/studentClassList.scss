@@ -6,12 +6,15 @@
     font-size: 2.2rem;
     font-weight: bold;
     color: $c-grey-40;
+  }
+  & > h3 {
     margin: 20px 0px;
     padding: 0px 3rem;
     @include bp($xlarge) {
       padding: 0;
     }
   }
+  // this affects card p tags could & > be added?
   p {
     font-size: 1.6rem;
     margin-bottom: 1.5rem;
@@ -36,25 +39,51 @@
       border-radius: 20px;
       margin-right: 20px;
       margin-bottom: 20px;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: flex-start;
+      .button-container {
+        border-top: 1px solid $c-grey-20;
+        padding-top: 1rem;
+        width: 100%;
+        button {
+          width: 100%;
+          padding: 0.75rem;
+        }
+      }
       .content {
-        line-height: 5em;
+        flex-grow: 1;
         h3 {
-          margin: 0px 0px;
+          margin-bottom: 0.75rem;
           padding: 0px;
           font-size: 1.6rem;
+          line-height: 2rem;
           @include bp($xlarge) {
             font-size: 1.8rem;
+            line-height: 2.2rem;
           }
         }
         h4 {
+          margin-bottom: 2rem;
           font-size: 1.6rem;
+          line-height: 2rem;
           @include bp($xlarge) {
             font-size: 1.8rem;
+            line-height: 2.2rem;
           }
         }
-        button {
-          @include button-alt;
-        }
+      }
+    }
+    .scheduled-rumble {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      font-size: 1.4rem;
+      font-weight: 600;
+      text-align: center;
+      line-height: 2.1rem;
+      img {
+        max-width: 150px;
       }
     }
   }
