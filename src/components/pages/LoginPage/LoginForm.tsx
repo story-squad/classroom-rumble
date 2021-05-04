@@ -66,12 +66,12 @@ const LoginForm = ({
         placeholder="Enter your password"
         rules={{ required: 'Password is required!' }}
       />
-      {errors.form && <div className="server-error">{errors.form.message}</div>}
+      {errors.form && <div>{errors.form.message}</div>}
       <input
         className="submit"
         type="submit"
         value={isMerge ? 'Merge' : 'Log In'}
-        // onClick={() => clearErrors('form')}
+        onClick={() => clearErrors('form')}
       />
     </form>
   );
