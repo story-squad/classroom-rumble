@@ -40,11 +40,7 @@ const LoginForm = ({
 
       if (message === 'User not found') {
         setError('codename', { type: 'validate', message });
-      } else {
-        setError('form', { type: 'manual', message });
-      }
-
-      if (message === 'Invalid password') {
+      } else if (message === 'Invalid password') {
         setError('password', { type: 'validate', message });
       } else {
         setError('form', { type: 'manual', message });
