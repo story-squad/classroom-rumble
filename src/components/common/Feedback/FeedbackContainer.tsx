@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { Feedback } from '../../../api';
+import { useRecoilState } from 'recoil';
+import { Feedback, Submissions } from '../../../api';
 import { current } from '../../../state';
 import { Loader } from '../Loader';
 import { IAverages } from './feedbackTypes';
 import RenderFeedback from './RenderFeedback';
 
-const FeedbackContainer = (): React.ReactElement => {
-  const submission = useRecoilValue(current.sub);
+const FeedbackContainer = ({
+  submission,
+}: IFeedbackContainerProps): React.ReactElement => {
   const [feedback, setFeedback] = useRecoilState(current.feedbackForSubmission);
   const [averages, setAverages] = useState<IAverages>();
   const [loading, setLoading] = useState(true);
@@ -56,7 +57,15 @@ const FeedbackContainer = (): React.ReactElement => {
     });
   }, [feedback]);
 
-  return loading ? <Loader /> : <RenderFeedback averages={averages} />;
+  return loading ? (
+    <Loader />
+  ) : (
+    <RenderFeedback averages={averages} submission={submission} />
+  );
 };
+
+interface IFeedbackContainerProps {
+  submission: Submissions.ISubItem;
+}
 
 export default FeedbackContainer;
