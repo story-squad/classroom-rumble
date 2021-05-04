@@ -33,7 +33,7 @@ const LoginForm = ({
       console.log({ err });
       let message: string;
       if (err.response?.data) {
-        message = err.response.data.error;
+        message = err.response.data.message;
       } else {
         message = 'An unknown error occurred. Please try again.';
       }
@@ -55,6 +55,7 @@ const LoginForm = ({
         }}
         defaultValue={codename}
       />
+
       <Input
         label="Password"
         name="password"
@@ -65,10 +66,12 @@ const LoginForm = ({
         placeholder="Enter your password"
         rules={{ required: 'Password is required!' }}
       />
+      {errors.form && <div className="server-error">{errors.form.message}</div>}
       <input
         className="submit"
         type="submit"
         value={isMerge ? 'Merge' : 'Log In'}
+        // onClick={() => clearErrors('form')}
       />
     </form>
   );

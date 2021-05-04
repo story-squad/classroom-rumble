@@ -53,6 +53,10 @@ const Input = ({
           </button>
         ) : null}
       </div>
+      {/* <div className="message">
+        <span className="red">*</span>{' '}
+        {errors[name] ? errors[name].message : ''}
+      </div> */}
       {errors[name] && (
         <div className="message">
           <span className="red">*</span> {errors[name].message}
