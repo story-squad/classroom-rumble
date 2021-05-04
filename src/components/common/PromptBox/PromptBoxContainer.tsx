@@ -81,6 +81,7 @@ const PromptBoxContainer = ({
   return prompt && !loading ? (
     <RenderPromptBox
       prompt={prompt}
+      phase={currentRumble?.phase}
       endTime={endTime}
       isTeacher={isTeacher}
       startRumble={isTeacher ? startRumble : undefined}
