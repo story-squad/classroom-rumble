@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { Prompts } from '../../../../api';
 import { IRumbleWithSectionInfo } from '../../../../api/Rumbles';
 import time_lady from '../../../../assets/img/waiting_time.svg';
-import { useRumbleStatus } from '../../../../hooks';
+import { useAsync, useRumbleStatus } from '../../../../hooks';
 import { current } from '../../../../state';
+import { Button } from '../../../common';
 
 const StudentRumble = ({
   numMinutes,
@@ -15,6 +17,18 @@ const StudentRumble = ({
   const currentSection = useRecoilValue(current.section);
   const setCurrentRumble = useSetRecoilState(current.rumble);
   const [status] = useRumbleStatus(rumbleInfo.phase);
+
+  const [getPrompts, loading, prompt, error] = useAsync({
+    asyncFunction: Prompts.getPromptById,
+  });
+
+  useEffect(() => {
+    if (!prompt) {
+      getPrompts(rumbleInfo.promptId);
+    }
+  }, [rumbleInfo.promptId]);
+
+  console.log({ prompt });
 
   const openRumble = () => {
     // Set current rumble BEFORE pushing the user to /dashboard/student/rumble
@@ -34,17 +48,10 @@ const StudentRumble = ({
   return (
     <div className="rumble-item">
       <div className="content">
-        <h3>Class Name</h3>
-        <h4>{sectionName}</h4>
-      </div>
-      <div className="content">
         {status !== 'Scheduled' ? (
           <>
-            <h3>Status</h3>
-            <h4>{status}</h4>
-            <button onClick={openRumble}>
-              {rumbleInfo.end_time ? 'View Rumble' : 'View Details'}
-            </button>
+            <h3>Prompt</h3>
+            <h4>{prompt}</h4>
           </>
         ) : (
           <div className="scheduled-rumble">
@@ -56,6 +63,13 @@ const StudentRumble = ({
           </div>
         )}
       </div>
+      {status !== 'Scheduled' && (
+        <div className="button-container">
+          <Button type="secondary" onClick={openRumble}>
+            {rumbleInfo.end_time ? 'View Rumble' : 'View Details'}
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

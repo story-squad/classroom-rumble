@@ -24,8 +24,10 @@ const Button = ({
           {children}
           {type === 'secondary-with-arrow' ? (
             <img src={blue_arrow} alt="button arrow" />
-          ) : (
+          ) : type === 'primary-with-arrow' ? (
             <img src={white_arrow} alt="button arrow" />
+          ) : (
+            <></>
           )}
         </>
       ) : (
