@@ -1,57 +1,103 @@
 import React, { useState } from 'react';
-import { RegisterOptions, UseFormMethods } from 'react-hook-form';
+import ReactDatePicker from 'react-datepicker';
+import {
+  Control,
+  Controller,
+  ControllerProps,
+  FieldValues,
+  UseFormStateReturn,
+} from 'react-hook-form';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import ReactInputMask from 'react-input-mask';
+
+const PHONE_MASK = '(999) 999-9999';
 
 const Input = ({
+  label,
+  type = 'text',
   id,
   name,
-  label,
-  register,
-  type = 'text',
-  rules = {},
+  placeholder,
+  control,
   errors = {},
-  showPassword,
-  placeholder = '',
-  ...rest
-}: InputProps): React.ReactElement => {
+  rules = {},
+  defaultValue,
+  ...inputProps
+}: IInputProps): React.ReactElement => {
   // store the type prop in state so that it can be changed to show/hide the value in a password input
   const [inputType, setInputType] = useState(type);
-  /**
-   * Reveals or hides the value in a password input by toggling
-   * the 'type' on the input between 'text' and 'password'
-   */
+  // Reveals or hides the value in a password input by toggling the 'type' on the input between 'text' and 'password'
   const toggleHiddenPassword = (event: React.MouseEvent) => {
     event.preventDefault();
     setInputType((prevType) => (prevType === 'password' ? 'text' : 'password'));
   };
+
   return (
-    <div className={`form-input${errors[name] ? ' error' : ''}`}>
-      {label && <label htmlFor={id}>{label} :</label>}
-      <div className="input-field">
-        <input
-          id={id}
+    <div className="input-field">
+      <div className="input-wrapper">
+        {label && <label htmlFor={id}>{label}</label>}
+        <Controller
           name={name}
-          type={inputType}
-          ref={register && register(rules)}
-          autoComplete="off"
-          autoCapitalize="off"
-          placeholder={placeholder}
-          {...rest}
-        />
-        {showPassword ? (
-          <button
-            type="button"
-            className="show-hide-btn"
-            tabIndex={-1} // Prevents button from being selected while tabbing
-            onClick={toggleHiddenPassword}
-          >
-            {inputType === 'password' ? (
-              <AiOutlineEye />
+          control={control}
+          rules={rules}
+          defaultValue={defaultValue}
+          render={({ field: { value, ...field } }) => {
+            return type === 'date' ? (
+              <ReactDatePicker
+                placeholderText={placeholder}
+                {...field}
+                selected={value}
+              />
+            ) : type === 'time' ? (
+              <ReactDatePicker
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+                placeholderText={placeholder}
+                selected={value}
+                {...field}
+              />
+            ) : type === 'phone' ? (
+              <ReactInputMask
+                id={id}
+                type={type}
+                mask={PHONE_MASK}
+                value={value}
+                {...field}
+                {...inputProps}
+              />
             ) : (
-              <AiOutlineEyeInvisible />
-            )}
-          </button>
-        ) : null}
+              <>
+                <input
+                  id={id}
+                  type={type}
+                  value={value}
+                  {...field}
+                  {...inputProps}
+                />
+                {
+                  // TODO add ability to opt out of show password feature
+                  type === 'password' && (
+                    <button
+                      type="button"
+                      className="show-hide-btn"
+                      tabIndex={-1} // Prevents button from being selected while tabbing
+                      onClick={toggleHiddenPassword}
+                    >
+                      {inputType === 'password' ? (
+                        <AiOutlineEye />
+                      ) : (
+                        <AiOutlineEyeInvisible />
+                      )}
+                    </button>
+                  )
+                }
+              </>
+            );
+          }}
+        />
       </div>
       {errors[name] && (
         <div className="message">
@@ -62,17 +108,28 @@ const Input = ({
   );
 };
 
-interface InputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
+interface IInputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'defaultValue'> {
   id: string;
   name: string;
   label?: string;
-  register: UseFormMethods['register'];
-  type?: string;
-  rules?: RegisterOptions;
-  errors?: UseFormMethods['errors'];
-  showPassword?: boolean;
+  // TODO create the optional textarea render
+  type?:
+    | 'text'
+    | 'password'
+    | 'email'
+    | 'phone'
+    | 'button'
+    | 'number'
+    | 'date'
+    | 'time'
+    | 'textarea';
+  min?: number;
   placeholder?: string;
+  defaultValue?: unknown;
+  errors?: UseFormStateReturn<FieldValues>['errors'];
+  control: Control<FieldValues>;
+  rules?: ControllerProps['rules'];
 }
 
 export default Input;

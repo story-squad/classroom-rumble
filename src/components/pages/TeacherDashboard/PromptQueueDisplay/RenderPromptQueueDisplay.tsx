@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IPromptInQueue } from '../../../../api/Prompts';
+import { Prompts } from '../../../../api';
 import { CreateCustomPrompt } from './CreateCustomPrompt';
 import PromptQueueItem from './PromptQueueItem';
 
@@ -32,7 +32,7 @@ const RenderPromptQueueDisplay = ({
 };
 
 interface IRenderPromptQueueDisplayProps {
-  queue: IPromptInQueue[];
+  queue: Prompts.IPromptInQueue[];
 }
 
 export default RenderPromptQueueDisplay;

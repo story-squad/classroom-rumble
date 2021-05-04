@@ -9,6 +9,7 @@ const PromptQueueItem = ({
   ...promptProps
 }: Prompts.IPromptInQueue): React.ReactElement => {
   const { push } = useHistory();
+  console.log({ starts_at });
 
   const newRumbleFromThisPrompt = () => {
     push('/dashboard/teacher/rumble/new', {
