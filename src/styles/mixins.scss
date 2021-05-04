@@ -114,14 +114,14 @@
   flex-flow: row nowrap;
   overflow-x: scroll;
   overflow-y: hidden;
-  @include bp(mid) {
+  @include bp(tablet) {
     overflow: visible;
     flex-flow: row wrap;
     padding-bottom: unset;
   }
   & > div {
-    min-width: 20rem;
-    @include bp(mid) {
+    min-width: 30rem;
+    @include bp(tablet) {
       min-width: unset;
       width: 45%;
     }
