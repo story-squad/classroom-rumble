@@ -37,7 +37,18 @@ const LoginForm = ({
       } else {
         message = 'An unknown error occurred. Please try again.';
       }
-      setError('form', { type: 'manual', message });
+
+      if (message === 'User not found') {
+        setError('codename', { type: 'validate', message });
+      } else {
+        setError('form', { type: 'manual', message });
+      }
+
+      if (message === 'Invalid password') {
+        setError('password', { type: 'validate', message });
+      } else {
+        setError('form', { type: 'manual', message });
+      }
     }
   };
 
@@ -66,7 +77,6 @@ const LoginForm = ({
         placeholder="Enter your password"
         rules={{ required: 'Password is required!' }}
       />
-      {errors.form && <div>{errors.form.message}</div>}
       <input
         className="submit"
         type="submit"
