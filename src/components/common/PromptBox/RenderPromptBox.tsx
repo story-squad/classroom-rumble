@@ -21,11 +21,6 @@ const RenderPromptBox = ({
   const [date, weekday] = useFormatDate(`${endTime || ''}`);
   const [display, isCountDownFinished] = useCountDown(endTime);
 
-  console.log('isCountDownFinished', isCountDownFinished);
-  console.log('phase', phase);
-  console.log('!endTime', !endTime);
-  console.log('isTeacher', isTeacher);
-
   return (
     <div className="prompt-info-wrapper">
       <div className="prompt-info-container">
