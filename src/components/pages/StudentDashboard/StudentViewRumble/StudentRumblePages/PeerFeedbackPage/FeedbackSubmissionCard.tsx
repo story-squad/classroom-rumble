@@ -10,13 +10,8 @@ const FeedbackSubmissionCard = ({
   // TODO use victor's submission component
   return (
     <div className="feedback-submission-card">
-      <h2>{`Story #${subNumber}`}</h2>
       <div className="card-content">
-        <Submission
-          // title="Story #"
-          // {...subNumber}
-          submission={submission}
-        />
+        <Submission title={`Story #${subNumber}`} submission={submission} />
         <FeedbackForm subNumber={subNumber} />
       </div>
     </div>
