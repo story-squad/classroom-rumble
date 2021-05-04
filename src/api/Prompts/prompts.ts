@@ -27,5 +27,6 @@ export const getPrompts = async (offset: number): Promise<IPrompt[]> => {
  */
 export const getPromptById = async (promptId: number): Promise<string> => {
   const { data } = await axiosWithAuth().get(`/api/prompts/${promptId}`);
+  console.log({ data });
   return data.prompt;
 };
