@@ -41,23 +41,21 @@ const RenderPromptBox = ({
           {/* TODO THIS NEEDS WORK */}
           {isTeacher && !endTime ? (
             // TODO change these classnames to start-button? No classname?
-            <div className="start-rumble-button">
+            <div className="start-phase-button">
               <button onClick={startRumble}>Start Rumble</button>
             </div>
           ) : !endTime ? (
             //back to studentdashboard when there's no end time and ur not a teacher
             <>An error has occurred... </>
           ) : isCountDownFinished && isTeacher ? (
-            <div className="start-rumble-button">
+            <div className="start-phase-button">
               <button onClick={startFeedback}>Start Feedback</button>
             </div>
           ) : (
-            <div>
-              <CountDown
-                displayTime={display}
-                isCountDownFinished={isCountDownFinished}
-              />
-            </div>
+            <CountDown
+              displayTime={display}
+              isCountDownFinished={isCountDownFinished}
+            />
           )}
         </div>
       </div>
