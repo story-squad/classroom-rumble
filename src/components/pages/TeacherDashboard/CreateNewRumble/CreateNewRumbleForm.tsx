@@ -31,20 +31,27 @@ const CreateNewRumbleForm = ({
   const onSubmit: SubmitHandler<{
     sectionIds: string[];
     momentTime: moment.Moment;
-  }> = async ({ sectionIds, momentTime }) => {
+    startTime: moment.Moment; // cast as Date for type checks
+  }> = async ({ sectionIds, momentTime, startTime }) => {
     // Parse the ids that have been checked (sectionId[n] is TRUE)
     // return the `value` of the option item at that index
     const idList = sectionOptions
       .filter((op, i) => sectionIds[i])
       .map((op) => op.value);
     const numMinutes = momentTime.minutes() + 60 * momentTime.hour();
+    const startingTimestamp = startTime.toISOString() as unknown; // cast this as a Date if you use it later
+
     try {
       if (user) {
-        const res = await Rumbles.create(
-          { numMinutes, promptId: prompt.id },
-          user.id,
-          idList,
-        );
+        const res = await Rumbles.create({
+          rumble: {
+            numMinutes,
+            promptId: prompt.id,
+            start_time: startingTimestamp as Date, // casting as Date
+          },
+          teacherId: user.id,
+          sectionIds: idList,
+        });
         addRumbles(res);
         push('/dashboard/teacher');
       }
@@ -66,6 +73,15 @@ const CreateNewRumbleForm = ({
           options={sectionOptions}
         />
       </div>
+      {/* <div className="section-wrapper">
+        <h3>Set a Start Time</h3>
+        <Controller
+          control={control}
+          name="startTime"
+          defaultValue={moment().hour(1).minute(0)}
+          render={(props) => <DatePicker />}
+        />
+      </div> */}
       <div className="section-wrapper">
         <h3>Set a Timer</h3>
         <Controller
