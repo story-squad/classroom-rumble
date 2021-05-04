@@ -34,6 +34,9 @@ const StudentRumbleRedirect = ({
         .catch((err) => {
           console.log({ err });
           // setError('There is no submission for this Rumble.');
+        })
+        .finally(() => {
+          setLoading(false);
         });
     }
     return () => setSubmission(undefined);
@@ -55,6 +58,9 @@ const StudentRumbleRedirect = ({
         })
         .catch((err) => {
           console.log({ err });
+        })
+        .finally(() => {
+          setLoading(false);
         });
     }
   }, [submission]);
