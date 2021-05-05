@@ -52,8 +52,7 @@ const RenderPromptBox = ({
           ) : isCountDownFinished ? (
             phase === `COMPLETE` ? (
               <div className="count-down-end">Rumble Over</div>
-            ) : phase === `ACTIVE` ? (
-              // TODO change these classnames to start-button? No classname?
+            ) : phase === `ACTIVE` && isTeacher ? (
               <div className="start-rumble-button">
                 <button onClick={startFeedback}>Start Feedback</button>
               </div>
