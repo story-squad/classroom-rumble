@@ -42,7 +42,7 @@ const RenderPromptBox = ({
           </div>
           {!endTime ? (
             isTeacher ? (
-              <div className="start-rumble-button">
+              <div className="start-phase-button">
                 <button onClick={startRumble}>Start Rumble</button>
               </div>
             ) : (
@@ -53,7 +53,7 @@ const RenderPromptBox = ({
             phase === `COMPLETE` ? (
               <div className="count-down-end">Rumble Over</div>
             ) : phase === `ACTIVE` && isTeacher ? (
-              <div className="start-rumble-button">
+              <div className="start-phase-button">
                 <button onClick={startFeedback}>Start Feedback</button>
               </div>
             ) : (
@@ -62,9 +62,7 @@ const RenderPromptBox = ({
               )
             )
           ) : (
-            <div>
-              <CountDown displayTime={display} />
-            </div>
+            <CountDown displayTime={display} />
           )}
         </div>
       </div>
