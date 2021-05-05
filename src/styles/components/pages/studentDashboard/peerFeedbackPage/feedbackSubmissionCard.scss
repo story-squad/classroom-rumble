@@ -1,0 +1,24 @@
+.feedback-submission-card {
+  background-color: $w-grey-10;
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+
+  & > h2 {
+    font-size: 2rem;
+    color: $c-grey-40;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+
+  .card-content {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    @include bp(large) {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+}

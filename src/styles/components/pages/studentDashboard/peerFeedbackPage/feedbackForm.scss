@@ -1,0 +1,39 @@
+.radio-button-section {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  width: 100%;
+
+  .form-header {
+    color: $w-grey-40;
+    font-size: 2em;
+    margin-bottom: 1.5rem;
+  }
+
+  .radio-wrapper {
+    &:not(:last-of-type) {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid $c-grey-20;
+    }
+
+    .form-questions {
+      font-size: 1.5rem;
+      line-height: 2rem;
+      margin-bottom: 1rem;
+      color: $w-grey-60;
+    }
+
+    .radios {
+      padding: 0 1rem;
+    }
+  }
+}
+
+.footer-section {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  font-size: 1.3rem;
+  color: $w-grey-40;
+}

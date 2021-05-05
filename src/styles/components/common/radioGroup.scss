@@ -1,0 +1,12 @@
+.radio-group-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+
+  .radio-group-list {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    color: $w-grey-40;
+    padding-bottom: 0.5rem;
+  }
+}
