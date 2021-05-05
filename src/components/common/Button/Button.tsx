@@ -9,6 +9,7 @@ const Button = ({
   onClick,
   htmlType,
   children,
+  spinnerSize,
   ...props
 }: React.PropsWithChildren<IButtonProps>): React.ReactElement => {
   //   const [state, setState] = useState({ loading: false });
@@ -31,7 +32,7 @@ const Button = ({
           )}
         </>
       ) : (
-        <ClipLoader />
+        <ClipLoader size={spinnerSize} />
       )}
     </button>
   );
@@ -49,6 +50,7 @@ interface IButtonProps
     | 'secondary-with-arrow'
     | 'text';
   htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
+  spinnerSize?: number;
 }
 
 export default Button;
