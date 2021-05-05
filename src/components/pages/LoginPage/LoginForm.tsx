@@ -33,11 +33,18 @@ const LoginForm = ({
       console.log({ err });
       let message: string;
       if (err.response?.data) {
-        message = err.response.data.error;
+        message = err.response.data.message;
       } else {
         message = 'An unknown error occurred. Please try again.';
       }
-      setError('form', { type: 'manual', message });
+
+      if (message === 'User not found') {
+        setError('codename', { type: 'validate', message });
+      } else if (message === 'Invalid password') {
+        setError('password', { type: 'validate', message });
+      } else {
+        setError('form', { type: 'manual', message });
+      }
     }
   };
 
@@ -55,6 +62,7 @@ const LoginForm = ({
         }}
         defaultValue={codename}
       />
+
       <Input
         label="Password"
         name="password"
@@ -69,6 +77,7 @@ const LoginForm = ({
         className="submit"
         type="submit"
         value={isMerge ? 'Merge' : 'Log In'}
+        onClick={() => clearErrors('form')}
       />
     </form>
   );
