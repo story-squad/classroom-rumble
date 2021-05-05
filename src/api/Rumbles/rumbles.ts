@@ -5,15 +5,19 @@ import {
   IRumbleWithSectionInfo,
 } from './rumbleTypes';
 
-export const create = async (
-  body: IRumblePostBody,
-  teacherId: number,
-  sectionIds: number[],
-): Promise<IRumbleWithSectionInfo[]> => {
+export const create = async ({
+  rumble,
+  sectionIds,
+  teacherId,
+}: {
+  rumble: IRumblePostBody;
+  teacherId: number;
+  sectionIds: number[];
+}): Promise<IRumbleWithSectionInfo[]> => {
   const { data } = await axiosWithAuth().post(
     `/api/rumble/teachers/${teacherId}/rumbles`,
     {
-      rumble: body,
+      rumble,
       sectionIds,
     },
   );
