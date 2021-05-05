@@ -19,12 +19,14 @@
   .submit-form-button {
     @include button;
     padding: 1rem 7rem;
-  }
-  .submit-form-button:disabled {
-    @include button;
-    padding: 1rem 7rem;
-    border: $w-grey-60 solid 1px;
-    color: $w-grey-60;
-    background-color: $w-grey-10;
+
+    &:disabled {
+      @include button;
+      padding: 1rem 7rem;
+      border: $w-grey-60 solid 1px;
+      color: $w-grey-60;
+      // Todo this background color is not displaying properly.
+      background-color: $w-grey-10;
+    }
   }
 }
