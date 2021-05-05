@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Sections, Students, Submissions } from '../../../../../api';
-import { CouldNotLoad } from '../../../../common';
+import { useAsync } from '../../../../../hooks';
+import { CouldNotLoad, Loader } from '../../../../common';
 import RenderSubmissionList from './RenderSubmissionList';
 
 const SubmissionListContainer = ({
@@ -10,28 +11,26 @@ const SubmissionListContainer = ({
   const [subList, setSubList] = useState<Submissions.ISubItem[]>(
     student.submissions,
   );
-  const [error, setError] = useState<string>();
+
+  const [getSubsForStudentInSection, loading, , error] = useAsync({
+    asyncFunction: Submissions.getSubsForStudentInSection,
+    setter: setSubList,
+  });
 
   useEffect(() => {
     if (!subList) {
-      Submissions.getSubsForStudentInSection(student.id, section.id)
-        .then((res) => {
-          console.log({ subList: res });
-          setSubList(res);
-        })
-        .catch((err) => {
-          console.log({ err });
-          setError(err.message);
-        });
+      getSubsForStudentInSection(student.id, section.id);
     }
   }, []);
 
   return subList ? (
     <RenderSubmissionList student={student} submissionList={subList} />
   ) : error ? (
-    <CouldNotLoad error={error} />
+    <CouldNotLoad error={error.message} />
+  ) : loading ? (
+    <Loader message={'Loading students'} />
   ) : (
-    <p>Loading submissions...</p>
+    <>Could not load students</>
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Feedback, Rumbles, Sections, Students } from '../../../../api';
+import { useAsync } from '../../../../hooks';
 import { auth, current } from '../../../../state';
 import { Loader } from '../../../common';
 import {
@@ -20,54 +21,35 @@ const StudentRumbleRedirect = ({
   const [submission, setSubmission] = useRecoilState(current.sub);
   // Whether or not the user has given feedback to others yet
   const [feedbackComplete, setFeedbackComplete] = useState<boolean>();
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   const hasSubmitted = useRecoilValue(current.hasSubmitted);
+
+  const [getSubForRumble, loading, ,] = useAsync({
+    asyncFunction: Students.getSubForRumble,
+    setter: setSubmission,
+  });
 
   // This useEffect is loading the current user's submission for the rumble
   useEffect(() => {
     if (rumble && user && !submission) {
-      setLoading(true);
-      Students.getSubForRumble(rumble.id, user.id)
-        .then((res) => {
-          console.log('subs for rumble', { res });
-          // Set loading to false, submission will also be false, so the
-          // student submission page will be rendered
-          if (res === undefined) setLoading(false);
-          // If submission is defined after this, it will run the next useEffect
-          setSubmission(res);
-        })
-        .catch((err) => {
-          console.log({ err });
-          // setError('There is no submission for this Rumble.');
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      getSubForRumble(rumble.id, user.id);
     }
     return () => setSubmission(undefined);
   }, [rumble, user]);
 
+  const [checkIfHasSubmittedFeedback, , ,] = useAsync({
+    asyncFunction: Feedback.checkIfHasSubmittedFeedback,
+    setter: setFeedbackComplete,
+  });
+
   // This useEffect get the current user's feedback for OTHER submissions in the rumble
   useEffect(() => {
     if (submission && user) {
-      setLoading(true);
-      Feedback.checkIfHasSubmittedFeedback({
+      checkIfHasSubmittedFeedback({
         rumbleId: rumble.id,
         studentId: user.id,
-      })
-        .then((res) => {
-          console.log('has submitted', { res });
-          // If the user has not submitted feedback, stop loading and display feedback form
-          if (res === false) setLoading(false);
-          setFeedbackComplete(res);
-        })
-        .catch((err) => {
-          console.log({ err });
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      });
     }
   }, [submission]);
 

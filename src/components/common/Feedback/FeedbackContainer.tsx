@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { Feedback, Submissions } from '../../../api';
+import { useAsync } from '../../../hooks';
 import { current } from '../../../state';
 import { Loader } from '../Loader';
 import { IAverages } from './feedbackTypes';
@@ -11,27 +12,19 @@ const FeedbackContainer = ({
 }: IFeedbackContainerProps): React.ReactElement => {
   const [feedback, setFeedback] = useRecoilState(current.feedbackForSubmission);
   const [averages, setAverages] = useState<IAverages>();
-  const [loading, setLoading] = useState(true);
+
+  const [getSubmissionFeedback, loading, ,] = useAsync({
+    asyncFunction: Feedback.getSubmissionFeedback,
+    setter: setFeedback,
+  });
 
   useEffect(() => {
     if (submission) {
-      // To test remove rumble and student id from params and comment out the call in feedback.ts
-      // uncomment and return dummydata then click on rumble
-      Feedback.getSubmissionFeedback(submission.id)
-        .then((res) => {
-          setFeedback(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      getSubmissionFeedback(submission.id);
     }
   }, [submission]);
 
   useEffect(() => {
-    console.log({ feedback });
     if (!feedback || feedback.length <= 0) return;
     // This keeps this from breaking ^^
     const submissionScores = feedback.map(({ score1, score2, score3 }) => {
@@ -56,7 +49,6 @@ const FeedbackContainer = ({
       score3: parseFloat((totals.score3 / feedback.length).toFixed(2)),
     });
   }, [feedback]);
-
   return loading ? (
     <Loader />
   ) : (
