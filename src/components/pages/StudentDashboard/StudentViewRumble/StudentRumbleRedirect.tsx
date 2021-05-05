@@ -3,7 +3,11 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { Feedback, Rumbles, Sections, Students } from '../../../../api';
 import { auth, current } from '../../../../state';
 import { Loader } from '../../../common';
-import { PastRumbleDetails, PeerFeedbackPage } from './StudentRumblePages';
+import {
+  PastRumbleDetails,
+  PeerFeedbackPage,
+  SubmissionSuccess,
+} from './StudentRumblePages';
 import { StudentSubmissionPage } from './StudentRumblePages/';
 
 const StudentRumbleRedirect = ({
@@ -17,6 +21,8 @@ const StudentRumbleRedirect = ({
   // Whether or not the user has given feedback to others yet
   const [feedbackComplete, setFeedbackComplete] = useState<boolean>();
   const [loading, setLoading] = useState(true);
+
+  const hasSubmitted = useRecoilValue(current.hasSubmitted);
 
   // This useEffect is loading the current user's submission for the rumble
   useEffect(() => {
@@ -67,6 +73,8 @@ const StudentRumbleRedirect = ({
 
   return loading ? (
     <Loader />
+  ) : hasSubmitted ? (
+    <SubmissionSuccess />
   ) : !submission ? (
     // If the student has not submitted, show the rumble page
     <StudentSubmissionPage rumble={rumble} section={section} />
