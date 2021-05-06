@@ -14,18 +14,10 @@
       justify-content: center;
       h2 {
         padding-left: 0rem;
-        @include bp($tablet) {
-          padding-left: 3rem;
-        }
       }
       img {
         cursor: pointer;
         width: 100%;
-        margin: 0 3rem;
-        @include bp($tablet) {
-          height: 500px;
-          width: 400px;
-        }
       }
       a {
         margin-top: 2rem;

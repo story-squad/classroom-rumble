@@ -40,17 +40,17 @@
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
+    @include wrapped-container(900px);
 
     @include bp(large) {
       flex-direction: row;
       align-items: flex-start;
-    }
-  }
-
-  .image-wrapper {
-    margin-bottom: 1rem;
-    @include bp(large) {
-      margin-right: 2rem;
+      padding: 1rem;
+      .submission-wrapper {
+        width: 100%;
+        max-width: 400px;
+        margin-right: 4rem;
+      }
     }
   }
 
@@ -81,8 +81,6 @@
       }
 
       .radios {
-        padding: 0 1rem;
-
         .radio-group-wrapper {
           display: flex;
           flex-flow: column nowrap;
@@ -118,6 +116,7 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     font-size: 1.3rem;
+    line-height: 1.6rem;
     color: $w-grey-40;
   }
 }
