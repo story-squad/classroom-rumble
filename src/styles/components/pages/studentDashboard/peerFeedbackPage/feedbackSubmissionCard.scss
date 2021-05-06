@@ -1,0 +1,39 @@
+.feedback-submission-card {
+  background-color: $w-grey-10;
+  border-radius: 1rem;
+  border: $c-grey-20 solid 1px;
+  margin-bottom: 1.5rem;
+
+  padding: 2rem;
+  @include bp(large) {
+    padding: 3rem;
+  }
+
+  .submission-content {
+    @include bp(large) {
+      margin-right: 2rem;
+    }
+
+    & > h2 {
+      width: 100%;
+      text-align: left;
+      font-size: 2rem;
+      color: $c-grey-40;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+  }
+
+  .card-content {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    @include wrapped-container(900px);
+
+    @include bp(large) {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+}

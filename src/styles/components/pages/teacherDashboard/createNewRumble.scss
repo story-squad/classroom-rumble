@@ -36,6 +36,11 @@
       display: flex;
       flex-flow: column nowrap;
       align-items: flex-end;
+      & > .errors {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        color: $red-bright;
+      }
       .section-wrapper {
         width: 100%;
         background-color: $w-grey-10;
@@ -44,6 +49,11 @@
         margin-bottom: 2rem;
         @include bp(mid) {
           padding: 3rem;
+        }
+        .errors {
+          font-size: 1.2rem;
+          margin-top: 1rem;
+          color: $red-bright;
         }
         h3 {
           color: $w-grey-50;
@@ -83,13 +93,6 @@
         justify-content: space-between;
         width: 400px;
         max-width: 100%;
-        input[type='submit'] {
-          @include button();
-          padding: 1.1rem 2rem;
-        }
-        button {
-          @include button-alt;
-        }
         & > * {
           width: 45%;
         }

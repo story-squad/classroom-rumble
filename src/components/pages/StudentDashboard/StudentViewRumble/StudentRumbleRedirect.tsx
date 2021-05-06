@@ -22,7 +22,13 @@ const StudentRumbleRedirect = ({
   const [feedbackComplete, setFeedbackComplete] = useState<boolean>();
   const [loading, setLoading] = useState(true);
 
-  const hasSubmitted = useRecoilValue(current.hasSubmitted);
+  const [hasSubmitted, setHasSubmitted] = useRecoilState(current.hasSubmitted);
+
+  // This useEffect loads on page render.
+  // hasSubmitted is set to false until conditions are met.
+  useEffect(() => {
+    setHasSubmitted(false);
+  }, []);
 
   // This useEffect is loading the current user's submission for the rumble
   useEffect(() => {
@@ -30,10 +36,10 @@ const StudentRumbleRedirect = ({
       setLoading(true);
       Students.getSubForRumble(rumble.id, user.id)
         .then((res) => {
-          console.log('subs for rumble', { res });
           // Set loading to false, submission will also be false, so the
           // student submission page will be rendered
           if (res === undefined) setLoading(false);
+          else setHasSubmitted(true);
           // If submission is defined after this, it will run the next useEffect
           setSubmission(res);
         })
@@ -57,7 +63,7 @@ const StudentRumbleRedirect = ({
         studentId: user.id,
       })
         .then((res) => {
-          console.log('has submitted', { res });
+          console.log('has submitted feedback', { res });
           // If the user has not submitted feedback, stop loading and display feedback form
           if (res === false) setLoading(false);
           setFeedbackComplete(res);
@@ -73,7 +79,7 @@ const StudentRumbleRedirect = ({
 
   return loading ? (
     <Loader />
-  ) : hasSubmitted ? (
+  ) : hasSubmitted && rumble.phase === `ACTIVE` ? (
     <SubmissionSuccess />
   ) : !submission ? (
     // If the student has not submitted, show the rumble page
