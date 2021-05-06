@@ -5,9 +5,13 @@
   width: 100%;
 
   .form-header {
-    color: $w-grey-40;
-    font-size: 2em;
+    width: 100%;
+    text-align: left;
+    font-size: 2rem;
+    color: $c-grey-40;
     margin-bottom: 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
   }
 
   .radio-wrapper {

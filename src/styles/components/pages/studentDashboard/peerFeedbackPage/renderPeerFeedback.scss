@@ -22,9 +22,10 @@
 
     &:disabled {
       padding: 1rem 7rem;
-      border: $w-grey-60 solid 1px;
-      color: $w-grey-60;
+      border: $c-grey-40 solid 1px;
+      color: $c-grey-40;
       background-color: $w-grey-10;
+      font-weight: 600;
     }
   }
 }
