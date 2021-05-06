@@ -13,7 +13,6 @@ const StudentDashboardRumbleList = ({
     ),
   );
 
-  console.log({ currentRumbles });
   return (
     <div className="student-dash-rumble-list-wrapper">
       <div className="student-dash-rumble-list-container">
