@@ -11,8 +11,15 @@ const RadioButton = ({
   React.InputHTMLAttributes<HTMLInputElement>): React.ReactElement => {
   return (
     <div className="radio-button">
-      <label>{label}</label>
-      <input type="radio" name={name} value={value} ref={register} {...props} />
+      <label className="radio-button-label">{label}</label>
+      <input
+        className="radio-button-input"
+        type="radio"
+        name={name}
+        value={value}
+        ref={register}
+        {...props}
+      />
     </div>
   );
 };
