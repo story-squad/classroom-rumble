@@ -1,17 +1,16 @@
 import React from 'react';
-import { Rumbles, Sections } from '../../../../api';
-import { useRumbleFilter } from '../../../../hooks';
+import { Sections } from '../../../../api';
 import StudentDashboardRumbleCard from './StudentDashboardRumbleCard';
 
 const StudentDashboardRumbleList = ({
   sections,
 }: IStudentDashboardRumbleListProps): React.ReactElement => {
-  const [currentRumbles] = useRumbleFilter(
-    sections.reduce<Rumbles.IRumbleWithSectionInfo[]>(
-      (acc, section) => [...acc, ...section.rumbles],
-      [],
-    ),
-  );
+  // const [currentRumbles] = useRumbleFilter(
+  //   sections.reduce<Rumbles.IRumbleWithSectionInfo[]>(
+  //     (acc, section) => [...acc, ...section.rumbles],
+  //     [],
+  //   ),
+  // );
 
   return (
     <div className="student-dash-rumble-list-wrapper">
@@ -19,13 +18,17 @@ const StudentDashboardRumbleList = ({
         <h2>Current Rumbles</h2>
         <div className="rumble-list">
           {sections?.map((sec) =>
-            currentRumbles.map((rum) => (
-              <StudentDashboardRumbleCard
-                key={rum.id}
-                section={sec}
-                rumble={rum}
-              />
-            )),
+            sec.rumbles
+              .filter((rumble) => {
+                return rumble.phase !== `COMPLETE`;
+              })
+              .map((rum) => (
+                <StudentDashboardRumbleCard
+                  key={rum.id}
+                  section={sec}
+                  rumble={rum}
+                />
+              )),
           )}
         </div>
       </div>
