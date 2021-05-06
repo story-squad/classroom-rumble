@@ -1,0 +1,15 @@
+.radio-button-label {
+  align-content: center;
+  padding-left: 0.7rem;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+}
+.radio-button-input[type='radio'] {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  transform: scale(2);
+  display: flex;
+  align-items: center;
+  color: $w-grey-40;
+  cursor: pointer;
+}
