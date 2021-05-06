@@ -6,15 +6,23 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Prompts, Rumbles } from '../../../../api';
+import { useAsync } from '../../../../hooks';
 import { auth, rumbles, sections } from '../../../../state';
 import { FormTypes } from '../../../../types';
-import { CheckboxGroup } from '../../../common';
+import { Button, CheckboxGroup } from '../../../common';
 
 const CreateNewRumbleForm = ({
   prompt,
 }: ICreateNewRumbleFormProps): React.ReactElement => {
   // Functional Hooks
-  const { register, handleSubmit, control } = useForm();
+  const {
+    errors,
+    register,
+    handleSubmit,
+    control,
+    setError,
+    clearErrors,
+  } = useForm();
   const { push } = useHistory();
 
   // Subscribe to state
@@ -46,17 +54,37 @@ const CreateNewRumbleForm = ({
           idList,
         );
         addRumbles(res);
+        clearErrors();
         push('/dashboard/teacher');
       }
     } catch (err) {
-      console.log(err);
+      console.log({ err });
+      let message: string;
+      if (err.response?.data) {
+        message = err.response.data.message;
+      } else {
+        message = 'An unknown error occurred. Please try again.';
+      }
+
+      if (message === 'Invalid or missing fields in body: sectionIds') {
+        setError('sectionIds', {
+          type: 'required',
+          message: 'Please select a class',
+        });
+      } else {
+        throw new Error(message);
+      }
     }
   };
+
+  const [executeSubmit, loading, , error] = useAsync({
+    asyncFunction: handleSubmit(onSubmit),
+  });
 
   const goBack = () => push('/dashboard/teacher');
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={executeSubmit}>
       <div className="section-wrapper">
         <h3>Select Class(es)</h3>
         <CheckboxGroup
@@ -64,6 +92,8 @@ const CreateNewRumbleForm = ({
           name="sectionIds"
           register={register}
           options={sectionOptions}
+          errors={errors}
+          // rules={{ required: 'Please select a class.' }}
         />
       </div>
       <div className="section-wrapper">
@@ -82,11 +112,19 @@ const CreateNewRumbleForm = ({
           )}
         />
       </div>
+      {error && <div className="errors">{error.message}</div>}
       <div className="button-row">
-        <button type="button" onClick={goBack}>
+        <Button htmlType="button" type="secondary" onClick={goBack}>
           Cancel
-        </button>
-        <input type="submit" value="Create" />
+        </Button>
+        <Button
+          htmlType="submit"
+          type="primary"
+          onClick={() => clearErrors()}
+          loading={loading}
+        >
+          Create
+        </Button>
       </div>
     </form>
   );
