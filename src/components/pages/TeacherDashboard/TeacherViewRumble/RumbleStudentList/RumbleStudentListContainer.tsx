@@ -12,7 +12,7 @@ const RumbleStudentListContainer = ({
     Students.IStudentWithSubmissions[]
   >();
 
-  const [getWithSubsByRumbleId, loading, , error] = useAsync({
+  const [getWithSubsByRumbleId, , , error] = useAsync({
     asyncFunction: Students.getWithSubsByRumbleId,
     setter: setStudentList,
   });
@@ -24,10 +24,8 @@ const RumbleStudentListContainer = ({
     <RenderRumbleStudentList studentList={studentList} section={section} />
   ) : error ? (
     <CouldNotLoad error={error.message} />
-  ) : loading ? (
-    <Loader message={'Loading students'} />
   ) : (
-    <>Could not load students</>
+    <Loader message={'Loading students'} />
   );
 };
 

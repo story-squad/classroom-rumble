@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Prompts } from '../../../../api';
 import { useAsync, useCheckBrowserState } from '../../../../hooks';
@@ -10,11 +10,9 @@ const TeacherViewRumbleContainer = (): React.ReactElement => {
   const { isLoading } = useCheckBrowserState('section', 'rumble');
   const section = useRecoilValue(current.section);
   const rumble = useRecoilValue(current.rumble);
-  const [prompt, setPrompt] = useState<string>();
 
-  const [getPromptById, promptIsLoading, , error] = useAsync({
+  const [getPromptById, promptIsLoading, prompt, error] = useAsync({
     asyncFunction: Prompts.getPromptById,
-    setter: setPrompt,
   });
 
   useEffect(() => {

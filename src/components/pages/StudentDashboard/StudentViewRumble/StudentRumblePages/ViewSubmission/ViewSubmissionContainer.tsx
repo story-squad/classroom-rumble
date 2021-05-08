@@ -12,7 +12,7 @@ const PastRumbleDetailsContainer = (): React.ReactElement => {
   const section = useRecoilValue(current.section);
   const [submission, setSubmission] = useRecoilState(current.sub);
 
-  const [getSubForRumble, loading, , error] = useAsync({
+  const [getSubForRumble, , , error] = useAsync({
     asyncFunction: Students.getSubForRumble,
     setter: setSubmission,
   });
@@ -27,11 +27,8 @@ const PastRumbleDetailsContainer = (): React.ReactElement => {
     <RenderPastRumbleDetails section={section} submission={submission} />
   ) : error ? (
     <CouldNotLoad error={error.message} />
-  ) : // This right?? /
-  loading ? (
-    <Loader message={'Loading Submission'} />
   ) : (
-    <> </>
+    <Loader message={'Loading Submission'} />
   );
 };
 
