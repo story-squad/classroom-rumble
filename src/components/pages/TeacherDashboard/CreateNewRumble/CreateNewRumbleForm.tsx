@@ -115,7 +115,7 @@ const CreateNewRumbleForm = ({
       {error && <div className="errors">{error.message}</div>}
       <div className="button-row">
         <Button htmlType="button" type="secondary" onClick={goBack}>
-          Cancel
+          CANCEL
         </Button>
         <Button
           htmlType="submit"
@@ -123,7 +123,7 @@ const CreateNewRumbleForm = ({
           onClick={() => clearErrors()}
           loading={loading}
         >
-          Create
+          START RUMBLE
         </Button>
       </div>
     </form>

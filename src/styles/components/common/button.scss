@@ -10,48 +10,59 @@
 
   color: $white;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 1.25px;
+  line-height: 15px;
+  font-weight: 700;
 
   transition: all 0.2s ease-in-out;
   &:hover {
     background-color: darken($primary-base, 5%);
     transition: all 0.2s ease-in-out;
   }
+
   &:disabled,
   &.disabled {
     cursor: not-allowed;
-    padding: 1rem 7rem;
-    border: $c-grey-40 solid 1px;
+    border: $c-grey-40 solid 0.5px;
     color: $c-grey-40;
     background-color: $w-grey-10;
-    font-weight: 600;
+    padding: 1.5rem 7rem;
+
+    //figma colors- can't remember if we decided against the figma last week
+    // border: $c-grey-70 solid .5px;
   }
 
   &.primary-with-arrow {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    line-height: 11px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
     img {
       margin-left: 0.5rem;
     }
   }
-  &.secondary {
+
+  &.secondary,
+  &.secondary-with-arrow {
     background: $white;
     color: $primary-base;
-    padding: 1rem 2rem;
     border: 1px solid $primary-base;
+
     &:hover {
       background-color: fade-out($primary-base, 0.95);
     }
   }
+
   &.secondary-with-arrow {
-    background: $white;
-    color: $primary-base;
-    padding: 1rem 2rem;
-    border: 1px solid $primary-base;
-    &:hover {
-      background-color: fade-out($primary-base, 0.95);
-    }
+    line-height: 11px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+
     justify-content: center;
     display: flex;
     align-items: center;

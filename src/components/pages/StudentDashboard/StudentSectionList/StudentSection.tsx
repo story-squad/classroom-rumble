@@ -47,7 +47,7 @@ const StudentSection = ({
           </h4>
         </div>
         <Button type="secondary-with-arrow" onClick={openSection}>
-          View Class
+          VIEW CLASS
         </Button>
       </div>
     </div>
