@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Students } from '../../../../../../api';
+import { useAsync } from '../../../../../../hooks';
 import { auth, current } from '../../../../../../state';
 import { CouldNotLoad, Loader } from '../../../../../common';
 import RenderPastRumbleDetails from './RenderViewSubmission';
@@ -10,26 +11,22 @@ const PastRumbleDetailsContainer = (): React.ReactElement => {
   const user = useRecoilValue(auth.user);
   const section = useRecoilValue(current.section);
   const [submission, setSubmission] = useRecoilState(current.sub);
-  const [error, setError] = useState<null | string>(null);
+
+  const [getSubForRumble, , , error] = useAsync({
+    asyncFunction: Students.getSubForRumble,
+    setter: setSubmission,
+  });
 
   useEffect(() => {
     if (rumble && user && !submission) {
-      Students.getSubForRumble(rumble.id, user.id)
-        .then((res) => {
-          // console.log(res);
-          setSubmission(res);
-        })
-        .catch((err) => {
-          console.log({ err });
-          setError('There is no submission for this Rumble.');
-        });
+      getSubForRumble(rumble.id, user.id);
     }
   }, [rumble, user]);
 
   return submission && section ? (
     <RenderPastRumbleDetails section={section} submission={submission} />
   ) : error ? (
-    <CouldNotLoad error={error} />
+    <CouldNotLoad error={error.message} />
   ) : (
     <Loader message={'Loading Submission'} />
   );
