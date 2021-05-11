@@ -19,7 +19,6 @@
   }
   &:disabled,
   &.disabled {
-    transition: all 0.2s ease-in-out;
     cursor: not-allowed;
     padding: 1rem 7rem;
     border: $c-grey-40 solid 1px;
@@ -44,13 +43,20 @@
     &:hover {
       background-color: fade-out($primary-base, 0.95);
     }
-    &.secondary-with-arrow {
-      justify-content: center;
-      display: flex;
-      align-items: center;
-      img {
-        margin-left: 0.5rem;
-      }
+  }
+  &.secondary-with-arrow {
+    background: $white;
+    color: $primary-base;
+    padding: 1rem 2rem;
+    border: 1px solid $primary-base;
+    &:hover {
+      background-color: fade-out($primary-base, 0.95);
+    }
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    img {
+      margin-left: 0.5rem;
     }
   }
 
@@ -58,12 +64,12 @@
     border: none;
     background: none;
     padding: 0;
-    // color: $color;
+    color: $primary-base;
     cursor: pointer;
     transition: all 0.1s ease-in;
     &:active,
     &:hover {
-      // color: fade-out(0.25);
+      color: fade-out($primary-base, 0.25);
       transition: all 0.1s ease-in;
     }
   }
