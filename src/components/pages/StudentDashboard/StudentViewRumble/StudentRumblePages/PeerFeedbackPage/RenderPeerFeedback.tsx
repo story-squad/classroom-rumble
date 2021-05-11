@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { Auth, Sections, Submissions } from '../../../../../../api';
-import { PromptBox, SectionInfo } from '../../../../../common';
+import { Button, PromptBox, SectionInfo } from '../../../../../common';
 import FeedbackSubmissionCard from './FeedbackSubmissionCard';
 
 const RenderPeerFeedback = ({
@@ -52,12 +52,9 @@ const RenderPeerFeedback = ({
                 />
               ))}
               <div className="button-area">
-                <button
-                  className="submit-form-button"
-                  disabled={!methods.formState.isValid}
-                >
+                <Button disabled={!methods.formState.isValid}>
                   SUBMIT FEEDBACK
-                </button>
+                </Button>
               </div>
             </form>
           </div>

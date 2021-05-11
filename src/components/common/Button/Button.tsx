@@ -47,7 +47,8 @@ interface IButtonProps
     | 'primary-with-arrow'
     | 'secondary'
     | 'secondary-with-arrow'
-    | 'text';
+    | 'text'
+    | 'disabled';
   htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
 }
 
