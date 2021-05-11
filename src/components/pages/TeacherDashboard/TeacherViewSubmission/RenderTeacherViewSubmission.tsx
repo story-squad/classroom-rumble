@@ -15,9 +15,7 @@ const RenderTeacherViewSubmission = ({
     <div className="teacher-view-submission">
       <PromptBox prompt={submission.prompt} isTeacher />
       <SectionInfo section={section} studentName={studentName} />
-      <div className="submission-details">
-        <Feedback submission={submission} />
-      </div>
+      <Feedback submission={submission} />
     </div>
   );
 };

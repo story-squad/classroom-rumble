@@ -1,12 +1,14 @@
 .feedback-wrapper {
   @include wrapped-container();
-  @include bp($large) {
-    padding: 1.6rem;
-    background-color: $w-grey-10;
-  }
+
   background-color: unset;
   border-radius: 1.6rem;
+
   padding: 1rem 3rem;
+  @include bp($large) {
+    padding: 3rem;
+    background-color: $w-grey-10;
+  }
   .feedback-content-wrapper {
     @include bp($large) {
       display: flex;
@@ -40,7 +42,6 @@
         }
         & > .table-col {
           padding: 1.5rem 2rem;
-          background-color: $w-grey-05;
         }
       }
       .table-body .table-row {
