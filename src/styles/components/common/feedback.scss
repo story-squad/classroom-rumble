@@ -1,37 +1,65 @@
 .feedback-wrapper {
   @include wrapped-container();
-  @include table(60%, 40%, 0, 0);
-  @include bp($tablet) {
-    @include table(65%, 35%, 0, 0);
-  }
   @include bp($large) {
     padding: 1.6rem;
-    display: flex;
-    flex-direction: row;
-    background-color: unset;
+    background-color: $w-grey-10;
   }
-  padding: 1rem 3rem;
-  background-color: $w-grey-10;
+  background-color: unset;
   border-radius: 1.6rem;
-  h2 {
-    color: $w-grey-40;
-    font-size: 1.4em;
-    width: 100%;
-    margin: auto;
-    margin-bottom: 1rem;
-  }
-  .feedback-container {
-    width: 100%;
-    .message {
-      height: 100%;
+  padding: 1rem 3rem;
+  .feedback-content-wrapper {
+    @include bp($large) {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      line-height: 5rem;
-      p {
+      flex-direction: row;
+    }
+    @include wrapped-container(900px);
+    @include table(60%, 40%, 0, 0);
+    @include bp($tablet) {
+      @include table(65%, 35%, 0, 0);
+    }
+    h2 {
+      width: 100%;
+      text-align: left;
+      font-size: 2rem;
+      color: $c-grey-40;
+      margin-bottom: 1.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .feedback-container {
+      margin-left: 0;
+      width: 100%;
+      @include bp($large) {
+        margin-left: 8rem;
+      }
+      .table-header .row-wrapper {
+        font-size: 1.3rem;
         font-weight: 600;
-        font-size: 1.8rem;
+        @include bp($mid) {
+          font-size: 1.5rem;
+        }
+        & > .table-col {
+          padding: 1.5rem 2rem;
+          background-color: $w-grey-05;
+        }
+      }
+      .table-body .table-row {
+        background-color: white;
+        .row-wrapper .table-col {
+          padding: 1.5rem 2rem;
+        }
+      }
+      .message {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        line-height: 5rem;
+        p {
+          font-weight: 600;
+          font-size: 1.8rem;
+        }
       }
     }
   }

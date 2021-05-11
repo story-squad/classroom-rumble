@@ -6,7 +6,6 @@ const RenderPastRumbleDetails = ({
   submission,
   section,
 }: IRenderPastRumbleDetailProps): React.ReactElement => {
-  console.log(submission);
   return (
     <div className="view-submission-container">
       <SectionInfo section={section} />
