@@ -53,7 +53,7 @@ const RenderPeerFeedback = ({
               ))}
               <div className="button-area">
                 <Button disabled={!methods.formState.isValid}>
-                  SUBMIT FEEDBACK
+                  Submit Feedback
                 </Button>
               </div>
             </form>

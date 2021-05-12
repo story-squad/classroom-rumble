@@ -59,7 +59,7 @@ const StudentRumble = ({
               <h4>{timeDisplay}</h4>
             </div>
             <Button type="primary-with-arrow" onClick={openCurrentRumble}>
-              VIEW RUMBLE
+              View Rumble
             </Button>
           </div>
         </>

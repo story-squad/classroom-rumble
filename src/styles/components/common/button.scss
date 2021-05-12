@@ -6,7 +6,7 @@
 
   background-color: $primary-base;
   border-radius: 50px;
-  padding: 1rem 2rem;
+  padding: 1rem 7rem;
 
   color: $white;
   text-align: center;
@@ -16,22 +16,20 @@
   line-height: 15px;
   font-weight: 700;
 
+  text-transform: uppercase;
+
   transition: all 0.2s ease-in-out;
   &:hover {
     background-color: darken($primary-base, 5%);
     transition: all 0.2s ease-in-out;
   }
 
-  &:disabled,
-  &.disabled {
+  &:disabled {
     cursor: not-allowed;
-    border: $c-grey-40 solid 0.5px;
+    border: $c-grey-40 solid 1px;
     color: $c-grey-40;
     background-color: $w-grey-10;
     padding: 1rem 7rem;
-
-    //figma colors- can't remember if we decided against the figma last week
-    // border: $c-grey-70 solid .5px;
   }
 
   &.primary-with-arrow {

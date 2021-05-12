@@ -66,14 +66,14 @@ const StudentRumble = ({
       {status === 'Active' && (
         <div className="button-container">
           <Button type="primary-with-arrow" onClick={openRumble}>
-            VIEW RUMBLE
+            View Rumble
           </Button>
         </div>
       )}
       {status === 'Complete' && (
         <div className="button-container">
           <Button type="secondary-with-arrow" onClick={openRumble}>
-            VIEW DETAILS
+            View Details
           </Button>
         </div>
       )}
