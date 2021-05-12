@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Submissions } from '../../../../../../api';
+import { useAsync } from '../../../../../../hooks';
 import { auth, current } from '../../../../../../state';
 import { CouldNotLoad, Loader } from '../../../../../common';
 import RenderPeerFeedback from './RenderPeerFeedback';
@@ -9,21 +10,16 @@ const PeerFeedbackContainer = (): React.ReactElement => {
   const section = useRecoilValue(current.section);
   const rumble = useRecoilValue(current.rumble);
   const user = useRecoilValue(auth.user);
-  const [error, setError] = useState<null | string>(null);
   const [submissions, setSubmissions] = useState<Submissions.ISubItem[]>();
 
+  const [getSubmissionsForFeedback, , , error] = useAsync({
+    asyncFunction: Submissions.getSubmissionsForFeedback,
+    setter: setSubmissions,
+  });
+
   useEffect(() => {
-    console.log({ rumble, user });
     if (rumble && user) {
-      Submissions.getSubmissionsForFeedback(rumble.id, user.id) // Use for real API call
-        .then((res) => {
-          console.log('subs for fe4edback', { res });
-          setSubmissions(res);
-        })
-        .catch((err) => {
-          console.log({ err });
-          setError('There are no user submissions for feedback.');
-        });
+      getSubmissionsForFeedback(rumble.id, user.id);
     }
   }, [rumble, user]);
 
@@ -35,7 +31,7 @@ const PeerFeedbackContainer = (): React.ReactElement => {
       student={user}
     />
   ) : error ? (
-    <CouldNotLoad error={error} />
+    <CouldNotLoad error={error.message} />
   ) : (
     <Loader message={'Loading Feedback'} />
   );
