@@ -34,7 +34,7 @@ const RumbleStudentCard = ({
       <Table.Col>{student.firstname}</Table.Col>
       <Table.Col className="status">
         {student.submissions.length > 0 ? (
-          <button onClick={openSubmission}>View</button>
+          <button onClick={openSubmission}>Open</button>
         ) : (
           'Incomplete'
         )}
