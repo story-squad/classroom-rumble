@@ -12,25 +12,16 @@
       align-items: center;
       flex-direction: column;
       justify-content: center;
-      h2 {
-        width: 100%;
-        text-align: left;
-        font-size: 2rem;
-        color: $c-grey-40;
-        margin-bottom: 1.5rem;
-        font-weight: 600;
-        text-transform: uppercase;
-      }
       img {
         cursor: pointer;
         width: 100%;
         @include bp($tablet) {
-          width: 30rem;
+          width: 25rem;
         }
       }
       a {
-        margin-top: 2rem;
-        font-size: 1.2em;
+        margin-top: 1.5rem;
+        font-size: 1.1em;
         font-weight: 500;
         cursor: pointer;
         color: $primary-base;
