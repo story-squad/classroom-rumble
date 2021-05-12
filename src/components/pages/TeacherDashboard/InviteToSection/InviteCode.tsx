@@ -17,12 +17,7 @@ const InviteCode = ({
             Pick a Different Class
           </Button>
         )}
-        <Button
-          type="primary"
-          // loading={true}
-          spinnerSize={20}
-          onClick={clipboard.copy}
-        >
+        <Button type="primary" onClick={clipboard.copy}>
           Click To Copy
         </Button>
       </div>
