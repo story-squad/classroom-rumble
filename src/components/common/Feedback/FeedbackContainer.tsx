@@ -51,9 +51,9 @@ const FeedbackContainer = ({
 
     setAverages({
       // This averages all the scores and sets them to state
-      score1: parseFloat((totals.score1 / feedback.length).toFixed(2)),
-      score2: parseFloat((totals.score2 / feedback.length).toFixed(2)),
-      score3: parseFloat((totals.score3 / feedback.length).toFixed(2)),
+      score1: parseFloat((totals.score1 / feedback.length).toFixed(1)),
+      score2: parseFloat((totals.score2 / feedback.length).toFixed(1)),
+      score3: parseFloat((totals.score3 / feedback.length).toFixed(1)),
     });
   }, [feedback]);
 
