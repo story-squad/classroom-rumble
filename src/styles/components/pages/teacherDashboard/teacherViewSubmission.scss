@@ -1,0 +1,11 @@
+.teacher-view-submission {
+  .feedback-wrapper {
+    border-radius: 0;
+    background-color: $w-grey-05;
+    .feedback-content-wrapper .feedback-container .table-header {
+      @include bp(tablet) {
+        background-color: $w-grey-10;
+      }
+    }
+  }
+}
