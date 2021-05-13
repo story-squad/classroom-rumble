@@ -134,12 +134,6 @@ const SubmissionForm = (): React.ReactElement => {
         rules={{
           validate: {
             isChecked: (value) => value,
-            // (value) => {
-            //   return userInfo?.isValidated
-            //     ? value
-            //     : 'modal pop up needs to be here';
-            // },
-            // (value) => value || 'You must get your parents approval',
           },
         }}
       />
@@ -154,8 +148,5 @@ const SubmissionForm = (): React.ReactElement => {
     </div>
   );
 };
-
-// const [parentValidationOpen, setParentValidationOpen] = useState(false);
-// const openParentValidationModal = () => setParentValidationOpen(true);
 
 export default SubmissionForm;
