@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Submissions } from '../../../../../../api';
 import activeUpload from '../../../../../../assets/img/active_upload.svg';
-import { current } from '../../../../../../state';
+import { auth, current } from '../../../../../../state';
 import { upload } from '../../../../../../utils';
-import { Checkbox } from '../../../../../common';
+import { Button, Checkbox } from '../../../../../common';
 /**
  * Submission Form allows students to submit an image to the rumble they are currenly in.
  */
@@ -14,6 +14,8 @@ const SubmissionForm = (): React.ReactElement => {
   const { errors, register } = useForm({
     mode: 'onChange',
   });
+
+  const userInfo = useRecoilValue(auth.user);
 
   // Recoil State for user submissions
   const [file, setFile] = useState<File>();
@@ -122,13 +124,21 @@ const SubmissionForm = (): React.ReactElement => {
         }
         errors={errors}
         register={register}
+        disabled={userInfo?.isValidated ? false : true}
         rules={{
           validate: {
-            isChecked: (value) => value || 'You must get your parents approval',
+            isChecked: (value) => value,
+            // (value) => {
+            //   return userInfo?.isValidated
+            //     ? value
+            //     : 'modal pop up needs to be here';
+            // },
+            // (value) => value || 'You must get your parents approval',
           },
         }}
       />
-
+      {/* TODO: Button needs all it's info - onChange modal pop up? */}
+      {!userInfo?.isValidated && <Button>Get Parent Permission</Button>}
       {complete && (
         // Once the submission is done, show a button.
         <div className="success">Submission successful!</div>
