@@ -1,6 +1,6 @@
 import React from 'react';
 import { Sections } from '../../../api';
-import { Loader } from '../../common';
+import { Loader, WelcomeModal } from '../../common';
 import { PromptQueueDisplay } from './PromptQueueDisplay';
 import { TeacherDashboardRumbleList } from './TeacherDashboardRumbleList';
 import { TeacherDashboardSectionList } from './TeacherDashboardSectionList';
@@ -10,6 +10,7 @@ const RenderTeacherDashboard = ({
 }: IRenderTeacherDashboardProps): React.ReactElement => {
   return (
     <div className="teacher-dashboard">
+      <WelcomeModal />
       <PromptQueueDisplay />
 
       {sectionList ? (
