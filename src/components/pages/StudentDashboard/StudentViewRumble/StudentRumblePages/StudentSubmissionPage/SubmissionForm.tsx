@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Submissions } from '../../../../../../api';
 import activeUpload from '../../../../../../assets/img/active_upload.svg';
 import { current } from '../../../../../../state';
 import { upload } from '../../../../../../utils';
+import { Checkbox } from '../../../../../common';
 /**
  * Submission Form allows students to submit an image to the rumble they are currenly in.
  */
 
 const SubmissionForm = (): React.ReactElement => {
+  const { errors, register } = useForm({
+    mode: 'onChange',
+  });
+
   // Recoil State for user submissions
   const [file, setFile] = useState<File>();
   const [preview, setPreview] = useState<string>();
@@ -105,6 +111,23 @@ const SubmissionForm = (): React.ReactElement => {
           )}
         </form>
       </div>
+
+      <Checkbox
+        id="termsCheckbox"
+        name="termsCheckbox"
+        label={
+          <p className="small">
+            Would you also like to submit to our Free Daily Story Contest?
+          </p>
+        }
+        errors={errors}
+        register={register}
+        rules={{
+          validate: {
+            isChecked: (value) => value || 'You must get your parents approval',
+          },
+        }}
+      />
 
       {complete && (
         // Once the submission is done, show a button.

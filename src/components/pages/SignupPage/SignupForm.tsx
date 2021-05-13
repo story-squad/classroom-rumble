@@ -109,7 +109,10 @@ const SignupForm = ({
               // required field if the entered age is less than 13
               required: (value) => {
                 if (parseInt(watch('ageStr')) < 13)
-                  return value.length > 1 || 'Parent email is required!';
+                  return (
+                    value.length > 1 ||
+                    'Parent email is required! If a parent does not verify your \naccount, you will not be able to participate in Free Daily Story Contest. You will still be able to use the app and submit your stories to Classroom Rumble.'
+                  );
                 else return true;
               },
               // checks the email and parent email to make sure they are different
@@ -229,8 +232,8 @@ const SignupForm = ({
         placeholder="Re-enter your password"
       />
       <Checkbox
-        id="termsCheckbox"
-        name="termsCheckbox"
+        id="submitFDSCCheckbox"
+        name="submitFDSCCheckbox"
         label={
           <p className="small">
             I have read and agree to the{' '}
