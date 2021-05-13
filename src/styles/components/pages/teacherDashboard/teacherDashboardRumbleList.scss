@@ -7,6 +7,7 @@
     @include wrapped-container();
     .no-rumbles {
       display: flex;
+      align-content: end;
       flex-flow: column wrap;
       .message-text-container {
         font-size: 16px;
