@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Submissions } from '../../../../../../api';
 import activeUpload from '../../../../../../assets/img/active_upload.svg';
-import { auth, current } from '../../../../../../state';
+import { auth, current, modals } from '../../../../../../state';
 import { upload } from '../../../../../../utils';
 import { Button, Checkbox } from '../../../../../common';
+
 /**
  * Submission Form allows students to submit an image to the rumble they are currenly in.
  */
@@ -28,6 +29,11 @@ const SubmissionForm = (): React.ReactElement => {
   const currentRumble = useRecoilValue(current.rumble);
   // Ensuring the promptId is a string before it is uploaded
   const promptId = currentRumble?.promptId.toString();
+
+  const setParentValidationOpen = useSetRecoilState(
+    modals.validationModalIsOpen,
+  );
+  const openParentValidationModal = () => setParentValidationOpen(true);
 
   // On submit functionality for user stories (submissions)
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -138,7 +144,9 @@ const SubmissionForm = (): React.ReactElement => {
         }}
       />
       {/* TODO: Button needs all it's info - onChange modal pop up? */}
-      {!userInfo?.isValidated && <Button>Get Parent Permission</Button>}
+      {!userInfo?.isValidated && (
+        <Button onClick={openParentValidationModal}>hello</Button>
+      )}
       {complete && (
         // Once the submission is done, show a button.
         <div className="success">Submission successful!</div>
@@ -146,5 +154,8 @@ const SubmissionForm = (): React.ReactElement => {
     </div>
   );
 };
+
+// const [parentValidationOpen, setParentValidationOpen] = useState(false);
+// const openParentValidationModal = () => setParentValidationOpen(true);
 
 export default SubmissionForm;
