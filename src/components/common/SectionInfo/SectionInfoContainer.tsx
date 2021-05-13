@@ -25,7 +25,7 @@ const SectionInfoContainer = ({
     return x ? x.label : '';
   }, [subjectEnum, section]);
 
-  const setInviteOpen = useSetRecoilState(modals.invite.isOpen);
+  const setInviteOpen = useSetRecoilState(modals.inviteModalIsOpen);
   const openInviteModal = () => {
     setInviteOpen(true);
   };
