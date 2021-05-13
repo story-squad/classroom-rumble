@@ -46,10 +46,10 @@ const RenderTeacherDashboardSectionList = ({
           <>
             <div className="button-row">
               <Button type="secondary" onClick={openSectionModal}>
-                ADD NEW CLASS
+                Add New Class
               </Button>
               <Button type="secondary" onClick={openInviteModal}>
-                INVITE STUDENT
+                Invite Student
               </Button>
             </div>
             <div className="section-list">

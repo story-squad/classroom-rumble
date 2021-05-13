@@ -6,10 +6,12 @@
 
   background-color: $primary-base;
   border-radius: 50px;
-  padding: 1rem 7rem;
+  padding: 2rem 7rem;
 
   color: $white;
   text-align: center;
+
+  font-family: $button-font;
   font-size: 15px;
   font-weight: bold;
   letter-spacing: 1.25px;
@@ -29,7 +31,6 @@
     border: $c-grey-40 solid 1px;
     color: $c-grey-40;
     background-color: $w-grey-10;
-    padding: 1rem 7rem;
   }
 
   &.primary-with-arrow {
