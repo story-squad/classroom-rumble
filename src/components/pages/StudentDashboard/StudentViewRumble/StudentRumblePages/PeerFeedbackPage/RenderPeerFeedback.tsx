@@ -49,6 +49,7 @@ const RenderPeerFeedback = ({
                   key={submission.id}
                   submission={submission}
                   subNumber={index + 1}
+                  storyAmount={submissions.length}
                 />
               ))}
               <div className="button-area">

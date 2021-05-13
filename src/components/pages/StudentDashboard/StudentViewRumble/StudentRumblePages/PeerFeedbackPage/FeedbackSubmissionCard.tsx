@@ -6,12 +6,16 @@ import FeedbackForm from './FeedbackForm';
 const FeedbackSubmissionCard = ({
   submission,
   subNumber,
+  storyAmount,
 }: IFeedbackSubmissionCardProps): React.ReactElement => {
   // TODO use victor's submission component
   return (
     <div className="feedback-submission-card">
       <div className="card-content">
-        <Submission title={`Story #${subNumber}`} submission={submission} />
+        <Submission
+          title={`Story ${subNumber} of ${storyAmount}`}
+          submission={submission}
+        />
         <FeedbackForm subNumber={subNumber} />
       </div>
     </div>
@@ -19,6 +23,7 @@ const FeedbackSubmissionCard = ({
 };
 
 interface IFeedbackSubmissionCardProps {
+  storyAmount: number;
   submission: Submissions.ISubItem;
   subNumber: number;
 }
