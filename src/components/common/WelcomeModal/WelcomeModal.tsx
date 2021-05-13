@@ -1,28 +1,36 @@
 import React, { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { auth } from '../../../state';
+import { Modal } from '../Modal';
+import WelcomeMessage from './WelcomeMessage';
+import { IWelcomeModalProps } from './welcomeModalTypes';
 
-const WelcomeModal = (): React.ReactElement => {
+const WelcomeModal = ({
+  isTeacher,
+}: IWelcomeModalProps): React.ReactElement => {
   const [isChecked, setIsChecked] = useState(false);
-  const [isShowing, setIsShowing] = useState(true);
+  const [isVisibile, setIsVisibile] = useState(true);
+  const user = useRecoilValue(auth.user);
 
   const toggleCheck = () => {
     setIsChecked(!isChecked);
   };
-  const closePopup = () => setIsShowing(false);
+  // pass in a userID as a prop and use the user id in the local storage key if person hits the checkbox
 
-  return isShowing ? (
-    <div>
-      <p>Welcome to Classroom Rumble!</p>
-      <p>To get started, add a new class</p>
-      <div>
-        <label>
-          <input type="checkbox" checked={isChecked} onChange={toggleCheck} />{' '}
-          Don&apos;t show again
-        </label>
-        <button onClick={closePopup}>Okay</button>
-      </div>
-    </div>
-  ) : (
-    <> </>
+  return (
+    <Modal.Component
+      centered
+      visible={isVisibile}
+      setVisible={setIsVisibile}
+      component={(props) => (
+        <WelcomeMessage
+          {...props}
+          isTeacher={isTeacher}
+          isChecked={isChecked}
+          toggleCheck={toggleCheck}
+        />
+      )}
+    />
   );
 };
 
