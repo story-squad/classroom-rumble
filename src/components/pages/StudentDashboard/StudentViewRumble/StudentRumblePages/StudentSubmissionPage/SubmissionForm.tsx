@@ -131,11 +131,11 @@ const SubmissionForm = (): React.ReactElement => {
         errors={errors}
         register={register}
         disabled={userInfo?.isValidated ? false : true}
-        rules={{
-          validate: {
-            isChecked: (value) => value,
-          },
-        }}
+        // rules={{
+        //   validate: {
+        //     isChecked: (value) => value,
+        //   },
+        // }}
       />
       {!userInfo?.isValidated && (
         <Button onClick={openParentValidationModal}>
