@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilState } from 'recoil';
-import { modals } from '../../../state';
-import { Modal } from '../../common';
+import { modals } from '../../../../state';
+import { Modal } from '../../../common';
 import ParentValidationForm from './ParentValidationForm';
 
 const ParentValidationModal = (): React.ReactElement => {

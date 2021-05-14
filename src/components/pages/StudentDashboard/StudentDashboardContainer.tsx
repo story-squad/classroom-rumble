@@ -4,10 +4,10 @@ import { useRecoilValue } from 'recoil';
 import { sections } from '../../../state';
 import { Header } from '../../common';
 import { JoinSectionRedirect } from './JoinSectionRedirect';
-import ParentValidationModal from './ParentValidationModal';
 import RenderStudentDashboard from './RenderStudentDashboard';
 import { StudentViewRumble } from './StudentViewRumble';
 import { StudentViewSection } from './StudentViewSection';
+import { ParentValidationModal } from './ValidationModal';
 
 const StudentDashboardContainer = (): React.ReactElement => {
   const sectionList = useRecoilValue(sections.list);
