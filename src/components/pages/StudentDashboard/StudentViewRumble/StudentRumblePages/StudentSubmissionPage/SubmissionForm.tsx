@@ -139,7 +139,9 @@ const SubmissionForm = (): React.ReactElement => {
       />
       {/* TODO: Button needs all it's info - onChange modal pop up? */}
       {!userInfo?.isValidated && (
-        <Button onClick={openParentValidationModal}>hello</Button>
+        <Button onClick={openParentValidationModal}>
+          Request Parent Permission
+        </Button>
       )}
       {complete && (
         // Once the submission is done, show a button.
