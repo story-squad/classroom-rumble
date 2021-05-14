@@ -12,7 +12,8 @@ const WelcomeModal = ({
   const [isVisibile, setIsVisibile] = useState(false);
   const user = useRecoilValue(auth.user);
 
-  const hideWelcomeModal: string = user?.id.toString() ?? 'welcomeToken';
+  const hideWelcomeModal = `hideWelcomeModal:${user?.id}`;
+
   const get = (): boolean => !!localStorage.getItem(hideWelcomeModal);
   const set = (): void => localStorage.setItem(hideWelcomeModal, 'yes');
   const clear = (): void => localStorage.removeItem(hideWelcomeModal);
