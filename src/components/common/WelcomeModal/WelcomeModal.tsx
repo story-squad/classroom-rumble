@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { auth } from '../../../state';
 import { Modal } from '../Modal';
@@ -9,15 +9,28 @@ const WelcomeModal = ({
   isTeacher,
 }: IWelcomeModalProps): React.ReactElement => {
   const [isChecked, setIsChecked] = useState(false);
-  const [isVisibile, setIsVisibile] = useState(true);
+  const [isVisibile, setIsVisibile] = useState(false);
   const user = useRecoilValue(auth.user);
 
-  const toggleCheck = () => {
-    setIsChecked(!isChecked);
-  };
-  // pass in a userID as a prop and use the user id in the local storage key if person hits the checkbox
+  const hideWelcomeModal: string = user?.id.toString() ?? 'welcomeToken';
+  const get = (): boolean => !!localStorage.getItem(hideWelcomeModal);
+  const set = (): void => localStorage.setItem(hideWelcomeModal, 'yes');
+  const clear = (): void => localStorage.removeItem(hideWelcomeModal);
 
-  return (
+  useEffect(() => {
+    const hideWelcome = get();
+    setIsChecked(hideWelcome);
+    setIsVisibile(!hideWelcome);
+  }, [user]);
+
+  const toggleCheck = () => {
+    setIsChecked((check) => {
+      check ? clear() : set();
+      return !check;
+    });
+  };
+
+  return isVisibile ? (
     <Modal.Component
       centered
       visible={isVisibile}
@@ -31,6 +44,8 @@ const WelcomeModal = ({
         />
       )}
     />
+  ) : (
+    <> </>
   );
 };
 
