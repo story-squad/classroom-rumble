@@ -121,8 +121,8 @@ const SubmissionForm = (): React.ReactElement => {
       </div>
 
       <Checkbox
-        id="termsCheckbox"
-        name="termsCheckbox"
+        id="submitFDSCCheckbox"
+        name="submitFDSCCheckbox"
         label={
           <p className="small">
             Would you also like to submit to our Free Daily Story Contest?
@@ -138,9 +138,7 @@ const SubmissionForm = (): React.ReactElement => {
         // }}
       />
       {!userInfo?.isValidated && (
-        <Button onClick={openParentValidationModal}>
-          Request Parent Permission
-        </Button>
+        <Button onClick={openParentValidationModal}>Verify Account</Button>
       )}
       {complete && (
         // Once the submission is done, show a button.

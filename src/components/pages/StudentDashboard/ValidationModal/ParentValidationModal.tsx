@@ -15,7 +15,7 @@ const ParentValidationModal = (): React.ReactElement => {
       setVisible={setIsVisible}
       centered
       title={'Request Parent Validation'}
-      component={() => <ParentValidationForm />}
+      component={(props) => <ParentValidationForm {...props} />}
     />
   );
 };

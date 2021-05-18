@@ -14,6 +14,11 @@ const Menu = (): React.ReactElement => {
 
   return (
     <>
+      {!userInfo?.isValidated && (
+        <div onClick={openParentValidationModal}>
+          <p>Verify Account</p>
+        </div>
+      )}
       <Logout />
       {!userInfo?.isValidated && (
         <div onClick={openParentValidationModal}>

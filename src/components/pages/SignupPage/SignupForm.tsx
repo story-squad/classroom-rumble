@@ -101,7 +101,7 @@ const SignupForm = ({
         <Input
           id="parentEmail"
           name="parentEmail"
-          label="Parent Email"
+          label="Parent Email is only required if you intend to upload to Free Daily Story Contest"
           errors={errors}
           register={register}
           rules={{

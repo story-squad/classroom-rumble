@@ -1,21 +1,28 @@
 import { watch } from 'fs';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { Auth } from '../../../../api';
 import { patterns } from '../../../../config';
-import { Button, Input } from '../../../common';
+import { Button, Input, Modal } from '../../../common';
 
-const ParentValidationForm = (): React.ReactElement => {
+const ParentValidationForm = ({
+  closeModal,
+}: Modal.ModalComponentProps): React.ReactElement => {
   const { errors, register } = useForm({
     mode: 'onChange',
   });
 
-  const submitEmail = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log('something');
+  const resendEmail = async () => {
+    try {
+      await Auth.resendEmail();
+      closeModal();
+    } catch (err) {
+      console.log({ err });
+    }
   };
 
   return (
-    <form onSubmit={submitEmail}>
+    <form>
       <h2>
         You need permission from your parent to enter the Free Daily Story
         Contest. Please enter their email below
@@ -44,7 +51,10 @@ const ParentValidationForm = (): React.ReactElement => {
       />
       {/* TODO: use button's onClick not onSubmit
       Requires Endpoint to post parent email to user's account and resend validation email. */}
-      <Button>Submit</Button>
+      <Button>Send</Button>
+      <Button htmlType="button" onClick={resendEmail}>
+        Resend
+      </Button>
     </form>
   );
 };
