@@ -1,7 +1,7 @@
 import { watch } from 'fs';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { resendEmail } from '../../../../api/Auth';
+import { Auth } from '../../../../api';
 import { patterns } from '../../../../config';
 import { Button, Input, Modal } from '../../../common';
 
@@ -12,9 +12,9 @@ const ParentValidationForm = ({
     mode: 'onChange',
   });
 
-  const resend = async () => {
+  const resendEmail = async () => {
     try {
-      await resendEmail();
+      await Auth.resendEmail();
       closeModal();
     } catch (err) {
       console.log({ err });
@@ -52,7 +52,7 @@ const ParentValidationForm = ({
       {/* TODO: use button's onClick not onSubmit
       Requires Endpoint to post parent email to user's account and resend validation email. */}
       <Button>Send</Button>
-      <Button htmlType="button" onClick={resend}>
+      <Button htmlType="button" onClick={resendEmail}>
         Resend{' '}
       </Button>
     </form>
