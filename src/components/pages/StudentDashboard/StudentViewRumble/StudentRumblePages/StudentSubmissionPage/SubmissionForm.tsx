@@ -138,9 +138,7 @@ const SubmissionForm = (): React.ReactElement => {
         // }}
       />
       {!userInfo?.isValidated && (
-        <Button onClick={openParentValidationModal}>
-          Request Parent Permission
-        </Button>
+        <Button onClick={openParentValidationModal}>Verify Account</Button>
       )}
       {complete && (
         // Once the submission is done, show a button.
