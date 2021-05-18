@@ -53,7 +53,7 @@ const ParentValidationForm = ({
       Requires Endpoint to post parent email to user's account and resend validation email. */}
       <Button>Send</Button>
       <Button htmlType="button" onClick={resendEmail}>
-        Resend{' '}
+        Resend
       </Button>
     </form>
   );
