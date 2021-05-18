@@ -1,5 +1,5 @@
 import React from 'react';
-import ufo_cow from '../../../assets/img/alien.svg';
+import ufo_cow from '../../../assets/img/Alien.svg';
 /**
  * Could Not Load will help us render consistent error messages throughout the application.
  * @param error The error the be loaded for the component, which in our case will be a message.

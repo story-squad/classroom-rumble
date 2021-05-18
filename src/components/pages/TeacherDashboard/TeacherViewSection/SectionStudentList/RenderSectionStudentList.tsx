@@ -10,7 +10,7 @@ const RenderSectionStudentList = ({
   studentList,
   section,
 }: IRenderSectionStudentListProps): React.ReactElement => {
-  const setInviteModalOpen = useSetRecoilState(modals.invite.isOpen);
+  const setInviteModalOpen = useSetRecoilState(modals.inviteModalIsOpen);
   const openInviteModal = () => setInviteModalOpen(true);
   console.log(studentList);
 

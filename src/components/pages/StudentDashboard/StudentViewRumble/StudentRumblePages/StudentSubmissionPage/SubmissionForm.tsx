@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useForm } from 'react-hook-form';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Submissions } from '../../../../../../api';
 import activeUpload from '../../../../../../assets/img/active_upload.svg';
-import { current } from '../../../../../../state';
+import { auth, current, modals } from '../../../../../../state';
 import { upload } from '../../../../../../utils';
+import { Button, Checkbox } from '../../../../../common';
+
 /**
  * Submission Form allows students to submit an image to the rumble they are currenly in.
  */
 
 const SubmissionForm = (): React.ReactElement => {
+  const { errors, register } = useForm({
+    mode: 'onChange',
+  });
+
+  const userInfo = useRecoilValue(auth.user);
+
   // Recoil State for user submissions
   const [file, setFile] = useState<File>();
   const [preview, setPreview] = useState<string>();
@@ -20,6 +29,11 @@ const SubmissionForm = (): React.ReactElement => {
   const currentRumble = useRecoilValue(current.rumble);
   // Ensuring the promptId is a string before it is uploaded
   const promptId = currentRumble?.promptId.toString();
+
+  const setParentValidationOpen = useSetRecoilState(
+    modals.validationModalIsOpen,
+  );
+  const openParentValidationModal = () => setParentValidationOpen(true);
 
   // On submit functionality for user stories (submissions)
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -106,6 +120,28 @@ const SubmissionForm = (): React.ReactElement => {
         </form>
       </div>
 
+      <Checkbox
+        id="termsCheckbox"
+        name="termsCheckbox"
+        label={
+          <p className="small">
+            Would you also like to submit to our Free Daily Story Contest?
+          </p>
+        }
+        errors={errors}
+        register={register}
+        disabled={userInfo?.isValidated ? false : true}
+        // rules={{
+        //   validate: {
+        //     isChecked: (value) => value,
+        //   },
+        // }}
+      />
+      {!userInfo?.isValidated && (
+        <Button onClick={openParentValidationModal}>
+          Request Parent Permission
+        </Button>
+      )}
       {complete && (
         // Once the submission is done, show a button.
         <div className="success">Submission successful!</div>
