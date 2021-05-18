@@ -1,4 +1,4 @@
-import { axiosWithoutAuth } from '../axiosWithConfig';
+import { axiosWithAuth, axiosWithoutAuth } from '../axiosWithConfig';
 import {
   IAuthResponse,
   ILoginBody,
@@ -32,4 +32,8 @@ export const formatSignupBody = (formData: SignupFormState): ISignUpBody => {
     codename: formData.codename,
     age,
   };
+};
+
+export const resendEmail = async (): Promise<void> => {
+  await axiosWithAuth().put('api/auth/activation');
 };
