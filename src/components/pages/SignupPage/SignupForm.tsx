@@ -229,8 +229,8 @@ const SignupForm = ({
         placeholder="Re-enter your password"
       />
       <Checkbox
-        id="submitFDSCCheckbox"
-        name="submitFDSCCheckbox"
+        id="termsCheckbox"
+        name="termsCheckbox"
         label={
           <p className="small">
             I have read and agree to the{' '}

@@ -121,8 +121,8 @@ const SubmissionForm = (): React.ReactElement => {
       </div>
 
       <Checkbox
-        id="termsCheckbox"
-        name="termsCheckbox"
+        id="submitFDSCCheckbox"
+        name="submitFDSCCheckbox"
         label={
           <p className="small">
             Would you also like to submit to our Free Daily Story Contest?
