@@ -59,8 +59,4 @@ const ParentValidationForm = ({
   );
 };
 
-// interface IValidationProps {
-//   setIsVisible: React.Dispatch<boolean>;
-// }
-
 export default ParentValidationForm;
