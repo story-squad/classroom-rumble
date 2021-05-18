@@ -63,10 +63,17 @@ const StudentRumble = ({
           </div>
         )}
       </div>
-      {status !== 'Scheduled' && (
+      {status === 'Active' && (
         <div className="button-container">
-          <Button type="secondary" onClick={openRumble}>
-            {rumbleInfo.end_time ? 'View Rumble' : 'View Details'}
+          <Button type="primary-with-arrow" onClick={openRumble}>
+            View Rumble
+          </Button>
+        </div>
+      )}
+      {status === 'Complete' && (
+        <div className="button-container">
+          <Button type="secondary-with-arrow" onClick={openRumble}>
+            View Details
           </Button>
         </div>
       )}
