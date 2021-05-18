@@ -6,7 +6,7 @@ import WelcomeMessage from './WelcomeMessage';
 import { IWelcomeModalProps } from './welcomeModalTypes';
 
 const WelcomeModal = ({
-  isTeacher,
+  isTeacher = false,
 }: IWelcomeModalProps): React.ReactElement => {
   const [isChecked, setIsChecked] = useState(false);
   const [isVisibile, setIsVisibile] = useState(false);

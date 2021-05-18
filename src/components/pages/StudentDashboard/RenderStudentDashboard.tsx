@@ -10,7 +10,7 @@ const RenderStudentDashboard = ({
 }: IRenderStudentDashboardProps): React.ReactElement => {
   return (
     <div className="student-dashboard">
-      <WelcomeModal isTeacher={false} />
+      <WelcomeModal />
       {sectionList ? (
         <>
           <StudentDashboardRumbleList sections={sectionList} />

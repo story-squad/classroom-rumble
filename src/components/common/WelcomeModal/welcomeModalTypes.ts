@@ -1,3 +1,3 @@
 export interface IWelcomeModalProps {
-  isTeacher: boolean;
+  isTeacher?: boolean;
 }

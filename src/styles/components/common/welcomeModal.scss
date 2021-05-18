@@ -1,7 +1,10 @@
 .welcome-container {
+  text-align: center;
   .welcome-message {
-    padding: 2rem 2rem;
-    margin: 0 7rem;
+    padding: 2rem;
+    @include bp(tablet) {
+      padding: 2rem 9rem;
+    }
     font-size: 2rem;
     line-height: 3rem;
   }
