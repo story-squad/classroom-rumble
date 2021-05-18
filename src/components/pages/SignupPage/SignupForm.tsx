@@ -101,7 +101,7 @@ const SignupForm = ({
         <Input
           id="parentEmail"
           name="parentEmail"
-          label="Parent Email"
+          label="Parent Email is only required if you intend to upload to Free Daily Story Contest"
           errors={errors}
           register={register}
           rules={{
@@ -109,10 +109,7 @@ const SignupForm = ({
               // required field if the entered age is less than 13
               required: (value) => {
                 if (parseInt(watch('ageStr')) < 13)
-                  return (
-                    value.length > 1 ||
-                    'Parent email is required! If a parent does not verify your \naccount, you will not be able to participate in Free Daily Story Contest. You will still be able to use the app and submit your stories to Classroom Rumble.'
-                  );
+                  return value.length > 1 || 'Parent email is required!';
                 else return true;
               },
               // checks the email and parent email to make sure they are different
