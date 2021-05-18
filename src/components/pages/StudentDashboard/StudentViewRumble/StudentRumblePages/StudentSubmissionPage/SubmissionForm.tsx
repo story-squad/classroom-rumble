@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useToasts } from 'react-toast-notifications';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Submissions } from '../../../../../../api';
 import activeUpload from '../../../../../../assets/img/active_upload.svg';
@@ -9,10 +10,11 @@ import { upload } from '../../../../../../utils';
  */
 
 const SubmissionForm = (): React.ReactElement => {
+  // Error handling toast notifications
+  const { addToast } = useToasts();
   // Recoil State for user submissions
   const [file, setFile] = useState<File>();
   const [preview, setPreview] = useState<string>();
-  const [error, setError] = useState<string>();
   const [loading, setLoading] = useState(false);
   const [complete, setComplete] = useRecoilState(current.hasSubmitted);
 
@@ -25,7 +27,7 @@ const SubmissionForm = (): React.ReactElement => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!file) {
-      setError('No image selected!');
+      addToast('No image selected!', { appearance: 'error' });
     } else {
       setLoading(true);
       try {
@@ -45,13 +47,18 @@ const SubmissionForm = (): React.ReactElement => {
           });
         setComplete(true);
       } catch (err) {
+        let message: string;
         if (err?.response?.data?.error) {
-          if (err.response.data.error === 'Transcription error')
-            setError('Picture must be of written text');
-          else setError(err.response.data.error);
+          // Am not sure how to test this if we even can at the moment
+          if (err.response.data.error === 'Transcription error') {
+            message = 'Picture must be of written text';
+          } else {
+            message = err.response.data.error;
+          }
         } else {
-          setError('An error occurred. Try again later');
+          message = 'An error occurred. Try again later';
         }
+        addToast(message, { appearance: 'error' });
       }
       setLoading(false);
     }
@@ -63,9 +70,8 @@ const SubmissionForm = (): React.ReactElement => {
       const selection = fileList[0];
       if (selection) {
         if (!upload.isValidImage(selection)) {
-          setError('Upload must be an image!');
+          addToast('Upload must be an image!', { appearance: 'error' });
         } else {
-          setError(undefined);
           setFile(selection);
           setPreview(URL.createObjectURL(selection));
         }
@@ -85,7 +91,6 @@ const SubmissionForm = (): React.ReactElement => {
               </div>
             </div>
           )}
-          {error && <div className="error">{error}</div>}
           {!complete && (
             // If the submission hasn't been processed successfully
             <>
