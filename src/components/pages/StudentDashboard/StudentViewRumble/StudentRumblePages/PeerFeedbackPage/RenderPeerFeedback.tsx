@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { Auth, Sections, Submissions } from '../../../../../../api';
-import { PromptBox, SectionInfo } from '../../../../../common';
+import { Button, PromptBox, SectionInfo } from '../../../../../common';
 import FeedbackSubmissionCard from './FeedbackSubmissionCard';
 
 const RenderPeerFeedback = ({
@@ -49,15 +49,13 @@ const RenderPeerFeedback = ({
                   key={submission.id}
                   submission={submission}
                   subNumber={index + 1}
+                  storyAmount={submissions.length}
                 />
               ))}
               <div className="button-area">
-                <button
-                  className="submit-form-button"
-                  disabled={!methods.formState.isValid}
-                >
-                  SUBMIT FEEDBACK
-                </button>
+                <Button disabled={!methods.formState.isValid}>
+                  Submit Feedback
+                </Button>
               </div>
             </form>
           </div>

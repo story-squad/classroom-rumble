@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { ToastProvider } from 'react-toast-notifications';
 import { RecoilRoot } from 'recoil';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -15,7 +16,13 @@ ReactDOM.render(
     <RecoilRoot>
       <Router>
         <HelmetProvider>
-          <App />
+          <ToastProvider
+            placement="bottom-center"
+            autoDismiss
+            autoDismissTimeout={5000}
+          >
+            <App />
+          </ToastProvider>
         </HelmetProvider>
       </Router>
     </RecoilRoot>

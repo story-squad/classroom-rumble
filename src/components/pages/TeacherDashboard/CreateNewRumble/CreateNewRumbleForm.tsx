@@ -4,6 +4,7 @@ import 'rc-time-picker/assets/index.css';
 import React, { useMemo } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Prompts, Rumbles } from '../../../../api';
 import { useAsync } from '../../../../hooks';
@@ -15,15 +16,10 @@ const CreateNewRumbleForm = ({
   prompt,
 }: ICreateNewRumbleFormProps): React.ReactElement => {
   // Functional Hooks
-  const {
-    errors,
-    register,
-    handleSubmit,
-    control,
-    setError,
-    clearErrors,
-  } = useForm();
+  const { errors, register, handleSubmit, control, clearErrors } = useForm();
   const { push } = useHistory();
+
+  const { addToast } = useToasts();
 
   // Subscribe to state
   const sectionList = useRecoilValue(sections.list);
@@ -54,6 +50,7 @@ const CreateNewRumbleForm = ({
           idList,
         );
         addRumbles(res);
+        addToast('Successfuly Created a Rumble!', { appearance: 'success' });
         clearErrors();
         push('/dashboard/teacher');
       }
@@ -65,19 +62,14 @@ const CreateNewRumbleForm = ({
       } else {
         message = 'An unknown error occurred. Please try again.';
       }
-
       if (message === 'Invalid or missing fields in body: sectionIds') {
-        setError('sectionIds', {
-          type: 'required',
-          message: 'Please select a class',
-        });
-      } else {
-        throw new Error(message);
+        message = 'Please select a class';
       }
+      addToast(message, { appearance: 'error' });
     }
   };
 
-  const [executeSubmit, loading, , error] = useAsync({
+  const [executeSubmit, loading, ,] = useAsync({
     asyncFunction: handleSubmit(onSubmit),
   });
 
@@ -112,7 +104,6 @@ const CreateNewRumbleForm = ({
           )}
         />
       </div>
-      {error && <div className="errors">{error.message}</div>}
       <div className="button-row">
         <Button htmlType="button" type="secondary" onClick={goBack}>
           Cancel
@@ -123,7 +114,7 @@ const CreateNewRumbleForm = ({
           onClick={() => clearErrors()}
           loading={loading}
         >
-          Create
+          Start Rumble
         </Button>
       </div>
     </form>
