@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
 import blue_arrow from '../../../assets/img/blue_button_arrow.svg';
 import white_arrow from '../../../assets/img/white_button_arrow.svg';
@@ -11,9 +11,24 @@ const Button = ({
   children,
   ...props
 }: React.PropsWithChildren<IButtonProps>): React.ReactElement => {
-  //   const [state, setState] = useState({ loading: false });
+  const [size, setSize] = useState<string>();
+  const [color, setColor] = useState<string>();
+  const button = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (button.current) {
+      const style = window.getComputedStyle(button.current);
+      if (style) {
+        console.log('hit', style.fontSize, style.height);
+        setSize((prev) => style.fontSize ?? style.height ?? prev);
+        setColor((prev) => style.color ?? prev);
+      }
+    }
+  }, [loading]);
+
   return (
     <button
+      ref={button}
       onClick={onClick}
       className={`button ${type}`}
       type={htmlType}
@@ -22,16 +37,15 @@ const Button = ({
       {!loading ? (
         <>
           {children}
-          {type === 'secondary-with-arrow' ? (
+          {type === 'secondary-with-arrow' && (
             <img src={blue_arrow} alt="button arrow" />
-          ) : type === 'primary-with-arrow' ? (
+          )}
+          {type === 'primary-with-arrow' && (
             <img src={white_arrow} alt="button arrow" />
-          ) : (
-            <></>
           )}
         </>
       ) : (
-        <ClipLoader />
+        <ClipLoader size={size} color={color} />
       )}
     </button>
   );

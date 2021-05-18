@@ -1,24 +1,67 @@
 .button {
-  &.default {
-    @include button();
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  display: block;
+
+  background-color: $primary-base;
+  border-radius: 50px;
+  padding: 2rem 7rem;
+
+  color: $white;
+  text-align: center;
+
+  font-family: $button-font;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 1.25px;
+  line-height: 15px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    background-color: darken($primary-base, 5%);
+    transition: all 0.2s ease-in-out;
   }
-  &.primary {
-    @include button();
+
+  &:disabled {
+    cursor: not-allowed;
+    border: $c-grey-40 solid 1px;
+    color: $c-grey-40;
+    background-color: $w-grey-10;
   }
+
   &.primary-with-arrow {
-    @include button();
     display: flex;
     justify-content: center;
     align-items: center;
+
+    line-height: 11px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
     img {
       margin-left: 0.5rem;
     }
   }
-  &.secondary {
-    @include button-alt();
-  }
+
+  &.secondary,
   &.secondary-with-arrow {
-    @include button-alt();
+    background: $white;
+    color: $primary-base;
+    border: 1px solid $primary-base;
+
+    &:hover {
+      background-color: fade-out($primary-base, 0.95);
+    }
+  }
+
+  &.secondary-with-arrow {
+    line-height: 11px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+
     justify-content: center;
     display: flex;
     align-items: center;
@@ -26,7 +69,18 @@
       margin-left: 0.5rem;
     }
   }
+
   &.text {
-    @include text-button($primary-base);
+    border: none;
+    background: none;
+    padding: 0;
+    color: $primary-base;
+    cursor: pointer;
+    transition: all 0.1s ease-in;
+    &:active,
+    &:hover {
+      color: fade-out($primary-base, 0.25);
+      transition: all 0.1s ease-in;
+    }
   }
 }
