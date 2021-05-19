@@ -12,12 +12,12 @@
       align-items: center;
       flex-direction: column;
       justify-content: center;
+      h2 {
+        padding-left: 0rem;
+      }
       img {
         cursor: pointer;
         width: 100%;
-        @include bp($tablet) {
-          width: 25rem;
-        }
       }
       a {
         margin-top: 1.5rem;
