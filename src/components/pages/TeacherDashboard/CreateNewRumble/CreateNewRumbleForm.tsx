@@ -55,7 +55,10 @@ const CreateNewRumbleForm = ({
       startDateStamp.slice(0, startDateStamp.indexOf('T')) +
         startTimeStamp.slice(startTimeStamp.indexOf('T')),
     );
-
+    if (startTime < new Date()) {
+      console.log('hey');
+      throw new Error('Rumble can not start in the past');
+    }
     console.log({
       startTime: startTime.toLocaleString(),
       startTimeStamp,
@@ -70,7 +73,7 @@ const CreateNewRumbleForm = ({
     //       rumble: {
     //         numMinutes,
     //         promptId: prompt.id,
-    //         start_time: startingTimestamp as Date, // casting as Date
+    //         start_time: startTime, // casting as Date
     //       },
     //       teacherId: user.id,
     //       sectionIds: idList,

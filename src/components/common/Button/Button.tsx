@@ -19,7 +19,7 @@ const Button = ({
     if (button.current) {
       const style = window.getComputedStyle(button.current);
       if (style) {
-        console.log('hit', style.fontSize, style.height);
+        // console.log('hit', style.fontSize, style.height);
         setSize((prev) => style.fontSize ?? style.height ?? prev);
         setColor((prev) => style.color ?? prev);
       }
