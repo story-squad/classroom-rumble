@@ -51,8 +51,9 @@ const CreateNewRumbleForm = ({
       startDateStamp.slice(0, startDateStamp.indexOf('T')) +
         startTimeStamp.slice(startTimeStamp.indexOf('T')),
     );
+
     if (startTime < new Date()) {
-      console.log('hey');
+      addToast('Rumble can not start in the past', { appearance: 'error' });
       throw new Error('Rumble can not start in the past');
     }
 
