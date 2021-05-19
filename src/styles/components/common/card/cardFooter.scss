@@ -1,0 +1,35 @@
+.card-footer {
+  // Footer Styling
+  padding: 0.6rem 1.2rem;
+  border-top: 1px solid #d9dee2;
+
+  // Content Styling
+  // Add space between multiple elements
+  :not(:last-of-type) {
+    margin-left: 0.4rem;
+  }
+
+  // Style Overrides
+  &.hide-divider {
+    border-top: 0;
+  }
+  &.right-align {
+    display: flex;
+    flex-flow: row-reverse nowrap;
+    justify-content: flex-start;
+  }
+}
+
+// Hide the top padding if .card-footer is right after a .card-body
+// in the DOM and also has the .hideDivider class
+.card-body + .card-footer.hide-divider {
+  padding-top: 0;
+  padding-bottom: 1rem;
+}
+
+// If the footer is the first and last element, reduce the side spacing
+.top-right + .card-footer:last-child,
+.card-footer:first-child:last-child {
+  border-top: none;
+  padding: 0.6rem;
+}

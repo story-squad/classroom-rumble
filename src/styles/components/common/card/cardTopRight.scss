@@ -1,0 +1,9 @@
+.top-right {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 11;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

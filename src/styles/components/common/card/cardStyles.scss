@@ -1,0 +1,40 @@
+.card {
+  font-family: sans-serif;
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+
+  border-radius: 1rem;
+  background-color: white;
+  border: 1px solid #d9dee2;
+  margin-bottom: 1rem;
+
+  @import './cardHeader.scss';
+  @import './cardBody.scss';
+  @import './cardFooter.scss';
+  @import './cardTopRight.scss';
+  @import './cardMenu.scss';
+}
+
+// Suggested Styles
+.card .card-header h2 {
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+}
+.card .top-right svg {
+  padding: 0.5rem;
+}
+.card .card-body p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 18px;
+}
+.card .card-footer {
+  font-size: 0.8rem;
+  line-height: 0.9rem;
+
+  // Hack??
+  .button {
+    padding: 0.7rem 2rem;
+  }
+}

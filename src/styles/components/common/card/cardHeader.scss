@@ -1,0 +1,38 @@
+.card-header {
+  // Header Styling
+  position: relative;
+  padding: 0.8rem 1.2rem;
+  border-bottom: 1px solid #d9dee2;
+
+  // Content Styling
+  h2 {
+    flex-grow: 1;
+    width: 100%;
+    margin: 0;
+  }
+
+  // Style Overrides
+  &.hide-divider {
+    // If the divider is hidden, remove the bot padding and the border
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  &:last-child {
+    /**
+     * When the .card-header is the last child, AKA when it's
+     * the only element on the card, make sure it has padding
+     * and no border!
+     */
+    border-bottom: none;
+    padding-bottom: 0.8rem;
+  }
+}
+
+/**
+ * HACK?
+ * Handles spacing when there is a .card-footer with a hidden divider 
+ * but not a .card-body by adding a top margin to the .card-footer
+ */
+.card-header.hide-divider + .card-footer {
+  margin-top: 0.8rem;
+}

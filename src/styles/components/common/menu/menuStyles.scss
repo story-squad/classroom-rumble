@@ -1,0 +1,116 @@
+.menu {
+  // Style Overrides
+  $container-padding: 0.5rem 1.6rem;
+  $arrow-size: 6px;
+
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 2px 8px #0003;
+  border-radius: 5px;
+  z-index: 10;
+  text-align: left;
+
+  h2 {
+    padding: $container-padding;
+    border-bottom: 1px solid #d9dee2;
+    &:last-child {
+      text-align: center;
+      border-bottom: none;
+    }
+  }
+
+  .menu-list {
+    padding: $container-padding;
+    // All of the menu items except the last one in a container get bottom margin
+    .menu-item:not(:last-of-type) {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  &.right {
+    top: 0;
+    left: 100%;
+    margin-left: $arrow-size;
+
+    h2 {
+      white-space: nowrap;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      right: 100%;
+      top: 0.7rem;
+      width: 0;
+      border-right: $arrow-size solid white;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+    }
+  }
+
+  &.left {
+    top: 0;
+    right: 100%;
+    margin-right: $arrow-size;
+
+    h2 {
+      white-space: nowrap;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 100%;
+      top: 0.7rem;
+      width: 0;
+      border-left: $arrow-size solid white;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+    }
+  }
+
+  &.bottom {
+    // This is an example of how to center the menu!
+    // You should override this in your own css!
+    // If you don't want the menus centered, unset
+    $width: 100%;
+    $left: (100% - $width) / 2;
+    width: $width;
+    left: $left;
+
+    top: 100%;
+    margin-top: $arrow-size;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 48%;
+      bottom: 100%;
+      height: 0;
+      border-bottom: $arrow-size solid white;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+    }
+  }
+
+  &.top {
+    $width: 100%;
+    $left: (100% - $width) / 2;
+    width: $width;
+    left: $left;
+
+    bottom: 100%;
+    margin-bottom: $arrow-size;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 48%;
+      top: 100%;
+      height: 0;
+      border-top: $arrow-size solid white;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+    }
+  }
+}

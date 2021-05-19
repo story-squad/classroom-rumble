@@ -1,0 +1,54 @@
+.card-menu {
+  .card-menu-button {
+    border-radius: 5px;
+    z-index: 11;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    transition: all 0.1s ease-in;
+    &:hover,
+    &.open {
+      transition: all 0.1s ease-in;
+      background-color: #eee;
+    }
+    &.open:hover {
+      background-color: #e9e9e9;
+    }
+  }
+
+  .menu {
+    right: 2.8rem;
+    /* border: 1px solid #9999; */
+    width: 50%;
+
+    h2 {
+      font-size: 14px;
+      line-height: 22px;
+      font-weight: 400;
+      padding: 5px 16px;
+      margin: 0;
+      text-align: left;
+      color: #262626;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .menu-list {
+      padding: 5px 16px;
+      .menu-item {
+        p {
+          margin: 0;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          cursor: pointer;
+          font-size: 14px;
+          line-height: 22px;
+          font-weight: 400;
+          color: #5872ff;
+        }
+      }
+    }
+  }
+}

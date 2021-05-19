@@ -1,4 +1,5 @@
 export { Button } from './Button';
+export { Card } from './Card';
 export { Checkbox } from './Checkbox';
 export { CheckboxGroup } from './CheckboxGroup';
 export { CleverButton } from './CleverButton';
