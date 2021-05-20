@@ -1,4 +1,5 @@
 .modal-wrapper {
+  @import './ParentValidationForm.scss';
   .modal {
     &.parent-validation {
       .modal-header {
