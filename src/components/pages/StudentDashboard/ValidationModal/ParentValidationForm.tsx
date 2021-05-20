@@ -46,11 +46,12 @@ const ParentValidationForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(sendEmail)}>
-      <h2>
+    <form className="parent-validation-form" onSubmit={handleSubmit(sendEmail)}>
+      <p>
         You need permission from your parent to enter the Free Daily Story
-        Contest. Please enter their email below
-      </h2>
+        Contest.
+      </p>
+      <p className="p-instructions">Please enter their email below</p>
       <Input
         label="Age"
         name="ageStr"
@@ -64,12 +65,12 @@ const ParentValidationForm = ({
         }}
       />
       <Input
-        label="Email"
+        label="Parent/Guardian Email"
         name="newEmail"
         register={register}
         id="newEmail"
         errors={errors}
-        placeholder="Enter new email for validation"
+        placeholder="example@email.com"
         rules={{
           pattern: {
             value: patterns.emailRegex,
@@ -77,10 +78,12 @@ const ParentValidationForm = ({
           },
         }}
       />
-      <Button>Send</Button>
-      <Button htmlType="button" onClick={resendEmail}>
-        Resend
-      </Button>
+      <div className="button-row">
+        <Button htmlType="button" type="secondary" onClick={resendEmail}>
+          Resend Email
+        </Button>
+        <Button>Send Email</Button>
+      </div>
     </form>
   );
 };
