@@ -1,6 +1,5 @@
-import { watch } from 'fs';
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { Auth } from '../../../../api';
 import { patterns } from '../../../../config';
 import { Button, Input, Modal } from '../../../common';
@@ -8,7 +7,7 @@ import { Button, Input, Modal } from '../../../common';
 const ParentValidationForm = ({
   closeModal,
 }: Modal.ModalComponentProps): React.ReactElement => {
-  const { errors, register } = useForm({
+  const { errors, setError, register, handleSubmit } = useForm({
     mode: 'onChange',
   });
 
@@ -21,40 +20,70 @@ const ParentValidationForm = ({
     }
   };
 
+  const sendEmail: SubmitHandler<Auth.NewEmailFormState> = async (formData) => {
+    try {
+      const data = Auth.formatSendEmailBody(formData);
+      await Auth.sendEmail(data);
+      closeModal();
+    } catch (err) {
+      console.log('err', err.response.data.message);
+
+      let message: string;
+      if (err.response?.data) {
+        message = err.response.data.message;
+      } else {
+        message = 'An unknown error occurred. Please try again.';
+      }
+      if (message === 'Underage users must send to parent email') {
+        setError('newEmail', { type: 'validate', message });
+      } else if (message === 'Cannot send another email so soon') {
+        setError('newEmail', { type: 'validate', message });
+      } else {
+        //ToDo ask about this line?
+        setError('form', { type: 'manual', message });
+      }
+    }
+  };
+
   return (
-    <form>
-      <h2>
+    <form className="parent-validation-form" onSubmit={handleSubmit(sendEmail)}>
+      <p>
         You need permission from your parent to enter the Free Daily Story
-        Contest. Please enter their email below
-      </h2>
+        Contest.
+      </p>
+      <p className="p-instructions">Please enter their email below</p>
       <Input
-        label="Parent Email"
-        name="parent email"
+        label="Age"
+        name="ageStr"
         register={register}
-        id="parent-email"
+        id="age"
         errors={errors}
-        placeholder="Enter Your Parent's Email"
+        placeholder="Enter Your Age"
         rules={{
-          validate: {
-            differentEmail: (value) => {
-              return (
-                value !== watch('email') ||
-                'Parent email must be different from your email!'
-              );
-            },
-          },
+          required: 'Age is required!',
+          validate: (value) => !!parseInt(value) || 'Age must be a number!',
+        }}
+      />
+      <Input
+        label="Parent/Guardian Email"
+        name="newEmail"
+        register={register}
+        id="newEmail"
+        errors={errors}
+        placeholder="example@email.com"
+        rules={{
           pattern: {
             value: patterns.emailRegex,
             message: 'Please enter a valid email address.',
           },
         }}
       />
-      {/* TODO: use button's onClick not onSubmit
-      Requires Endpoint to post parent email to user's account and resend validation email. */}
-      <Button>Send</Button>
-      <Button htmlType="button" onClick={resendEmail}>
-        Resend
-      </Button>
+      <div className="button-row">
+        <Button htmlType="button" type="secondary" onClick={resendEmail}>
+          Resend Email
+        </Button>
+        <Button>Send Email</Button>
+      </div>
     </form>
   );
 };
