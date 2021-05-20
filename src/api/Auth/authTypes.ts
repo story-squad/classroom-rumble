@@ -44,7 +44,6 @@ export interface ISignUpBody {
 
 export interface NewEmailFormState extends Omit<INewEmailBody, 'age'> {
   ageStr: string;
-  confirm: string;
 }
 
 export interface INewEmailBody {
