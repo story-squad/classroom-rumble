@@ -41,3 +41,13 @@ export interface ISignUpBody {
   parentEmail: string;
   age: number;
 }
+
+export interface NewEmailFormState extends Omit<INewEmailBody, 'age'> {
+  ageStr: string;
+  confirm: string;
+}
+
+export interface INewEmailBody {
+  age: number;
+  newEmail: string;
+}

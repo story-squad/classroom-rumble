@@ -2,7 +2,9 @@ import { axiosWithAuth, axiosWithoutAuth } from '../axiosWithConfig';
 import {
   IAuthResponse,
   ILoginBody,
+  INewEmailBody,
   ISignUpBody,
+  NewEmailFormState,
   SignupFormState,
 } from './authTypes';
 
@@ -36,4 +38,16 @@ export const formatSignupBody = (formData: SignupFormState): ISignUpBody => {
 
 export const resendEmail = async (): Promise<void> => {
   await axiosWithAuth().put('api/auth/activation');
+};
+
+export const sendEmail = async (data: INewEmailBody): Promise<void> => {
+  await axiosWithAuth().post('api/auth/activation', data);
+};
+
+export const formatSendEmailBody = (data: NewEmailFormState): INewEmailBody => {
+  const age = parseInt(data.ageStr);
+  return {
+    age,
+    newEmail: data.newEmail,
+  };
 };

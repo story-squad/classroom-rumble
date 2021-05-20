@@ -20,11 +20,6 @@ const Menu = (): React.ReactElement => {
         </div>
       )}
       <Logout />
-      {!userInfo?.isValidated && (
-        <div onClick={openParentValidationModal}>
-          <p>Parent Validation</p>
-        </div>
-      )}
     </>
   );
 };
