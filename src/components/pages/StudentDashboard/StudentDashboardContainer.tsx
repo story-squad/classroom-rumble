@@ -7,12 +7,14 @@ import { JoinSectionRedirect } from './JoinSectionRedirect';
 import RenderStudentDashboard from './RenderStudentDashboard';
 import { StudentViewRumble } from './StudentViewRumble';
 import { StudentViewSection } from './StudentViewSection';
+import { ParentValidationModal } from './ValidationModal';
 
 const StudentDashboardContainer = (): React.ReactElement => {
   const sectionList = useRecoilValue(sections.list);
 
   return (
     <>
+      <ParentValidationModal />
       <Header />
       <Switch>
         <Route
