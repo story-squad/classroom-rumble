@@ -8,7 +8,7 @@ import SectionPicker from './SectionPicker';
 const InviteToSection = ({
   disableSectionPicker = false,
 }: IInviteToSectionProps): React.ReactElement => {
-  const [isOpen, setIsOpen] = useRecoilState(modals.invite.isOpen);
+  const [isOpen, setIsOpen] = useRecoilState(modals.inviteModalIsOpen);
   const [currentSection, setCurrentSection] = useRecoilState(current.section);
   const clearSection = useResetRecoilState(current.section);
   const sectionList = useRecoilValue(sections.list);
