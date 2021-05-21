@@ -9,6 +9,7 @@ const RumbleComplete = (): React.ReactElement => {
   const goBack = () => {
     push('/dashboard/student');
   };
+
   return (
     <div className="rumble-complete-wrapper">
       <div className="complete-img">

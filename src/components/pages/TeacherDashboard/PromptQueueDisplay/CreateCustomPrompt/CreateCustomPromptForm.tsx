@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useToasts } from 'react-toast-notifications';
 import { useSetRecoilState } from 'recoil';
 import { Prompts } from '../../../../../api';
 import { prompts } from '../../../../../state';
@@ -10,6 +11,7 @@ const CreateCustomPromptForm = ({
 }: Modal.ModalComponentProps): React.ReactElement => {
   const { register, handleSubmit, errors } = useForm();
   const setCustomPrompts = useSetRecoilState(prompts.customList);
+  const { addToast } = useToasts();
 
   const onSubmit: SubmitHandler<Prompts.INewPrompt> = async (data) => {
     console.log(data);
@@ -23,6 +25,10 @@ const CreateCustomPromptForm = ({
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    if (errors.prompt) addToast(errors.prompt.message, { appearance: 'error' });
+  }, [errors]);
 
   return (
     <div className="custom-prompt-form">
@@ -46,11 +52,6 @@ const CreateCustomPromptForm = ({
             rows={5}
             placeholder="Enter custom prompt..."
           />
-          {errors.prompt && (
-            <div className="error">
-              <span>*</span> {errors.prompt.message}!
-            </div>
-          )}
         </div>
         <input type="submit" value="Submit" />
       </form>

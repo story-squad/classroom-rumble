@@ -15,17 +15,4 @@
   @include bp(large) {
     justify-content: flex-end;
   }
-
-  .submit-form-button {
-    @include button;
-    padding: 1rem 7rem;
-
-    &:disabled {
-      padding: 1rem 7rem;
-      border: $c-grey-40 solid 1px;
-      color: $c-grey-40;
-      background-color: $w-grey-10;
-      font-weight: 600;
-    }
-  }
 }

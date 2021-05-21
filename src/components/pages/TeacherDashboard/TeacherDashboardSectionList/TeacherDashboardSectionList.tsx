@@ -4,6 +4,7 @@ import { Sections } from '../../../../api';
 import rocketBoy from '../../../../assets/img/rocket_boy.svg';
 import talk from '../../../../assets/img/speech.svg';
 import { modals } from '../../../../state';
+import { Button } from '../../../common';
 import { InviteToSection } from '../InviteToSection';
 import { CreateNewSection } from './CreateNewSection';
 import Section from './TeacherDashboardSectionCard';
@@ -11,7 +12,7 @@ import Section from './TeacherDashboardSectionCard';
 const RenderTeacherDashboardSectionList = ({
   sections,
 }: ITeacherDashboardSectionListProps): React.ReactElement => {
-  const setInviteModalOpen = useSetRecoilState(modals.invite.isOpen);
+  const setInviteModalOpen = useSetRecoilState(modals.inviteModalIsOpen);
   const [newSectionOpen, setNewSectionOpen] = useState(false);
   const openSectionModal = () => setNewSectionOpen(true);
   const openInviteModal = () => setInviteModalOpen(true);
@@ -44,8 +45,12 @@ const RenderTeacherDashboardSectionList = ({
         ) : (
           <>
             <div className="button-row">
-              <button onClick={openSectionModal}>Add New Class</button>
-              <button onClick={openInviteModal}>Invite to Class</button>
+              <Button type="secondary" onClick={openSectionModal}>
+                Add New Class
+              </Button>
+              <Button type="secondary" onClick={openInviteModal}>
+                Invite Student
+              </Button>
             </div>
             <div className="section-list">
               {sections?.map((sec) => (

@@ -1,1 +1,1 @@
-export * as invite from './inviteModalAtoms';
+export * from './modalAtoms';
