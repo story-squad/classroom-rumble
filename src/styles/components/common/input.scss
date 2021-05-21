@@ -22,12 +22,13 @@
       font-size: 2rem;
       height: 2rem;
       padding: 0;
-      top: 0.5rem;
-      right: 0.5rem;
+      top: 1.2rem;
+      right: 1.2rem;
       z-index: 3;
       background: none;
       border: none;
-      @include text-button(white);
+      @include text-button($c-grey-40);
+
     }
   }
   &.error .input-field input {
