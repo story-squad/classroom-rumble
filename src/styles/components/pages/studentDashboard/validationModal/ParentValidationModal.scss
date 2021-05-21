@@ -1,11 +1,18 @@
 .modal-wrapper {
+  @import './ParentValidationForm.scss';
   .modal {
     &.parent-validation {
       .modal-header {
+        display: flex;
         padding: 2.5rem 2rem;
         .modal-title {
           font-size: 2.8rem;
           color: $c-grey-80;
+        }
+        .close-button {
+          right: 1.5rem;
+          top: 1rem;
+          font-size: 2.75rem;
         }
       }
     }

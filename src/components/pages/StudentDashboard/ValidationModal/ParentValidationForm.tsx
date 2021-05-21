@@ -47,11 +47,13 @@ const ParentValidationForm = ({
 
   return (
     <form className="parent-validation-form" onSubmit={handleSubmit(sendEmail)}>
-      <p>
-        You need permission from your parent to enter the Free Daily Story
-        Contest.
-      </p>
-      <p className="p-instructions">Please enter their email below</p>
+      <div className="message-wrapper">
+        <p>
+          You need permission from your parent to enter the Free Daily Story
+          Contest.
+        </p>
+        <p>Please enter their email below.</p>
+      </div>
       <Input
         label="Age"
         name="ageStr"
