@@ -42,11 +42,9 @@ const TeacherDashboardRumbleList = ({
               <TeacherDashboardRumbleCard
                 key={rumble.id}
                 section={
-                  (
-                    rumble as unknown as {
-                      section: Sections.ISectionWithRumbles;
-                    }
-                  ).section
+                  ((rumble as unknown) as {
+                    section: Sections.ISectionWithRumbles;
+                  }).section
                 }
                 rumble={rumble}
               />
