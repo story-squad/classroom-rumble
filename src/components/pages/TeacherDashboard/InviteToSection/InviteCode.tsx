@@ -4,7 +4,7 @@ import { Sections } from '../../../../api';
 import { Button } from '../../../common';
 
 const InviteCode = ({
-  section,
+  // section,
   goBack,
   disableSectionPicker,
 }: IInviteCodeProps): React.ReactElement => {
