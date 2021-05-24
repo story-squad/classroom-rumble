@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useToasts } from 'react-toast-notifications';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Sections } from '../../../../../api';
 import { auth, enumData, sections } from '../../../../../state';
@@ -13,18 +14,31 @@ const CreateNewSectionForm = ({
   const grades = useRecoilValue(enumData.grades);
   const subjects = useRecoilValue(enumData.subjects);
   const setSectionList = useSetRecoilState(sections.list);
+  const { addToast } = useToasts();
 
   const onSubmit: SubmitHandler<Sections.INewSectionBody> = async (data) => {
     try {
       if (user) {
         const res = await Sections.createNewSection(data, user.id);
         setSectionList((prev) => (prev ? [...prev, res] : [res]));
+        addToast('Successfuly created a class!', { appearance: 'success' });
         closeModal();
       }
     } catch (err) {
       console.log(err);
+      let message: string;
+      if (err.response?.data) {
+        message = err.response.data.message;
+      } else {
+        message = 'An unknown error occurred. Please try again.';
+      }
+      addToast(message, { appearance: 'error' });
     }
   };
+
+  useEffect(() => {
+    if (errors.name) addToast(errors.name.message, { appearance: 'error' });
+  }, [errors]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -34,7 +48,7 @@ const CreateNewSectionForm = ({
           name="name"
           register={register}
           id="class-name"
-          errors={errors}
+          // errors={errors}
           placeholder="English 12"
           rules={{ required: 'Classname is required!' }}
         />

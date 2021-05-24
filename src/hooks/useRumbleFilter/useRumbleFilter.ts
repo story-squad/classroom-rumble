@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { Rumbles } from '../../api';
 
@@ -9,21 +8,11 @@ const useRumbleFilter = (
   pastRumbles: Rumbles.IRumbleWithSectionInfo[],
 ] => {
   const currentRumbles = useMemo(
-    () =>
-      rumbles.filter(
-        (rumble) =>
-          !rumble.end_time ||
-          DateTime.fromISO(`${rumble.end_time}`) > DateTime.now(),
-      ),
+    () => rumbles.filter((rumble) => rumble.phase !== `COMPLETE`),
     [rumbles],
   );
   const pastRumbles = useMemo(
-    () =>
-      rumbles.filter(
-        (rumble) =>
-          rumble.end_time &&
-          DateTime.fromISO(`${rumble.end_time}`) < DateTime.now(),
-      ),
+    () => rumbles.filter((rumble) => rumble.phase === `COMPLETE`),
     [rumbles],
   );
   return [currentRumbles, pastRumbles];

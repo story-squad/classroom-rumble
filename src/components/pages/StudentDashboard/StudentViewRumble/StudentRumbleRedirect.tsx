@@ -1,30 +1,95 @@
-import { DateTime } from 'luxon';
-import React from 'react';
-import { useRecoilValue } from 'recoil';
-import { Rumbles, Sections } from '../../../../api';
-import { current } from '../../../../state';
-import { PastRumbleDetails, SubmissionSuccess } from './StudentRumblePages';
+import React, { useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { Feedback, Rumbles, Sections, Students } from '../../../../api';
+import { auth, current } from '../../../../state';
+import { Loader } from '../../../common';
+import {
+  PastRumbleDetails,
+  PeerFeedbackPage,
+  SubmissionSuccess,
+} from './StudentRumblePages';
 import { StudentSubmissionPage } from './StudentRumblePages/';
 
 const StudentRumbleRedirect = ({
-  endTime,
   rumble,
   section,
 }: IStudentRumbleRedirectProps): React.ReactElement => {
-  const successfulSubmission = useRecoilValue(current.hasSubmitted);
+  // The currently logged in user
+  const user = useRecoilValue(auth.user);
+  // The user's submission for the rumble they clicked on
+  const [submission, setSubmission] = useRecoilState(current.sub);
+  // Whether or not the user has given feedback to others yet
+  const [feedbackComplete, setFeedbackComplete] = useState<boolean>();
+  const [loading, setLoading] = useState(true);
 
-  // TODO - add checks for if the feedback phase has been started and if it's also been completed
+  const [hasSubmitted, setHasSubmitted] = useRecoilState(current.hasSubmitted);
 
-  if (isRumbleEnded(`${endTime}`)) {
-    return <PastRumbleDetails />;
-  } else if (successfulSubmission) {
-    // Student has already submitted
-    return <SubmissionSuccess />;
-  } else {
-    // The end time has loaded and the student has not yet submitted
-    // This is the view prompt/submit rumble page
-    return <StudentSubmissionPage rumble={rumble} section={section} />;
-  }
+  // This useEffect loads on page render.
+  // hasSubmitted is set to false until conditions are met.
+  useEffect(() => {
+    setHasSubmitted(false);
+  }, []);
+
+  // This useEffect is loading the current user's submission for the rumble
+  useEffect(() => {
+    if (rumble && user && !submission) {
+      setLoading(true);
+      Students.getSubForRumble(rumble.id, user.id)
+        .then((res) => {
+          // Set loading to false, submission will also be false, so the
+          // student submission page will be rendered
+          if (res === undefined) setLoading(false);
+          else setHasSubmitted(true);
+          // If submission is defined after this, it will run the next useEffect
+          setSubmission(res);
+        })
+        .catch((err) => {
+          console.log({ err });
+          // setError('There is no submission for this Rumble.');
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+    return () => setSubmission(undefined);
+  }, [rumble, user]);
+
+  // This useEffect get the current user's feedback for OTHER submissions in the rumble
+  useEffect(() => {
+    if (submission && user) {
+      setLoading(true);
+      Feedback.checkIfHasSubmittedFeedback({
+        rumbleId: rumble.id,
+        studentId: user.id,
+      })
+        .then((res) => {
+          console.log('has submitted feedback', { res });
+          // If the user has not submitted feedback, stop loading and display feedback form
+          if (res === false) setLoading(false);
+          setFeedbackComplete(res);
+        })
+        .catch((err) => {
+          console.log({ err });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [submission]);
+
+  return loading ? (
+    <Loader />
+  ) : hasSubmitted && rumble.phase === `ACTIVE` ? (
+    <SubmissionSuccess />
+  ) : !submission ? (
+    // If the student has not submitted, show the rumble page
+    // TODO do a separate post endpoint for late work
+    <StudentSubmissionPage rumble={rumble} section={section} />
+  ) : feedbackComplete === false ? (
+    <PeerFeedbackPage />
+  ) : (
+    <PastRumbleDetails />
+  );
 };
 
 interface IStudentRumbleRedirectProps {
@@ -32,8 +97,5 @@ interface IStudentRumbleRedirectProps {
   section: Sections.ISectionWithRumbles;
   endTime: Date;
 }
-
-const isRumbleEnded = (endTime: string) =>
-  DateTime.fromISO(endTime) <= DateTime.now();
 
 export default StudentRumbleRedirect;

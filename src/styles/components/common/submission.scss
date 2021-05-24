@@ -1,0 +1,31 @@
+.submission-wrapper {
+  .submission-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 3rem;
+    @include bp($tablet) {
+      margin: 0;
+    }
+    .submission-content {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      img {
+        cursor: pointer;
+        width: 100%;
+        @include bp($tablet) {
+          width: 25rem;
+        }
+      }
+      a {
+        margin-top: 1.5rem;
+        font-size: 1.1em;
+        font-weight: 500;
+        cursor: pointer;
+        color: $primary-base;
+      }
+    }
+  }
+}

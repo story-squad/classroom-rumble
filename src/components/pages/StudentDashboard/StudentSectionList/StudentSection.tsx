@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Sections } from '../../../../api';
 import { current, enumData } from '../../../../state';
+import { Button } from '../../../common';
 
 const StudentSection = ({
   id,
@@ -27,7 +28,7 @@ const StudentSection = ({
     });
   };
   return (
-    <div className="section-card" onClick={openSection}>
+    <div className="section-card">
       <div className="content">
         <h3>Class Name</h3>
         <h4>{section.name}</h4>
@@ -38,11 +39,16 @@ const StudentSection = ({
           {subjectEnum?.filter((x) => x.value === section.subjectId)[0].label}
         </h4>
       </div>
-      <div className="content">
-        <h3>Grade</h3>
-        <h4>
-          {gradeEnum?.filter((x) => x.value === section.gradeId)[0].label}
-        </h4>
+      <div className="student-button-container">
+        <div className="content">
+          <h3>Grade</h3>
+          <h4>
+            {gradeEnum?.filter((x) => x.value === section.gradeId)[0].label}
+          </h4>
+        </div>
+        <Button type="secondary-with-arrow" onClick={openSection}>
+          View Class
+        </Button>
       </div>
     </div>
   );

@@ -1,22 +1,77 @@
 import React from 'react';
-import { Sections } from '../../../../../../api';
-import { PromptBox, SectionInfo } from '../../../../../common';
-// TODO - we will eventually need the 3 submissions that are assigned by the DS team in order to render those 3 submissions in a modal for students to read and provide feedback on.
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { Auth, Sections, Submissions } from '../../../../../../api';
+import { Button, PromptBox, SectionInfo } from '../../../../../common';
+import FeedbackSubmissionCard from './FeedbackSubmissionCard';
 
 const RenderPeerFeedback = ({
   section,
+  submissions,
+  student,
 }: IRenderPeerFeedbackProps): React.ReactElement => {
+  const methods = useForm({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+  });
+
+  // TODO better type interfaces for form data
+  const onSubmit: SubmitHandler<Record<string, unknown>> = (
+    data: Record<string, unknown>,
+  ) => {
+    const body: Record<string, unknown>[] = [];
+    const radioValue = Object.values(data);
+
+    // TODO find a more readable way to parse the body
+    submissions &&
+      radioValue &&
+      submissions.forEach((submission) => {
+        body.push({
+          submissionId: submission?.id,
+          voterId: student?.id,
+          score1: Number(radioValue.shift()),
+          score2: Number(radioValue.shift()),
+          score3: Number(radioValue.shift()),
+        });
+      });
+    Submissions.submitFeedback(body);
+  };
+
   return (
-    <div className="feedback-wrapper">
+    <div className="peer-feedback">
       <SectionInfo section={section} />
       <PromptBox />
+      {submissions.length > 0 ? (
+        <FormProvider {...methods}>
+          <div className="form-wrapper">
+            <form onSubmit={methods.handleSubmit(onSubmit)}>
+              {submissions.map((submission, index) => (
+                <FeedbackSubmissionCard
+                  key={submission.id}
+                  submission={submission}
+                  subNumber={index + 1}
+                  storyAmount={submissions.length}
+                />
+              ))}
+              <div className="button-area">
+                <Button disabled={!methods.formState.isValid}>
+                  Submit Feedback
+                </Button>
+              </div>
+            </form>
+          </div>
+        </FormProvider>
+      ) : (
+        // TODO decide what to display if they don't have feedback assigned
+        <></>
+      )}
     </div>
   );
 };
 
 interface IRenderPeerFeedbackProps {
   section: Sections.ISectionWithRumbles;
-  //   submission: Submissions.ISubItem[];
+  submissions: Submissions.ISubItem[];
+  student: Auth.IUser;
 }
 
 export default RenderPeerFeedback;

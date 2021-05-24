@@ -23,9 +23,9 @@ export const getWithSubsBySectionId = async (
 export const getSubForRumble = async (
   rumbleId: number,
   studentId: number,
-): Promise<ISubItem[]> => {
+): Promise<ISubItem | undefined> => {
   const { data } = await axiosWithAuth().get(
     `/api/rumble/rumbles/${rumbleId}/students/${studentId}`,
   );
-  return data;
+  return data !== '' ? data : undefined;
 };
