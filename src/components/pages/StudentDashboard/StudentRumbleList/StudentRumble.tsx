@@ -18,7 +18,7 @@ const StudentRumble = ({
   const setCurrentRumble = useSetRecoilState(current.rumble);
   const [status] = useRumbleStatus(rumbleInfo.phase);
 
-  const [getPrompts, loading, prompt, error] = useAsync({
+  const [getPrompts, , prompt] = useAsync({
     asyncFunction: Prompts.getPromptById,
   });
 
