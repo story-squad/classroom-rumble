@@ -8,9 +8,8 @@ const RumbleStudentListContainer = ({
   rumble,
   section,
 }: IRumbleStudentListContainerProps): React.ReactElement => {
-  const [studentList, setStudentList] = useState<
-    Students.IStudentWithSubmissions[]
-  >();
+  const [studentList, setStudentList] =
+    useState<Students.IStudentWithSubmissions[]>();
 
   const [getWithSubsByRumbleId, , , error] = useAsync({
     asyncFunction: Students.getWithSubsByRumbleId,
