@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import rumbleComplete from '../../../../../../assets/img/rumble-complete.svg';
+import rumbleComplete from '../../../../../assets/img/rumble_complete.svg';
 
 const RumbleComplete = (): React.ReactElement => {
   const { push } = useHistory();
@@ -9,6 +9,7 @@ const RumbleComplete = (): React.ReactElement => {
   const goBack = () => {
     push('/dashboard/student');
   };
+
   return (
     <div className="rumble-complete-wrapper">
       <div className="complete-img">

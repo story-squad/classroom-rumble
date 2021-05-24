@@ -6,7 +6,7 @@ This is a highly specialized custom hook that allows us to maintain page state o
 
 The hook takes a comma-separated list of strings as an argument. The strings correspond to the names of the state values that you need to ensure are set to render a component. It returns an object with the `isLoading` property, which is intended to be a render condition for your component/loading message.
 
-In the following example, the `SubmissionList` component needs information about the current student as well as the section. The possible arguments are hard-coded as a union type, so your editor will suggest the values ('section', 'student') to you.
+In the following example, the `StudentList` component needs information about the current student as well as the section. The possible arguments are hard-coded as a union type, so your editor will suggest the values ('section', 'student') to you.
 
 ```tsx
 const { isLoading } = useCheckBrowserState('section', 'student');
@@ -22,7 +22,7 @@ return student && section ? (
 )
 ```
 
-> Note: For this to work correctly, you must set the recoil state when pushing to a route that requires `currentViewState`. If you want the state to be maintained on regresh, you must ALSO pass the router state. Example:
+> Note: For this to work correctly, you must set the recoil state when pushing to a route that requires `currentViewState`. If you want the state to be maintained on refresh, you must ALSO pass the router state. Example:
 >
 > ```tsx
 > setSection(section);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Rumbles, Sections, Students } from '../../../../../api';
+import { useAsync } from '../../../../../hooks';
 import { CouldNotLoad, Loader } from '../../../../common';
 import RenderRumbleStudentList from './RenderRumbleStudentList';
 
@@ -7,28 +8,21 @@ const RumbleStudentListContainer = ({
   rumble,
   section,
 }: IRumbleStudentListContainerProps): React.ReactElement => {
-  const [studentList, setStudentList] = useState<
-    Students.IStudentWithSubmissions[]
-  >();
-  const [error, setError] = useState<string>();
+  const [studentList, setStudentList] =
+    useState<Students.IStudentWithSubmissions[]>();
 
+  const [getWithSubsByRumbleId, , , error] = useAsync({
+    asyncFunction: Students.getWithSubsByRumbleId,
+    setter: setStudentList,
+  });
   useEffect(() => {
-    console.log('rumbleId', rumble.id);
-    setStudentList(undefined);
-    Students.getWithSubsByRumbleId(rumble.id)
-      .then((res) => {
-        setStudentList(res);
-      })
-      .catch((err) => {
-        console.log(err);
-        setError(err.message);
-      });
+    getWithSubsByRumbleId(rumble.id);
   }, [section, rumble]);
 
   return studentList && section ? (
     <RenderRumbleStudentList studentList={studentList} section={section} />
   ) : error ? (
-    <CouldNotLoad error={error} />
+    <CouldNotLoad error={error.message} />
   ) : (
     <Loader message={'Loading students'} />
   );

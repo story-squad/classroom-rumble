@@ -1,13 +1,27 @@
 .teacher-dash-rumble-list-wrapper {
-  padding: 3rem 1.5rem;
+  padding: 0.5rem;
   @include bp(mid) {
     padding: 3rem;
   }
   .teacher-dash-rumble-list-container {
     @include wrapped-container();
+    .no-rumbles {
+      display: flex;
+      align-content: flex--end;
+      flex-flow: column wrap;
+      .message-text-container {
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 2rem;
+        P {
+          color: $c-grey-80;
+        }
+      }
+    }
     h2 {
       color: $c-grey-70;
-      font-size: 1.6rem;
+      font-size: 2rem;
       line-height: 2rem;
       font-weight: 600;
       margin-bottom: 1.5rem;

@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useForm } from 'react-hook-form';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useToasts } from 'react-toast-notifications';
 import { Submissions } from '../../../../../../api';
-import { current } from '../../../../../../state';
+import activeUpload from '../../../../../../assets/img/active_upload.svg';
+import { auth, current, modals } from '../../../../../../state';
 import { upload } from '../../../../../../utils';
+import { Button, Checkbox } from '../../../../../common';
 
 /**
  * Submission Form allows students to submit an image to the rumble they are currenly in.
  */
 
 const SubmissionForm = (): React.ReactElement => {
+  const { errors, register } = useForm({
+    mode: 'onChange',
+  });
+
+  const userInfo = useRecoilValue(auth.user);
+
+  // Error handling toast notifications
+  const { addToast } = useToasts();
   // Recoil State for user submissions
   const [file, setFile] = useState<File>();
   const [preview, setPreview] = useState<string>();
-  const [error, setError] = useState<string>();
   const [loading, setLoading] = useState(false);
   const [complete, setComplete] = useRecoilState(current.hasSubmitted);
 
@@ -21,11 +32,16 @@ const SubmissionForm = (): React.ReactElement => {
   // Ensuring the promptId is a string before it is uploaded
   const promptId = currentRumble?.promptId.toString();
 
+  const setParentValidationOpen = useSetRecoilState(
+    modals.validationModalIsOpen,
+  );
+  const openParentValidationModal = () => setParentValidationOpen(true);
+
   // On submit functionality for user stories (submissions)
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!file) {
-      setError('No image selected!');
+      addToast('No image selected!', { appearance: 'error' });
     } else {
       setLoading(true);
       try {
@@ -45,13 +61,18 @@ const SubmissionForm = (): React.ReactElement => {
           });
         setComplete(true);
       } catch (err) {
+        let message: string;
         if (err?.response?.data?.error) {
-          if (err.response.data.error === 'Transcription error')
-            setError('Picture must be of written text');
-          else setError(err.response.data.error);
+          // Am not sure how to test this if we even can at the moment
+          if (err.response.data.error === 'Transcription error') {
+            message = 'Picture must be of written text';
+          } else {
+            message = err.response.data.error;
+          }
         } else {
-          setError('An error occurred. Try again later');
+          message = 'An error occurred. Try again later';
         }
+        addToast(message, { appearance: 'error' });
       }
       setLoading(false);
     }
@@ -63,9 +84,8 @@ const SubmissionForm = (): React.ReactElement => {
       const selection = fileList[0];
       if (selection) {
         if (!upload.isValidImage(selection)) {
-          setError('Upload must be an image!');
+          addToast('Upload must be an image!', { appearance: 'error' });
         } else {
-          setError(undefined);
           setFile(selection);
           setPreview(URL.createObjectURL(selection));
         }
@@ -74,37 +94,62 @@ const SubmissionForm = (): React.ReactElement => {
   };
 
   return (
-    <>
-      <div className="submission-form">
-        <form onSubmit={onSubmit}>
+    <div className="submission-form-wrapper">
+      <div className="submission-form-container">
+        <form onSubmit={onSubmit} className="submission-form">
           {preview && (
             <div className="preview">
               <img src={preview} alt="Upload preview" />
               <div className={`loader${loading ? ' visible' : ''}`}>
-                <p>** barloader **</p>
+                {/* <p>** barloader **</p> ?? What is this for? */}
               </div>
             </div>
           )}
-          {error && <div className="error">{error}</div>}
           {!complete && (
             // If the submission hasn't been processed successfully
             <>
               <label className={file ? 'selected' : ''}>
-                {file ? 'Change Picture' : 'Select a Picture'}
+                {file ? (
+                  <span>Change Picture</span>
+                ) : (
+                  <div>
+                    <img src={activeUpload} />
+                    <span>Upload File</span>
+                  </div>
+                )}
                 <input type="file" onChange={fileSelection} hidden />
               </label>
               <button type="submit">Submit Your Story</button>
             </>
           )}
         </form>
-        {complete && (
-          // Once the submission is done, show a button.
-          <>
-            <div className="success">Submission successful!</div>
-          </>
-        )}
       </div>
-    </>
+
+      <Checkbox
+        id="submitFDSCCheckbox"
+        name="submitFDSCCheckbox"
+        label={
+          <p className="small">
+            Would you also like to submit to our Free Daily Story Contest?
+          </p>
+        }
+        errors={errors}
+        register={register}
+        disabled={userInfo?.isValidated ? false : true}
+        // rules={{
+        //   validate: {
+        //     isChecked: (value) => value,
+        //   },
+        // }}
+      />
+      {!userInfo?.isValidated && (
+        <Button onClick={openParentValidationModal}>Verify Account</Button>
+      )}
+      {complete && (
+        // Once the submission is done, show a button.
+        <div className="success">Submission successful!</div>
+      )}
+    </div>
   );
 };
 

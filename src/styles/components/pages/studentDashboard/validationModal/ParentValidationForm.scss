@@ -1,0 +1,32 @@
+.parent-validation-form {
+  font-family: $text-font;
+  .message-wrapper {
+    padding: 1rem 2rem;
+    p {
+      font-size: 1.4rem;
+      padding: 0.25rem 0;
+    }
+  }
+  .form-input {
+    padding: 0 2rem 1rem;
+    margin: 0;
+    font-size: 1.2rem;
+    color: $c-grey-80;
+  }
+  .button-row {
+    border-top: 1px solid $w-grey-20;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    padding: 1rem 2rem;
+    button {
+      padding: 1rem 1.5rem;
+    }
+    @include bp($tablet) {
+      justify-content: flex-end;
+      button {
+        margin-left: 1rem;
+      }
+    }
+  }
+}

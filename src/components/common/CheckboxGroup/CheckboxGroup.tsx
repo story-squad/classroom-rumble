@@ -1,6 +1,6 @@
 import React from 'react';
 import { RegisterOptions, UseFormMethods } from 'react-hook-form';
-import { Select } from '../';
+import { FormTypes } from '../../../types';
 import { Checkbox } from '../Checkbox';
 
 const CheckboxGroup = ({
@@ -40,7 +40,7 @@ interface ICheckboxGroupProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;
   name: string;
-  options?: Select.IOption[];
+  options?: FormTypes.IOption[];
   register: UseFormMethods['register'];
   rules?: RegisterOptions;
   errors?: UseFormMethods['errors'];

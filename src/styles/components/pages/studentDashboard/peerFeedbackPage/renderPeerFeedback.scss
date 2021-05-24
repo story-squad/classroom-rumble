@@ -1,0 +1,18 @@
+.peer-feedback {
+  .form-wrapper {
+    margin: 1rem;
+    form {
+      @include wrapped-container();
+    }
+  }
+}
+
+.button-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include bp(large) {
+    justify-content: flex-end;
+  }
+}

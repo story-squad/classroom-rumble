@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { MdClose } from 'react-icons/md';
+import { useKeyPress } from '../../../hooks';
 
 export const Component = ({
   component: Component,
@@ -15,6 +16,8 @@ export const Component = ({
   const closeModal = () => {
     setVisible(false);
   };
+
+  useKeyPress({ key: 'Escape' || 'Esc', action: () => closeModal() });
 
   useEffect(() => {
     if (!visible) setTimeout(() => setShowContents(false), 500);
