@@ -16,10 +16,9 @@ const SignupPageContainer = (): React.ReactElement => {
   useEffect(() => {
     // Parse the querystring if it exists
     if (search?.includes('?')) {
-      const params =
-        query.parse<
-          'isNew' | 'cleverId' | 'roleId' | 'firstname' | 'lastname' | 'email'
-        >(search);
+      const params = query.parse<
+        'isNew' | 'cleverId' | 'roleId' | 'firstname' | 'lastname' | 'email'
+      >(search);
       setIsNew(params.isNew === 'true');
       setCleverId(params.cleverId);
       setRoleId(params.roleId ? parseInt(params.roleId, 10) : undefined);
