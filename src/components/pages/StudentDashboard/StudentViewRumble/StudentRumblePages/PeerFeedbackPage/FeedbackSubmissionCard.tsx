@@ -1,5 +1,6 @@
 import React from 'react';
 import { Submissions } from '../../../../../../api';
+import { IFeedbackQuestions } from '../../../../../../api/Feedback';
 import { feedbackQuestions } from '../../../../../../config';
 import { Submission } from '../../../../../common';
 import FeedbackForm from './FeedbackForm';
@@ -9,6 +10,7 @@ const FeedbackSubmissionCard = ({
   subNumber,
   storyAmount,
 }: IFeedbackSubmissionCardProps): React.ReactElement => {
+  const questions: IFeedbackQuestions[] = feedbackQuestions;
   return (
     <div className="feedback-submission-card">
       <div className="card-content">
@@ -16,15 +18,17 @@ const FeedbackSubmissionCard = ({
           title={`Story ${subNumber} of ${storyAmount}`}
           submission={submission}
         />
-        <h2 className="form-header">FEEDBACK</h2>
-        {feedbackQuestions.map((question, index) => (
-          <FeedbackForm
-            key={index}
-            subNumber={subNumber}
-            question={question}
-            questionNumber={index + 1}
-          />
-        ))}
+        <div className="feedback-questions-section">
+          <h2 className="form-header">FEEDBACK</h2>
+          {questions.map((question, index) => (
+            <FeedbackForm
+              key={index}
+              subNumber={subNumber}
+              question={question}
+              questionNumber={index + 1}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

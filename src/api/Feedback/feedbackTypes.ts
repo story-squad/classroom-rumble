@@ -18,6 +18,6 @@ export interface IFeedbackScores {
 
 export interface IFeedbackQuestions {
   question: string;
-  low: string;
-  high: string;
+  lowRadioValue: string;
+  highRadioValue: string;
 }
