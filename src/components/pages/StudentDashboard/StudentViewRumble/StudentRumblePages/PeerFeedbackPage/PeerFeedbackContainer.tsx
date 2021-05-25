@@ -22,6 +22,7 @@ const PeerFeedbackContainer = (): React.ReactElement => {
       getSubmissionsForFeedback(rumble.id, user.id);
     }
   }, [rumble, user]);
+
   // TODO no feedback display line 39
   return section && submissions && user ? (
     <RenderPeerFeedback

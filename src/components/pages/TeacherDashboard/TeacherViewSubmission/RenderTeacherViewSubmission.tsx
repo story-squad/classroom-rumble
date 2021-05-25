@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
-import { Auth, Feedback, Sections, Submissions } from '../../../../api';
+import { Auth, Sections, Submissions } from '../../../../api';
+import { feedbackQuestions } from '../../../../config';
 import { FeedbackDisplay, PromptBox, SectionInfo } from '../../../common';
 
 const RenderTeacherViewSubmission = ({
   submission,
   section,
   student,
-  questions,
 }: IRenderTeacherViewSubmissionProps): React.ReactElement => {
   const studentName = useMemo(
     () => `${student.firstname} ${student.lastname}`,
@@ -16,7 +16,7 @@ const RenderTeacherViewSubmission = ({
     <div className="teacher-view-submission">
       <PromptBox prompt={submission.prompt} isTeacher />
       <SectionInfo section={section} studentName={studentName} />
-      <FeedbackDisplay submission={submission} questions={questions} />
+      <FeedbackDisplay submission={submission} questions={feedbackQuestions} />
     </div>
   );
 };
@@ -25,7 +25,6 @@ interface IRenderTeacherViewSubmissionProps {
   section: Sections.ISectionWithRumbles;
   student: Auth.IUser;
   submission: Submissions.ISubItem;
-  questions: Feedback.IFeedbackQuestions[];
 }
 
 export default RenderTeacherViewSubmission;

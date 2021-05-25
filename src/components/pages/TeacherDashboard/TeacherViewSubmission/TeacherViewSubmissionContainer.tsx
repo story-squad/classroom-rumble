@@ -1,6 +1,5 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { feedbackQuestions } from '../../../../config';
 import { useCheckBrowserState } from '../../../../hooks';
 import { current } from '../../../../state';
 import { Loader } from '../../../common';
@@ -17,7 +16,6 @@ const TeacherViewSubmissionContainer = (): React.ReactElement => {
       section={section}
       student={student}
       submission={submission}
-      questions={feedbackQuestions}
     />
   ) : isLoading ? (
     <Loader message={'Loading submission'} />

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Students } from '../../../../../../api';
-import { feedbackQuestions } from '../../../../../../config';
 import { useAsync } from '../../../../../../hooks';
 import { auth, current } from '../../../../../../state';
 import { CouldNotLoad, Loader } from '../../../../../common';
@@ -25,11 +24,7 @@ const PastRumbleDetailsContainer = (): React.ReactElement => {
   }, [rumble, user]);
 
   return submission && section ? (
-    <RenderPastRumbleDetails
-      section={section}
-      submission={submission}
-      questions={feedbackQuestions}
-    />
+    <RenderPastRumbleDetails section={section} submission={submission} />
   ) : error ? (
     <CouldNotLoad error={error.message} />
   ) : (
