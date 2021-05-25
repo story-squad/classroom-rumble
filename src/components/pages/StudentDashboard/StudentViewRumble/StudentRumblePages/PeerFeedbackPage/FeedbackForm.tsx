@@ -18,21 +18,19 @@ const FeedbackForm = ({
   ];
   return (
     <div className="radio-button-section">
-      <div>
-        <div className="radio-wrapper">
-          <p className="form-questions">{question.question}</p>
-          <div className="radios">
-            <RadioGroup
-              name={`Submission${subNumber}-Q${questionNumber}`}
-              register={register}
-              options={radioRange}
-              rules={{ required: 'Please choose a value from 1-5!' }}
-              errors={errors}
-            />
-            <div className="footer-section">
-              <p>{question.lowRadioValue}</p>
-              <p>{question.highRadioValue}</p>
-            </div>
+      <div className="radio-wrapper">
+        <p className="form-questions">{question.question}</p>
+        <div className="radios">
+          <RadioGroup
+            name={`Submission${subNumber}-Q${questionNumber}`}
+            register={register}
+            options={radioRange}
+            rules={{ required: 'Please choose a value from 1-5!' }}
+            errors={errors}
+          />
+          <div className="footer-section">
+            <p>{question.lowRadioValue}</p>
+            <p>{question.highRadioValue}</p>
           </div>
         </div>
       </div>
