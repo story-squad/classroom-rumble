@@ -6,7 +6,7 @@ import CreateNewRumbleForm from './CreateNewRumbleForm';
 const RenderCreateNewRumble = ({
   prompt,
 }: IRenderCreateRumbleProps): React.ReactElement => {
-  console.log(prompt);
+  // console.log(prompt);
   return (
     <div className="create-new-rumble-wrapper">
       <div className="create-new-rumble-container">
@@ -15,7 +15,7 @@ const RenderCreateNewRumble = ({
           <h3>{prompt.starts_at ? formatDate(prompt.starts_at) : 'Custom'}</h3>
           <p>{prompt.prompt}</p>
         </div>
-        <CreateNewRumbleForm prompt={prompt} />
+        <CreateNewRumbleForm prompt={prompt} startsAt={prompt.starts_at} />
       </div>
     </div>
   );

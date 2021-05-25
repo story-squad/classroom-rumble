@@ -1,7 +1,7 @@
 import moment from 'moment';
 import TimePicker from 'rc-time-picker';
 import 'rc-time-picker/assets/index.css';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
@@ -14,24 +14,46 @@ import { FormTypes } from '../../../../types';
 import { Button, CheckboxGroup } from '../../../common';
 
 const CreateNewRumbleForm = ({
+  startsAt,
   prompt,
 }: ICreateNewRumbleFormProps): React.ReactElement => {
   // Functional Hooks
-  const { errors, register, handleSubmit, control, clearErrors } = useForm();
+  const {
+    errors,
+    register,
+    handleSubmit,
+    control,
+    clearErrors,
+    watch,
+  } = useForm();
   const { push } = useHistory();
-
   const { addToast } = useToasts();
 
   // Subscribe to state
   const sectionList = useRecoilValue(sections.list);
   const user = useRecoilValue(auth.user);
   const addRumbles = useSetRecoilState(rumbles.addRumbles);
+  const [connect, setConnect] = useState<boolean>(false);
+  const [checkCustom, setCheckCustom] = useState<boolean>(false);
+
+  //Runs a function checking if the prompt is custom or not and returns a boolean value
+  const checkForCustom = () => {
+    if (startsAt) setCheckCustom(!checkCustom);
+    else return;
+  };
+  useEffect(() => {
+    checkForCustom();
+  }, []);
 
   // Parse the user's section list into a usable option type
   const sectionOptions = useMemo<FormTypes.IOption<number>[]>(
     () => sectionList?.map((s) => ({ value: s.id, label: s.name })) ?? [],
     [sectionList],
   );
+
+  const setTrue = () => {
+    setConnect(!connect);
+  };
 
   const onSubmit: SubmitHandler<{
     sectionIds: string[];
@@ -52,7 +74,7 @@ const CreateNewRumbleForm = ({
         startTimeStamp.slice(startTimeStamp.indexOf('T')),
     );
 
-    if (startTime < new Date()) {
+    if (connect && startTime < new Date()) {
       addToast('Rumble can not start in the past', { appearance: 'error' });
       throw new Error('Rumble can not start in the past');
     }
@@ -96,6 +118,12 @@ const CreateNewRumbleForm = ({
     asyncFunction: handleSubmit(onSubmit),
   });
 
+  //   If connect is checked, start time is required and start time cannot exceed submission cutoff time minus timer length. (end time cannot be past the submission cutoff time)
+
+  // If connect is not checked, start time is not required
+
+  // Changing the timer value should change the cutoff time of the start time.
+
   const goBack = () => push('/dashboard/teacher');
 
   return (
@@ -127,37 +155,53 @@ const CreateNewRumbleForm = ({
           )}
         />
       </div>
-      <div className="section-wrapper">
-        <h3>Schedule</h3>
-        <div>
-          <Controller
-            control={control}
-            defaultValue={new Date()}
-            name="startDate"
-            render={({ value, ...props }) => (
-              <DatePicker
-                placeholderText="Select date"
-                selected={value}
-                {...props}
+      {checkCustom && (
+        <>
+          <div className="section-wrapper">
+            <h3>Schedule</h3>
+            <div>
+              <Controller
+                control={control}
+                defaultValue={new Date()}
+                name="startDate"
+                render={({ value, ...props }) => (
+                  <DatePicker
+                    placeholderText="Select date"
+                    selected={value}
+                    {...props}
+                  />
+                )}
               />
-            )}
-          />
-          <Controller
-            control={control}
-            name="startTime"
-            render={({ value, ...props }) => (
-              <DatePicker
-                placeholderText="Select time"
-                selected={value}
-                showTimeSelect
-                showTimeSelectOnly
-                dateFormat="h:mm aa"
-                {...props}
+              <Controller
+                control={control}
+                name="startTime"
+                render={({ value, ...props }) => (
+                  <DatePicker
+                    placeholderText="Select time"
+                    selected={value}
+                    showTimeSelect
+                    showTimeSelectOnly
+                    dateFormat="h:mm aa"
+                    {...props}
+                  />
+                )}
               />
-            )}
-          />
-        </div>
-      </div>
+            </div>
+          </div>
+          <div className="section-wrapper">
+            <label>
+              <input
+                type="checkbox"
+                id="checkConnect"
+                name="connectFDSC"
+                ref={register}
+                onClick={setTrue}
+              />
+              Connect To Free Daily Story Contest (Optional) <span>?</span>
+            </label>
+          </div>
+        </>
+      )}
       <div className="button-row">
         <Button htmlType="button" type="secondary" onClick={goBack}>
           Cancel
@@ -177,6 +221,7 @@ const CreateNewRumbleForm = ({
 
 interface ICreateNewRumbleFormProps {
   prompt: Prompts.IPrompt;
+  startsAt: string;
 }
 
 export default CreateNewRumbleForm;
