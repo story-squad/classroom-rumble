@@ -1,10 +1,6 @@
 import React from 'react';
 import { Feedback, Sections, Submissions } from '../../../../../../api';
-import {
-  Feedback as FeedbackComponent,
-  PromptBox,
-  SectionInfo,
-} from '../../../../../common';
+import { FeedbackDisplay, PromptBox, SectionInfo } from '../../../../../common';
 
 const RenderPastRumbleDetails = ({
   submission,
@@ -15,7 +11,7 @@ const RenderPastRumbleDetails = ({
     <div className="view-submission-container">
       <SectionInfo section={section} />
       <PromptBox />
-      <FeedbackComponent submission={submission} questions={questions} />
+      <FeedbackDisplay submission={submission} questions={questions} />
     </div>
   );
 };
