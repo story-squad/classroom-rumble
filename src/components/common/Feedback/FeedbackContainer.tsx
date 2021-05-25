@@ -9,6 +9,7 @@ import RenderFeedback from './RenderFeedback';
 
 const FeedbackContainer = ({
   submission,
+  questions,
 }: IFeedbackContainerProps): React.ReactElement => {
   const [feedback, setFeedback] = useRecoilState(current.feedbackForSubmission);
   const [averages, setAverages] = useState<IAverages>();
@@ -52,12 +53,17 @@ const FeedbackContainer = ({
   return loading ? (
     <Loader />
   ) : (
-    <RenderFeedback averages={averages} submission={submission} />
+    <RenderFeedback
+      averages={averages}
+      submission={submission}
+      questions={questions}
+    />
   );
 };
 
 interface IFeedbackContainerProps {
   submission: Submissions.ISubItem;
+  questions: Feedback.IFeedbackQuestions[];
 }
 
 export default FeedbackContainer;
