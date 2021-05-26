@@ -29,8 +29,8 @@ const FeedbackForm = ({
             errors={errors}
           />
           <div className="footer-section">
-            <p>{question.lowRadioValue}</p>
-            <p>{question.highRadioValue}</p>
+            <p>{question.lowLabel}</p>
+            <p>{question.highLabel}</p>
           </div>
         </div>
       </div>

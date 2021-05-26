@@ -50,6 +50,7 @@ const FeedbackContainer = ({
       score3: parseFloat((totals.score3 / feedback.length).toFixed(2)),
     });
   }, [feedback]);
+
   return loading ? (
     <Loader />
   ) : (
