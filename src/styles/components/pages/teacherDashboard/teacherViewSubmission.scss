@@ -2,9 +2,53 @@
   .feedback-wrapper {
     border-radius: 0;
     background-color: $w-grey-05;
-    .feedback-content-wrapper .feedback-container .table-header {
-      @include bp(tablet) {
-        background-color: $w-grey-10;
+    padding: 3rem;
+    .feedback-content-wrapper {
+      .submission-wrapper {
+        .submission-container {
+          border-bottom: 1px solid $c-grey-40;
+          padding-bottom: 1.5rem;
+          margin-bottom: 2rem;
+          .submission-content {
+            h2 {
+              font-size: 1.2rem;
+              margin-bottom: 0.5rem;
+            }
+            a {
+              font-size: 1.4rem;
+            }
+          }
+        }
+      }
+      .feedback-container {
+        h2 {
+          font-size: 1.2rem;
+          margin-bottom: 0.25rem;
+        }
+        .table-body {
+          .table-row {
+            border-bottom: none;
+            background-color: $w-grey-05;
+            .row-wrapper {
+              flex-direction: column;
+              .table-col {
+                padding: 0;
+              }
+              .feedback-question {
+                width: 100%;
+                font-size: 1.2rem;
+                margin: 0.25rem 0;
+              }
+              .feedback-score {
+                font-weight: bold;
+                font-size: 1.5rem;
+              }
+            }
+          }
+        }
+        .table-body:not(:last-child) {
+          margin-bottom: 1rem;
+        }
       }
     }
   }
