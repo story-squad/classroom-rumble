@@ -15,7 +15,7 @@ const RenderCreateNewRumble = ({
           <h3>{prompt.starts_at ? formatDate(prompt.starts_at) : 'Custom'}</h3>
           <p>{prompt.prompt}</p>
         </div>
-        <CreateNewRumbleForm prompt={prompt} startsAt={prompt.starts_at} />
+        <CreateNewRumbleForm prompt={prompt} />
       </div>
     </div>
   );
