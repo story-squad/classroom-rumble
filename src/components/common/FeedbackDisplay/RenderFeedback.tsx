@@ -1,14 +1,15 @@
 import React from 'react';
 import { Table } from '..';
 import { Feedback, Submissions } from '../../../api';
+import { feedbackQuestions } from '../../../config';
 import { Submission } from '../Submission';
 import { IAverages } from './feedbackTypes';
 
 const RenderFeedback = ({
   submission,
   averages,
-  questions,
 }: IRenderFeedbackProps): React.ReactElement => {
+  const questions: Feedback.IFeedbackQuestions[] = feedbackQuestions;
   return (
     <div className="feedback-wrapper">
       <div className="feedback-content-wrapper">
@@ -44,7 +45,6 @@ const RenderFeedback = ({
 interface IRenderFeedbackProps {
   averages?: IAverages;
   submission: Submissions.ISubItem;
-  questions: Feedback.IFeedbackQuestions[];
 }
 
 export default RenderFeedback;
