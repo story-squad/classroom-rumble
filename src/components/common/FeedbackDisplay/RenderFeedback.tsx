@@ -21,8 +21,10 @@ const RenderFeedback = ({
             {questions.map((question, index) => (
               <Table.Body key={index}>
                 <Table.Row>
-                  <Table.Col>{question.question}</Table.Col>
-                  <Table.Col>
+                  <Table.Col className="feedback-question">
+                    {`${index + 1}. ` + question.question}
+                  </Table.Col>
+                  <Table.Col className="feedback-score">
                     {averages[`score${index + 1}` as keyof typeof averages]} out
                     of 5
                   </Table.Col>
