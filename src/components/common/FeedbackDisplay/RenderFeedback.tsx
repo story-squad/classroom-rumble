@@ -18,23 +18,27 @@ const RenderFeedback = ({
           // If there are no averages show that there is no feedback yet else show the table with feedback
           <div className="feedback-container">
             <h2>FEEDBACK</h2>
-            <Table.Header>
-              <Table.Col>Question</Table.Col>
-              <Table.Col>Rating out of 5</Table.Col>
-            </Table.Header>
-            {questions.map((question, index) => (
-              <Table.Body key={index}>
-                <Table.Row>
-                  <Table.Col className="feedback-question">
-                    {`${index + 1}. ` + question.question}
-                  </Table.Col>
-                  <Table.Col className="feedback-score">
-                    {averages[`score${index + 1}` as keyof typeof averages]} out
-                    of 5
-                  </Table.Col>
-                </Table.Row>
-              </Table.Body>
-            ))}
+            <div className="table-wrapper">
+              <Table.Header>
+                <Table.Col className="header-question">Question</Table.Col>
+                <Table.Col className="header-score">
+                  Rating out&nbsp;of&nbsp;5
+                </Table.Col>
+              </Table.Header>
+              {questions.map((question, index) => (
+                <Table.Body key={index}>
+                  <Table.Row>
+                    <Table.Col className="feedback-question">
+                      {`${index + 1}. ` + question.question}
+                    </Table.Col>
+                    <Table.Col className="feedback-score">
+                      {averages[`score${index + 1}` as keyof typeof averages]}{' '}
+                      out of 5
+                    </Table.Col>
+                  </Table.Row>
+                </Table.Body>
+              ))}
+            </div>
           </div>
         ) : (
           <div className="message">

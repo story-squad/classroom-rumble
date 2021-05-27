@@ -1,81 +1,136 @@
+// .teacher-view-submission {
+//   .feedback-wrapper {
+//     @include bp(large) {
+//       background-color: $white;
+//       padding: 1rem 1.4rem;
+//     }
+//     @include bp($xlarge) {
+//       padding: 1rem 0;
+//     }
+//     border-radius: 0;
+//     background-color: $w-grey-05;
+//     padding: 3rem;
+//     .feedback-content-wrapper {
+//       @include bp(large) {
+//         background-color: $w-grey-10;
+//         border-radius: 16px;
+//         padding: 1.6rem;
+//         max-width: 100%;
+//       }
+//       .submission-wrapper {
+//         .submission-container {
+//           @include bp(large) {
+//             border-bottom: none;
+//             margin-bottom: 0;
+//           }
+//           border-bottom: 1px solid $c-grey-40;
+//           padding-bottom: 1.5rem;
+//           margin-bottom: 2rem;
+//           .submission-content {
+//             h2 {
+//               @include bp(large) {
+//                 font-size: 2rem;
+//                 margin-bottom: 1.5rem;
+//               }
+//               font-size: 1.2rem;
+//               margin-bottom: 0.5rem;
+//             }
+//             a {
+//               font-size: 1.4rem;
+//             }
+//           }
+//         }
+//       }
+//       .feedback-container {
+//         h2 {
+//           @include bp(large) {
+//             font-size: 2rem;
+//             margin-bottom: 1.5rem;
+//           }
+//           font-size: 1.2rem;
+//           margin-bottom: 0.25rem;
+//         }
+//         .table-body {
+//           .table-row {
+//             @include bp(large) {
+//               // background-color: $w-grey-10;
+//             }
+//             border-bottom: none;
+//             background-color: $w-grey-05;
+//             .row-wrapper {
+//               .table-col {
+//                 padding: 0;
+//               }
+//               .feedback-question {
+//                 width: 100%;
+//                 font-size: 1.2rem;
+//                 margin: 0.25rem 0;
+//               }
+//               .feedback-score {
+//                 font-weight: bold;
+//                 font-size: 1.5rem;
+//               }
+//             }
+//           }
+//         }
+//         .table-body:not(:last-child) {
+//           margin-bottom: 1rem;
+//         }
+//       }
+//     }
+//   }
+// }
+
 .teacher-view-submission {
   .feedback-wrapper {
-    @include bp(large) {
-      background-color: $white;
-      padding: 1rem 1.4rem;
-    }
-    @include bp($xlarge) {
-      padding: 1rem 0;
-    }
-    border-radius: 0;
-    background-color: $w-grey-05;
-    padding: 3rem;
     .feedback-content-wrapper {
-      @include bp(large) {
-        background-color: $w-grey-10;
-        border-radius: 16px;
-        padding: 1.6rem;
-        max-width: 100%;
-      }
-      .submission-wrapper {
-        .submission-container {
-          @include bp(large) {
-            border-bottom: none;
-            margin-bottom: 0;
-          }
-          border-bottom: 1px solid $c-grey-40;
-          padding-bottom: 1.5rem;
-          margin-bottom: 2rem;
-          .submission-content {
-            h2 {
-              @include bp(large) {
-                font-size: 2rem;
-                margin-bottom: 1.5rem;
-              }
-              font-size: 1.2rem;
-              margin-bottom: 0.5rem;
-            }
-            a {
-              font-size: 1.4rem;
-            }
+      .submission-container {
+        align-items: stretch;
+        img {
+          width: 100%;
+          @include bp($large) {
+            width: 25rem;
           }
         }
+      }
+      h2 {
+        font-size: 1.2rem;
+        margin: 2rem 0 0.5rem;
       }
       .feedback-container {
-        h2 {
-          @include bp(large) {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
+        .table-wrapper {
+          .table-header,
+          .table-body > .table-row {
+            // removes table background and lines
+            // background-color: unset;
+            // border-bottom: none;
           }
-          font-size: 1.2rem;
-          margin-bottom: 0.25rem;
-        }
-        .table-body {
-          .table-row {
-            @include bp(large) {
-              // background-color: $w-grey-10;
-            }
-            border-bottom: none;
-            background-color: $w-grey-05;
+          .table-header {
             .row-wrapper {
-              flex-direction: column;
-              .table-col {
-                padding: 0;
+              font-size: 1.2rem;
+              .header-question {
+                // padding-left: 0;
               }
+              .header-score {
+                // padding-right: 0;
+                text-align: center;
+              }
+            }
+          }
+          .table-body {
+            .table-row {
               .feedback-question {
-                width: 100%;
-                font-size: 1.2rem;
-                margin: 0.25rem 0;
+                // hanging indent cleans up numbered bullets
+                padding-left: 3.5rem;
+                text-indent: -1.5rem;
               }
               .feedback-score {
-                font-weight: bold;
-                font-size: 1.5rem;
+                padding-right: 0;
+                width: unset;
+                text-align: center;
               }
             }
           }
-        }
-        .table-body:not(:last-child) {
-          margin-bottom: 1rem;
         }
       }
     }
