@@ -31,6 +31,16 @@
     align-items: center;
     @include wrapped-container(900px);
 
+    .form-header {
+      width: 100%;
+      text-align: left;
+      font-size: 2rem;
+      color: $c-grey-40;
+      margin-bottom: 1.25rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
     @include bp(large) {
       flex-direction: row;
       align-items: flex-start;

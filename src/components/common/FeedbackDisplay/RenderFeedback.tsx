@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table } from '..';
-import { Submissions } from '../../../api';
+import { Feedback, Submissions } from '../../../api';
+import { feedbackQuestions } from '../../../config';
 import { Submission } from '../Submission';
 import { IAverages } from './feedbackTypes';
 
@@ -8,6 +9,7 @@ const RenderFeedback = ({
   submission,
   averages,
 }: IRenderFeedbackProps): React.ReactElement => {
+  const questions: Feedback.IFeedbackQuestions[] = feedbackQuestions;
   return (
     <div className="feedback-wrapper">
       <div className="feedback-content-wrapper">
@@ -17,23 +19,22 @@ const RenderFeedback = ({
           <div className="feedback-container">
             <h2>FEEDBACK</h2>
             <Table.Header>
-              <Table.Col>Questions</Table.Col>
+              <Table.Col>Question</Table.Col>
               <Table.Col>Rating out of 5</Table.Col>
             </Table.Header>
-            <Table.Body>
-              <Table.Row>
-                <Table.Col>1. Is this the first question?</Table.Col>
-                <Table.Col>{averages.score1}</Table.Col>
-              </Table.Row>
-              <Table.Row>
-                <Table.Col>2. Is this the second question?</Table.Col>
-                <Table.Col>{averages.score2}</Table.Col>
-              </Table.Row>
-              <Table.Row>
-                <Table.Col>3. Is this the third question?</Table.Col>
-                <Table.Col>{averages.score3}</Table.Col>
-              </Table.Row>
-            </Table.Body>
+            {questions.map((question, index) => (
+              <Table.Body key={index}>
+                <Table.Row>
+                  <Table.Col className="feedback-question">
+                    {`${index + 1}. ` + question.question}
+                  </Table.Col>
+                  <Table.Col className="feedback-score">
+                    {averages[`score${index + 1}` as keyof typeof averages]} out
+                    of 5
+                  </Table.Col>
+                </Table.Row>
+              </Table.Body>
+            ))}
           </div>
         ) : (
           <div className="message">
