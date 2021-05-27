@@ -1,16 +1,37 @@
 .teacher-view-submission {
   .feedback-wrapper {
+    @include bp(large) {
+      background-color: $white;
+      padding: 1rem 1.4rem;
+    }
+    @include bp($xlarge) {
+      padding: 1rem 0;
+    }
     border-radius: 0;
     background-color: $w-grey-05;
     padding: 3rem;
     .feedback-content-wrapper {
+      @include bp(large) {
+        background-color: $w-grey-10;
+        border-radius: 16px;
+        padding: 1.6rem;
+        max-width: 100%;
+      }
       .submission-wrapper {
         .submission-container {
+          @include bp(large) {
+            border-bottom: none;
+            margin-bottom: 0;
+          }
           border-bottom: 1px solid $c-grey-40;
           padding-bottom: 1.5rem;
           margin-bottom: 2rem;
           .submission-content {
             h2 {
+              @include bp(large) {
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
+              }
               font-size: 1.2rem;
               margin-bottom: 0.5rem;
             }
@@ -22,11 +43,18 @@
       }
       .feedback-container {
         h2 {
+          @include bp(large) {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+          }
           font-size: 1.2rem;
           margin-bottom: 0.25rem;
         }
         .table-body {
           .table-row {
+            @include bp(large) {
+              // background-color: $w-grey-10;
+            }
             border-bottom: none;
             background-color: $w-grey-05;
             .row-wrapper {
