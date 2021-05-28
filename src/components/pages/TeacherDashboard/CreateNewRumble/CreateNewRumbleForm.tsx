@@ -1,5 +1,6 @@
+import { DateTime } from 'luxon';
 import 'rc-time-picker/assets/index.css';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
@@ -27,27 +28,50 @@ const CreateNewRumbleForm = ({
   const { addToast } = useToasts();
 
   // Subscribe to state
+  const chosenDay: Date = watch().startDate;
   const sectionList = useRecoilValue(sections.list);
   const user = useRecoilValue(auth.user);
   const addRumbles = useSetRecoilState(rumbles.addRumbles);
   const [isChecked, setIsChecked] = useState<boolean>(true);
+  const [pastTwo, setPastTwo] = useState<boolean>(false);
+  const [rumbleEnd, setRumbleEnd] = useState<string>('');
+  //checking if the prompt Is custom or not and returns a boolean value
   const isCustom = useMemo<boolean>(() => !Prompts.isPromptInQueue(prompt), [
     prompt,
   ]);
-
-  console.log(watch());
-
-  //Runs a function checking if the prompt Is custom or not and returns a boolean value
-
+  const [isCurrentDay, setCurrentDay] = useState<boolean>();
   // Parse the user's section list into a usable option type
   const sectionOptions = useMemo<FormTypes.IOption<number>[]>(
     () => sectionList?.map((s) => ({ value: s.id, label: s.name })) ?? [],
     [sectionList],
   );
+  const checkDay = () => {
+    if (chosenDay) {
+      if (new Date().getDay() === chosenDay.getDay()) {
+        setCurrentDay(true);
+      } else {
+        setCurrentDay(false);
+      }
+    } else return;
+  };
 
+  useEffect(() => {
+    checkDay();
+  }, [watch().startDate]);
   const toggleCheck = () => {
     setIsChecked((prev) => !prev);
   };
+  //Checks if the rumble end time is past the submit time (Currently hard coded 2pm)
+  const checkEndTime = (time: any) => {
+    if (new Date().setHours(2, 0, 0) >= time) {
+      console.log(true);
+      setPastTwo(true);
+    } else return;
+  };
+
+  // useEffect(() => {
+  //   checkEndTime(parseInt(rumbleEnd));
+  // }, [rumbleEnd]);
 
   const onSubmit: SubmitHandler<{
     sectionIds: string[];
@@ -60,14 +84,25 @@ const CreateNewRumbleForm = ({
     const idList = sectionOptions
       .filter((op, i) => sectionIds[i])
       .map((op) => op.value);
-    const numMinutes = rumbleTime.toISOString();
+    const numMinutes = rumbleTime.getHours() * 60 + rumbleTime.getMinutes(); // how long the rumble is in only minutes
+    console.log('NUM', numMinutes);
     const startTimeStamp = startTime.toISOString();
     const startDateStamp = startDate.toISOString();
-    startTime = new Date(
+    const startTimeObject = DateTime.fromISO(
       startDateStamp.slice(0, startDateStamp.indexOf('T')) +
         startTimeStamp.slice(startTimeStamp.indexOf('T')),
     );
-
+    // calculates when the rumbles end
+    const endTime = startTimeObject
+      .plus({
+        hour: rumbleTime.getHours(),
+        minutes: rumbleTime.getMinutes(),
+      })
+      .toISO();
+    setRumbleEnd(endTime);
+    // console.log('Rumble Start', startTime);
+    console.log('Rumble Time', rumbleTime);
+    console.log('endTime', endTime);
     console.log({
       startTime: startTime.toLocaleString(),
       startTimeStamp,
@@ -133,8 +168,7 @@ const CreateNewRumbleForm = ({
         <Controller
           control={control}
           name="rumbleTime"
-          // This need to be reselected on the form because initialy it is in milliseconds and not string
-          defaultValue={new Date().setHours(1, 0)}
+          defaultValue={new Date(new Date().setHours(1, 0, 0, 0))}
           render={({ value, ...props }) => (
             <DatePicker
               selected={value}
@@ -164,21 +198,61 @@ const CreateNewRumbleForm = ({
               />
             )}
           />
-          <Controller
-            control={control}
-            name="startTime"
-            render={({ value, ...props }) => (
-              <DatePicker
-                placeholderText="Select time"
-                selected={value}
-                showTimeSelect
-                showTimeSelectOnly
-                dateFormat="h:mm aa"
-                filterTime={(date) => Date.now() < date.getTime()}
-                {...props}
-              />
-            )}
-          />
+          {/* Add more logic? If it is not custom prompt check for endtime and day */}
+          {isCurrentDay && !isCustom ? (
+            <Controller
+              control={control}
+              defaultValue={null}
+              name="startTime"
+              render={({ value, ...props }) => (
+                <DatePicker
+                  placeholderText="Select time"
+                  selected={value}
+                  showTimeSelect
+                  showTimeSelectOnly
+                  dateFormat="h:mm aa"
+                  filterTime={(date) => Date.now() < date.getTime()}
+                  onChangeRaw={checkEndTime}
+                  {...props}
+                />
+              )}
+            />
+          ) : !isChecked ? (
+            <Controller
+              control={control}
+              defaultValue={null}
+              name="startTime"
+              render={({ value, ...props }) => (
+                <DatePicker
+                  placeholderText="Select time"
+                  selected={value}
+                  showTimeSelect
+                  showTimeSelectOnly
+                  dateFormat="h:mm aa"
+                  onChangeRaw={checkEndTime}
+                  {...props}
+                />
+              )}
+            />
+          ) : (
+            <Controller
+              control={control}
+              defaultValue={null}
+              name="startTime"
+              render={({ value, ...props }) => (
+                <DatePicker
+                  placeholderText="Select time"
+                  selected={value}
+                  showTimeSelect
+                  showTimeSelectOnly
+                  dateFormat="h:mm aa"
+                  // excludeTimes={[new Date(new Date().setHours(2, 30, 0, 0))]}
+                  onChangeRaw={checkEndTime}
+                  {...props}
+                />
+              )}
+            />
+          )}
         </div>
       </div>
       {!isCustom && (
