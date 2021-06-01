@@ -8,20 +8,21 @@ export const addRumbles = selector<Rumbles.IRumbleWithSectionInfo[]>({
   get: ({ get }) => get(list),
   set: ({ set, get }, newValue) => {
     if (newValue instanceof DefaultValue) return;
-    console.log({ rumbles: newValue });
     const rumbleList = get(list);
     const sectionList = get(sections.list);
 
-    set(list, [...rumbleList, ...newValue]);
-    set(
-      sections.list,
-      sectionList.map((sec) => ({
-        ...sec,
-        rumbles: [
-          ...sec.rumbles,
-          ...newValue.filter((rum) => rum.sectionId === sec.id),
-        ],
-      })),
-    );
+    const newList = [...rumbleList, ...newValue];
+    set(list, newList);
+
+    const newSectionList = sectionList.map((sec) => ({
+      ...sec,
+      rumbles: [
+        ...sec.rumbles,
+        ...newValue
+          .filter((rum) => rum.sectionId === sec.id)
+          .map((rum) => ({ ...rum, phase: rum.phase ?? 'INACTIVE' })),
+      ],
+    }));
+    set(sections.list, newSectionList);
   },
 });
