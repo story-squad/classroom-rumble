@@ -1,21 +1,21 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { useCheckBrowserState } from '../../../../hooks';
-import { current } from '../../../../state';
+import { sections, students, submissions } from '../../../../state';
 import { Loader } from '../../../common';
 import RenderTeacherViewSubmission from './RenderTeacherViewSubmission';
 
 const TeacherViewSubmissionContainer = (): React.ReactElement => {
   const { isLoading } = useCheckBrowserState('section', 'student', 'sub');
-  const section = useRecoilValue(current.section);
-  const student = useRecoilValue(current.student);
-  const submission = useRecoilValue(current.sub);
+  const sectionId = useRecoilValue(sections.selected);
+  const studentId = useRecoilValue(students.selected);
+  const submissionId = useRecoilValue(submissions.selected);
 
-  return section && student && submission && !isLoading ? (
+  return sectionId && studentId && submissionId && !isLoading ? (
     <RenderTeacherViewSubmission
-      section={section}
-      student={student}
-      submission={submission}
+      sectionId={sectionId}
+      studentId={studentId}
+      submissionId={submissionId}
     />
   ) : isLoading ? (
     <Loader message={'Loading submission'} />

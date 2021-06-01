@@ -1,25 +1,27 @@
 import React from 'react';
-import { Rumbles, Sections } from '../../../../api';
+import { useRecoilValue } from 'recoil';
+import { rumbles } from '../../../../state';
 import { PromptBox, SectionInfo } from '../../../common';
 import { RumbleStudentList } from './RumbleStudentList';
 
 const RenderTeacherViewRumble = ({
-  rumble,
-  section,
+  rumbleId,
   prompt,
 }: IRenderTeacherViewRumbleProps): React.ReactElement => {
-  return (
+  const rumble = useRecoilValue(rumbles.getById(rumbleId));
+  return rumble ? (
     <div className="teacher-view-rumble">
       <PromptBox prompt={prompt} isTeacher />
-      <SectionInfo section={section} />
-      <RumbleStudentList section={section} rumble={rumble} />
+      <SectionInfo sectionId={rumble?.sectionId} />
+      <RumbleStudentList rumble={rumble} />
     </div>
+  ) : (
+    <p>Rumble not found</p>
   );
 };
 
 interface IRenderTeacherViewRumbleProps {
-  rumble: Rumbles.IRumbleWithSectionInfo;
-  section: Sections.ISectionWithRumbles;
+  rumbleId: number;
   prompt: string;
 }
 

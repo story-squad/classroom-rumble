@@ -1,29 +1,30 @@
 import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import { Sections, Students } from '../../../../../api';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { Students } from '../../../../../api';
 import { useAsync } from '../../../../../hooks';
 import { students } from '../../../../../state';
 import { CouldNotLoad, Loader } from '../../../../common';
 import RenderSectionStudentList from './RenderSectionStudentList';
 
 const SectionStudentListContainer = ({
-  section,
+  sectionId,
   visible = true,
 }: ISectionStudentListContainerProps): React.ReactElement => {
-  const [studentList, setStudentList] = useRecoilState(students.list);
+  const studentIds = useRecoilValue(students.ids);
+  const addStudents = useSetRecoilState(students.add);
 
   const [getStudents, isLoading, , error] = useAsync({
     asyncFunction: Students.getWithSubsBySectionId,
-    setter: setStudentList,
+    setter: addStudents,
   });
 
   useEffect(() => {
-    getStudents(section.id);
-  }, [section]);
+    getStudents(sectionId);
+  }, [sectionId]);
 
   if (!visible) return <></>;
-  return studentList ? (
-    <RenderSectionStudentList studentList={studentList} section={section} />
+  return studentIds ? (
+    <RenderSectionStudentList studentIds={studentIds} sectionId={sectionId} />
   ) : error ? (
     <CouldNotLoad error={error.message} />
   ) : isLoading ? (
@@ -34,7 +35,7 @@ const SectionStudentListContainer = ({
 };
 
 interface ISectionStudentListContainerProps {
-  section: Sections.ISectionWithRumbles;
+  sectionId: number;
   visible?: boolean;
 }
 

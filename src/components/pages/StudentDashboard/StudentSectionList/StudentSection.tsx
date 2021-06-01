@@ -1,32 +1,28 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { Sections } from '../../../../api';
-import { current, enumData } from '../../../../state';
-import { Button } from '../../../common';
+import { enumData, sections } from '../../../../state';
+import { Button, Loader } from '../../../common';
 
 const StudentSection = ({
-  id,
-  joinCode,
-  ...section
-}: Sections.ISectionWithRumbles): React.ReactElement => {
+  sectionId,
+}: {
+  sectionId: number;
+}): React.ReactElement => {
   const { push } = useHistory();
 
+  const section = useRecoilValue(sections.getById(sectionId));
+  const setSelectedSection = useSetRecoilState(sections.selected);
   const gradeEnum = useRecoilValue(enumData.grades);
   const subjectEnum = useRecoilValue(enumData.subjects);
-  const setCurrentSection = useSetRecoilState(current.section);
 
   const openSection = () => {
-    const currentSection = {
-      ...section,
-      id,
-      joinCode,
-    };
-    setCurrentSection(currentSection);
-    push('/dashboard/student/section', {
-      section: currentSection,
-    });
+    setSelectedSection(sectionId);
+    push('/dashboard/student/section', { section });
   };
+
+  if (!section) return <Loader message="Loading section..." />;
+
   return (
     <div className="section-card">
       <div className="content">

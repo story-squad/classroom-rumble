@@ -1,23 +1,22 @@
 import React from 'react';
-import { Sections, Submissions } from '../../../../../../api';
 import { FeedbackDisplay, PromptBox, SectionInfo } from '../../../../../common';
 
 const RenderPastRumbleDetails = ({
-  submission,
-  section,
+  submissionId,
+  sectionId,
 }: IRenderPastRumbleDetailProps): React.ReactElement => {
   return (
     <div className="view-submission-container">
-      <SectionInfo section={section} />
+      <SectionInfo sectionId={sectionId} />
       <PromptBox />
-      <FeedbackDisplay submission={submission} />
+      <FeedbackDisplay submissionId={submissionId} />
     </div>
   );
 };
 
 interface IRenderPastRumbleDetailProps {
-  submission: Submissions.ISubItem;
-  section: Sections.ISectionWithRumbles;
+  submissionId: number;
+  sectionId: number;
 }
 
 export default RenderPastRumbleDetails;

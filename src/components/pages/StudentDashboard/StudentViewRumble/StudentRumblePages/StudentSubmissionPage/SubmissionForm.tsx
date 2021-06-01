@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useToasts } from 'react-toast-notifications';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Submissions } from '../../../../../../api';
 import activeUpload from '../../../../../../assets/img/active_upload.svg';
-import { auth, current, modals } from '../../../../../../state';
+import { auth, current, modals, rumbles } from '../../../../../../state';
 import { upload } from '../../../../../../utils';
 import { Button, Checkbox } from '../../../../../common';
 
@@ -28,7 +28,7 @@ const SubmissionForm = (): React.ReactElement => {
   const [complete, setComplete] = useRecoilState(current.hasSubmitted);
 
   // We will always know the rumble if we get this far bc the PromptBox is only rendered within a Rumble.
-  const currentRumble = useRecoilValue(current.rumble);
+  const currentRumble = useRecoilValue(rumbles.current);
   // Ensuring the promptId is a string before it is uploaded
   const promptId = currentRumble?.promptId.toString();
 

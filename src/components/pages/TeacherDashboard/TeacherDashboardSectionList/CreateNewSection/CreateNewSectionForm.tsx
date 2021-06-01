@@ -13,14 +13,14 @@ const CreateNewSectionForm = ({
   const user = useRecoilValue(auth.user);
   const grades = useRecoilValue(enumData.grades);
   const subjects = useRecoilValue(enumData.subjects);
-  const setSectionList = useSetRecoilState(sections.list);
+  const addSections = useSetRecoilState(sections.add);
   const { addToast } = useToasts();
 
   const onSubmit: SubmitHandler<Sections.INewSectionBody> = async (data) => {
     try {
       if (user) {
         const res = await Sections.createNewSection(data, user.id);
-        setSectionList((prev) => (prev ? [...prev, res] : [res]));
+        addSections(res);
         addToast('Successfuly created a class!', { appearance: 'success' });
         closeModal();
       }

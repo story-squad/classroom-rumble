@@ -1,14 +1,13 @@
 import React from 'react';
-import { Rumbles, Sections } from '../../../../../../api';
 import { PromptBox, SectionInfo } from '../../../../../common';
 import SubmissionForm from './SubmissionForm';
 
 const RenderStudentViewRumble = ({
-  section,
+  sectionId,
 }: IRenderStudentViewRumbleProps): React.ReactElement => {
   return (
     <div className="student-view-rumble">
-      <SectionInfo section={section} />
+      <SectionInfo sectionId={sectionId} />
       <PromptBox />
       <SubmissionForm />
     </div>
@@ -16,8 +15,7 @@ const RenderStudentViewRumble = ({
 };
 
 interface IRenderStudentViewRumbleProps {
-  rumble: Rumbles.IRumbleWithSectionInfo;
-  section: Sections.ISectionWithRumbles;
+  sectionId: number;
 }
 
 export default RenderStudentViewRumble;

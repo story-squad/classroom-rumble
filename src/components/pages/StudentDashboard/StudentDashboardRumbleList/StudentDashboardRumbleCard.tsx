@@ -1,19 +1,22 @@
 import React, { useMemo } from 'react';
 import { useHistory } from 'react-router';
-import { useSetRecoilState } from 'recoil';
-import { Rumbles, Sections } from '../../../../api';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { Rumbles } from '../../../../api';
 import time_lady from '../../../../assets/img/waiting_time.svg';
 import { useRumbleStatus } from '../../../../hooks';
-import { current } from '../../../../state';
+import { rumbles, sections } from '../../../../state';
 import { Button } from '../../../common';
 
 const StudentRumble = ({
-  section,
-  rumble,
+  rumbleId,
 }: IStudentDashboardRumbleCardProps): React.ReactElement => {
   const { push } = useHistory();
-  const setCurrentSection = useSetRecoilState(current.section);
-  const setCurrentRumble = useSetRecoilState(current.rumble);
+  // TODO find a better way to ensure this is set
+  const rumble = useRecoilValue(
+    rumbles.getById(rumbleId),
+  ) as Rumbles.IRumbleWithSectionInfo;
+  const setCurrentSection = useSetRecoilState(sections.selected);
+  const setCurrentRumble = useSetRecoilState(rumbles.selected);
   const [status] = useRumbleStatus(rumble.phase);
 
   // Memoize the minutes and hours to reduce calculations
@@ -34,9 +37,9 @@ const StudentRumble = ({
   }, [hours, mins]);
 
   const openCurrentRumble = () => {
-    setCurrentRumble(rumble);
-    setCurrentSection(section);
-    push('/dashboard/student/rumble', { section, rumble });
+    setCurrentRumble(rumbleId);
+    setCurrentSection(rumble?.sectionId);
+    push('/dashboard/student/rumble', { rumble });
   };
 
   console.log(rumble);
@@ -45,7 +48,7 @@ const StudentRumble = ({
     <div className="rumble-card">
       <div className="content">
         <h3>Class Name</h3>
-        <h4>{rumble.sectionName}</h4>
+        <h4>{rumble?.sectionName}</h4>
       </div>
       {status !== 'Scheduled' ? (
         <>
@@ -74,7 +77,6 @@ const StudentRumble = ({
 };
 
 interface IStudentDashboardRumbleCardProps {
-  section: Sections.ISectionWithRumbles;
-  rumble: Rumbles.IRumbleWithSectionInfo;
+  rumbleId: number;
 }
 export default StudentRumble;

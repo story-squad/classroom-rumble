@@ -1,24 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { Rumbles, Sections, Students } from '../../../../../api';
+import React, { useEffect } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { Rumbles, Students } from '../../../../../api';
 import { useAsync } from '../../../../../hooks';
+import { sections, students } from '../../../../../state';
 import { CouldNotLoad, Loader } from '../../../../common';
 import RenderRumbleStudentList from './RenderRumbleStudentList';
 
 const RumbleStudentListContainer = ({
   rumble,
-  section,
-}: IRumbleStudentListContainerProps): React.ReactElement => {
-  const [studentList, setStudentList] = useState<
-    Students.IStudentWithSubmissions[]
-  >();
-
+}: {
+  rumble: Rumbles.IRumbleWithSectionInfo;
+}): React.ReactElement => {
+  const addStudent = useSetRecoilState(students.add);
+  const studentList = useRecoilValue(students.ids);
+  const section = useRecoilValue(sections.getById(rumble.sectionId));
   const [getWithSubsByRumbleId, , , error] = useAsync({
     asyncFunction: Students.getWithSubsByRumbleId,
-    setter: setStudentList,
+    setter: addStudent,
   });
+
   useEffect(() => {
     getWithSubsByRumbleId(rumble.id);
-  }, [section, rumble]);
+  }, [rumble]);
 
   return studentList && section ? (
     <RenderRumbleStudentList studentList={studentList} section={section} />
@@ -28,10 +31,5 @@ const RumbleStudentListContainer = ({
     <Loader message={'Loading students'} />
   );
 };
-
-interface IRumbleStudentListContainerProps {
-  rumble: Rumbles.IRumbleWithSectionInfo;
-  section: Sections.ISectionWithRumbles;
-}
 
 export default RumbleStudentListContainer;

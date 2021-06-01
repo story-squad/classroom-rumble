@@ -2,16 +2,16 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import { useRecoilValue } from 'recoil';
 import { useCheckBrowserState } from '../../../../hooks';
-import { current } from '../../../../state';
+import { sections } from '../../../../state';
 import { Loader } from '../../../common';
 import RenderTeacherViewSection from './RenderTeacherViewSection';
 
 const TeacherViewSectionContainer = (): React.ReactElement => {
   const { isLoading } = useCheckBrowserState('section');
-  const section = useRecoilValue(current.section);
+  const sectionId = useRecoilValue(sections.selected);
 
-  return section && !isLoading ? (
-    <RenderTeacherViewSection section={section} />
+  return sectionId && !isLoading ? (
+    <RenderTeacherViewSection sectionId={sectionId} />
   ) : isLoading ? (
     <Loader message="Loading section" />
   ) : (

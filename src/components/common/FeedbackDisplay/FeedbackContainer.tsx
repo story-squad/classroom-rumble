@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { Feedback, Submissions } from '../../../api';
+import React, { useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { Feedback } from '../../../api';
 import { useAsync } from '../../../hooks';
-import { current } from '../../../state';
+import { feedback, submissions } from '../../../state';
 import { Loader } from '../Loader';
-import { IAverages } from './feedbackTypes';
 import RenderFeedback from './RenderFeedback';
 
 const FeedbackContainer = ({
-  submission,
+  submissionId,
 }: IFeedbackContainerProps): React.ReactElement => {
-  const [feedback, setFeedback] = useRecoilState(current.feedbackForSubmission);
-  const [averages, setAverages] = useState<IAverages>();
+  const submission = useRecoilValue(submissions.getById(submissionId));
+  const [feedbackIds, setFeedback] = useRecoilState(feedback.ids);
+  const averages = useRecoilValue(feedback.averages(feedbackIds));
 
   const [getSubmissionFeedback, loading, ,] = useAsync({
     asyncFunction: Feedback.getSubmissionFeedback,
-    setter: setFeedback,
+    setter: (f) => {
+      setFeedback(f.map((fb) => fb.id));
+    },
   });
 
   useEffect(() => {
@@ -24,41 +26,17 @@ const FeedbackContainer = ({
     }
   }, [submission]);
 
-  useEffect(() => {
-    if (!feedback || feedback.length <= 0) return;
-    // This keeps this from breaking ^^
-    const submissionScores = feedback.map(({ score1, score2, score3 }) => {
-      // loops through the feedback array and pulls all the scores in to its own array
-      return {
-        score1: score1 ?? 0,
-        score2: score2 ?? 0,
-        score3: score3 ?? 0,
-      };
-    });
-    const totals = submissionScores.reduce((acc, cur) => ({
-      //totals all the scores up from the submissions array
-      score1: acc.score1 + cur.score1,
-      score2: acc.score2 + cur.score2,
-      score3: acc.score3 + cur.score3,
-    }));
-
-    setAverages({
-      // This averages all the scores and sets them to state
-      score1: parseFloat((totals.score1 / feedback.length).toFixed(2)),
-      score2: parseFloat((totals.score2 / feedback.length).toFixed(2)),
-      score3: parseFloat((totals.score3 / feedback.length).toFixed(2)),
-    });
-  }, [feedback]);
-
   return loading ? (
     <Loader />
-  ) : (
+  ) : submission ? (
     <RenderFeedback averages={averages} submission={submission} />
+  ) : (
+    <p>Could not find submission</p>
   );
 };
 
 interface IFeedbackContainerProps {
-  submission: Submissions.ISubItem;
+  submissionId: number;
 }
 
 export default FeedbackContainer;

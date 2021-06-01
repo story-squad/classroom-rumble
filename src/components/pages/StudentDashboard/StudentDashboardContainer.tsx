@@ -1,7 +1,5 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { sections } from '../../../state';
 import { Header } from '../../common';
 import { JoinSectionRedirect } from './JoinSectionRedirect';
 import RenderStudentDashboard from './RenderStudentDashboard';
@@ -10,8 +8,6 @@ import { StudentViewSection } from './StudentViewSection';
 import { ParentValidationModal } from './ValidationModal';
 
 const StudentDashboardContainer = (): React.ReactElement => {
-  const sectionList = useRecoilValue(sections.list);
-
   return (
     <>
       <ParentValidationModal />
@@ -25,7 +21,7 @@ const StudentDashboardContainer = (): React.ReactElement => {
         <Route
           exact
           path="/dashboard/student"
-          render={() => <RenderStudentDashboard sectionList={sectionList} />}
+          render={() => <RenderStudentDashboard />}
         />
         <Route
           exact

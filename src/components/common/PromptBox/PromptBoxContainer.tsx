@@ -4,7 +4,7 @@ import { useToasts } from 'react-toast-notifications';
 import { useRecoilValue } from 'recoil';
 import { Feedback, Prompts, Rumbles } from '../../../api';
 import { useAsync, useCheckBrowserState } from '../../../hooks';
-import { current } from '../../../state';
+import { rumbles, sections } from '../../../state';
 import { CouldNotLoad } from '../CouldNotLoad';
 import { Loader } from '../Loader';
 import RenderPromptBox from './RenderPromptBox';
@@ -19,8 +19,11 @@ const PromptBoxContainer = ({
   isTeacher = false,
 }: IPromptBoxContainerProps): React.ReactElement => {
   useCheckBrowserState('rumble', 'section');
-  const currentRumble = useRecoilValue(current.rumble);
-  const currentSection = useRecoilValue(current.section);
+  const currentRumbleId = useRecoilValue(rumbles.selected);
+  const currentRumble = useRecoilValue(
+    rumbles.getById(currentRumbleId as number),
+  );
+  const currentSection = useRecoilValue(sections.selected);
   const [endTime, setEndTime] = useState(currentRumble?.end_time);
   const [prompt, setPrompt] = useState<string | undefined>(promptProp);
   const { addToast } = useToasts();
@@ -61,7 +64,7 @@ const PromptBoxContainer = ({
       } else {
         const newEndTime = await Rumbles.startRumble(
           currentRumble?.id || 0,
-          currentSection?.id || 0,
+          currentSection || 0,
         );
         console.log({ newEndTime });
         setEndTime(newEndTime);

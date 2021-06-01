@@ -22,14 +22,20 @@ const CreateNewRumbleForm = ({
   const { addToast } = useToasts();
 
   // Subscribe to state
-  const sectionList = useRecoilValue(sections.list);
+  const allSections = useRecoilValue(sections.getAll);
   const user = useRecoilValue(auth.user);
-  const addRumbles = useSetRecoilState(rumbles.addRumbles);
+  const addRumbles = useSetRecoilState(rumbles.add);
 
   // Parse the user's section list into a usable option type
   const sectionOptions = useMemo<FormTypes.IOption<number>[]>(
-    () => sectionList?.map((s) => ({ value: s.id, label: s.name })) ?? [],
-    [sectionList],
+    () =>
+      allSections
+        ?.filter((s) => !!s)
+        .map((s) => ({
+          value: s.id,
+          label: s.name,
+        })) ?? [],
+    [allSections],
   );
 
   const onSubmit: SubmitHandler<{

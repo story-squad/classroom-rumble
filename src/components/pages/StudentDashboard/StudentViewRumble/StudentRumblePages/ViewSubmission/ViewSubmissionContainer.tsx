@@ -1,20 +1,21 @@
 import React, { useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Students } from '../../../../../../api';
 import { useAsync } from '../../../../../../hooks';
-import { auth, current } from '../../../../../../state';
+import { auth, rumbles, sections, submissions } from '../../../../../../state';
 import { CouldNotLoad, Loader } from '../../../../../common';
 import RenderPastRumbleDetails from './RenderViewSubmission';
 
 const PastRumbleDetailsContainer = (): React.ReactElement => {
-  const rumble = useRecoilValue(current.rumble);
+  const rumble = useRecoilValue(rumbles.current);
   const user = useRecoilValue(auth.user);
-  const section = useRecoilValue(current.section);
-  const [submission, setSubmission] = useRecoilState(current.sub);
+  const section = useRecoilValue(sections.current);
+  const submission = useRecoilValue(submissions.current);
+  const addSubmissions = useSetRecoilState(submissions.add);
 
   const [getSubForRumble, , , error] = useAsync({
     asyncFunction: Students.getSubForRumble,
-    setter: setSubmission,
+    setter: addSubmissions,
   });
 
   useEffect(() => {
@@ -24,7 +25,10 @@ const PastRumbleDetailsContainer = (): React.ReactElement => {
   }, [rumble, user]);
 
   return submission && section ? (
-    <RenderPastRumbleDetails section={section} submission={submission} />
+    <RenderPastRumbleDetails
+      sectionId={section.id}
+      submissionId={submission.id}
+    />
   ) : error ? (
     <CouldNotLoad error={error.message} />
   ) : (

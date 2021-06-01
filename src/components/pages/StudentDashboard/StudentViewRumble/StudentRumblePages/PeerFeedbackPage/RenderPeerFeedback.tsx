@@ -1,18 +1,21 @@
 import React from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { Auth, Sections, Submissions } from '../../../../../../api';
+import { useRecoilValue } from 'recoil';
+import { Auth, Submissions } from '../../../../../../api';
+import { submissions } from '../../../../../../state';
 import { Button, PromptBox, SectionInfo } from '../../../../../common';
 import FeedbackSubmissionCard from './FeedbackSubmissionCard';
 
 const RenderPeerFeedback = ({
-  section,
-  submissions,
+  sectionId,
   student,
 }: IRenderPeerFeedbackProps): React.ReactElement => {
   const methods = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
   });
+
+  const submissionIds = useRecoilValue(submissions.ids);
 
   // TODO better type interfaces for form data
   const onSubmit: SubmitHandler<Record<string, unknown>> = (
@@ -22,11 +25,11 @@ const RenderPeerFeedback = ({
     const radioValue = Object.values(data);
 
     // TODO find a more readable way to parse the body
-    submissions &&
+    submissionIds &&
       radioValue &&
-      submissions.forEach((submission) => {
+      submissionIds.forEach((id) => {
         body.push({
-          submissionId: submission?.id,
+          submissionId: id,
           voterId: student?.id,
           score1: Number(radioValue.shift()),
           score2: Number(radioValue.shift()),
@@ -38,18 +41,18 @@ const RenderPeerFeedback = ({
 
   return (
     <div className="peer-feedback">
-      <SectionInfo section={section} />
+      <SectionInfo sectionId={sectionId} />
       <PromptBox />
-      {submissions.length > 0 ? (
+      {submissionIds && submissionIds.length > 0 ? (
         <FormProvider {...methods}>
           <div className="form-wrapper">
             <form onSubmit={methods.handleSubmit(onSubmit)}>
-              {submissions.map((submission, index) => (
+              {submissionIds.map((id, index) => (
                 <FeedbackSubmissionCard
-                  key={submission.id}
-                  submission={submission}
+                  key={id}
+                  submissionId={id}
                   subNumber={index + 1}
-                  storyAmount={submissions.length}
+                  storyAmount={submissionIds.length}
                 />
               ))}
               <div className="button-area">
@@ -62,15 +65,16 @@ const RenderPeerFeedback = ({
         </FormProvider>
       ) : (
         // TODO decide what to display if they don't have feedback assigned
-        <></>
+        <p>
+          Feedback has not been assigned. Ask your teacher for more details.
+        </p>
       )}
     </div>
   );
 };
 
 interface IRenderPeerFeedbackProps {
-  section: Sections.ISectionWithRumbles;
-  submissions: Submissions.ISubItem[];
+  sectionId: number;
   student: Auth.IUser;
 }
 

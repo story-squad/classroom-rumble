@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Submissions } from '../../../../../api';
-import { current } from '../../../../../state';
+import { sections, students, submissions } from '../../../../../state';
 import { Table } from '../../../../common';
 
 const SubmissionCard = ({
@@ -13,9 +13,9 @@ const SubmissionCard = ({
   ...submission
 }: Submissions.ISubItem): React.ReactElement => {
   const { push } = useHistory();
-  const student = useRecoilValue(current.student);
-  const section = useRecoilValue(current.section);
-  const setCurrentSubmission = useSetRecoilState(current.sub);
+  const student = useRecoilValue(students.current);
+  const section = useRecoilValue(sections.current);
+  const setCurrentSubmission = useSetRecoilState(submissions.selected);
 
   const openSubView = () => {
     const currentSubmission = {
@@ -25,7 +25,7 @@ const SubmissionCard = ({
       src,
       codename,
     };
-    setCurrentSubmission(currentSubmission);
+    setCurrentSubmission(submission.id);
     push('/dashboard/teacher/submission', {
       student,
       section,

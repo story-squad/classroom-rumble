@@ -1,22 +1,23 @@
 import React, { useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
-import { Rumbles, Sections } from '../../../../api';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useRumbleStatus } from '../../../../hooks';
-import { current } from '../../../../state';
+import { rumbles } from '../../../../state';
 
 const TeacherDashboardRumbleCard = ({
-  section,
-  rumble,
+  rumbleId,
 }: ITeacherDashboardRumbleCardProps): React.ReactElement => {
   const { push } = useHistory();
-  const setCurrentSection = useSetRecoilState(current.section);
-  const setCurrentRumble = useSetRecoilState(current.rumble);
-  const [status] = useRumbleStatus(rumble.phase);
+  const rumble = useRecoilValue(rumbles.getById(rumbleId));
+  console.log('rumble card', rumble);
+  const setCurrentRumble = useSetRecoilState(rumbles.selected);
+  const [status] = useRumbleStatus(rumble?.phase);
 
   // Memoize the minutes and hours to reduce calculations
-  const hours = useMemo(() => Math.floor(rumble.numMinutes / 60), [rumble]);
-  const mins = useMemo(() => rumble.numMinutes % 60, [rumble]);
+  const hours = useMemo(() => Math.floor((rumble?.numMinutes || 0) / 60), [
+    rumble,
+  ]);
+  const mins = useMemo(() => (rumble?.numMinutes || 0) % 60, [rumble]);
   const timeDisplay = useMemo(() => {
     let res = '';
     if (hours > 0) {
@@ -32,16 +33,15 @@ const TeacherDashboardRumbleCard = ({
   }, [hours, mins]);
 
   const openCurrentRumble = () => {
-    setCurrentRumble(rumble);
-    setCurrentSection(section);
-    push('/dashboard/teacher/rumble', { section, rumble });
+    setCurrentRumble(rumbleId);
+    push('/dashboard/teacher/rumble', { rumble });
   };
 
   return (
     <div className="rumble-card" onClick={openCurrentRumble}>
       <div className="content">
         <h3>Class Name</h3>
-        <h4>{rumble.sectionName}</h4>
+        <h4>{rumble?.sectionName}</h4>
       </div>
       <div className="content status">
         <h3>Status</h3>
@@ -56,8 +56,7 @@ const TeacherDashboardRumbleCard = ({
 };
 
 interface ITeacherDashboardRumbleCardProps {
-  section: Sections.ISectionWithRumbles;
-  rumble: Rumbles.IRumbleWithSectionInfo;
+  rumbleId: number;
 }
 
 export default TeacherDashboardRumbleCard;

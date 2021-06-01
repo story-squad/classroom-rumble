@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { Sections } from '../../../../api';
 import rocketBoy from '../../../../assets/img/rocket_boy.svg';
 import talk from '../../../../assets/img/speech.svg';
 import { modals } from '../../../../state';
 import { Button } from '../../../common';
 import { InviteToSection } from '../InviteToSection';
 import { CreateNewSection } from './CreateNewSection';
-import Section from './TeacherDashboardSectionCard';
+import TeacherDashboardSectionCard from './TeacherDashboardSectionCard';
 
 const RenderTeacherDashboardSectionList = ({
-  sections,
+  sectionIds,
 }: ITeacherDashboardSectionListProps): React.ReactElement => {
   const setInviteModalOpen = useSetRecoilState(modals.inviteModalIsOpen);
   const [newSectionOpen, setNewSectionOpen] = useState(false);
@@ -26,7 +25,7 @@ const RenderTeacherDashboardSectionList = ({
           setIsVisible={setNewSectionOpen}
         />
         <InviteToSection />
-        {sections.length <= 0 ? (
+        {sectionIds.length <= 0 ? (
           <div className="no-sections">
             <div>
               <img
@@ -53,8 +52,8 @@ const RenderTeacherDashboardSectionList = ({
               </Button>
             </div>
             <div className="section-list">
-              {sections?.map((sec) => (
-                <Section {...sec} key={sec.id} />
+              {sectionIds?.map((id) => (
+                <TeacherDashboardSectionCard key={id} sectionId={id} />
               ))}
             </div>
           </>
@@ -65,7 +64,7 @@ const RenderTeacherDashboardSectionList = ({
 };
 
 interface ITeacherDashboardSectionListProps {
-  sections: Sections.ISectionWithRumbles[];
+  sectionIds: number[];
 }
 
 export default RenderTeacherDashboardSectionList;

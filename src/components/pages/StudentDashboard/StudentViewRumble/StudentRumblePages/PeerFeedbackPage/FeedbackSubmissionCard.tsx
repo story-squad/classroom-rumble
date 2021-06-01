@@ -1,17 +1,19 @@
 import React from 'react';
-import { Submissions } from '../../../../../../api';
+import { useRecoilValue } from 'recoil';
 import { IFeedbackQuestions } from '../../../../../../api/Feedback';
 import { feedbackQuestions } from '../../../../../../config';
+import { submissions } from '../../../../../../state';
 import { Submission } from '../../../../../common';
 import FeedbackForm from './FeedbackForm';
 
 const FeedbackSubmissionCard = ({
-  submission,
+  submissionId,
   subNumber,
   storyAmount,
 }: IFeedbackSubmissionCardProps): React.ReactElement => {
+  const submission = useRecoilValue(submissions.getById(submissionId));
   const questions: IFeedbackQuestions[] = feedbackQuestions;
-  return (
+  return submission ? (
     <div className="feedback-submission-card">
       <div className="card-content">
         <Submission
@@ -31,12 +33,14 @@ const FeedbackSubmissionCard = ({
         </div>
       </div>
     </div>
+  ) : (
+    <p>Submission not found.</p>
   );
 };
 
 interface IFeedbackSubmissionCardProps {
   storyAmount: number;
-  submission: Submissions.ISubItem;
+  submissionId: number;
   subNumber: number;
 }
 

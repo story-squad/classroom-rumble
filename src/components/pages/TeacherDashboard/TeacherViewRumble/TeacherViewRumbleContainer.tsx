@@ -2,29 +2,25 @@ import React, { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Prompts } from '../../../../api';
 import { useAsync, useCheckBrowserState } from '../../../../hooks';
-import { current } from '../../../../state';
+import { rumbles, sections } from '../../../../state';
 import { CouldNotLoad, Loader } from '../../../common';
 import RenderTeacherViewRumble from './RenderTeacherViewRumble';
 
 const TeacherViewRumbleContainer = (): React.ReactElement => {
   const { isLoading } = useCheckBrowserState('section', 'rumble');
-  const section = useRecoilValue(current.section);
-  const rumble = useRecoilValue(current.rumble);
+  const section = useRecoilValue(sections.current);
+  const rumbleId = useRecoilValue(rumbles.selected);
 
   const [getPromptById, promptIsLoading, prompt, error] = useAsync({
     asyncFunction: Prompts.getPromptById,
   });
 
   useEffect(() => {
-    if (rumble) getPromptById(rumble.promptId);
-  }, [rumble]);
+    if (rumbleId) getPromptById(rumbleId);
+  }, [rumbleId]);
 
-  return section && rumble && prompt && !isLoading && !promptIsLoading ? (
-    <RenderTeacherViewRumble
-      rumble={rumble}
-      section={section}
-      prompt={prompt}
-    />
+  return section && rumbleId && prompt && !isLoading && !promptIsLoading ? (
+    <RenderTeacherViewRumble rumbleId={rumbleId} prompt={prompt} />
   ) : error ? (
     <CouldNotLoad error={error.message} />
   ) : isLoading || promptIsLoading ? (

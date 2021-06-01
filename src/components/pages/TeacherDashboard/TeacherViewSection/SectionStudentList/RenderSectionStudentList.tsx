@@ -1,24 +1,22 @@
 import React from 'react';
 import { useSetRecoilState } from 'recoil';
-import { Sections, Students } from '../../../../../api';
 import noStudents from '../../../../../assets/img/no_students.svg';
 import { modals } from '../../../../../state';
 import { Table } from '../../../../common';
 import SectionStudentCard from './SectionStudentCard';
 
 const RenderSectionStudentList = ({
-  studentList,
-  section,
+  studentIds,
+  sectionId,
 }: IRenderSectionStudentListProps): React.ReactElement => {
   const setInviteModalOpen = useSetRecoilState(modals.inviteModalIsOpen);
   const openInviteModal = () => setInviteModalOpen(true);
-  console.log(studentList);
 
   return (
     <div className="student-list-wrapper">
       <div className="student-list-container">
         <div className="student-list">
-          {studentList.length > 0 ? (
+          {studentIds.length > 0 ? (
             <>
               <Table.Header>
                 <Table.Col>Student Name</Table.Col>
@@ -27,11 +25,11 @@ const RenderSectionStudentList = ({
                 <Table.Col># of Submissions</Table.Col>
               </Table.Header>
               <Table.Body>
-                {studentList.map((student) => (
+                {studentIds.map((id) => (
                   <SectionStudentCard
-                    student={student}
-                    section={section}
-                    key={student.id}
+                    studentId={id}
+                    sectionId={sectionId}
+                    key={id}
                   />
                 ))}
               </Table.Body>
@@ -54,8 +52,8 @@ const RenderSectionStudentList = ({
 };
 
 interface IRenderSectionStudentListProps {
-  studentList: Students.IStudentWithSubmissions[];
-  section: Sections.ISectionWithRumbles;
+  studentIds: number[];
+  sectionId: number;
 }
 
 export default RenderSectionStudentList;

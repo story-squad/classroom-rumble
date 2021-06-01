@@ -1,31 +1,30 @@
 import { DateTime } from 'luxon';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Prompts } from '../../../../api';
+import { useRecoilValue } from 'recoil';
+import { prompts } from '../../../../state';
 
 const PromptQueueItem = ({
-  prompt,
-  starts_at,
-  ...promptProps
-}: Prompts.IPromptInQueue): React.ReactElement => {
+  promptId,
+}: {
+  promptId: number;
+}): React.ReactElement => {
   const { push } = useHistory();
 
+  const prompt = useRecoilValue(prompts.getById(promptId));
+
   const newRumbleFromThisPrompt = () => {
-    push('/dashboard/teacher/rumble/new', {
-      prompt,
-      starts_at,
-      ...promptProps,
-    });
+    push('/dashboard/teacher/rumble/new', prompt);
   };
 
   return (
     <div className="prompt-queue-item" onClick={newRumbleFromThisPrompt}>
-      {starts_at ? (
-        <h3>{formatDate(DateTime.fromISO(starts_at))}</h3>
+      {prompt?.starts_at ? (
+        <h3>{formatDate(DateTime.fromISO(prompt.starts_at))}</h3>
       ) : (
         <h3>Custom</h3>
       )}
-      <p>{prompt}</p>
+      <p>{prompt?.prompt}</p>
     </div>
   );
 };

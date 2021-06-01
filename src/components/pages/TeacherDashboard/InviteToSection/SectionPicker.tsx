@@ -1,28 +1,37 @@
 import React from 'react';
-import { Sections } from '../../../../api';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { sections } from '../../../../state';
 
-const SectionPicker = ({
-  sectionList,
-  setCurrentSection,
-}: ISectionPickerProps): React.ReactElement => (
-  <div className="section-picker">
-    <div className="section-picker-list">
-      {sectionList.map((sec) => (
-        <div
-          key={sec.id}
-          className="section-picker-item"
-          onClick={() => setCurrentSection(sec)}
-        >
-          {sec.name}
-        </div>
-      ))}
+const SectionPicker = (): React.ReactElement => {
+  const sectionIds = useRecoilValue(sections.ids);
+
+  return (
+    <div className="section-picker">
+      <div className="section-picker-list">
+        {sectionIds?.map((id) => (
+          <SectionPickerItem key={id} sectionId={id} />
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
-interface ISectionPickerProps {
-  sectionList: Sections.ISectionWithRumbles[];
-  setCurrentSection: (section: Sections.ISectionWithRumbles) => void;
-}
+const SectionPickerItem = ({
+  sectionId,
+}: {
+  sectionId: number;
+}): React.ReactElement => {
+  const setCurrentSection = useSetRecoilState(sections.selected);
+  const section = useRecoilValue(sections.getById(sectionId));
+  return (
+    <div
+      key={sectionId}
+      className="section-picker-item"
+      onClick={() => setCurrentSection(sectionId)}
+    >
+      {section?.name}
+    </div>
+  );
+};
 
 export default SectionPicker;

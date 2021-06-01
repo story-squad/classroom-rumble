@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Feedback, Rumbles, Sections, Students } from '../../../../api';
-import { auth, current } from '../../../../state';
+import { auth, current, submissions } from '../../../../state';
 import { Loader } from '../../../common';
 import {
   PastRumbleDetails,
@@ -17,7 +17,8 @@ const StudentRumbleRedirect = ({
   // The currently logged in user
   const user = useRecoilValue(auth.user);
   // The user's submission for the rumble they clicked on
-  const [submission, setSubmission] = useRecoilState(current.sub);
+  const submission = useRecoilValue(submissions.current);
+  const addSubmissions = useSetRecoilState(submissions.add);
   // Whether or not the user has given feedback to others yet
   const [feedbackComplete, setFeedbackComplete] = useState<boolean>();
   const [loading, setLoading] = useState(true);
@@ -41,7 +42,7 @@ const StudentRumbleRedirect = ({
           if (res === undefined) setLoading(false);
           else setHasSubmitted(true);
           // If submission is defined after this, it will run the next useEffect
-          setSubmission(res);
+          addSubmissions(res);
         })
         .catch((err) => {
           console.log({ err });
@@ -51,7 +52,6 @@ const StudentRumbleRedirect = ({
           setLoading(false);
         });
     }
-    return () => setSubmission(undefined);
   }, [rumble, user]);
 
   // This useEffect get the current user's feedback for OTHER submissions in the rumble
@@ -84,7 +84,7 @@ const StudentRumbleRedirect = ({
   ) : !submission ? (
     // If the student has not submitted, show the rumble page
     // TODO do a separate post endpoint for late work
-    <StudentSubmissionPage rumble={rumble} section={section} />
+    <StudentSubmissionPage sectionId={section.id} />
   ) : feedbackComplete === false ? (
     <PeerFeedbackPage />
   ) : (
@@ -95,7 +95,6 @@ const StudentRumbleRedirect = ({
 interface IStudentRumbleRedirectProps {
   rumble: Rumbles.IRumbleWithSectionInfo;
   section: Sections.ISectionWithRumbles;
-  endTime: Date;
 }
 
 export default StudentRumbleRedirect;

@@ -1,26 +1,31 @@
 import React from 'react';
-import { Sections } from '../../../../api';
+import { useRecoilValue } from 'recoil';
 import emptyMail from '../../../../assets/img/empty_inbox.svg';
-import { useRumbleFilter } from '../../../../hooks';
+import { rumbles } from '../../../../state';
 import { SectionInfo } from '../../../common';
 import { StudentRumbleList } from '../StudentRumbleList';
 
 const RenderStudentViewSectionRumbles = ({
-  section,
+  sectionId,
 }: IRenderStudentViewSectionRumblesProps): React.ReactElement => {
-  const [currentRumbles, pastRumbles] = useRumbleFilter(section.rumbles);
+  const currentRumbles = useRecoilValue(
+    rumbles.get({ sectionId, phases: ['ACTIVE', 'INACTIVE', 'FEEDBACK'] }),
+  );
+  const pastRumbles = useRecoilValue(
+    rumbles.get({ sectionId, phases: ['COMPLETE'] }),
+  );
 
   return (
     <>
-      <SectionInfo section={section} />
+      <SectionInfo sectionId={sectionId} />
       <div className="student-view-section">
         <div className="section-content-switcher-wrapper">
           <div className="section-content-switcher-container">
-            {currentRumbles.length ? (
+            {currentRumbles?.length ? (
               // Checks if there are any current rumbles if not renders an image
               <>
                 <h3>Current Rumbles</h3>
-                <StudentRumbleList rumbles={currentRumbles} />
+                <StudentRumbleList rumbleIds={currentRumbles} />
               </>
             ) : (
               <>
@@ -34,11 +39,11 @@ const RenderStudentViewSectionRumbles = ({
                 </div>
               </>
             )}
-            {pastRumbles.length ? (
+            {pastRumbles?.length ? (
               //Checks if there are any past rumbles if not renders an image
               <>
                 <h3>Past Rumbles</h3>
-                <StudentRumbleList rumbles={pastRumbles} />
+                <StudentRumbleList rumbleIds={pastRumbles} />
               </>
             ) : (
               <>
@@ -57,7 +62,7 @@ const RenderStudentViewSectionRumbles = ({
 };
 
 interface IRenderStudentViewSectionRumblesProps {
-  section: Sections.ISectionWithRumbles;
+  sectionId: number;
 }
 
 export default RenderStudentViewSectionRumbles;
