@@ -1,10 +1,5 @@
 .section-info-wrapper {
   .section-info-container {
     @include title-section;
-    button {
-      @include button-alt;
-      flex-grow: 1;
-      max-width: 200px;
-    }
   }
 }

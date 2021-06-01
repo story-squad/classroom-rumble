@@ -1,5 +1,6 @@
 import React from 'react';
 import { Sections } from '../../../api';
+import { Button } from '../Button';
 
 const RenderSectionInfo = ({
   grade,
@@ -31,7 +32,9 @@ const RenderSectionInfo = ({
           </div>
         )}
         {isTeacher && (
-          <button onClick={openInviteModal}>Invite Students</button>
+          <Button type="secondary" onClick={openInviteModal}>
+            Invite Students
+          </Button>
         )}
       </div>
     </div>

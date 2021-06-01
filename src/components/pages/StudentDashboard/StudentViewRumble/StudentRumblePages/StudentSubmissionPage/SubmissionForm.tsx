@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useToasts } from 'react-toast-notifications';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Submissions } from '../../../../../../api';
 import activeUpload from '../../../../../../assets/img/active_upload.svg';
 import { auth, current, modals } from '../../../../../../state';
@@ -119,7 +119,9 @@ const SubmissionForm = (): React.ReactElement => {
                 )}
                 <input type="file" onChange={fileSelection} hidden />
               </label>
-              <button type="submit">Submit Your Story</button>
+              <Button type="secondary" htmlType="submit">
+                Submit Your Story
+              </Button>
             </>
           )}
         </form>
