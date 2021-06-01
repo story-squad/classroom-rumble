@@ -17,7 +17,7 @@ ReactDOM.render(
       <Router>
         <HelmetProvider>
           <ToastProvider
-            placement="bottom-center"
+            placement="top-center"
             autoDismiss
             autoDismissTimeout={5000}
           >
