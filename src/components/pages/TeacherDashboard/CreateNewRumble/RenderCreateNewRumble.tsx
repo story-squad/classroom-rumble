@@ -22,7 +22,9 @@ const RenderCreateNewRumble = ({
 };
 
 const formatDate = (date: string) =>
-  DateTime.fromISO(date).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY);
+  DateTime.fromISO(date)
+    .plus({ day: 1 })
+    .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY);
 
 interface IRenderCreateRumbleProps {
   prompt: Prompts.IPromptInQueue;
