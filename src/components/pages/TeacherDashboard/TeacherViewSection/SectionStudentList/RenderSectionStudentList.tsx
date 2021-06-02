@@ -3,7 +3,7 @@ import { useSetRecoilState } from 'recoil';
 import { Sections, Students } from '../../../../../api';
 import noStudents from '../../../../../assets/img/no_students.svg';
 import { modals } from '../../../../../state';
-import { Table } from '../../../../common';
+import { Button, Table } from '../../../../common';
 import SectionStudentCard from './SectionStudentCard';
 
 const RenderSectionStudentList = ({
@@ -40,9 +40,9 @@ const RenderSectionStudentList = ({
             <div className="no-students">
               <div className="message-text-container">
                 <p>There are no students in this class &nbsp;</p>
-                <span>
-                  <button onClick={openInviteModal}>Invite to Class</button>
-                </span>
+                <Button type="text" onClick={openInviteModal}>
+                  Invite to Class
+                </Button>
               </div>
               <img src={noStudents} alt="you have no students" />
             </div>

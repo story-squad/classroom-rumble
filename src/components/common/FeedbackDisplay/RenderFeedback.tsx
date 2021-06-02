@@ -29,8 +29,11 @@ const RenderFeedback = ({
                     {`${index + 1}. ` + question.question}
                   </Table.Col>
                   <Table.Col className="feedback-score">
-                    {averages[`score${index + 1}` as keyof typeof averages]} out
-                    of 5
+                    {averages[`score${index + 1}` as keyof typeof averages]
+                      ? `${
+                          averages[`score${index + 1}` as keyof typeof averages]
+                        } out of 5`
+                      : 'No feedback'}
                   </Table.Col>
                 </Table.Row>
               </Table.Body>
