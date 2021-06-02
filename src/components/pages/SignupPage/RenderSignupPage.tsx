@@ -14,7 +14,13 @@ const RenderSignupPage = (props: ISigninProps): React.ReactElement => {
           <p className="small">OR</p>
         </>
       )}
-      <p>Sign up using email address</p>
+      <p>Sign up using your email address!</p>
+      {props.isNew && (
+        <p>
+          On successful sign up, we will automatically connect your Clever and
+          Story Squad accounts for future&nbsp;logins.
+        </p>
+      )}
       <SignupForm {...props} />
       <p className="small">
         Already have an account? <Link to="/login">Log In Here</Link>
