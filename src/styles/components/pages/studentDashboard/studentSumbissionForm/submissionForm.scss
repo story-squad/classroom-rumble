@@ -42,11 +42,11 @@
         }
       }
       //This Button is The Submit Your Story Button ****
+      // TODO fix this, this is not a good place to absolute position
       button {
         position: absolute;
         bottom: 0px;
         right: 0px;
-        @include button-alt;
       }
     }
   }

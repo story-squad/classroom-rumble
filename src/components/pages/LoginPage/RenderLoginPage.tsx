@@ -11,7 +11,13 @@ const RenderLoginPage = ({
     <div className="login-page auth-page">
       <h1>Classroom Rumble</h1>
       {loginProps.isMerge ? (
-        <p>Log in to link your Clever and Story Squad accounts</p>
+        <>
+          <p>It looks like you already have a Story Squad account!</p>
+          <p>
+            Enter your password below to automatically link your Clever and
+            Story Squad accounts.
+          </p>
+        </>
       ) : (
         <>
           <CleverButton />

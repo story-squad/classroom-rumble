@@ -13,7 +13,10 @@ const SectionPicker = ({
           className="section-picker-item"
           onClick={() => setCurrentSection(sec)}
         >
-          {sec.name}
+          <label htmlFor={`class__${sec.id}`}>
+            <input type="radio" id={`class__${sec.id}`} />
+            {sec.name}
+          </label>
         </div>
       ))}
     </div>
