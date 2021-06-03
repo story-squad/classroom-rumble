@@ -7,7 +7,7 @@ import activeUpload from '../../../../../../assets/img/active_upload.svg';
 import { auth, current, modals } from '../../../../../../state';
 import { upload } from '../../../../../../utils';
 import { Button, Checkbox } from '../../../../../common';
-
+import { CouldNotLoadModal } from '../../../../../common/CouldNotLoad';
 /**
  * Submission Form allows students to submit an image to the rumble they are currenly in.
  */
@@ -16,6 +16,9 @@ const SubmissionForm = (): React.ReactElement => {
   const { errors, register } = useForm({
     mode: 'onChange',
   });
+
+  const message =
+    'Oh no! Something went wrong. Please try uploading your file again';
 
   const userInfo = useRecoilValue(auth.user);
 
@@ -26,6 +29,7 @@ const SubmissionForm = (): React.ReactElement => {
   const [preview, setPreview] = useState<string>();
   const [loading, setLoading] = useState(false);
   const [complete, setComplete] = useRecoilState(current.hasSubmitted);
+  const [visible, setVisible] = useState(false);
 
   // We will always know the rumble if we get this far bc the PromptBox is only rendered within a Rumble.
   const currentRumble = useRecoilValue(current.rumble);
@@ -57,6 +61,7 @@ const SubmissionForm = (): React.ReactElement => {
             console.log('File Submitted: ', data);
           })
           .catch((err) => {
+            setVisible(true);
             console.log({ err });
           });
         setComplete(true);
@@ -94,64 +99,72 @@ const SubmissionForm = (): React.ReactElement => {
   };
 
   return (
-    <div className="submission-form-wrapper">
-      <div className="submission-form-container">
-        <form onSubmit={onSubmit} className="submission-form">
-          {preview && (
-            <div className="preview">
-              <img src={preview} alt="Upload preview" />
-              <div className={`loader${loading ? ' visible' : ''}`}>
-                {/* <p>** barloader **</p> ?? What is this for? */}
-              </div>
-            </div>
-          )}
-          {!complete && (
-            // If the submission hasn't been processed successfully
-            <>
-              <label className={file ? 'selected' : ''}>
-                {file ? (
-                  <span>Change Picture</span>
-                ) : (
-                  <div>
-                    <img src={activeUpload} />
-                    <span>Upload File</span>
-                  </div>
-                )}
-                <input type="file" onChange={fileSelection} hidden />
-              </label>
-              <Button type="secondary" htmlType="submit">
-                Submit Your Story
-              </Button>
-            </>
-          )}
-        </form>
-      </div>
-
-      <Checkbox
-        id="submitFDSCCheckbox"
-        name="submitFDSCCheckbox"
-        label={
-          <p className="small">
-            Would you also like to submit to our Free Daily Story Contest?
-          </p>
-        }
-        errors={errors}
-        register={register}
-        disabled={userInfo?.isValidated ? false : true}
-        // rules={{
-        //   validate: {
-        //     isChecked: (value) => value,
-        //   },
-        // }}
+    <>
+      <CouldNotLoadModal
+        error={message}
+        visible={visible}
+        setVisible={setVisible}
       />
-      {!userInfo?.isValidated && (
-        <Button onClick={openParentValidationModal}>Verify Account</Button>
-      )}
-      {complete && (
-        // Once the submission is done, show a button.
-        <div className="success">Submission successful!</div>
-      )}
-    </div>
+
+      <div className="submission-form-wrapper">
+        <div className="submission-form-container">
+          <form onSubmit={onSubmit} className="submission-form">
+            {preview && (
+              <div className="preview">
+                <img src={preview} alt="Upload preview" />
+                <div className={`loader${loading ? ' visible' : ''}`}>
+                  {/* <p>** barloader **</p> ?? What is this for? */}
+                </div>
+              </div>
+            )}
+            {!complete && (
+              // If the submission hasn't been processed successfully
+              <>
+                <label className={file ? 'selected' : ''}>
+                  {file ? (
+                    <span>Change Picture</span>
+                  ) : (
+                    <div>
+                      <img src={activeUpload} />
+                      <span>Upload File</span>
+                    </div>
+                  )}
+                  <input type="file" onChange={fileSelection} hidden />
+                </label>
+                <Button type="secondary" htmlType="submit">
+                  Submit Your Story
+                </Button>
+              </>
+            )}
+          </form>
+        </div>
+
+        <Checkbox
+          id="submitFDSCCheckbox"
+          name="submitFDSCCheckbox"
+          label={
+            <p className="small">
+              Would you also like to submit to our Free Daily Story Contest?
+            </p>
+          }
+          errors={errors}
+          register={register}
+          disabled={userInfo?.isValidated ? false : true}
+          // rules={{
+          //   validate: {
+          //     isChecked: (value) => value,
+          //   },
+          // }}
+        />
+        {!userInfo?.isValidated && (
+          <Button onClick={openParentValidationModal}>Verify Account</Button>
+        )}
+        {complete && (
+          // Once the submission is done, show a button.
+          <div className="success">Submission successful!</div>
+        )}
+      </div>
+    </>
   );
 };
 
