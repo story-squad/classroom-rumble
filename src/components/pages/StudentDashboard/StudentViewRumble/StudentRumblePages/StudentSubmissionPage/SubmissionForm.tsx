@@ -59,12 +59,13 @@ const SubmissionForm = (): React.ReactElement => {
         await Submissions.submitStory(reqBody)
           .then((data) => {
             console.log('File Submitted: ', data);
+            setComplete(true);
           })
           .catch((err) => {
             setVisible(true);
             console.log({ err });
+            setComplete(false);
           });
-        setComplete(true);
       } catch (err) {
         let message: string;
         if (err?.response?.data?.error) {
