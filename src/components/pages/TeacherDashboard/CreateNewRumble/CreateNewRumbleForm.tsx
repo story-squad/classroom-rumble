@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon';
+// import { DateTime } from 'luxon';
 import moment, { Moment } from 'moment';
 import 'rc-time-picker/assets/index.css';
 import React, { useMemo, useState } from 'react';
@@ -7,7 +7,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { Prompts } from '../../../../api';
+import { Prompts, Rumbles } from '../../../../api';
 import { useAsync } from '../../../../hooks';
 import { auth, rumbles, sections } from '../../../../state';
 import { FormTypes } from '../../../../types';
@@ -53,66 +53,41 @@ const CreateNewRumbleForm = ({
   const onSubmit: SubmitHandler<{
     sectionIds: string[];
     rumbleTime: Date;
-    startTime: Date; // cast as Date for type checks
-    startDate: Date;
-  }> = async ({ sectionIds, rumbleTime, startTime, startDate }) => {
+    // startTime: Date; // cast as Date for type checks
+    // startDate: Date;
+  }> = async ({ sectionIds, rumbleTime }) => {
     // Parse the ids that have been checked (sectionId[n] is TRUE)
     // return the `value` of the option item at that index
     const idList = sectionOptions
       .filter((op, i) => sectionIds[i])
       .map((op) => op.value);
     const numMinutes = rumbleTime.getHours() * 60 + rumbleTime.getMinutes(); // how long the rumble is in only minutes
-    console.log('NUM', numMinutes);
-    const startTimeStamp = startTime.toISOString();
-    const startDateStamp = startDate.toISOString();
-    const startTimeObject = DateTime.fromISO(
-      startDateStamp.slice(0, startDateStamp.indexOf('T')) +
-        startTimeStamp.slice(startTimeStamp.indexOf('T')),
-    );
-    // calculates when the rumbles end
-    const endTime = startTimeObject
-      .plus({
-        hour: rumbleTime.getHours(),
-        minutes: rumbleTime.getMinutes(),
-      })
-      .toISO();
-    // setRumbleEnd(endTime);
-    // console.log('Rumble Start', startTime);
-    console.log('Rumble Time', rumbleTime);
-    console.log('endTime', endTime);
-    console.log({
-      startTime: startTime.toLocaleString(),
-      startTimeStamp,
-      startDateStamp,
-      now: new Date().toISOString(),
-    });
-    throw new Error();
 
-    // try {
-    //   if (user) {
-    //     const res = await Rumbles.create(
-    //       { numMinutes, promptId: prompt.id },
-    //       user.id,
-    //       idList,
-    //     );
-    //     addRumbles(res);
-    //     addToast('Successfuly Created a Rumble!', { appearance: 'success' });
-    //     clearErrors();
-    //     push('/dashboard/teacher');
-    //   }
-    // } catch (err) {
-    //   console.log({ err });
-    //   let message: string;
-    //   if (err.response?.data) {
-    //     message = err.response.data.message;
-    //   } else {
-    //     message = 'An unknown error occurred. Please try again.';
-    //   }
-    //   if (message === 'Invalid or missing fields in body: sectionIds') {
-    //     message = 'Please select a class';
-    //   }
-    //   addToast(message, { appearance: 'error' });
-    // }
+    try {
+      if (user) {
+        const res = await Rumbles.create({
+          rumble: { numMinutes, promptId: prompt.id },
+          teacherId: user.id,
+          sectionIds: idList,
+        });
+        addRumbles(res);
+        addToast('Successfuly Created a Rumble!', { appearance: 'success' });
+        clearErrors();
+        push('/dashboard/teacher');
+      }
+    } catch (err) {
+      console.log({ err });
+      let message: string;
+      if (err.response?.data) {
+        message = err.response.data.message;
+      } else {
+        message = 'An unknown error occurred. Please try again.';
+      }
+      if (message === 'Invalid or missing fields in body: sectionIds') {
+        message = 'Please select a class';
+      }
+      addToast(message, { appearance: 'error' });
+    }
   };
 
   const [executeSubmit, loading] = useAsync({
@@ -312,4 +287,4 @@ export const schedule = {
   },
 };
 
-console.log({ schedule });
+// console.log({ schedule });
