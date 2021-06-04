@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Sections } from '../../../../../api';
 import { sections, students, submissions } from '../../../../../state';
-import { Table } from '../../../../common';
+import { Button, Table } from '../../../../common';
 
 const RumbleStudentCard = ({
   section,
@@ -37,7 +37,9 @@ const RumbleStudentCard = ({
       <Table.Col>{student.firstname}</Table.Col>
       <Table.Col className="status">
         {student.submissions.length > 0 ? (
-          <button onClick={openSubmission}>View</button>
+          <Button type="text" onClick={openSubmission}>
+            View
+          </Button>
         ) : (
           'Incomplete'
         )}

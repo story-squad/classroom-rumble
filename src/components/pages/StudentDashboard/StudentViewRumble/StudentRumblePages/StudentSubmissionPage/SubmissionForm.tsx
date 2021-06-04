@@ -119,7 +119,9 @@ const SubmissionForm = (): React.ReactElement => {
                 )}
                 <input type="file" onChange={fileSelection} hidden />
               </label>
-              <button type="submit">Submit Your Story</button>
+              <Button type="secondary" htmlType="submit">
+                Submit Your Story
+              </Button>
             </>
           )}
         </form>

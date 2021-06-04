@@ -36,6 +36,18 @@
           margin-bottom: 1rem;
         }
         @include text-button($black);
+
+        input {
+          margin: 0;
+          margin-right: 0.5rem;
+          border-color: red;
+          cursor: pointer;
+        }
+        label {
+          font-size: 1.6rem;
+          line-height: 2rem;
+          cursor: pointer;
+        }
       }
     }
   }

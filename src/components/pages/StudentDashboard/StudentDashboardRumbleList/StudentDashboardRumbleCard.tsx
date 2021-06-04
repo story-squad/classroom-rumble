@@ -42,8 +42,6 @@ const StudentRumble = ({
     push('/dashboard/student/rumble', { rumble });
   };
 
-  console.log(rumble);
-
   return (
     <div className="rumble-card">
       <div className="content">

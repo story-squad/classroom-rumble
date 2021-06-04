@@ -23,13 +23,17 @@ const SectionPickerItem = ({
 }): React.ReactElement => {
   const setCurrentSection = useSetRecoilState(sections.selected);
   const section = useRecoilValue(sections.getById(sectionId));
+
   return (
     <div
-      key={sectionId}
+      key={section?.id}
       className="section-picker-item"
-      onClick={() => setCurrentSection(sectionId)}
+      onClick={() => setCurrentSection(section?.id)}
     >
-      {section?.name}
+      <label htmlFor={`class__${section?.id}`}>
+        <input type="radio" id={`class__${section?.id}`} />
+        {section?.name}
+      </label>
     </div>
   );
 };
