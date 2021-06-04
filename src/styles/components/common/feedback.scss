@@ -74,6 +74,8 @@
         & > .table-col {
           padding: 1.5rem 2rem;
         }
+        // TODO : fix the way this is centered - same as below.
+        // Brandon mentioned using `flex-grow:1;` but I never got it working.
         & > div:last-of-type {
           text-align: center;
           display: inline;
@@ -85,9 +87,12 @@
           padding: 1.5rem 2rem;
         }
         .row-wrapper .feedback-question {
+          // this gives us the hanging indent
           padding-left: 3.5rem;
           text-indent: -1.5rem;
         }
+        // TODO : fix the way this is centered - same as above.
+        // Brandon mentioned using `flex-grow:1;` but I never got it working.
         .row-wrapper .feedback-score {
           display: inline;
           text-align: center;
