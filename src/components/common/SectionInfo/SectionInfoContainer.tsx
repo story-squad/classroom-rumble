@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { enumData, modals, sections } from '../../../state';
+import { app, modals, sections } from '../../../state';
 import RenderSectionInfo from './RenderSectionInfo';
 
 const SectionInfoContainer = ({
@@ -14,13 +14,13 @@ const SectionInfoContainer = ({
 }): React.ReactElement => {
   const section = useRecoilValue(sections.getById(sectionId));
 
-  const gradeEnum = useRecoilValue(enumData.grades);
+  const gradeEnum = useRecoilValue(app.enum.grades);
   const gradeValue = useMemo(() => {
     const x = gradeEnum?.filter((x) => x.value === section?.gradeId)[0];
     return x ? x.label : '';
   }, [gradeEnum, section]);
 
-  const subjectEnum = useRecoilValue(enumData.subjects);
+  const subjectEnum = useRecoilValue(app.enum.subjects);
   const subjectValue = useMemo(() => {
     const x = subjectEnum?.filter((x) => x.value === section?.subjectId)[0];
     return x ? x.label : '';

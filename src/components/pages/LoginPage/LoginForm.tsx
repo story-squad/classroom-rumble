@@ -13,7 +13,8 @@ const LoginForm = ({
   cleverId,
 }: ILoginParams): React.ReactElement => {
   const { errors, register, handleSubmit, clearErrors, setError } = useForm();
-  const login = useSetRecoilState(auth.isLoggedIn);
+  const setUser = useSetRecoilState(auth.user);
+  const setToken = useSetRecoilState(auth.authToken);
   const { push } = useHistory();
 
   const onSubmit: SubmitHandler<Auth.ILoginBody> = async (
@@ -26,7 +27,8 @@ const LoginForm = ({
       } else {
         res = await Auth.login(data);
       }
-      login(res);
+      setUser(res.user);
+      setToken(res.token);
       clearErrors();
       push(`/dashboard/${Auth.Roles[res.user.roleId]}`);
     } catch (err) {

@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useToasts } from 'react-toast-notifications';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Sections } from '../../../../../api';
-import { auth, enumData, sections } from '../../../../../state';
+import { app, auth, sections } from '../../../../../state';
 import { Input, Modal, Select } from '../../../../common';
 
 const CreateNewSectionForm = ({
@@ -11,8 +11,8 @@ const CreateNewSectionForm = ({
 }: Modal.ModalComponentProps): React.ReactElement => {
   const { errors, register, handleSubmit } = useForm();
   const user = useRecoilValue(auth.user);
-  const grades = useRecoilValue(enumData.grades);
-  const subjects = useRecoilValue(enumData.subjects);
+  const grades = useRecoilValue(app.enum.grades);
+  const subjects = useRecoilValue(app.enum.subjects);
   const addSections = useSetRecoilState(sections.add);
   const { addToast } = useToasts();
 

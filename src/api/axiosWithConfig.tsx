@@ -4,13 +4,15 @@ import { token } from '../utils';
 // Attempts to read the API URL from your ENV, falls back to localhost
 const baseURL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
-export const axiosWithAuth = (): AxiosInstance =>
-  axios.create({
+export const axiosWithAuth = (): AxiosInstance => {
+  console.log('authorized request. token ->', token.get());
+  return axios.create({
     baseURL,
     headers: {
       Authorization: token.get(),
     },
   });
+};
 
 export const axiosWithoutAuth = (): AxiosInstance =>
   axios.create({

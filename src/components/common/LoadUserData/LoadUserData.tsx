@@ -1,28 +1,24 @@
 import React, { useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Auth, InitialState } from '../../../api';
-import { auth, enumData, rumbles, sections } from '../../../state';
+import { app, auth, rumbles, sections } from '../../../state';
 
 const LoadUserData = (): React.ReactElement => {
-  const [isLogged, login] = useRecoilState(auth.isLoggedIn);
   const user = useRecoilValue(auth.user);
+  const token = useRecoilValue(auth.authToken);
   const addSections = useSetRecoilState(sections.add);
   const addRumbles = useSetRecoilState(rumbles.add);
-  const setGradeEnum = useSetRecoilState(enumData.grades);
-  const setSubjectEnum = useSetRecoilState(enumData.subjects);
+  const setGradeEnum = useSetRecoilState(app.enum.grades);
+  const setSubjectEnum = useSetRecoilState(app.enum.subjects);
 
   const { push } = useHistory();
   const { pathname } = useLocation();
 
   useEffect(() => {
-    if (!isLogged) {
-      login(undefined);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (user)
+    console.log({ user, token });
+    if (user && token) {
+      console.log('running init');
       InitialState.getUserInfo()
         .then((res) => {
           addSections(res.sections);
@@ -40,7 +36,8 @@ const LoadUserData = (): React.ReactElement => {
           }
         })
         .catch((err) => console.log(err));
-  }, [user]);
+    }
+  }, [user, token]);
 
   return <></>;
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { enumData, sections } from '../../../../state';
+import { app, sections } from '../../../../state';
 
 const TeacherDashboardSectionCard = ({
   sectionId,
@@ -11,8 +11,8 @@ const TeacherDashboardSectionCard = ({
   const section = useRecoilValue(sections.getById(sectionId));
   const { push } = useHistory();
 
-  const gradeEnum = useRecoilValue(enumData.grades);
-  const subjectEnum = useRecoilValue(enumData.subjects);
+  const gradeEnum = useRecoilValue(app.enum.grades);
+  const subjectEnum = useRecoilValue(app.enum.subjects);
   const setCurrentSection = useSetRecoilState(sections.selected);
 
   const openSection = () => {

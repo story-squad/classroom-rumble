@@ -4,7 +4,7 @@ import { useToasts } from 'react-toast-notifications';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Submissions } from '../../../../../../api';
 import activeUpload from '../../../../../../assets/img/active_upload.svg';
-import { auth, current, modals, rumbles } from '../../../../../../state';
+import { app, auth, modals, rumbles } from '../../../../../../state';
 import { upload } from '../../../../../../utils';
 import { Button, Checkbox } from '../../../../../common';
 
@@ -25,7 +25,7 @@ const SubmissionForm = (): React.ReactElement => {
   const [file, setFile] = useState<File>();
   const [preview, setPreview] = useState<string>();
   const [loading, setLoading] = useState(false);
-  const [complete, setComplete] = useRecoilState(current.hasSubmitted);
+  const [complete, setComplete] = useRecoilState(app.hasSubmitted);
 
   // We will always know the rumble if we get this far bc the PromptBox is only rendered within a Rumble.
   const currentRumble = useRecoilValue(rumbles.current);

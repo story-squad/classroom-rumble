@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Feedback, Rumbles, Sections, Students } from '../../../../api';
-import { auth, current, submissions } from '../../../../state';
+import { app, auth, submissions } from '../../../../state';
 import { Loader } from '../../../common';
 import {
   PastRumbleDetails,
@@ -23,7 +23,7 @@ const StudentRumbleRedirect = ({
   const [feedbackComplete, setFeedbackComplete] = useState<boolean>();
   const [loading, setLoading] = useState(true);
 
-  const [hasSubmitted, setHasSubmitted] = useRecoilState(current.hasSubmitted);
+  const [hasSubmitted, setHasSubmitted] = useRecoilState(app.hasSubmitted);
 
   // This useEffect loads on page render.
   // hasSubmitted is set to false until conditions are met.

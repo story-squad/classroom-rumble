@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { enumData, sections } from '../../../../state';
+import { app, sections } from '../../../../state';
 import { Button, Loader } from '../../../common';
 
 const StudentSection = ({
@@ -13,8 +13,8 @@ const StudentSection = ({
 
   const section = useRecoilValue(sections.getById(sectionId));
   const setSelectedSection = useSetRecoilState(sections.selected);
-  const gradeEnum = useRecoilValue(enumData.grades);
-  const subjectEnum = useRecoilValue(enumData.subjects);
+  const gradeEnum = useRecoilValue(app.enum.grades);
+  const subjectEnum = useRecoilValue(app.enum.subjects);
 
   const openSection = () => {
     setSelectedSection(sectionId);

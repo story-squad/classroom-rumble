@@ -27,7 +27,8 @@ const SignupForm = ({
   } = useForm({
     mode: 'onChange',
   });
-  const login = useSetRecoilState(auth.isLoggedIn);
+  const setUser = useSetRecoilState(auth.user);
+  const setToken = useSetRecoilState(auth.authToken);
   const { push } = useHistory();
   const [nextForm, setNextForm] = useState(false);
   const [formData, setFormData] = useState<Partial<Auth.SignupFormState>>({});
@@ -56,7 +57,8 @@ const SignupForm = ({
       } else {
         res = await Auth.signup(credentials);
       }
-      login(res);
+      setUser(res.user);
+      setToken(res.token);
       clearErrors();
       push(`/dashboard/${Auth.Roles[res.user.roleId]}`);
     } catch (err) {
