@@ -17,9 +17,6 @@ const SubmissionForm = (): React.ReactElement => {
     mode: 'onChange',
   });
 
-  const message =
-    'Oh no! Something went wrong. Please try uploading your file again';
-
   const userInfo = useRecoilValue(auth.user);
 
   // Error handling toast notifications
@@ -102,7 +99,13 @@ const SubmissionForm = (): React.ReactElement => {
   return (
     <>
       <CouldNotLoadModal
-        error={message}
+        error={
+          <>
+            Something went wrong.
+            <br />
+            Please try uploading your file again
+          </>
+        }
         visible={visible}
         setVisible={setVisible}
       />

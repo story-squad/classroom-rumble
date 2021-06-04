@@ -11,18 +11,17 @@ const CouldNotLoad = ({
   error,
   className,
 }: CouldNotLoadProps): React.ReactElement => {
-  console.log({ error });
-
   return (
     <div className={`could-not-load${className ? ' ' + className : ''}`}>
       <img src={ufo_cow} />
-      <div className="message">{error}&#128557;</div> 
+      <h2>Oh no!</h2>
+      <div className="error-message">{error}</div> 
     </div>
   );
 };
 
 interface CouldNotLoadProps {
-  error: string;
+  error: React.ReactNode;
   className?: string;
 }
 

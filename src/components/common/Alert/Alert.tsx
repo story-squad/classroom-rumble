@@ -11,9 +11,6 @@ export const Component = ({
 }: AlertProps): React.ReactElement => {
   const [showContents, setShowContents] = useState(visible);
 
-  console.log({ visible });
-  console.log({ closable });
-
   const closeAlert = () => {
     setVisible(false);
   };

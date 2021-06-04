@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { ComponentProps } from 'react';
 import { Alert } from '../Alert';
 import { Button } from '../Button';
 import CouldNotLoad from './CouldNotLoad';
 
 const CouldNotLoadModal = ({
-  error,
   visible,
   setVisible,
+  ...composedProps
 }: ICouldNotLoadModalProps): React.ReactElement => {
   const closeAlert = () => {
     setVisible(false);
@@ -20,16 +20,17 @@ const CouldNotLoadModal = ({
       centered
       component={(props) => (
         <>
-          <CouldNotLoad {...props} error={error} />
-          <Button onClick={closeAlert}>GO BACK</Button>
+          <CouldNotLoad {...props} {...composedProps} />
+          <div className="go-back-button">
+            <Button onClick={closeAlert}>Go back!</Button>
+          </div>
         </>
       )}
     />
   );
 };
 
-interface ICouldNotLoadModalProps {
-  error: string;
+interface ICouldNotLoadModalProps extends ComponentProps<typeof CouldNotLoad> {
   visible: boolean;
   setVisible: React.Dispatch<boolean>;
 }
