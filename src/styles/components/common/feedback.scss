@@ -1,15 +1,22 @@
-.feedback-wrapper {
+.feedback-content-wrapper {
   @include wrapped-container();
 
-  background-color: unset;
+  background-color: $w-grey-10;
   border-radius: 1.6rem;
 
-  padding: 1rem 3rem;
-  @include bp($large) {
+  width: auto;
+  margin: 1rem;
+  padding: 1.6rem;
+  @include bp($tablet) {
     padding: 3rem;
-    background-color: $w-grey-10;
+    @include bp($large) {
+      background-color: $w-grey-10;
+      @include bp($xlarge) {
+        margin: auto;
+      }
+    }
   }
-  .feedback-content-wrapper {
+  .feedback-content {
     @include bp($large) {
       display: flex;
       flex-direction: row;
@@ -22,32 +29,68 @@
     h2 {
       width: 100%;
       text-align: left;
-      font-size: 2rem;
+      font-size: 1.2rem;
       color: $c-grey-40;
       margin-bottom: 1.8rem;
       font-weight: 600;
       text-transform: uppercase;
+      margin-bottom: 0.5rem;
     }
-    .feedback-container {
+    .submission-container {
+      align-items: stretch;
+      @include bp($tablet) {
+        margin-bottom: 3rem;
+        @include bp($large) {
+          margin: 0;
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+      }
+      img {
+        width: 100%;
+        @include bp($large) {
+          width: 25rem;
+        }
+      }
+      a {
+        font-size: 1.4rem;
+      }
+    }
+    .feedback-wrapper {
       margin-left: 0;
       width: 100%;
-      @include bp($large) {
-        margin-left: 8rem;
+      font-size: 1.2rem;
+      @include bp($tablet) {
+        font-size: 1.4rem;
+        @include bp($large) {
+          margin-left: 8rem;
+        }
       }
       .table-header .row-wrapper {
-        font-size: 1.3rem;
         font-weight: 600;
-        @include bp($mid) {
-          font-size: 1.5rem;
+        @include bp($tablet) {
+          font-size: 1.4rem;
         }
         & > .table-col {
           padding: 1.5rem 2rem;
+        }
+        & > div:last-of-type {
+          text-align: center;
+          display: inline;
         }
       }
       .table-body .table-row {
         background-color: $w-grey-05;
         .row-wrapper .table-col {
           padding: 1.5rem 2rem;
+        }
+        .row-wrapper .feedback-question {
+          padding-left: 3.5rem;
+          text-indent: -1.5rem;
+        }
+        .row-wrapper .feedback-score {
+          display: inline;
+          text-align: center;
         }
       }
       .message {
