@@ -12,7 +12,7 @@ import Section from './TeacherDashboardSectionCard';
 const RenderTeacherDashboardSectionList = ({
   sections,
 }: ITeacherDashboardSectionListProps): React.ReactElement => {
-  const setInviteModalOpen = useSetRecoilState(modals.invite.isOpen);
+  const setInviteModalOpen = useSetRecoilState(modals.inviteModalIsOpen);
   const [newSectionOpen, setNewSectionOpen] = useState(false);
   const openSectionModal = () => setNewSectionOpen(true);
   const openInviteModal = () => setInviteModalOpen(true);

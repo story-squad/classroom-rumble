@@ -1,5 +1,7 @@
 import React from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { useHistory } from 'react-router';
+import { useToasts } from 'react-toast-notifications';
 import { Auth, Sections, Submissions } from '../../../../../../api';
 import { Button, PromptBox, SectionInfo } from '../../../../../common';
 import FeedbackSubmissionCard from './FeedbackSubmissionCard';
@@ -9,31 +11,40 @@ const RenderPeerFeedback = ({
   submissions,
   student,
 }: IRenderPeerFeedbackProps): React.ReactElement => {
+  const { addToast } = useToasts();
+  const { push } = useHistory();
   const methods = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
   });
 
   // TODO better type interfaces for form data
-  const onSubmit: SubmitHandler<Record<string, unknown>> = (
+  const onSubmit: SubmitHandler<Record<string, unknown>> = async (
     data: Record<string, unknown>,
   ) => {
-    const body: Record<string, unknown>[] = [];
-    const radioValue = Object.values(data);
+    try {
+      const body: Record<string, unknown>[] = [];
+      const radioValue = Object.values(data);
 
-    // TODO find a more readable way to parse the body
-    submissions &&
-      radioValue &&
-      submissions.forEach((submission) => {
-        body.push({
-          submissionId: submission?.id,
-          voterId: student?.id,
-          score1: Number(radioValue.shift()),
-          score2: Number(radioValue.shift()),
-          score3: Number(radioValue.shift()),
+      // TODO find a more readable way to parse the body
+      submissions &&
+        radioValue &&
+        submissions.forEach((submission) => {
+          body.push({
+            submissionId: submission?.id,
+            voterId: student?.id,
+            score1: Number(radioValue.shift()),
+            score2: Number(radioValue.shift()),
+            score3: Number(radioValue.shift()),
+          });
         });
-      });
-    Submissions.submitFeedback(body);
+      await Submissions.submitFeedback(body);
+      push('/dashboard/student/complete');
+      addToast('Submitted feedback!');
+    } catch (err) {
+      addToast('Failed to submit feedback :(');
+      console.log('submit feedback error', err);
+    }
   };
 
   return (

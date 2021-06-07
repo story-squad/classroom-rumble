@@ -5,7 +5,7 @@ export { CleverButton } from './CleverButton';
 export { CookiePopup } from './CookiePopup';
 export { CouldNotLoad } from './CouldNotLoad';
 export { CountDown } from './CountDown';
-export { Feedback } from './Feedback';
+export { FeedbackDisplay } from './FeedbackDisplay';
 export { FullscreenImage } from './FullscreenImage';
 export { Header } from './Header';
 export { Input } from './Input';

@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 import React, { useMemo } from 'react';
 import { Rumbles } from '../../../api';
 import { useCountDown } from '../../../hooks';
+import { Button } from '../Button';
 import { CountDown } from '../CountDown';
 
 /**
@@ -43,7 +44,9 @@ const RenderPromptBox = ({
           {!endTime ? (
             isTeacher ? (
               <div className="start-phase-button">
-                <button onClick={startRumble}>Start Rumble</button>
+                <Button type="secondary" onClick={startRumble}>
+                  Start Rumble
+                </Button>
               </div>
             ) : (
               //back to studentdashboard when there's no end time and you're not a teacher
@@ -54,7 +57,9 @@ const RenderPromptBox = ({
               <div className="count-down-end">Rumble Over</div>
             ) : phase === `ACTIVE` && isTeacher ? (
               <div className="start-phase-button">
-                <button onClick={startFeedback}>Start Feedback</button>
+                <Button type="secondary" onClick={startFeedback}>
+                  Start Feedback
+                </Button>
               </div>
             ) : (
               phase === `FEEDBACK` && (

@@ -226,8 +226,8 @@
 @mixin title-section() {
   @include wrapped-container();
   background-color: $w-grey-10;
-  padding: 2rem;
-  @include bp(mid) {
+  padding: 1.6rem;
+  @include bp(tablet) {
     padding: 3rem;
   }
   @include bp(large) {
