@@ -15,3 +15,10 @@ export interface IFeedbackScores {
   score2?: number;
   score3?: number;
 }
+
+export interface IFeedbackQuestions {
+  question: string;
+  lowLabel: string;
+  highLabel: string;
+  score?: number;
+}

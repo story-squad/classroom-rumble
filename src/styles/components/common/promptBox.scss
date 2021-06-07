@@ -6,7 +6,7 @@
     border-radius: 1.6rem;
     padding: 1.6rem;
     @include bp(tablet) {
-      padding: 3rem 1.6rem;
+      padding: 3rem;
     }
     .prompt-info-content {
       @include wrapped-container(900px);
@@ -52,9 +52,10 @@
         }
       }
       .start-phase-button {
-        margin-top: 1rem;
-        button {
-          @include button-alt;
+        margin: 2rem auto 0;
+        @include bp(mid) {
+          margin: 0;
+          margin-left: 2rem;
         }
       }
     }

@@ -26,29 +26,41 @@ const FeedbackContainer = ({
 
   useEffect(() => {
     if (!feedback || feedback.length <= 0) return;
-    // This keeps this from breaking ^^
-    const submissionScores = feedback.map(({ score1, score2, score3 }) => {
-      // loops through the feedback array and pulls all the scores in to its own array
-      return {
-        score1: score1 ?? 0,
-        score2: score2 ?? 0,
-        score3: score3 ?? 0,
-      };
+
+    let score1 = 0;
+    let score2 = 0;
+    let score3 = 0;
+    const count = [0, 0, 0];
+
+    feedback.forEach((fb) => {
+      if (!fb) return;
+      else {
+        if (fb.score1 && fb.score1 > 0) {
+          score1 += fb.score1;
+          count[0]++;
+        }
+        if (fb.score2 && fb.score2 > 0) {
+          score2 += fb.score2;
+          count[1]++;
+        }
+        if (fb.score3 && fb.score3 > 0) {
+          score3 += fb.score3;
+          count[2]++;
+        }
+      }
     });
-    const totals = submissionScores.reduce((acc, cur) => ({
-      //totals all the scores up from the submissions array
-      score1: acc.score1 + cur.score1,
-      score2: acc.score2 + cur.score2,
-      score3: acc.score3 + cur.score3,
-    }));
+
+    score1 /= count[0];
+    score2 /= count[1];
+    score3 /= count[2];
 
     setAverages({
-      // This averages all the scores and sets them to state
-      score1: parseFloat((totals.score1 / feedback.length).toFixed(2)),
-      score2: parseFloat((totals.score2 / feedback.length).toFixed(2)),
-      score3: parseFloat((totals.score3 / feedback.length).toFixed(2)),
+      score1: parseFloat(score1.toFixed(2)),
+      score2: parseFloat(score2.toFixed(2)),
+      score3: parseFloat(score3.toFixed(2)),
     });
   }, [feedback]);
+
   return loading ? (
     <Loader />
   ) : (

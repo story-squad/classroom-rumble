@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { cookie } from '../../../utils';
+import { Button } from '../Button';
 
 const CookiePopup = (): React.ReactElement => {
   const [isShowing, setIsShowing] = useState(false);
@@ -32,7 +33,7 @@ const CookiePopup = (): React.ReactElement => {
             <input type="checkbox" checked={isChecked} onChange={toggleCheck} />{' '}
             Don&apos;t show again
           </label>
-          <button onClick={closePopup}>Okay</button>
+          <Button onClick={closePopup}>Okay</Button>
         </div>
       </div>
     </div>

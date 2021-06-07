@@ -1,10 +1,10 @@
 .section-info-wrapper {
+  margin: 1rem;
   .section-info-container {
     @include title-section;
-    button {
-      @include button-alt;
-      flex-grow: 1;
-      max-width: 200px;
-    }
+    width: auto;
+    padding: 1.6rem;
+    border-radius: 16px;
+    max-width: 1200px;
   }
 }
