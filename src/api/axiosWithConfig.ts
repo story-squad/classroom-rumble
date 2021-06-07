@@ -5,7 +5,6 @@ import { token } from '../utils';
 const baseURL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 export const axiosWithAuth = (): AxiosInstance => {
-  console.log('authorized request. token ->', token.get());
   return axios.create({
     baseURL,
     headers: {
@@ -14,7 +13,8 @@ export const axiosWithAuth = (): AxiosInstance => {
   });
 };
 
-export const axiosWithoutAuth = (): AxiosInstance =>
-  axios.create({
+export const axiosWithoutAuth = (): AxiosInstance => {
+  return axios.create({
     baseURL,
   });
+};

@@ -11,6 +11,7 @@ export const AddSelectorFactory = <IdType, DataType extends { id: IdType }>({
   ids: idListAtom,
   getById: atomFamilyGetById,
   onAfter,
+  enableLogs,
 }: {
   key: string;
   ids: RecoilState<IdType[] | undefined>;
@@ -21,20 +22,21 @@ export const AddSelectorFactory = <IdType, DataType extends { id: IdType }>({
     set: SetRecoilState;
     get: GetRecoilValue;
   }) => void;
+  enableLogs?: boolean;
 }): RecoilState<DataType[] | DataType | undefined> =>
   selector<DataType[] | DataType | undefined>({
     key,
     get: () => undefined,
     set: ({ set, get }, newValue) => {
-      console.group(`${key} updated`);
-      console.log('new', newValue);
+      enableLogs && console.log(`${key} updated`, { key, newValue });
+      enableLogs && console.log('new', newValue, { key, newValue });
 
       // Initialize/Clear
       if (!newValue || newValue instanceof DefaultValue) return undefined;
 
       // Get the current id list
       const idList = get(idListAtom) || [];
-      // console.log('ids', idList);
+      enableLogs && console.log('ids', idList, { key, newValue });
 
       // We're going to ALWAYS run logic on this array
       let items: DataType[];
@@ -47,7 +49,7 @@ export const AddSelectorFactory = <IdType, DataType extends { id: IdType }>({
         // Otherwise, it's a singular value and we need to put it in an array
         items = [newValue];
       }
-      // console.log('items', items);
+      enableLogs && console.log('items', items, { key, newValue });
 
       // Keep track of the ids of the new items -> only need to loop once
       const newIds: IdType[] = [];
@@ -55,30 +57,40 @@ export const AddSelectorFactory = <IdType, DataType extends { id: IdType }>({
       items.forEach((item) => {
         // Let's ensure we don't add duplicates to our idList
         if (idList.indexOf(item.id) === -1) {
-          // console.log('adding id', item.id);
+          enableLogs &&
+            console.log('adding id', item.id, newIds, { key, newValue });
           // Save each id in our handy array
           newIds.push(item.id);
         }
 
-        // console.log('updating', item.id, item);
+        enableLogs && console.log('updating', item.id, item, { key, newValue });
         // Use the atomFamily to set the specific rumble data or update the previous one
         set(atomFamilyGetById(item.id), item);
       });
-
-      // console.log('updating ids', idList, newIds);
       // Update the id list as well
       const updatedIds = [...idList, ...newIds];
-      set(idListAtom, (prev) => (prev ? [...prev, ...newIds] : newIds));
 
-      // console.log('running onAfter');
+      enableLogs &&
+        console.log('updating ids', idList, newIds, updatedIds, {
+          key,
+          newValue,
+        });
+
+      set(idListAtom, (prev) => [...(prev || []), ...updatedIds]);
+
+      enableLogs &&
+        onAfter &&
+        console.log('running onAfter', { key, newValue });
       onAfter?.({
         updatedIds,
         newValues: items,
         set,
         get,
       });
-      // console.log('completed onAfter');
+      enableLogs &&
+        onAfter &&
+        console.log('completed onAfter', { key, newValue });
 
-      console.groupEnd();
+      enableLogs && console.log('completed', key, { key, newValue });
     },
   });
