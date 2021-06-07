@@ -11,16 +11,16 @@ const RenderFeedback = ({
 }: IRenderFeedbackProps): React.ReactElement => {
   const questions: Feedback.IFeedbackQuestions[] = feedbackQuestions;
   return (
-    <div className="feedback-wrapper">
-      <div className="feedback-content-wrapper">
+    <div className="feedback-content-wrapper">
+      <div className="feedback-content">
         <Submission title="Submission" submission={submission} />
         {averages ? (
           // If there are no averages show that there is no feedback yet else show the table with feedback
-          <div className="feedback-container">
+          <div className="feedback-wrapper">
             <h2>FEEDBACK</h2>
             <Table.Header>
               <Table.Col>Question</Table.Col>
-              <Table.Col>Rating out of 5</Table.Col>
+              <Table.Col>Rating out&nbsp;of&nbsp;5</Table.Col>
             </Table.Header>
             {questions.map((question, index) => (
               <Table.Body key={index}>
