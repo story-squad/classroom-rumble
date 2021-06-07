@@ -6,7 +6,7 @@
     border-radius: 1.6rem;
     padding: 1.6rem;
     @include bp(tablet) {
-      padding: 3rem 1.6rem;
+      padding: 3rem;
     }
     .prompt-info-content {
       @include wrapped-container(900px);
