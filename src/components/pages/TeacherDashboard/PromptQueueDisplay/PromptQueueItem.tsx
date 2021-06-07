@@ -31,6 +31,6 @@ const PromptQueueItem = ({
 };
 
 const formatDate = (date: DateTime): string =>
-  date.toLocaleString({ weekday: 'long' });
+  date.plus({ day: 1 }).toLocaleString({ weekday: 'long' });
 
 export default PromptQueueItem;

@@ -8,6 +8,7 @@ const RenderPromptQueueDisplay = ({
 }: IRenderPromptQueueDisplayProps): React.ReactElement => {
   const [newPromptModalOpen, setNewPromptModalOpen] = useState(false);
   const openModal = () => setNewPromptModalOpen(true);
+
   return (
     <>
       <CreateCustomPrompt
