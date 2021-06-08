@@ -14,7 +14,7 @@ const PromptQueueItem = ({
   const prompt = useRecoilValue(prompts.getById(promptId));
 
   const newRumbleFromThisPrompt = () => {
-    push('/dashboard/teacher/rumble/new', prompt);
+    push('/dashboard/teacher/rumble/new');
   };
 
   return (

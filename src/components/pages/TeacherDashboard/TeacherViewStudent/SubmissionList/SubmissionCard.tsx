@@ -1,36 +1,22 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { Submissions } from '../../../../../api';
-import { sections, students, submissions } from '../../../../../state';
+import { submissions } from '../../../../../state';
 import { Table } from '../../../../common';
 
+// TODO ask UX for a design for this student view page?
 const SubmissionCard = ({
   score,
   prompt,
-  src,
-  codename,
   ...submission
 }: Submissions.ISubItem): React.ReactElement => {
   const { push } = useHistory();
-  const student = useRecoilValue(students.current);
-  const section = useRecoilValue(sections.current);
   const setCurrentSubmission = useSetRecoilState(submissions.selected);
 
   const openSubView = () => {
-    const currentSubmission = {
-      ...submission,
-      score,
-      prompt,
-      src,
-      codename,
-    };
     setCurrentSubmission(submission.id);
-    push('/dashboard/teacher/submission', {
-      student,
-      section,
-      submission: currentSubmission,
-    });
+    push('/dashboard/teacher/submission');
   };
 
   return (

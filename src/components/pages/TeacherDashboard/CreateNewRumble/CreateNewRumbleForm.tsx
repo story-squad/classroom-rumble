@@ -38,6 +38,8 @@ const CreateNewRumbleForm = ({
     [allSections],
   );
 
+  const goBack = () => push('/dashboard/teacher');
+
   const onSubmit: SubmitHandler<{
     sectionIds: string[];
     momentTime: moment.Moment;
@@ -58,7 +60,7 @@ const CreateNewRumbleForm = ({
         addRumbles(res);
         addToast('Successfuly Created a Rumble!', { appearance: 'success' });
         clearErrors();
-        push('/dashboard/teacher');
+        goBack();
       }
     } catch (err) {
       console.log({ err });
@@ -78,8 +80,6 @@ const CreateNewRumbleForm = ({
   const [executeSubmit, loading, ,] = useAsync({
     asyncFunction: handleSubmit(onSubmit),
   });
-
-  const goBack = () => push('/dashboard/teacher');
 
   return (
     <form onSubmit={executeSubmit}>

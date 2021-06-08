@@ -17,7 +17,7 @@ const TeacherDashboardSectionCard = ({
 
   const openSection = () => {
     setCurrentSection(sectionId);
-    push('/dashboard/teacher/section', { section });
+    push('/dashboard/teacher/section');
   };
 
   useEffect(() => console.log({ gradeEnum, subjectEnum, sectionId, section }));

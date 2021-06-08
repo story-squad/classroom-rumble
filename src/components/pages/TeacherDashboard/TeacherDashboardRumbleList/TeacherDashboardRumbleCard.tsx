@@ -34,7 +34,7 @@ const TeacherDashboardRumbleCard = ({
 
   const openCurrentRumble = () => {
     setCurrentRumble(rumbleId);
-    push('/dashboard/teacher/rumble', { rumble });
+    push('/dashboard/teacher/rumble');
   };
 
   return (

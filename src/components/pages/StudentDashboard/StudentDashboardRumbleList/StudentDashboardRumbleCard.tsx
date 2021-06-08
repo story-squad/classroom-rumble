@@ -39,7 +39,7 @@ const StudentRumble = ({
   const openCurrentRumble = () => {
     setCurrentRumble(rumbleId);
     setCurrentSection(rumble?.sectionId);
-    push('/dashboard/student/rumble', { rumble });
+    push('/dashboard/student/rumble');
   };
 
   return (

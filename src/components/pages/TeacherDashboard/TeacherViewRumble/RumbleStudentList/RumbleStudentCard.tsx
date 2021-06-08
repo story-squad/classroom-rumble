@@ -21,11 +21,7 @@ const RumbleStudentCard = ({
     setCurrentSection(section.id);
     setCurrentStudent(studentId);
     setCurrentSub(student?.submissions[0].id);
-    push('/dashboard/teacher/submission', {
-      student,
-      section,
-      submission: student?.submissions[0],
-    });
+    push('/dashboard/teacher/submission');
   };
 
   return student ? (

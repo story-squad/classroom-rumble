@@ -18,7 +18,7 @@ const StudentSection = ({
 
   const openSection = () => {
     setSelectedSection(sectionId);
-    push('/dashboard/student/section', { section });
+    push('/dashboard/student/section');
   };
 
   if (!section) return <Loader message="Loading section..." />;
