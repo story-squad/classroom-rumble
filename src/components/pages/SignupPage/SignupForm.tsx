@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useHistory } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { Auth } from '../../../api';
+import { Roles } from '../../../api/Auth';
 import { patterns } from '../../../config';
 import { auth } from '../../../state';
 import { Button, Checkbox, Input } from '../../common';
@@ -60,7 +61,10 @@ const SignupForm = ({
       setUser(res.user);
       setToken(res.token);
       clearErrors();
-      push(`/dashboard/${Auth.Roles[res.user.roleId]}`);
+
+      const userType =
+        res.user.roleId === Roles.user ? 'student' : Roles[res.user.roleId];
+      push(`/dashboard/${userType}`);
     } catch (err) {
       console.log({ err });
       let message: string;

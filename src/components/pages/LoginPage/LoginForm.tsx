@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { Auth } from '../../../api';
+import { Roles } from '../../../api/Auth';
 import { auth } from '../../../state';
 import { Input } from '../../common';
 import { ILoginParams } from './loginTypes';
@@ -30,7 +31,10 @@ const LoginForm = ({
       setUser(res.user);
       setToken(res.token);
       clearErrors();
-      push(`/dashboard/${Auth.Roles[res.user.roleId]}`);
+
+      const userType =
+        res.user.roleId === Roles.user ? 'student' : Roles[res.user.roleId];
+      push(`/dashboard/${userType}`);
     } catch (err) {
       console.log({ err });
       let message: string;
