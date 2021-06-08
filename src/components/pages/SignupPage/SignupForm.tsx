@@ -267,7 +267,11 @@ const SignupForm = ({
             label={
               <p className="small">
                 I have read and agree to the{' '}
-                <Link to="/tos" className="text-button" target="_blank">
+                <Link
+                  to="/termsofservice"
+                  className="text-button"
+                  target="_blank"
+                >
                   Terms & Conditions
                 </Link>
                 .
