@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Prompts } from '../../../../api';
-import { useAsync, useCheckBrowserState } from '../../../../hooks';
+import { useAsync } from '../../../../hooks';
 import { rumbles, sections } from '../../../../state';
 import { CouldNotLoad, Loader } from '../../../common';
 import RenderTeacherViewRumble from './RenderTeacherViewRumble';
 
 const TeacherViewRumbleContainer = (): React.ReactElement => {
-  const { isLoading } = useCheckBrowserState('section', 'rumble');
   const section = useRecoilValue(sections.current);
   const rumbleId = useRecoilValue(rumbles.selected);
 
@@ -19,14 +18,14 @@ const TeacherViewRumbleContainer = (): React.ReactElement => {
     if (rumbleId) getPromptById(rumbleId);
   }, [rumbleId]);
 
-  return section && rumbleId && prompt && !isLoading && !promptIsLoading ? (
+  return section && rumbleId && prompt && !promptIsLoading ? (
     <RenderTeacherViewRumble rumbleId={rumbleId} prompt={prompt} />
   ) : error ? (
     <CouldNotLoad error={error.message} />
-  ) : isLoading || promptIsLoading ? (
-    <Loader message={'Loading rumble'} />
+  ) : promptIsLoading ? (
+    <Loader message={'Loading prompt'} />
   ) : (
-    <p>Redirecting...</p>
+    <Loader />
   );
 };
 

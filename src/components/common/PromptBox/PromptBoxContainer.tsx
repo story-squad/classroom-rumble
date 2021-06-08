@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { useToasts } from 'react-toast-notifications';
 import { useRecoilValue } from 'recoil';
 import { Feedback, Prompts, Rumbles } from '../../../api';
-import { useAsync, useCheckBrowserState } from '../../../hooks';
+import { useAsync } from '../../../hooks';
 import { rumbles, sections } from '../../../state';
 import { CouldNotLoad } from '../CouldNotLoad';
 import { Loader } from '../Loader';
@@ -18,7 +18,6 @@ const PromptBoxContainer = ({
   prompt: promptProp,
   isTeacher = false,
 }: IPromptBoxContainerProps): React.ReactElement => {
-  useCheckBrowserState('rumble', 'section');
   const currentRumbleId = useRecoilValue(rumbles.selected);
   const currentRumble = useRecoilValue(
     rumbles.getById(currentRumbleId as number),
@@ -28,23 +27,6 @@ const PromptBoxContainer = ({
   const [prompt, setPrompt] = useState<string | undefined>(promptProp);
   const { addToast } = useToasts();
   const { push } = useHistory();
-
-  // this was before the useAsync hook
-  // const [error, setError] = useState<Error>();
-  // const [loading, setLoading] = useState(false);
-  // useEffect(() => {
-  //   if (currentRumble && !prompt) {
-  //     Prompts.getPromptById(currentRumble.promptId)
-  //       .then((data) => {
-  //         console.log('Current Prompt: ', data);
-  //         setPrompt(data);
-  //       })
-  //       .catch((err) => {
-  //         console.log({ err });
-  //         setError('There is no prompt for this Rumble.');
-  //       });
-  //   }
-  // }, [currentRumble]);
 
   const [getPromptById, loading, , error] = useAsync({
     asyncFunction: Prompts.getPromptById,
