@@ -6,13 +6,16 @@ import { Header } from '../../common';
 import { JoinSectionRedirect } from './JoinSectionRedirect';
 import RenderStudentDashboard from './RenderStudentDashboard';
 import { StudentViewRumble } from './StudentViewRumble';
+import { RumbleComplete } from './StudentViewRumble/StudentRumblePages';
 import { StudentViewSection } from './StudentViewSection';
+import { ParentValidationModal } from './ValidationModal';
 
 const StudentDashboardContainer = (): React.ReactElement => {
   const sectionList = useRecoilValue(sections.list);
 
   return (
     <>
+      <ParentValidationModal />
       <Header />
       <Switch>
         <Route
@@ -29,6 +32,11 @@ const StudentDashboardContainer = (): React.ReactElement => {
           exact
           path="/dashboard/student/section"
           component={() => <StudentViewSection />}
+        />
+        <Route
+          exact
+          path="/dashboard/student/complete"
+          component={RumbleComplete}
         />
         {/* Route to the current rumble */}
         <Route

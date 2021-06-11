@@ -91,12 +91,9 @@
         flex-flow: row nowrap;
         align-items: center;
         justify-content: space-between;
-        // TODO implement this 400px differently probably
-        width: 400px;
         max-width: 100%;
-        .button {
-          width: 48.5%;
-          padding: 2rem;
+        > .button:not(:first-of-type) {
+          margin-left: 1rem;
         }
       }
     }

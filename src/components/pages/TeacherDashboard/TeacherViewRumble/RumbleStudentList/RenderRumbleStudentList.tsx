@@ -3,7 +3,7 @@ import { useSetRecoilState } from 'recoil';
 import { Sections, Students } from '../../../../../api';
 import noStudents from '../../../../../assets/img/no_students.svg';
 import { modals } from '../../../../../state';
-import { Table } from '../../../../common';
+import { Button, Table } from '../../../../common';
 import { InviteToSection } from '../../InviteToSection';
 import RumbleStudentCard from './RumbleStudentCard';
 
@@ -11,7 +11,7 @@ const RenderRumbleStudentList = ({
   studentList,
   section,
 }: IRenderRumbleStudentListProps): React.ReactElement => {
-  const setInviteModalOpen = useSetRecoilState(modals.invite.isOpen);
+  const setInviteModalOpen = useSetRecoilState(modals.inviteModalIsOpen);
   const openInviteModal = () => setInviteModalOpen(true);
 
   return (
@@ -42,7 +42,7 @@ const RenderRumbleStudentList = ({
               <div className="message-text-container">
                 <p>There are no students in this class &nbsp;</p>
                 <span>
-                  <button onClick={openInviteModal}>Invite to Class</button>
+                  <Button onClick={openInviteModal}>Invite to Class</Button>
                 </span>
               </div>
               <img src={noStudents} alt="you have no students" />

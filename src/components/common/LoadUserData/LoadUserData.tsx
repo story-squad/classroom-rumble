@@ -14,6 +14,7 @@ const LoadUserData = (): React.ReactElement => {
   const setSections = useSetRecoilState(sections.list);
   const setGradeEnum = useSetRecoilState(enumData.grades);
   const setSubjectEnum = useSetRecoilState(enumData.subjects);
+  // const setValidated = useSetRecoilState(user?.isValidated);
   const { push } = useHistory();
   const { pathname } = useLocation();
 

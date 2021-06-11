@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Auth, Sections, Submissions } from '../../../../api';
-import { Feedback, PromptBox, SectionInfo } from '../../../common';
+import { FeedbackDisplay, PromptBox, SectionInfo } from '../../../common';
 
 const RenderTeacherViewSubmission = ({
   submission,
@@ -15,7 +15,7 @@ const RenderTeacherViewSubmission = ({
     <div className="teacher-view-submission">
       <PromptBox prompt={submission.prompt} isTeacher />
       <SectionInfo section={section} studentName={studentName} />
-      <Feedback submission={submission} />
+      <FeedbackDisplay submission={submission} />
     </div>
   );
 };

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+import { useToasts } from 'react-toast-notifications';
 import { useRecoilValue } from 'recoil';
 import { Feedback, Prompts, Rumbles } from '../../../api';
 import { useAsync, useCheckBrowserState } from '../../../hooks';
 import { current } from '../../../state';
-import { CouldNotLoad } from '../CouldNotLoad';
 import { Loader } from '../Loader';
+import { CouldNotLoad } from './../CouldNotLoad';
 import RenderPromptBox from './RenderPromptBox';
 
 /**
@@ -21,6 +23,8 @@ const PromptBoxContainer = ({
   const currentSection = useRecoilValue(current.section);
   const [endTime, setEndTime] = useState(currentRumble?.end_time);
   const [prompt, setPrompt] = useState<string | undefined>(promptProp);
+  const { addToast } = useToasts();
+  const { push } = useHistory();
 
   // this was before the useAsync hook
   // const [error, setError] = useState<Error>();
@@ -72,6 +76,14 @@ const PromptBoxContainer = ({
       if (currentRumble) {
         // No return, dont save as a variable
         await Feedback.startFeedback(currentRumble?.id);
+        addToast('Successfully started the feedback phase! Redirecting...', {
+          appearance: 'success',
+        });
+        // TODO update this with better UX
+        setTimeout(() => {
+          push('/dashboard/teacher');
+          location.reload();
+        }, 3000);
       }
     } catch (err) {
       console.log(err);

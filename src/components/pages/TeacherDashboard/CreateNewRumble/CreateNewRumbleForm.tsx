@@ -130,8 +130,17 @@ const CreateNewRumbleForm = ({
    * It's a very small break that only happens occasionally. To recreate:
    * 1. Have an active prompt that ends today in the queue
    * 2. Attempt to create a rumble for that prompt
+   *
+   * ---
    * 3. Click on schedule time and select yesterday
    * 4. You can no longer click on today
+   * ===
+   *
+   * OR
+   *
+   * ---
+   * 3. Nothing is selectable
+   * ---
    */
   const filterStartDates = (date: Date): boolean => {
     const include = Prompts.isPromptInQueue(prompt)
@@ -190,7 +199,7 @@ const CreateNewRumbleForm = ({
         <div>
           <Controller
             control={control}
-            defaultValue={isChecked ? connectedStartMin.toDate() : new Date()}
+            defaultValue={isChecked ? connectedStartMin.toDate() : undefined}
             name="startTime"
             render={({ value, ...props }) => (
               <DatePicker
