@@ -53,16 +53,15 @@ const CreateNewRumbleForm = ({
   const onSubmit: SubmitHandler<{
     sectionIds: string[];
     rumbleTime: Date;
-    // startTime: Date; // cast as Date for type checks
-    // startDate: Date;
-  }> = async ({ sectionIds, rumbleTime }) => {
+    startTime: Date; // cast as Date for type checks
+  }> = async ({ sectionIds, rumbleTime, startTime }) => {
     // Parse the ids that have been checked (sectionId[n] is TRUE)
     // return the `value` of the option item at that index
     const idList = sectionOptions
       .filter((op, i) => sectionIds[i])
       .map((op) => op.value);
     const numMinutes = rumbleTime.getHours() * 60 + rumbleTime.getMinutes(); // how long the rumble is in only minutes
-
+    console.log(startTime);
     try {
       if (user) {
         const res = await Rumbles.create({
@@ -94,7 +93,8 @@ const CreateNewRumbleForm = ({
     asyncFunction: handleSubmit(onSubmit),
   });
 
-  //   If connect is checked, start time is required and start time cannot exceed submission cutoff time minus timer length. (end time cannot be past the submission cutoff time)
+  //   If connect is checked, start time is required and start time cannot exceed submission cutoff time minus timer length.
+  // (end time cannot be past the submission cutoff time)
 
   // If connect is not checked, start time is not required
 
