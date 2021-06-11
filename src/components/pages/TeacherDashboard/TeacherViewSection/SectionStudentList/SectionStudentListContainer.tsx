@@ -18,8 +18,8 @@ const SectionStudentListContainer = ({
   });
 
   useEffect(() => {
-    getStudents(section.id);
-  }, [section]);
+    if (!studentList && !isLoading) getStudents(section.id);
+  }, [section, studentList]);
 
   if (!visible) return <></>;
   return studentList ? (
