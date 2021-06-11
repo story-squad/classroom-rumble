@@ -282,15 +282,15 @@ const SignupForm = ({
               },
             }}
           />
-          <Button htmlType="button" type="secondary" onClick={togglePage}>
-            Back
-          </Button>
           <input
             className="submit"
             type="submit"
             value="Create Account"
             onClick={() => clearErrors('form')}
           />
+          <Button htmlType="button" type="secondary" onClick={togglePage}>
+            Back
+          </Button>
         </>
       )}
     </form>
