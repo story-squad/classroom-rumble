@@ -114,7 +114,7 @@ const CreateNewRumbleForm = ({
           onClick={() => clearErrors()}
           loading={loading}
         >
-          Start Rumble
+          Create Rumble
         </Button>
       </div>
     </form>
