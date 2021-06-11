@@ -65,7 +65,7 @@ const CreateNewRumbleForm = ({
     try {
       if (user) {
         const res = await Rumbles.create({
-          rumble: { numMinutes, promptId: prompt.id },
+          rumble: { numMinutes, promptId: prompt.id, start_time: startTime },
           teacherId: user.id,
           sectionIds: idList,
         });
