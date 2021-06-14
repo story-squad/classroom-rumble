@@ -1,10 +1,11 @@
 import { atom, atomFamily } from 'recoil';
 import { Rumbles } from '../../api';
-import { persist } from '../effects';
+import { logger, persist } from '../effects';
 
 export const ids = atom<number[] | undefined>({
   key: 'rumbleIds',
   default: undefined,
+  effects_UNSTABLE: [logger()],
 });
 
 export const getById = atomFamily<
@@ -13,11 +14,13 @@ export const getById = atomFamily<
 >({
   key: 'rumbleById',
   default: undefined,
+  effects_UNSTABLE: [logger()],
 });
 
 export const getBySectionId = atomFamily<number[] | undefined, number>({
   key: 'rumblesBySectionId',
   default: undefined,
+  effects_UNSTABLE: [logger()],
 });
 
 export const selected = atom<number | undefined>({

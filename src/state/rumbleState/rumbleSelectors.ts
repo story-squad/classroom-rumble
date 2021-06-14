@@ -1,5 +1,6 @@
-import { DefaultValue, RecoilValue, selector, selectorFamily } from 'recoil';
+import { RecoilValue, selector, selectorFamily } from 'recoil';
 import { Rumbles } from '../../api';
+import { factories } from '../helpers';
 import { getById, getBySectionId, ids, selected } from './rumbleAtoms';
 
 export const current = selector<Rumbles.IRumbleWithSectionInfo | undefined>({
@@ -42,46 +43,18 @@ export const get = selectorFamily<
   },
 });
 
-export const add = selector<
-  Rumbles.IRumbleWithSectionInfo[] | Rumbles.IRumbleWithSectionInfo | undefined
->({
-  key: 'addRumble',
-  get: () => undefined,
-  set: ({ set, get }, newValue) => {
-    // Initialize/Clear
-    if (!newValue || newValue instanceof DefaultValue) return undefined;
-
-    // Get the current id list
-    const idList = get(ids) || [];
-
-    // We're going to ALWAYS run logic on this array
-    let items: Rumbles.IRumbleWithSectionInfo[];
-
-    // So if our payload is an array already
-    if (Array.isArray(newValue)) {
-      // We can use that value
-      items = newValue;
-    } else {
-      // Otherwise, it's a singular value and we need to put it in an array
-      items = [newValue];
-    }
-
-    // Keep track of the ids of the new items -> only need to loop once
-    const newIds: number[] = [];
-    // Do the loop
-    items.forEach((item) => {
-      // Let's ensure we don't add duplicates to our idList
-      if (idList.indexOf(item.id) === -1) {
-        // Save each id in our handy array
-        newIds.push(item.id);
-      }
-
-      // Use the atomFamily to set the specific rumble data or update the previous one
-      set(getById(item.id), item);
+export const add = factories.AddSelectorFactory({
+  key: 'addRumbles',
+  getById,
+  ids,
+  onAfter: ({ newValues, set, updatedIds }) => {
+    console.log('inner1', { newValues, updatedIds });
+    newValues.forEach((rum) => {
+      console.log('inner2', rum);
+      set(getBySectionId(rum.sectionId), (prev) =>
+        prev ? [...prev, rum.id] : [rum.id],
+      );
     });
-    // Update the id list as well
-    const updatedIds = [...idList, ...newIds];
-
-    set(ids, (prev) => [...(prev || []), ...updatedIds]);
   },
+  enableLogs: true,
 });

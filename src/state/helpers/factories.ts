@@ -24,11 +24,12 @@ export const AddSelectorFactory = <IdType, DataType extends { id: IdType }>({
   }) => void;
   enableLogs?: boolean;
 }): RecoilState<DataType[] | DataType | undefined> =>
+  // Selector code starts here
   selector<DataType[] | DataType | undefined>({
     key,
     get: () => undefined,
     set: ({ set, get }, newValue) => {
-      enableLogs && console.log(`${key} updated`, { key, newValue });
+      enableLogs && console.log(`adding to ${key}`, { key, newValue });
       enableLogs && console.log('new', newValue, { key, newValue });
 
       // Initialize/Clear
@@ -76,7 +77,7 @@ export const AddSelectorFactory = <IdType, DataType extends { id: IdType }>({
           newValue,
         });
 
-      set(idListAtom, (prev) => [...(prev || []), ...updatedIds]);
+      set(idListAtom, updatedIds);
 
       enableLogs &&
         onAfter &&

@@ -1,10 +1,11 @@
 import { atom, atomFamily } from 'recoil';
 import { Sections } from '../../api';
-import { persist } from '../effects';
+import { logger, persist } from '../effects';
 
 export const ids = atom<number[] | undefined>({
   key: 'sectionIds',
   default: undefined,
+  effects_UNSTABLE: [logger()],
 });
 
 export const getById = atomFamily<
@@ -13,6 +14,7 @@ export const getById = atomFamily<
 >({
   key: 'sectionById',
   default: undefined,
+  effects_UNSTABLE: [logger()],
 });
 
 export const selected = atom<number | undefined>({

@@ -9,7 +9,6 @@ const TeacherDashboardRumbleCard = ({
 }: ITeacherDashboardRumbleCardProps): React.ReactElement => {
   const { push } = useHistory();
   const rumble = useRecoilValue(rumbles.getById(rumbleId));
-  console.log('rumble card', rumble);
   const setCurrentRumble = useSetRecoilState(rumbles.selected);
   const [status] = useRumbleStatus(rumble?.phase);
 

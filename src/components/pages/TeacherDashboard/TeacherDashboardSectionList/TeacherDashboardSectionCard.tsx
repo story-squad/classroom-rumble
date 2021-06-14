@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { app, sections } from '../../../../state';
@@ -19,8 +19,6 @@ const TeacherDashboardSectionCard = ({
     setCurrentSection(sectionId);
     push('/dashboard/teacher/section');
   };
-
-  useEffect(() => console.log({ gradeEnum, subjectEnum, sectionId, section }));
 
   return (
     <div className="section-card" onClick={openSection}>
