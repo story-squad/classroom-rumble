@@ -5,8 +5,8 @@ import { useRecoilValue } from 'recoil';
 import { Feedback, Prompts, Rumbles } from '../../../api';
 import { useAsync } from '../../../hooks';
 import { rumbles, sections } from '../../../state';
-import { CouldNotLoad } from '../CouldNotLoad';
 import { Loader } from '../Loader';
+import { CouldNotLoad } from './../CouldNotLoad';
 import RenderPromptBox from './RenderPromptBox';
 
 /**

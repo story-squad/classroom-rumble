@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import ReactMarkdown from 'react-markdown';
+import Markdown from 'react-remarkable';
 import TosMarkdown from '../../../assets/TOS.md';
 
 const TermsOfService = (): React.ReactElement => {
   const [tos, setTos] = useState('');
-
+  // console.log(marked);
   useEffect(() => {
     fetch(TosMarkdown)
       .then((res) => res.text())
@@ -16,7 +16,8 @@ const TermsOfService = (): React.ReactElement => {
   return (
     <div className="tos">
       <div className="tos-wrapper">
-        <ReactMarkdown>{tos ? tos : ''}</ReactMarkdown>
+        <Markdown>{tos}</Markdown>
+        {/* <ReactMarkdown>{tos ? tos : ''}</ReactMarkdown> */}
       </div>
     </div>
   );

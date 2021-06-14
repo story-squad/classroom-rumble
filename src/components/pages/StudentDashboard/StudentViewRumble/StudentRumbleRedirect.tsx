@@ -79,12 +79,12 @@ const StudentRumbleRedirect = ({
 
   return loading ? (
     <Loader />
-  ) : hasSubmitted && rumble.phase === `ACTIVE` ? (
-    <SubmissionSuccess />
   ) : !submission ? (
     // If the student has not submitted, show the rumble page
     // TODO do a separate post endpoint for late work
     <StudentSubmissionPage sectionId={section.id} />
+  ) : hasSubmitted && rumble.phase === `ACTIVE` ? (
+    <SubmissionSuccess />
   ) : feedbackComplete === false ? (
     <PeerFeedbackPage />
   ) : (

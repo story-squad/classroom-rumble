@@ -49,7 +49,7 @@ const App = (): React.ReactElement => {
             </LandingPageWrapper>
           )}
         />
-        <Route path="/tos" component={TermsOfService} />
+        <Route path="/termsofservice" component={TermsOfService} />
 
         {/* OAuth Redirects */}
         <Route
