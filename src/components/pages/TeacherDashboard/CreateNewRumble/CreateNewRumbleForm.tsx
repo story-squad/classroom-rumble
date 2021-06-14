@@ -57,6 +57,7 @@ const CreateNewRumbleForm = ({
           user.id,
           idList,
         );
+        console.log('new rumble success', res);
         addRumbles(res);
         addToast('Successfuly Created a Rumble!', { appearance: 'success' });
         clearErrors();

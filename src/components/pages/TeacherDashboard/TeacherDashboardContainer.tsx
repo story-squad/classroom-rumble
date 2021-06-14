@@ -41,7 +41,7 @@ const TeacherDashboardContainer = (): React.ReactElement => {
         <Route
           exact
           path="/dashboard/teacher/rumble/new"
-          render={(props) => <CreateNewRumble {...props} />}
+          render={() => <CreateNewRumble />}
         />
         {/* Fallback redirect for nonexistent routes */}
         <Route

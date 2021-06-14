@@ -21,6 +21,7 @@ export const AddSelectorFactory = <IdType, DataType extends { id: IdType }>({
     newValues: DataType[];
     set: SetRecoilState;
     get: GetRecoilValue;
+    newIds: IdType[];
   }) => void;
   enableLogs?: boolean;
 }): RecoilState<DataType[] | DataType | undefined> =>
@@ -59,7 +60,7 @@ export const AddSelectorFactory = <IdType, DataType extends { id: IdType }>({
         // Let's ensure we don't add duplicates to our idList
         if (idList.indexOf(item.id) === -1) {
           enableLogs &&
-            console.log('adding id', item.id, newIds, { key, newValue });
+            console.log('adding id', item.id, 'to', newIds, { key, newValue });
           // Save each id in our handy array
           newIds.push(item.id);
         }
@@ -68,7 +69,7 @@ export const AddSelectorFactory = <IdType, DataType extends { id: IdType }>({
         // Use the atomFamily to set the specific rumble data or update the previous one
         set(atomFamilyGetById(item.id), item);
       });
-      // Update the id list as well
+      // Create a list that merges the original (idList) as well as the new ids (newIds)
       const updatedIds = [...idList, ...newIds];
 
       enableLogs &&
@@ -77,12 +78,15 @@ export const AddSelectorFactory = <IdType, DataType extends { id: IdType }>({
           newValue,
         });
 
+      // Updated the id list atom
       set(idListAtom, updatedIds);
 
+      // Allows us to (optionally) run a side effect on new resources every time they are added
       enableLogs &&
         onAfter &&
         console.log('running onAfter', { key, newValue });
       onAfter?.({
+        newIds,
         updatedIds,
         newValues: items,
         set,

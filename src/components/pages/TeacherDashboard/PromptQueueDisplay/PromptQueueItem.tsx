@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { prompts } from '../../../../state';
 
 const PromptQueueItem = ({
@@ -10,10 +10,11 @@ const PromptQueueItem = ({
   promptId: number;
 }): React.ReactElement => {
   const { push } = useHistory();
-
   const prompt = useRecoilValue(prompts.getById(promptId));
+  const setSelectedPrompt = useSetRecoilState(prompts.selected);
 
   const newRumbleFromThisPrompt = () => {
+    setSelectedPrompt(promptId);
     push('/dashboard/teacher/rumble/new');
   };
 

@@ -14,6 +14,7 @@ const TeacherDashboardRumbleList = ({
   const currentRumbles = useRecoilValue(
     rumbles.get({
       phases,
+      sectionId: sectionIds.length === 1 ? sectionIds[0] : undefined,
     }),
   );
 

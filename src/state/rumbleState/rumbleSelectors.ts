@@ -47,13 +47,36 @@ export const add = factories.AddSelectorFactory({
   key: 'addRumbles',
   getById,
   ids,
-  onAfter: ({ newValues, set, updatedIds }) => {
-    console.log('inner1', { newValues, updatedIds });
+  onAfter: ({ set, get, newValues }) => {
+    console.log('add rumble onAfter effect', { newValues });
+
+    // Initialize values for storage
+    const sectionIds: number[] = [];
+    const rumbleIdsBySectionId: Record<number, number[]> = {};
+
     newValues.forEach((rum) => {
-      console.log('inner2', rum);
-      set(getBySectionId(rum.sectionId), (prev) =>
-        prev ? [...prev, rum.id] : [rum.id],
-      );
+      if (!sectionIds.includes(rum.sectionId)) sectionIds.push(rum.sectionId);
+      // If the array has not been initialized, do it now (once)
+      if (!rumbleIdsBySectionId[rum.sectionId])
+        rumbleIdsBySectionId[rum.sectionId] = [];
+
+      // Add the rumble to our array by section
+      if (!rumbleIdsBySectionId[rum.sectionId].includes(rum.id)) {
+        rumbleIdsBySectionId[rum.sectionId].push(rum.id);
+      }
+    });
+
+    sectionIds.forEach((secId) => {
+      const newIds = rumbleIdsBySectionId[secId];
+      console.log('onAfter adding', newIds, 'to section', secId);
+
+      const prevIds = get(getBySectionId(secId)) || [];
+      console.log('previous ids', prevIds);
+
+      const filteredIds = newIds.filter((nId) => !prevIds.includes(nId));
+      console.log('merging the following', prevIds, filteredIds);
+
+      set(getBySectionId(secId), [...prevIds, ...filteredIds]);
     });
   },
   enableLogs: true,
