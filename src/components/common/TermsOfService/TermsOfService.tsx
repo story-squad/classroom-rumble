@@ -17,7 +17,6 @@ const TermsOfService = (): React.ReactElement => {
     <div className="tos">
       <div className="tos-wrapper">
         <Markdown>{tos}</Markdown>
-        {/* <ReactMarkdown>{tos ? tos : ''}</ReactMarkdown> */}
       </div>
     </div>
   );
