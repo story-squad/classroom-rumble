@@ -1,4 +1,5 @@
-import React from 'react';
+import { DateTime } from 'luxon';
+import React, { useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import { Rumbles, Sections } from '../../../../../api';
@@ -9,6 +10,7 @@ import { Button, Table } from '../../../../common';
 const SectionRumbleCard = ({
   section,
   rumble,
+  endTime,
 }: ISectionRumbleCardProps): React.ReactElement => {
   const { push } = useHistory();
   const setCurrentSection = useSetRecoilState(current.section);
@@ -22,23 +24,7 @@ const SectionRumbleCard = ({
     push('/dashboard/teacher/rumble', { rumble, section });
   };
 
-  //Setting date and day of the week
-  const newDate = new Date(rumble.end_time);
-  const newYear = newDate.getFullYear();
-  const newDay = newDate.getDate();
-  const newMonth = newDate.getMonth();
-
-  const days = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ];
-  const dayOfTheWeek = days[newDate.getDay()];
-  //
+  const [date, weekday] = useFormatDate(`${endTime || ''}`);
 
   const [status] = useRumbleStatus(rumble.phase);
 
@@ -47,10 +33,15 @@ const SectionRumbleCard = ({
       <div>
         <Table.Row>
           <Table.Col>
-            {newMonth + 1}/{newDay}/{newYear}
+            {rumble.phase !== 'INACTIVE' ? <>{date}</> : <p>N/A</p>}
           </Table.Col>
-          {status !== 'Complete' && <Table.Col>{rumble.phase}</Table.Col>}
-          {status === 'Complete' && <Table.Col>{dayOfTheWeek}</Table.Col>}
+          <Table.Col>
+            {status !== 'Complete' ? (
+              <div>{rumble.phase} </div>
+            ) : (
+              <div className="weekday">{weekday}</div>
+            )}
+          </Table.Col>
           {/* <Table.Col>{rumble.id}</Table.Col> */}
           <Table.Col className="status">
             <Button type="text" onClick={openRumble}>
@@ -63,9 +54,23 @@ const SectionRumbleCard = ({
   );
 };
 
+const useFormatDate = (
+  date: string | undefined,
+): [date: string | undefined, weekday: string | undefined] => {
+  const luxonDate = useMemo(() => DateTime.fromISO(date || ''), [date]);
+
+  return luxonDate.isValid
+    ? [
+        luxonDate.toLocaleString(DateTime.DATE_SHORT),
+        luxonDate.toLocaleString({ weekday: 'long' }),
+      ]
+    : [undefined, undefined];
+};
+
 interface ISectionRumbleCardProps {
   rumble: Rumbles.IRumbleWithSectionInfo;
   section: Sections.ISectionWithRumbles;
+  endTime?: Date;
 }
 
 export default SectionRumbleCard;

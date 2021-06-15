@@ -6,7 +6,7 @@ export interface IRumbleWithSectionInfo extends IRumble {
 export interface IRumble extends INewRumble {
   id: number;
   created_at: Date;
-  end_time: Date;
+  end_time?: Date;
   phase: RumblePhases;
 }
 

@@ -4,7 +4,7 @@ import { Rumbles, Sections } from '../../../../../api';
 import noStudents from '../../../../../assets/img/no_students.svg';
 import { useRumbleFilter } from '../../../../../hooks';
 import { modals } from '../../../../../state';
-import { Button, Table } from '../../../../common';
+import { Table } from '../../../../common';
 import SectionRumbleCard from './SectionRumbleCard';
 
 const RenderSectionRumbleList = ({
@@ -21,9 +21,9 @@ const RenderSectionRumbleList = ({
     <div className="rumble-list-wrapper">
       <div className="rumble-list-container">
         <div className="rumble-list">
+          <h2>Current Rumbles</h2>
           {currentRum.length ? (
             <>
-              <h2>Current Rumbles</h2>
               <Table.Header>
                 <Table.Col>Date</Table.Col>
                 <Table.Col>Status </Table.Col>
@@ -36,6 +36,7 @@ const RenderSectionRumbleList = ({
                     rumble={rumble}
                     section={section}
                     key={rumble.id}
+                    endTime={rumble.end_time}
                   />
                 ))}
               </Table.Body>
@@ -43,17 +44,15 @@ const RenderSectionRumbleList = ({
           ) : (
             <div className="no-rumble">
               <div className="message-text-container">
-                <p>There are no rumbles in this class &nbsp;</p>
-                <Button type="text" onClick={openInviteModal}>
-                  Invite to Class
-                </Button>
+                <p>There are no current rumbles in this class &nbsp;</p>
               </div>
-              <img src={noStudents} alt="you have no students" />
+              <img src={noStudents} alt="you have no rumbles" />
             </div>
           )}
+
+          <h2>Past Rumbles</h2>
           {pastRumbles.length ? (
             <>
-              <h2>Past Rumbles</h2>
               <Table.Header>
                 <Table.Col>Date</Table.Col>
                 <Table.Col>Day of the Week </Table.Col>
@@ -66,6 +65,7 @@ const RenderSectionRumbleList = ({
                     rumble={rumble}
                     section={section}
                     key={rumble.id}
+                    endTime={rumble.end_time}
                   />
                 ))}
               </Table.Body>
@@ -75,7 +75,7 @@ const RenderSectionRumbleList = ({
               <div className="message-text-container">
                 <p>There are no past rumbles in this class &nbsp;</p>
               </div>
-              <img src={noStudents} alt="you have no students" />
+              <img src={noStudents} alt="you have no past rumbles" />
             </div>
           )}
           {/* ) : (
