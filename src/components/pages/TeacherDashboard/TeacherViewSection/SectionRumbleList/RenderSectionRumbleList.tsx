@@ -13,7 +13,6 @@ const RenderSectionRumbleList = ({
 }: IRenderSectionRumbleListProps): React.ReactElement => {
   const setInviteModalOpen = useSetRecoilState(modals.inviteModalIsOpen);
   const openInviteModal = () => setInviteModalOpen(true);
-  // console.log(currentRumbles);
 
   const [currentRum, pastRumbles] = useRumbleFilter(section.rumbles);
 

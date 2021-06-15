@@ -17,16 +17,15 @@ const SectionRumbleCard = ({
   const setCurrentRumble = useSetRecoilState(current.rumble);
   const clearCurrentStudent = useResetRecoilState(current.student);
 
+  const [date, weekday] = useFormatDate(`${endTime || ''}`);
+  const [status] = useRumbleStatus(rumble.phase);
+
   const openRumble = () => {
     setCurrentSection(section);
     setCurrentRumble(rumble);
     clearCurrentStudent();
     push('/dashboard/teacher/rumble', { rumble, section });
   };
-
-  const [date, weekday] = useFormatDate(`${endTime || ''}`);
-
-  const [status] = useRumbleStatus(rumble.phase);
 
   return (
     <div>
