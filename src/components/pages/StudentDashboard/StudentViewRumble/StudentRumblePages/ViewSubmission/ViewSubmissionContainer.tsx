@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Students } from '../../../../../../api';
-import { useAsync } from '../../../../../../hooks';
+import { useAsync, useResetOnUnmount } from '../../../../../../hooks';
 import { auth, rumbles, sections, submissions } from '../../../../../../state';
 import { CouldNotLoad, Loader } from '../../../../../common';
 import RenderPastRumbleDetails from './RenderViewSubmission';
@@ -10,24 +10,44 @@ const PastRumbleDetailsContainer = (): React.ReactElement => {
   const rumble = useRecoilValue(rumbles.current);
   const user = useRecoilValue(auth.user);
   const section = useRecoilValue(sections.current);
-  const submission = useRecoilValue(submissions.current);
+  const [selectedSubId, setSelectedSubId] = useRecoilState(
+    submissions.selected,
+  );
+  const submission = useRecoilValue(submissions.getById(selectedSubId));
   const addSubmissions = useSetRecoilState(submissions.add);
 
-  const [getSubForRumble, , , error] = useAsync({
+  useResetOnUnmount({
+    recoil: [submissions.selected, rumbles.selected],
+  });
+
+  const [getSubForRumble, , subFromAPI, error] = useAsync({
     asyncFunction: Students.getSubForRumble,
-    setter: addSubmissions,
+    enableLogs: true,
   });
 
   useEffect(() => {
     if (rumble && user && !submission) {
+      console.log('getting sub');
       getSubForRumble(rumble.id, user.id);
     }
   }, [rumble, user]);
 
-  return submission && section ? (
+  useEffect(() => {
+    if (subFromAPI) {
+      console.log('sub GET', subFromAPI);
+      addSubmissions(subFromAPI);
+      setSelectedSubId(subFromAPI.id);
+    }
+  }, [subFromAPI]);
+
+  useEffect(() =>
+    console.log({ rumble, selectedSubId, submission, user, section, error }),
+  );
+
+  return selectedSubId && section ? (
     <RenderPastRumbleDetails
       sectionId={section.id}
-      submissionId={submission.id}
+      submissionId={selectedSubId}
     />
   ) : error ? (
     <CouldNotLoad error={error.message} />

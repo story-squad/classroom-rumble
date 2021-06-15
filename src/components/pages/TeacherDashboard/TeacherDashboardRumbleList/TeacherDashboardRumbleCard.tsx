@@ -10,7 +10,7 @@ const TeacherDashboardRumbleCard = ({
   const { push } = useHistory();
   const rumble = useRecoilValue(rumbles.getById(rumbleId));
   const setCurrentRumble = useSetRecoilState(rumbles.selected);
-  const [status] = useRumbleStatus(rumble?.phase);
+  const [status] = useRumbleStatus(rumble);
 
   // Memoize the minutes and hours to reduce calculations
   const hours = useMemo(() => Math.floor((rumble?.numMinutes || 0) / 60), [

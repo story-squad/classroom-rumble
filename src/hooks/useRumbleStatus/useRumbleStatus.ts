@@ -2,10 +2,10 @@ import { useMemo } from 'react';
 import { Rumbles } from '../../api';
 
 const useRumbleStatus = (
-  rumble?: Rumbles.RumblePhases,
+  rumble?: Rumbles.IRumbleWithSectionInfo | undefined,
 ): ['Active' | 'Complete' | 'Scheduled' | 'Loading'] => {
   const status = useMemo(() => {
-    switch (rumble) {
+    switch (rumble?.phase) {
       case undefined:
         return 'Loading';
       case 'ACTIVE':

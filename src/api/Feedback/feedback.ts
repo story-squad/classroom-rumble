@@ -2,7 +2,7 @@
 // pull it into its own file in future?
 
 import { axiosWithAuth } from '../axiosWithConfig';
-import { IFeedback } from './feedbackTypes';
+import { IFeedback, INewFeedback } from './feedbackTypes';
 
 // Should This be in Submissions?
 
@@ -37,4 +37,21 @@ export const checkIfHasSubmittedFeedback = async ({
     `/api/rumble/feedback/complete?studentId=${studentId}&rumbleId=${rumbleId}`,
   );
   return data;
+};
+
+export const getByVoterAndRumbleIds = async ({
+  rumbleId,
+  voterId,
+}: {
+  voterId: number;
+  rumbleId: number;
+}): Promise<IFeedback[]> => {
+  const { data } = await axiosWithAuth().get(
+    `/api/rumble/feedback?studentId=${voterId}&rumbleId=${rumbleId}`,
+  );
+  return data;
+};
+
+export const submit = async (body: INewFeedback[]): Promise<void> => {
+  await axiosWithAuth().put(`/api/rumble/feedback`, body);
 };

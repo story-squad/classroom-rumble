@@ -1,6 +1,7 @@
-import { RecoilValue, selector, selectorFamily } from 'recoil';
+import { DefaultValue, RecoilValue, selector, selectorFamily } from 'recoil';
 import { Rumbles } from '../../api';
 import { factories } from '../helpers';
+import { getIdByRumbleAndUser } from '../submissionState';
 import { getById, getBySectionId, ids, selected } from './rumbleAtoms';
 
 export const current = selector<Rumbles.IRumbleWithSectionInfo | undefined>({
@@ -11,6 +12,11 @@ export const current = selector<Rumbles.IRumbleWithSectionInfo | undefined>({
 
     const rumble = get(getById(currentId));
     return rumble;
+  },
+  set: ({ set }, newRumble) => {
+    // Initialize/Clear
+    if (!newRumble || newRumble instanceof DefaultValue) return undefined;
+    set(getById(newRumble.id), newRumble);
   },
 });
 
@@ -23,21 +29,29 @@ export const get = selectorFamily<
 >({
   key: 'getFilteredRumbles',
   get: ({ sectionId, phases }) => ({ get }) => {
+    console.log('getting rumbles', { sectionId, phases });
     let rumbleAtom: RecoilValue<number[] | undefined>;
     if (sectionId) rumbleAtom = getBySectionId(sectionId);
     else rumbleAtom = ids;
 
-    const rumbleIdList = get(rumbleAtom) || [];
+    if (!phases) {
+      const rumbleIdList = get(rumbleAtom) || [];
 
-    if (!phases || !rumbleIdList) {
+      console.log('returning new ids', rumbleIdList);
       return rumbleIdList;
     } else {
+      const rumbleIdList = get(rumbleAtom) || [];
+      console.log('got previous ids', rumbleIdList);
+
       const filteredRumbles = rumbleIdList.filter((id) => {
         const rumble = get(getById(id));
         // Rumble will be included if not set? We can load it later?
+        console.log('filtering based on phase', { phases, rumble });
         if (!rumble) return true;
-        else return phases.includes(rumble.phase);
+        else return !rumble.phase || phases.includes(rumble.phase);
       });
+      console.log('filtered', filteredRumbles);
+
       return filteredRumbles;
     }
   },
@@ -79,5 +93,15 @@ export const add = factories.AddSelectorFactory({
       set(getBySectionId(secId), [...prevIds, ...filteredIds]);
     });
   },
-  enableLogs: true,
+});
+
+export const userHasSubmitted = selectorFamily<
+  boolean,
+  { rumbleId?: number; userId?: number }
+>({
+  key: 'userHasSubmittedForTheRumble',
+  get: (ids) => ({ get }) => {
+    const submission = get(getIdByRumbleAndUser(ids));
+    return submission !== undefined;
+  },
 });

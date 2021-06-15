@@ -10,3 +10,11 @@ export const getById = atomFamily<Feedback.IFeedback | undefined, number>({
   key: 'feedbackById',
   default: undefined,
 });
+
+export const getSubIdsByRumbleAndVoterId = atomFamily<
+  number[] | undefined,
+  { voterId?: number; rumbleId?: number } | undefined
+>({
+  key: 'feedbackSubIdsByRumbleAndStudent',
+  default: undefined,
+});

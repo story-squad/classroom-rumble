@@ -5,7 +5,7 @@ export const persist: <DataType>(
   config?: {
     asString?: boolean;
   },
-) => AtomEffect<DataType> = (key, config) => ({ onSet, setSelf, node }) => {
+) => AtomEffect<DataType> = (key, config) => ({ onSet, setSelf }) => {
   const asString = config?.asString ?? false;
 
   // Initialize on app load

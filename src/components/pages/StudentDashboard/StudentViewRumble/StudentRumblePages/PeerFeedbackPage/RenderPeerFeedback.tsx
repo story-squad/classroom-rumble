@@ -3,7 +3,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import { useToasts } from 'react-toast-notifications';
 import { useRecoilValue } from 'recoil';
-import { Auth, Submissions } from '../../../../../../api';
+import { Auth, Feedback } from '../../../../../../api';
 import { submissions } from '../../../../../../state';
 import { Button, PromptBox, SectionInfo } from '../../../../../common';
 import FeedbackSubmissionCard from './FeedbackSubmissionCard';
@@ -26,7 +26,7 @@ const RenderPeerFeedback = ({
     data: Record<string, unknown>,
   ) => {
     try {
-      const body: Record<string, unknown>[] = [];
+      const body: Feedback.INewFeedback[] = [];
       const radioValue = Object.values(data);
 
       // TODO find a more readable way to parse the body
@@ -40,7 +40,7 @@ const RenderPeerFeedback = ({
             score3: Number(radioValue.shift()),
           });
         });
-        await Submissions.submitFeedback(body);
+        await Feedback.submit(body);
         push('/dashboard/student/complete');
         addToast('Submitted feedback!');
       }

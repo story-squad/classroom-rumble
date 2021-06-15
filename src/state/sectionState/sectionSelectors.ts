@@ -31,5 +31,4 @@ export const add = factories.AddSelectorFactory({
   key: 'addSection',
   getById,
   ids,
-  enableLogs: true,
 });

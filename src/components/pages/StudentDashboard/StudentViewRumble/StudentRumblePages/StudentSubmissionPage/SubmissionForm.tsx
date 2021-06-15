@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useToasts } from 'react-toast-notifications';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Submissions } from '../../../../../../api';
 import activeUpload from '../../../../../../assets/img/active_upload.svg';
-import { app, auth, modals, rumbles } from '../../../../../../state';
+import { auth, modals, rumbles, submissions } from '../../../../../../state';
 import { upload } from '../../../../../../utils';
 import { Button, Checkbox } from '../../../../../common';
 import { CouldNotLoadModal } from '../../../../../common/CouldNotLoad';
@@ -18,6 +18,10 @@ const SubmissionForm = (): React.ReactElement => {
   });
 
   const userInfo = useRecoilValue(auth.user);
+  // We will always know the rumble if we get this far bc the PromptBox is only rendered within a Rumble.
+  const currentRumble = useRecoilValue(rumbles.current);
+  // Ensuring the promptId is a string before it is uploaded
+  const promptId = currentRumble?.promptId.toString();
 
   // Error handling toast notifications
   const { addToast } = useToasts();
@@ -25,13 +29,14 @@ const SubmissionForm = (): React.ReactElement => {
   const [file, setFile] = useState<File>();
   const [preview, setPreview] = useState<string>();
   const [loading, setLoading] = useState(false);
-  const [complete, setComplete] = useRecoilState(app.hasSubmitted);
+  const setSubIdForRumble = useSetRecoilState(
+    submissions.getIdByRumbleAndUser({
+      rumbleId: currentRumble?.id,
+      userId: userInfo?.id,
+    }),
+  );
+  const addSubmissions = useSetRecoilState(submissions.add);
   const [visible, setVisible] = useState(false);
-
-  // We will always know the rumble if we get this far bc the PromptBox is only rendered within a Rumble.
-  const currentRumble = useRecoilValue(rumbles.current);
-  // Ensuring the promptId is a string before it is uploaded
-  const promptId = currentRumble?.promptId.toString();
 
   const setParentValidationOpen = useSetRecoilState(
     modals.validationModalIsOpen,
@@ -53,29 +58,22 @@ const SubmissionForm = (): React.ReactElement => {
         reqBody.append('promptId', promptId as string);
         // ALL GOOD TO UPLOAD!
         // POST a submission here
-        await Submissions.submitStory(reqBody)
-          .then((data) => {
-            console.log('File Submitted: ', data);
-            setComplete(true);
-          })
-          .catch((err) => {
-            setVisible(true);
-            console.log({ err });
-            setComplete(false);
-          });
+        const newSubItem = await Submissions.submitStory(reqBody);
+        addSubmissions(newSubItem);
+        setSubIdForRumble(newSubItem.id);
       } catch (err) {
-        let message: string;
         if (err?.response?.data?.error) {
+          let message: string;
           // Am not sure how to test this if we even can at the moment
           if (err.response.data.error === 'Transcription error') {
             message = 'Picture must be of written text';
           } else {
             message = err.response.data.error;
           }
+          addToast(message, { appearance: 'error' });
         } else {
-          message = 'An error occurred. Try again later';
+          setVisible(true);
         }
-        addToast(message, { appearance: 'error' });
       }
       setLoading(false);
     }
@@ -121,25 +119,20 @@ const SubmissionForm = (): React.ReactElement => {
                 </div>
               </div>
             )}
-            {!complete && (
-              // If the submission hasn't been processed successfully
-              <>
-                <label className={file ? 'selected' : ''}>
-                  {file ? (
-                    <span>Change Picture</span>
-                  ) : (
-                    <div>
-                      <img src={activeUpload} />
-                      <span>Upload File</span>
-                    </div>
-                  )}
-                  <input type="file" onChange={fileSelection} hidden />
-                </label>
-                <Button type="secondary" htmlType="submit">
-                  Submit Your Story
-                </Button>
-              </>
-            )}
+            <label className={file ? 'selected' : ''}>
+              {file ? (
+                <span>Change Picture</span>
+              ) : (
+                <div>
+                  <img src={activeUpload} />
+                  <span>Upload File</span>
+                </div>
+              )}
+              <input type="file" onChange={fileSelection} hidden />
+            </label>
+            <Button type="secondary" htmlType="submit">
+              Submit Your Story
+            </Button>
           </form>
         </div>
 
@@ -162,10 +155,6 @@ const SubmissionForm = (): React.ReactElement => {
         />
         {!userInfo?.isValidated && (
           <Button onClick={openParentValidationModal}>Verify Account</Button>
-        )}
-        {complete && (
-          // Once the submission is done, show a button.
-          <div className="success">Submission successful!</div>
         )}
       </div>
     </>

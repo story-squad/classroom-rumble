@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Feedback, Rumbles, Sections, Students } from '../../../../api';
-import { app, auth, submissions } from '../../../../state';
+import { auth, rumbles, submissions } from '../../../../state';
 import { Loader } from '../../../common';
 import {
   PastRumbleDetails,
   PeerFeedbackPage,
+  RumbleComplete,
+  StudentSubmissionPage,
   SubmissionSuccess,
+  WaitingRoom,
 } from './StudentRumblePages';
-import { StudentSubmissionPage } from './StudentRumblePages/';
 
 const StudentRumbleRedirect = ({
   rumble,
@@ -19,17 +21,28 @@ const StudentRumbleRedirect = ({
   // The user's submission for the rumble they clicked on
   const submission = useRecoilValue(submissions.current);
   const addSubmissions = useSetRecoilState(submissions.add);
+  const hasSubmitted = useRecoilValue(
+    rumbles.userHasSubmitted({ rumbleId: rumble.id, userId: user?.id }),
+  );
+  const setSubIdForRumble = useSetRecoilState(
+    submissions.getIdByRumbleAndUser({
+      rumbleId: rumble.id,
+      userId: user?.id,
+    }),
+  );
   // Whether or not the user has given feedback to others yet
   const [feedbackComplete, setFeedbackComplete] = useState<boolean>();
   const [loading, setLoading] = useState(true);
 
-  const [hasSubmitted, setHasSubmitted] = useRecoilState(app.hasSubmitted);
-
-  // This useEffect loads on page render.
-  // hasSubmitted is set to false until conditions are met.
-  useEffect(() => {
-    setHasSubmitted(false);
-  }, []);
+  useEffect(() =>
+    console.log('rumble redirect', {
+      rumble,
+      section,
+      submission,
+      feedbackComplete,
+      hasSubmitted,
+    }),
+  );
 
   // This useEffect is loading the current user's submission for the rumble
   useEffect(() => {
@@ -37,12 +50,8 @@ const StudentRumbleRedirect = ({
       setLoading(true);
       Students.getSubForRumble(rumble.id, user.id)
         .then((res) => {
-          // Set loading to false, submission will also be false, so the
-          // student submission page will be rendered
-          if (res === undefined) setLoading(false);
-          else setHasSubmitted(true);
-          // If submission is defined after this, it will run the next useEffect
           addSubmissions(res);
+          setSubIdForRumble(res?.id);
         })
         .catch((err) => {
           console.log({ err });
@@ -77,19 +86,41 @@ const StudentRumbleRedirect = ({
     }
   }, [submission]);
 
-  return loading ? (
-    <Loader />
-  ) : !submission ? (
-    // If the student has not submitted, show the rumble page
-    // TODO do a separate post endpoint for late work
-    <StudentSubmissionPage sectionId={section.id} />
-  ) : hasSubmitted && rumble.phase === `ACTIVE` ? (
-    <SubmissionSuccess />
-  ) : feedbackComplete === false ? (
-    <PeerFeedbackPage />
-  ) : (
-    <PastRumbleDetails />
-  );
+  const render = useMemo(() => {
+    if (rumble.phase === 'COMPLETE') {
+      return <PastRumbleDetails />;
+    } else if (rumble.phase === 'FEEDBACK') {
+      if (loading) {
+        return <Loader />;
+      } else if (feedbackComplete) {
+        return <RumbleComplete />;
+      } else {
+        return <PeerFeedbackPage />;
+      }
+    } else if (rumble.phase === 'ACTIVE') {
+      // This is where we render based on submission status
+      if (loading) {
+        return <Loader />;
+      } else if (hasSubmitted) {
+        return <SubmissionSuccess />;
+      } else {
+        return <StudentSubmissionPage sectionId={section.id} />;
+      }
+    } else {
+      // Inactive
+      return <WaitingRoom />;
+    }
+  }, [
+    loading,
+    submission,
+    section,
+    hasSubmitted,
+    rumble,
+    feedbackComplete,
+    rumble,
+  ]);
+
+  return render;
 };
 
 interface IStudentRumbleRedirectProps {

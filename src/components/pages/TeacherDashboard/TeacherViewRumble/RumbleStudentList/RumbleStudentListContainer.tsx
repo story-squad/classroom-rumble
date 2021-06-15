@@ -14,6 +14,7 @@ const RumbleStudentListContainer = ({
   const addStudent = useSetRecoilState(students.add);
   const studentList = useRecoilValue(students.ids);
   const section = useRecoilValue(sections.getById(rumble.sectionId));
+
   const [getWithSubsByRumbleId, , , error] = useAsync({
     asyncFunction: Students.getWithSubsByRumbleId,
     setter: addStudent,

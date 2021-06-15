@@ -1,11 +1,11 @@
-import { atom, atomFamily } from 'recoil';
+import { atom, atomFamily, selector } from 'recoil';
 import { Sections } from '../../api';
 import { logger, persist } from '../effects';
+import { current } from '../rumbleState';
 
 export const ids = atom<number[] | undefined>({
   key: 'sectionIds',
   default: undefined,
-  effects_UNSTABLE: [logger()],
 });
 
 export const getById = atomFamily<
@@ -14,11 +14,16 @@ export const getById = atomFamily<
 >({
   key: 'sectionById',
   default: undefined,
-  effects_UNSTABLE: [logger()],
 });
 
 export const selected = atom<number | undefined>({
   key: 'selectedSection',
-  default: undefined,
-  effects_UNSTABLE: [persist('section:selected')],
+  default: selector<number | undefined>({
+    key: 'defaultSelectedSectionSelector',
+    get: ({ get }) => {
+      const currentRumble = get(current);
+      return currentRumble?.sectionId; // Returns undefined if unset
+    },
+  }),
+  effects_UNSTABLE: [persist('section:selected'), logger()],
 });

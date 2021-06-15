@@ -11,9 +11,7 @@ export const getSubsForStudentInSection = async (
   return data;
 };
 
-export const submitStory = async (
-  body: FormData,
-): Promise<{ message: string }> => {
+export const submitStory = async (body: FormData): Promise<ISubItem> => {
   const { data } = await axiosWithAuth().post(
     `/api/submissions?sourceId=2`,
     body,

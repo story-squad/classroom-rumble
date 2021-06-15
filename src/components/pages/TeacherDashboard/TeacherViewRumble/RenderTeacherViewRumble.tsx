@@ -9,6 +9,8 @@ const RenderTeacherViewRumble = ({
   prompt,
 }: IRenderTeacherViewRumbleProps): React.ReactElement => {
   const rumble = useRecoilValue(rumbles.getById(rumbleId));
+  // TODO track loading status of rumbles and such?
+
   return rumble ? (
     <div className="teacher-view-rumble">
       <PromptBox prompt={prompt} isTeacher />

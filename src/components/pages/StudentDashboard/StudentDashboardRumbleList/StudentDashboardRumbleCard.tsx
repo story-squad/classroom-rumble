@@ -5,7 +5,6 @@ import { Rumbles } from '../../../../api';
 import time_lady from '../../../../assets/img/waiting_time.svg';
 import { useRumbleStatus } from '../../../../hooks';
 import { rumbles, sections } from '../../../../state';
-import { Button } from '../../../common';
 
 const StudentRumble = ({
   rumbleId,
@@ -17,7 +16,7 @@ const StudentRumble = ({
   ) as Rumbles.IRumbleWithSectionInfo;
   const setCurrentSection = useSetRecoilState(sections.selected);
   const setCurrentRumble = useSetRecoilState(rumbles.selected);
-  const [status] = useRumbleStatus(rumble.phase);
+  const [status] = useRumbleStatus(rumble);
 
   // Memoize the minutes and hours to reduce calculations
   const hours = useMemo(() => Math.floor(rumble.numMinutes / 60), [rumble]);
@@ -43,7 +42,7 @@ const StudentRumble = ({
   };
 
   return (
-    <div className="rumble-card">
+    <div className="rumble-card" onClick={openCurrentRumble}>
       <div className="content">
         <h3>Class Name</h3>
         <h4>{rumble?.sectionName}</h4>
@@ -54,14 +53,9 @@ const StudentRumble = ({
             <h3>Status</h3>
             <h4>{status}</h4>
           </div>
-          <div className="student-button-container">
-            <div className="content">
-              <h3>Length</h3>
-              <h4>{timeDisplay}</h4>
-            </div>
-            <Button type="primary-with-arrow" onClick={openCurrentRumble}>
-              View Rumble
-            </Button>
+          <div className="content">
+            <h3>Length</h3>
+            <h4>{timeDisplay}</h4>
           </div>
         </>
       ) : (

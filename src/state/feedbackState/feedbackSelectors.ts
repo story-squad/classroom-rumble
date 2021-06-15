@@ -1,12 +1,23 @@
 import { selectorFamily } from 'recoil';
 import { IAverages } from '../../components/common/FeedbackDisplay/feedbackTypes';
 import { factories } from '../helpers';
-import { getById, ids } from './feedbackAtoms';
+import { getById, getSubIdsByRumbleAndVoterId, ids } from './feedbackAtoms';
 
 export const add = factories.AddSelectorFactory({
   key: 'addFeedback',
   getById,
   ids,
+});
+
+export const hasSubmitted = selectorFamily<
+  boolean,
+  { voterId?: number; rumbleId?: number }
+>({
+  key: 'voterHasSubmittedFeedback',
+  get: (ids) => ({ get }) => {
+    const voterFeedbackIds = get(getSubIdsByRumbleAndVoterId(ids));
+    return voterFeedbackIds?.some((f) => f) ?? false;
+  },
 });
 
 // TODO move this type to be in a more reusable place

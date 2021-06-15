@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Prompts } from '../../../../api';
-import { useAsync } from '../../../../hooks';
+import { useAsync, useResetOnUnmount } from '../../../../hooks';
 import { rumbles, sections } from '../../../../state';
 import { CouldNotLoad, Loader } from '../../../common';
 import RenderTeacherViewRumble from './RenderTeacherViewRumble';
@@ -9,7 +9,9 @@ import RenderTeacherViewRumble from './RenderTeacherViewRumble';
 const TeacherViewRumbleContainer = (): React.ReactElement => {
   const section = useRecoilValue(sections.current);
   const rumbleId = useRecoilValue(rumbles.selected);
+  useResetOnUnmount({ recoil: [sections.selected, rumbles.selected] });
 
+  // TODO change this to use recoil prompt selectors
   const [getPromptById, promptIsLoading, prompt, error] = useAsync({
     asyncFunction: Prompts.getPromptById,
   });

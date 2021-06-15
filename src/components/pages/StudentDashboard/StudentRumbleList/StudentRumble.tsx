@@ -4,7 +4,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Prompts } from '../../../../api';
 import time_lady from '../../../../assets/img/waiting_time.svg';
 import { useAsync, useRumbleStatus } from '../../../../hooks';
-import { rumbles } from '../../../../state';
+import { rumbles, sections } from '../../../../state';
 import { Button } from '../../../common';
 
 const StudentRumble = ({
@@ -15,7 +15,8 @@ const StudentRumble = ({
   const { push } = useHistory();
   const rumble = useRecoilValue(rumbles.getById(rumbleId));
   const setCurrentRumble = useSetRecoilState(rumbles.selected);
-  const [status] = useRumbleStatus(rumble?.phase);
+  const setCurrentSection = useSetRecoilState(sections.selected);
+  const [status] = useRumbleStatus(rumble);
 
   const [getPrompts, , prompt] = useAsync({
     asyncFunction: Prompts.getPromptById,
@@ -29,6 +30,7 @@ const StudentRumble = ({
 
   const openRumble = () => {
     setCurrentRumble(rumbleId);
+    setCurrentSection(rumble?.sectionId);
     // When a student opens up a past rumble we want them to view their details for that rumble.
     push('/dashboard/student/rumble');
   };
