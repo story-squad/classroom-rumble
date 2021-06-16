@@ -10,7 +10,7 @@ const SectionStudentListContainer = ({
   sectionId,
   visible = true,
 }: ISectionStudentListContainerProps): React.ReactElement => {
-  const studentIds = useRecoilValue(students.ids);
+  const studentIds = useRecoilValue(students.getIdsBySectionId(sectionId));
   const addStudents = useSetRecoilState(students.add);
 
   const [getStudents, isLoading, , error] = useAsync({

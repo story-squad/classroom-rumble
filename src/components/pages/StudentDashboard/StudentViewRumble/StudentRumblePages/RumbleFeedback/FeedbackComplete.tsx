@@ -1,9 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 import rumbleComplete from '../../../../../assets/img/rumble_complete.svg';
-import { Button } from '../../../../common';
+import { Button } from '../../../../../common';
 
-const RumbleComplete = (): React.ReactElement => {
+const FeedbackComplete = (): React.ReactElement => {
   const { push } = useHistory();
 
   // Push user back to dashboard
@@ -23,4 +23,4 @@ const RumbleComplete = (): React.ReactElement => {
   );
 };
 
-export default RumbleComplete;
+export default FeedbackComplete;

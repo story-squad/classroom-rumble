@@ -1,9 +1,9 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { IFeedbackQuestions } from '../../../../../../api/Feedback';
-import { feedbackQuestions } from '../../../../../../config';
-import { submissions } from '../../../../../../state';
-import { Submission } from '../../../../../common';
+import { IFeedbackQuestions } from '../../../../../../../api/Feedback';
+import { feedbackQuestions } from '../../../../../../../config';
+import { submissions } from '../../../../../../../state';
+import { Submission } from '../../../../../../common';
 import FeedbackForm from './FeedbackForm';
 
 const FeedbackSubmissionCard = ({

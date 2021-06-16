@@ -20,7 +20,7 @@ const RumbleStudentCard = ({
   const openSubmission = () => {
     setCurrentSection(section.id);
     setCurrentStudent(studentId);
-    setCurrentSub(student?.submissions[0].id);
+    setCurrentSub(student?.submissions[0].id); // TODO what is this??
     push('/dashboard/teacher/submission');
   };
 

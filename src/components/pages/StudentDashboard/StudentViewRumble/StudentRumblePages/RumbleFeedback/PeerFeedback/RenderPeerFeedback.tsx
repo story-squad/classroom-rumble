@@ -3,9 +3,9 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import { useToasts } from 'react-toast-notifications';
 import { useRecoilValue } from 'recoil';
-import { Auth, Feedback } from '../../../../../../api';
-import { feedback, rumbles } from '../../../../../../state';
-import { Button, PromptBox, SectionInfo } from '../../../../../common';
+import { Auth, Feedback } from '../../../../../../../api';
+import { feedback, rumbles } from '../../../../../../../state';
+import { Button, PromptBox, SectionInfo } from '../../../../../../common';
 import FeedbackSubmissionCard from './FeedbackSubmissionCard';
 
 const RenderPeerFeedback = ({

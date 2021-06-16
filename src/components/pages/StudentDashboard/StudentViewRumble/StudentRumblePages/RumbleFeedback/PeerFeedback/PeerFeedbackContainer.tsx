@@ -1,9 +1,14 @@
 import React, { useEffect } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { Submissions } from '../../../../../../api';
-import { useAsync } from '../../../../../../hooks';
-import { auth, rumbles, sections, submissions } from '../../../../../../state';
-import { CouldNotLoad, Loader } from '../../../../../common';
+import { Submissions } from '../../../../../../../api';
+import { useAsync } from '../../../../../../../hooks';
+import {
+  auth,
+  rumbles,
+  sections,
+  submissions,
+} from '../../../../../../../state';
+import { CouldNotLoad, Loader } from '../../../../../../common';
 import RenderPeerFeedback from './RenderPeerFeedback';
 
 const PeerFeedbackContainer = (): React.ReactElement => {

@@ -1,6 +1,6 @@
 import { atom, atomFamily } from 'recoil';
 import { Students } from '../../api';
-import { persist } from '../effects';
+import { logger, persist } from '../effects';
 
 export const ids = atom<number[] | undefined>({
   key: 'studentIds',
@@ -13,6 +13,12 @@ export const getById = atomFamily<
 >({
   key: 'studentById',
   default: undefined,
+});
+
+export const getIdsBySectionId = atomFamily<number[] | undefined, number>({
+  key: 'studentIdsBySectionId',
+  default: undefined,
+  effects_UNSTABLE: [logger()],
 });
 
 export const selected = atom<number | undefined>({

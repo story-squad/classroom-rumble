@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useToasts } from 'react-toast-notifications';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { Submissions } from '../../../../../../api';
+import { Submissions } from '../../../../../../../api';
+import { auth, modals, rumbles, submissions } from '../../../../../../../state';
+import { upload } from '../../../../../../../utils';
 import activeUpload from '../../../../../../assets/img/active_upload.svg';
-import { auth, modals, rumbles, submissions } from '../../../../../../state';
-import { upload } from '../../../../../../utils';
-import { Button, Checkbox } from '../../../../../common';
-import { CouldNotLoadModal } from '../../../../../common/CouldNotLoad';
+import { Button, Checkbox } from '../../../../../../common';
+import { CouldNotLoadModal } from '../../../../../../common/CouldNotLoad';
 /**
  * Submission Form allows students to submit an image to the rumble they are currenly in.
  */

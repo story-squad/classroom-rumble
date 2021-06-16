@@ -1,6 +1,4 @@
-export { PastRumbleDetails } from './ViewSubmission';
-export { PeerFeedbackPage } from './PeerFeedbackPage';
-export { default as RumbleComplete } from './RumbleComplete';
-export { StudentSubmissionPage } from './StudentSubmissionPage';
-export { default as SubmissionSuccess } from './SubmissionSuccess';
-export { default as WaitingRoom } from './WaitingRoom';
+export { RumbleActive } from './RumbleActive';
+export { RumbleComplete } from './RumbleComplete';
+export { RumbleFeedback } from './RumbleFeedback';
+export { RumbleInactive } from './RumbleInactive';

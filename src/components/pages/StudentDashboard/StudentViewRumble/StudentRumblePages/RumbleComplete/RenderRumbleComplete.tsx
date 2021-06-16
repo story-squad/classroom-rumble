@@ -1,10 +1,10 @@
 import React from 'react';
 import { FeedbackDisplay, PromptBox, SectionInfo } from '../../../../../common';
 
-const RenderPastRumbleDetails = ({
+const RenderRumbleComplete = ({
   submissionId,
   sectionId,
-}: IRenderPastRumbleDetailProps): React.ReactElement => {
+}: IRenderRumbleCompleteProps): React.ReactElement => {
   return (
     <div className="view-submission-container">
       <SectionInfo sectionId={sectionId} />
@@ -14,9 +14,9 @@ const RenderPastRumbleDetails = ({
   );
 };
 
-interface IRenderPastRumbleDetailProps {
+interface IRenderRumbleCompleteProps {
   submissionId: number;
   sectionId: number;
 }
 
-export default RenderPastRumbleDetails;
+export default RenderRumbleComplete;

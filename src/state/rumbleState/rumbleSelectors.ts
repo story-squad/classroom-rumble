@@ -17,6 +17,7 @@ export const current = selector<Rumbles.IRumbleWithSectionInfo | undefined>({
     // Initialize/Clear
     if (!newRumble || newRumble instanceof DefaultValue) return undefined;
     set(getById(newRumble.id), newRumble);
+    set(selected, newRumble.id);
   },
 });
 

@@ -4,9 +4,9 @@ import { Students } from '../../../../../../api';
 import { useAsync, useResetOnUnmount } from '../../../../../../hooks';
 import { auth, rumbles, sections, submissions } from '../../../../../../state';
 import { CouldNotLoad, Loader } from '../../../../../common';
-import RenderPastRumbleDetails from './RenderViewSubmission';
+import RenderRumbleComplete from './RenderRumbleComplete';
 
-const PastRumbleDetailsContainer = (): React.ReactElement => {
+const RumbleCompleteContainer = (): React.ReactElement => {
   const rumble = useRecoilValue(rumbles.current);
   const user = useRecoilValue(auth.user);
   const section = useRecoilValue(sections.current);
@@ -45,10 +45,7 @@ const PastRumbleDetailsContainer = (): React.ReactElement => {
   );
 
   return selectedSubId && section ? (
-    <RenderPastRumbleDetails
-      sectionId={section.id}
-      submissionId={selectedSubId}
-    />
+    <RenderRumbleComplete sectionId={section.id} submissionId={selectedSubId} />
   ) : error ? (
     <CouldNotLoad error={error.message} />
   ) : (
@@ -56,4 +53,4 @@ const PastRumbleDetailsContainer = (): React.ReactElement => {
   );
 };
 
-export default PastRumbleDetailsContainer;
+export default RumbleCompleteContainer;

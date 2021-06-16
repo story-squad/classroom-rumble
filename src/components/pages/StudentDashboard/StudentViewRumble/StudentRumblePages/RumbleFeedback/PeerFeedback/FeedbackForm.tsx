@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Feedback } from '../../../../../../api';
-import { RadioGroup } from '../../../../../common/RadioGroup/index';
+import { Feedback } from '../../../../../../../api';
+import { RadioGroup } from '../../../../../../common/RadioGroup/index';
 
 const FeedbackForm = ({
   subNumber,
