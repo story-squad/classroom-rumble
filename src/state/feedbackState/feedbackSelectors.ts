@@ -16,6 +16,7 @@ export const hasSubmitted = selectorFamily<
   key: 'voterHasSubmittedFeedback',
   get: (ids) => ({ get }) => {
     const voterFeedbackIds = get(getSubIdsByRumbleAndVoterId(ids));
+    console.log({ voterFeedbackIds, ...ids });
     return voterFeedbackIds?.some((f) => f) ?? false;
   },
 });

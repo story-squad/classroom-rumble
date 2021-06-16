@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 import { useToasts } from 'react-toast-notifications';
 import { useRecoilValue } from 'recoil';
 import { Auth, Feedback } from '../../../../../../api';
-import { submissions } from '../../../../../../state';
+import { feedback, rumbles } from '../../../../../../state';
 import { Button, PromptBox, SectionInfo } from '../../../../../common';
 import FeedbackSubmissionCard from './FeedbackSubmissionCard';
 
@@ -18,8 +18,16 @@ const RenderPeerFeedback = ({
     mode: 'onChange',
     reValidateMode: 'onChange',
   });
+  const rumble = useRecoilValue(rumbles.current);
 
-  const submissionIds = useRecoilValue(submissions.ids);
+  const submissionIds = useRecoilValue(
+    feedback.getSubIdsByRumbleAndVoterId({
+      rumbleId: rumble?.id,
+      voterId: student.id,
+    }),
+  );
+
+  console.log({ submissionIds, rumble, student });
 
   // TODO better type interfaces for form data
   const onSubmit: SubmitHandler<Record<string, unknown>> = async (

@@ -22,6 +22,7 @@ export const AddSelectorFactory = <IdType, DataType extends { id: IdType }>({
     set: SetRecoilState;
     get: GetRecoilValue;
     newIds: IdType[];
+    enableLogs?: boolean;
   }) => void;
   enableLogs?: boolean;
 }): RecoilState<DataType[] | DataType | undefined> =>
@@ -91,6 +92,7 @@ export const AddSelectorFactory = <IdType, DataType extends { id: IdType }>({
         newValues: items,
         set,
         get,
+        enableLogs,
       });
       enableLogs &&
         onAfter &&

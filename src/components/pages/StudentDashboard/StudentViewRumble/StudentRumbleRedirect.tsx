@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Feedback, Rumbles, Sections, Students } from '../../../../api';
-import { auth, rumbles, submissions } from '../../../../state';
+import { auth, feedback, rumbles, submissions } from '../../../../state';
 import { Loader } from '../../../common';
 import {
   PastRumbleDetails,
@@ -21,18 +21,29 @@ const StudentRumbleRedirect = ({
   // The user's submission for the rumble they clicked on
   const submission = useRecoilValue(submissions.current);
   const addSubmissions = useSetRecoilState(submissions.add);
-  const hasSubmitted = useRecoilValue(
-    rumbles.userHasSubmitted({ rumbleId: rumble.id, userId: user?.id }),
-  );
+  const addFeedback = useSetRecoilState(feedback.add);
+  const [loading, setLoading] = useState(true);
   const setSubIdForRumble = useSetRecoilState(
     submissions.getIdByRumbleAndUser({
       rumbleId: rumble.id,
       userId: user?.id,
     }),
   );
-  // Whether or not the user has given feedback to others yet
-  const [feedbackComplete, setFeedbackComplete] = useState<boolean>();
-  const [loading, setLoading] = useState(true);
+  const setSubIdsForFeedback = useSetRecoilState(
+    feedback.getSubIdsByRumbleAndVoterId({
+      rumbleId: rumble.id,
+      voterId: user?.id,
+    }),
+  );
+  const hasSubmitted = useRecoilValue(
+    rumbles.userHasSubmitted({ rumbleId: rumble.id, userId: user?.id }),
+  );
+  const feedbackComplete = useRecoilValue(
+    feedback.hasSubmitted({
+      rumbleId: rumble.id,
+      voterId: user?.id,
+    }),
+  );
 
   useEffect(() =>
     console.log('rumble redirect', {
@@ -67,18 +78,19 @@ const StudentRumbleRedirect = ({
   useEffect(() => {
     if (submission && user) {
       setLoading(true);
-      Feedback.checkIfHasSubmittedFeedback({
+      Feedback.getByVoterAndRumbleIds({
         rumbleId: rumble.id,
-        studentId: user.id,
+        voterId: user.id,
       })
-        .then((res) => {
-          console.log('has submitted feedback', { res });
-          // If the user has not submitted feedback, stop loading and display feedback form
-          if (res === false) setLoading(false);
-          setFeedbackComplete(res);
+        .then((fbList) => {
+          const idlist = fbList.map((fb) => fb.id);
+          console.log('feedback GET', fbList, idlist, rumble, user);
+          addFeedback(fbList);
+          setSubIdsForFeedback(idlist);
         })
         .catch((err) => {
           console.log({ err });
+          // setError('There is no submission for this Rumble.');
         })
         .finally(() => {
           setLoading(false);

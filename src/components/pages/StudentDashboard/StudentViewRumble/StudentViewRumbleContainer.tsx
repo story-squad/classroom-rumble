@@ -9,7 +9,6 @@ import StudentRumbleRedirect from './StudentRumbleRedirect';
 const StudentViewRumbleContainer = (): React.ReactElement => {
   const section = useRecoilValue(sections.current);
   const [rumble, setRumble] = useRecoilState(rumbles.current);
-  console.log('current rumble and section', rumble, section);
 
   const [updateRumble, isFetching] = useAsync({
     asyncFunction: Rumbles.getRumbleById,

@@ -61,8 +61,8 @@ export const add = factories.AddSelectorFactory({
   key: 'addRumbles',
   getById,
   ids,
-  onAfter: ({ set, get, newValues }) => {
-    console.log('add rumble onAfter effect', { newValues });
+  onAfter: ({ set, get, newValues, enableLogs }) => {
+    enableLogs && console.log('add rumble onAfter effect', { newValues });
 
     // Initialize values for storage
     const sectionIds: number[] = [];
@@ -82,13 +82,13 @@ export const add = factories.AddSelectorFactory({
 
     sectionIds.forEach((secId) => {
       const newIds = rumbleIdsBySectionId[secId];
-      console.log('onAfter adding', newIds, 'to section', secId);
+      enableLogs && console.log('onAfter adding', newIds, 'to section', secId);
 
       const prevIds = get(getBySectionId(secId)) || [];
-      console.log('previous ids', prevIds);
+      enableLogs && console.log('previous ids', prevIds);
 
       const filteredIds = newIds.filter((nId) => !prevIds.includes(nId));
-      console.log('merging the following', prevIds, filteredIds);
+      enableLogs && console.log('merging the following', prevIds, filteredIds);
 
       set(getBySectionId(secId), [...prevIds, ...filteredIds]);
     });
