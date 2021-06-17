@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Sections } from '../../../../api';
 import { SectionInfo } from '../../../common';
 import { InviteToSection } from '../InviteToSection';
-import { TeacherDashboardRumbleList } from '../TeacherDashboardRumbleList';
+import { SectionRumbleList } from './SectionRumbleList';
 import { SectionStudentList } from './SectionStudentList';
 
 const RenderTeacherViewSection = ({
@@ -33,10 +33,7 @@ const RenderTeacherViewSection = ({
           </div>
         </div>
         <SectionStudentList visible={isStudentView} section={section} />
-        <TeacherDashboardRumbleList
-          visible={!isStudentView}
-          sections={[section]}
-        />
+        <SectionRumbleList visible={!isStudentView} section={section} />
       </div>
     </>
   );
