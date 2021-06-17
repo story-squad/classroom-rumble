@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SectionInfo } from '../../../common';
 import { InviteToSection } from '../InviteToSection';
-import { TeacherDashboardRumbleList } from '../TeacherDashboardRumbleList';
+import { SectionRumbleList } from './SectionRumbleList';
 import { SectionStudentList } from './SectionStudentList';
 
 const RenderTeacherViewSection = ({
@@ -32,11 +32,8 @@ const RenderTeacherViewSection = ({
             </h3>
           </div>
         </div>
-        <SectionStudentList visible={isStudentView} sectionId={sectionId} />
-        <TeacherDashboardRumbleList
-          visible={!isStudentView}
-          sectionIds={[sectionId]}
-        />
+        <SectionStudentList visible={isStudentView} />
+        <SectionRumbleList visible={!isStudentView} />
       </div>
     </>
   );

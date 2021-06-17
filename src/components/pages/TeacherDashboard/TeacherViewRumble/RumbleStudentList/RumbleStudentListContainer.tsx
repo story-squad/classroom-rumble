@@ -25,6 +25,7 @@ const RumbleStudentListContainer = ({
 
       // Transform from array of students to array of ids (objects -> numbers)
       const newStudentIds = newStudents.map((stu) => stu.id);
+      console.log({ newStudentIds, newStudents, sectionId: section?.id });
       // Add them to be tracked by their section ID as well
       updateStudentList(newStudentIds);
     },
@@ -33,6 +34,8 @@ const RumbleStudentListContainer = ({
   useEffect(() => {
     getWithSubsByRumbleId(rumble.id);
   }, [rumble]);
+
+  useEffect(() => console.log({ section, rumble }));
 
   return studentList && section ? (
     <RenderRumbleStudentList studentList={studentList} section={section} />

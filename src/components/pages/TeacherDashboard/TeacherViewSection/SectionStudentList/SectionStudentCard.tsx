@@ -16,10 +16,12 @@ const SectionStudentCard = ({
   const student = useRecoilValue(students.getById(studentId));
 
   const openStudent = () => {
-    setCurrentSection(sectionId);
-    setCurrentStudent(studentId);
     clearCurrentRumble();
     push('/dashboard/teacher/student');
+    setTimeout(() => {
+      setCurrentSection(sectionId);
+    }, 500);
+    setCurrentStudent(studentId);
   };
 
   return student ? (

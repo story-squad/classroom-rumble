@@ -1,29 +1,40 @@
 import React, { useEffect } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Students } from '../../../../../api';
 import { useAsync } from '../../../../../hooks';
-import { students } from '../../../../../state';
+import { sections, students } from '../../../../../state';
 import { CouldNotLoad, Loader } from '../../../../common';
 import RenderSectionStudentList from './RenderSectionStudentList';
 
 const SectionStudentListContainer = ({
-  sectionId,
   visible = true,
 }: ISectionStudentListContainerProps): React.ReactElement => {
-  const studentIds = useRecoilValue(students.getIdsBySectionId(sectionId));
+  const sectionId = useRecoilValue(sections.selected);
+  const [studentIds, updateStudentList] = useRecoilState(
+    students.getIdsBySectionId(sectionId),
+  );
   const addStudents = useSetRecoilState(students.add);
 
   const [getStudents, isLoading, , error] = useAsync({
     asyncFunction: Students.getWithSubsBySectionId,
-    setter: addStudents,
+    setter: (newStudents) => {
+      // Add the students to be tracked by id
+      addStudents(newStudents);
+      // Transform from array of students to array of ids (objects -> numbers)
+      const newStudentIds = newStudents.map((stu) => stu.id);
+      // Add them to be tracked by their section ID as well
+      updateStudentList(newStudentIds);
+    },
   });
 
   useEffect(() => {
-    getStudents(sectionId);
+    if (sectionId) getStudents(sectionId);
   }, [sectionId]);
 
+  useEffect(() => console.log({ sectionId, studentIds, isLoading, error }));
+
   if (!visible) return <></>;
-  return studentIds ? (
+  return studentIds && sectionId ? (
     <RenderSectionStudentList studentIds={studentIds} sectionId={sectionId} />
   ) : error ? (
     <CouldNotLoad error={error.message} />
@@ -35,8 +46,17 @@ const SectionStudentListContainer = ({
 };
 
 interface ISectionStudentListContainerProps {
-  sectionId: number;
   visible?: boolean;
 }
 
-export default SectionStudentListContainer;
+const SuspenseWrapperStudentList = (
+  props: ISectionStudentListContainerProps,
+): React.ReactElement => {
+  return (
+    <React.Suspense fallback={<Loader message="Loading students" />}>
+      <SectionStudentListContainer {...props} />
+    </React.Suspense>
+  );
+};
+
+export default SuspenseWrapperStudentList;

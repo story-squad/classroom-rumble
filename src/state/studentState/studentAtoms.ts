@@ -15,7 +15,10 @@ export const getById = atomFamily<
   default: undefined,
 });
 
-export const getIdsBySectionId = atomFamily<number[] | undefined, number>({
+export const getIdsBySectionId = atomFamily<
+  number[] | undefined,
+  number | undefined
+>({
   key: 'studentIdsBySectionId',
   default: undefined,
   effects_UNSTABLE: [logger()],

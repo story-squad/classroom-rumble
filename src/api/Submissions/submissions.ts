@@ -36,7 +36,7 @@ export const get = async (config: IGetQuery): Promise<ISubItem[]> => {
 export type OrderDirection = 'DESC' | 'ASC';
 // Temporarily disabling 'first' to get this working right
 export interface IGetQuery<B = boolean, K = string, IdType = number> {
-  // first?: B;
+  first?: B;
   limit?: number;
   offset?: number;
   orderBy?: K;
