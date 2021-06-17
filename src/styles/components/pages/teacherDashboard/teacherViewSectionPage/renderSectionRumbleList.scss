@@ -1,0 +1,45 @@
+.rumble-list-wrapper {
+  .rumble-list-container {
+    h2 {
+      padding-bottom: 2rem;
+      font-size: 22px;
+      font-weight: 600;
+      color: $c-grey-70;
+    }
+    @include wrapped-container;
+    .rumble-list {
+      margin-bottom: 4rem;
+      padding: 0 1rem 0;
+      @include table(35%, 35%, 35%, 0%);
+      @include bp(tablet) {
+        @include table(30%, 35%, 35%, 0%);
+        padding: 0rem;
+      }
+
+      // ***
+      .no-rumble {
+        display: flex;
+        flex-flow: column wrap;
+        align-items: center;
+        .message-text-container {
+          font-size: 16px;
+          font-weight: 600;
+          display: flex;
+          flex-flow: column wrap;
+          align-items: center;
+          p {
+            color: $c-grey-80;
+            margin-bottom: 1rem;
+          }
+        }
+      }
+      // ***
+      .table-body {
+        margin-bottom: 4rem;
+        .table-row {
+          @include clickable-bg($white, 2.5%);
+        }
+      }
+    }
+  }
+}
