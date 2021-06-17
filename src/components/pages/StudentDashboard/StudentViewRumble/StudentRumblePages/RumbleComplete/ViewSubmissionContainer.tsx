@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Students } from '../../../../../../api';
-import { useAsync, useResetOnUnmount } from '../../../../../../hooks';
+import { useAsync } from '../../../../../../hooks';
 import { auth, rumbles, sections, submissions } from '../../../../../../state';
 import { CouldNotLoad, Loader } from '../../../../../common';
 import RenderRumbleComplete from './RenderRumbleComplete';
@@ -15,10 +15,6 @@ const RumbleCompleteContainer = (): React.ReactElement => {
   );
   const submission = useRecoilValue(submissions.getById(selectedSubId));
   const addSubmissions = useSetRecoilState(submissions.add);
-
-  useResetOnUnmount({
-    recoil: [submissions.selected, rumbles.selected],
-  });
 
   const [getSubForRumble, , subFromAPI, error] = useAsync({
     asyncFunction: Students.getSubForRumble,
