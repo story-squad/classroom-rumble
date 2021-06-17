@@ -1,25 +1,27 @@
 import React from 'react';
-import { Rumbles, Sections } from '../../../../api';
+import { Rumbles } from '../../../../api';
 import { PromptBox, SectionInfo } from '../../../common';
 import { RumbleStudentList } from './RumbleStudentList';
 
 const RenderTeacherViewRumble = ({
   rumble,
-  section,
   prompt,
 }: IRenderTeacherViewRumbleProps): React.ReactElement => {
-  return (
+  // TODO track loading status of rumbles and such?
+
+  return rumble ? (
     <div className="teacher-view-rumble">
       <PromptBox prompt={prompt} isTeacher />
-      <SectionInfo section={section} />
-      <RumbleStudentList section={section} rumble={rumble} />
+      <SectionInfo sectionId={rumble?.sectionId} />
+      <RumbleStudentList rumble={rumble} />
     </div>
+  ) : (
+    <p>Rumble not found</p>
   );
 };
 
 interface IRenderTeacherViewRumbleProps {
   rumble: Rumbles.IRumbleWithSectionInfo;
-  section: Sections.ISectionWithRumbles;
   prompt: string;
 }
 

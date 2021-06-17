@@ -6,6 +6,7 @@ export interface ISubItem {
   rotation: number;
   prompt: string;
   score: number;
+  rumbleId?: number;
 }
 
 export interface ISubmission extends INewSubmission {
@@ -19,6 +20,7 @@ export interface INewSubmission extends IDSResponse {
   userId: number;
   promptId: number;
   sourceId?: number;
+  rumbleId?: number;
 }
 
 export interface IDSResponse {

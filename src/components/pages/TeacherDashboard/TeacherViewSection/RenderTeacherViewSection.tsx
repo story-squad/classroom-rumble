@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { Sections } from '../../../../api';
 import { SectionInfo } from '../../../common';
 import { InviteToSection } from '../InviteToSection';
 import { SectionRumbleList } from './SectionRumbleList';
 import { SectionStudentList } from './SectionStudentList';
 
 const RenderTeacherViewSection = ({
-  section,
+  sectionId,
 }: IRenderTeacherViewSectionProps): React.ReactElement => {
   const [isStudentView, setIsStudentView] = useState(false);
   const openStudentView = () => setIsStudentView(true);
   const openRumbleView = () => setIsStudentView(false);
+
   return (
     <>
       <InviteToSection disableSectionPicker />
       <div className="teacher-view-section">
-        <SectionInfo isTeacher section={section} />
+        <SectionInfo isTeacher sectionId={sectionId} />
         <div className="section-content-switcher-wrapper">
           <div className="section-content-switcher-container">
             <h3
@@ -32,15 +32,15 @@ const RenderTeacherViewSection = ({
             </h3>
           </div>
         </div>
-        <SectionStudentList visible={isStudentView} section={section} />
-        <SectionRumbleList visible={!isStudentView} section={section} />
+        <SectionStudentList visible={isStudentView} />
+        <SectionRumbleList visible={!isStudentView} />
       </div>
     </>
   );
 };
 
 interface IRenderTeacherViewSectionProps {
-  section: Sections.ISectionWithRumbles;
+  sectionId: number;
 }
 
 export default RenderTeacherViewSection;

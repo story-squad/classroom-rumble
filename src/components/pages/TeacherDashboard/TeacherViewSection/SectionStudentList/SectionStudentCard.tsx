@@ -1,27 +1,30 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
-import { Sections, Students } from '../../../../../api';
-import { current } from '../../../../../state';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { rumbles, sections, students } from '../../../../../state';
 import { Table } from '../../../../common';
 
 const SectionStudentCard = ({
-  section,
-  student,
+  sectionId,
+  studentId,
 }: ISectionStudentCardProps): React.ReactElement => {
   const { push } = useHistory();
-  const setCurrentSection = useSetRecoilState(current.section);
-  const setCurrentStudent = useSetRecoilState(current.student);
-  const clearCurrentRumble = useResetRecoilState(current.rumble);
+  const setCurrentSection = useSetRecoilState(sections.selected);
+  const setCurrentStudent = useSetRecoilState(students.selected);
+  const clearCurrentRumble = useResetRecoilState(rumbles.selected);
+
+  const student = useRecoilValue(students.getById(studentId));
 
   const openStudent = () => {
-    setCurrentSection(section);
-    setCurrentStudent(student);
     clearCurrentRumble();
-    push('/dashboard/teacher/student', { student, section });
+    push('/dashboard/teacher/student');
+    setTimeout(() => {
+      setCurrentSection(sectionId);
+    }, 500);
+    setCurrentStudent(studentId);
   };
 
-  return (
+  return student ? (
     <Table.Row onClick={openStudent}>
       <Table.Col>
         {student.firstname} {student.lastname}
@@ -30,12 +33,14 @@ const SectionStudentCard = ({
       <Table.Col>{student.firstname}</Table.Col>
       <Table.Col>{student.submissions.length}</Table.Col>
     </Table.Row>
+  ) : (
+    <p>Student not found</p>
   );
 };
 
 interface ISectionStudentCardProps {
-  student: Students.IStudentWithSubmissions;
-  section: Sections.ISectionWithRumbles;
+  studentId: number;
+  sectionId: number;
 }
 
 export default SectionStudentCard;
