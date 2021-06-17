@@ -16,8 +16,13 @@ export const hasSubmitted = selectorFamily<
   key: 'voterHasSubmittedFeedback',
   get: (ids) => ({ get }) => {
     const voterFeedbackIds = get(getSubIdsByRumbleAndVoterId(ids));
-    console.log({ voterFeedbackIds, ...ids });
-    return voterFeedbackIds?.some((f) => f) ?? false;
+    const res =
+      voterFeedbackIds?.some((fId) => {
+        const fbItem = get(getById(fId));
+        return !!fbItem?.score1 || !!fbItem?.score2 || !!fbItem?.score3;
+      }) ?? false;
+    console.log({ voterFeedbackIds, res, ...ids });
+    return res;
   },
 });
 

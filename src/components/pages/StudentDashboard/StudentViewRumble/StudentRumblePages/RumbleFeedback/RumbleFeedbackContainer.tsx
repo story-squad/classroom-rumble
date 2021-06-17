@@ -30,7 +30,7 @@ const RumbleFeedbackContainer = (): React.ReactElement => {
   const [execute, loading, , error] = useAsync({
     asyncFunction: Feedback.getByVoterAndRumbleIds,
     setter: (fbList) => {
-      const idlist = fbList.map((fb) => fb.id);
+      const idlist = fbList.map((fb) => fb.submissionId);
       console.log('feedback GET', fbList, idlist, rumble, user);
       addFeedback(fbList);
       setSubIdsForFeedback(idlist);
@@ -46,14 +46,12 @@ const RumbleFeedbackContainer = (): React.ReactElement => {
 
   return feedbackComplete ? (
     <FeedbackComplete />
-  ) : loading ? (
-    <Loader message="Loading feedback" />
-  ) : error ? (
-    <CouldNotLoad error={error} />
   ) : feedbackSubIds ? (
     <PeerFeedback />
+  ) : error ? (
+    <CouldNotLoad error={error} />
   ) : (
-    <CouldNotLoad error={new Error('Could not load feedback')} />
+    <Loader message="Loading feedback" />
   );
 };
 

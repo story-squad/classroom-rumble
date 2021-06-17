@@ -24,7 +24,7 @@ const CouldNotLoad = ({
 };
 
 interface CouldNotLoadProps {
-  error: React.ReactNode;
+  error: React.ReactNode | Error;
   className?: string;
 }
 

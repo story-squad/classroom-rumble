@@ -17,6 +17,7 @@ export const current = selector<Submissions.ISubItem | undefined>({
     if (!newSubmission || newSubmission instanceof DefaultValue)
       return undefined;
     set(getById(newSubmission.id), newSubmission);
+    set(selected, newSubmission.id);
   },
 });
 

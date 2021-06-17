@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import { useToasts } from 'react-toast-notifications';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Submissions } from '../../../../../../../api';
+import activeUpload from '../../../../../../../assets/img/active_upload.svg';
 import { auth, modals, rumbles, submissions } from '../../../../../../../state';
 import { upload } from '../../../../../../../utils';
-import activeUpload from '../../../../../../assets/img/active_upload.svg';
 import { Button, Checkbox } from '../../../../../../common';
 import { CouldNotLoadModal } from '../../../../../../common/CouldNotLoad';
 /**

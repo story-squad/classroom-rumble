@@ -27,6 +27,7 @@ const StudentRumbleRedirect = ({
   const [execute, loading, , error] = useAsync({
     asyncFunction: Students.getSubForRumble,
     setter: (sub) => {
+      console.log('sub GET', sub);
       addSubmissions(sub);
       setSubIdForRumble(sub?.id);
       setSelectedSub(sub);
@@ -40,20 +41,25 @@ const StudentRumbleRedirect = ({
   }, [rumble, selectedSub, user]);
 
   const render = () => {
-    if (rumble.phase === 'INACTIVE') return <RumbleInactive />;
-    else if (selectedSub) {
-      switch (rumble.phase) {
-        case 'ACTIVE':
-          return <RumbleActive />;
-        case 'FEEDBACK':
-          return <RumbleFeedback />;
-        default:
-          return <RumbleComplete />;
-      }
-    } else if (loading) return <Loader />;
-    else if (error) return <CouldNotLoad error={error} />;
-    else return <CouldNotLoad error="Could not load rumble" />;
+    if (loading) return <Loader />;
+    switch (rumble.phase) {
+      case 'INACTIVE':
+        return <RumbleInactive />;
+      case 'ACTIVE':
+        return <RumbleActive />;
+      case 'FEEDBACK':
+        return <RumbleFeedback />;
+      case 'COMPLETE':
+        return <RumbleComplete />;
+      default:
+        if (error) return <CouldNotLoad error={error} />;
+        else return <CouldNotLoad error="Could not load rumble" />;
+    }
   };
+
+  useEffect(() =>
+    console.log('redirect', { selectedSub, rumble, user, loading, error }),
+  );
 
   return render();
 };
