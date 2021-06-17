@@ -34,6 +34,7 @@ const PrivateRoute = ({
   ...rest
 }: PrivateRouteProps): React.ReactElement => {
   const isLogged = useRecoilValue(auth.isLoggedIn);
+  const user = useRecoilValue(auth.user);
   const canAccess = useMemo(() => {
     // User CAN'T access if they're not logged in (no token stored)
     const tokenFromLocalStorage = token.get();
@@ -43,7 +44,7 @@ const PrivateRoute = ({
     if (rest.userType === undefined) return true;
 
     // Otherwise, user must be admin OR match given type
-    const type = token.getUser()?.roleId;
+    const type = user?.roleId;
     return type === Auth.Roles.admin || rest.userType === type;
   }, [isLogged]);
 

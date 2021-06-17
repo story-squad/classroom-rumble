@@ -1,27 +1,18 @@
 import React from 'react';
-import { useSetRecoilState } from 'recoil';
-import { Rumbles, Sections } from '../../../../../api';
 import noStudents from '../../../../../assets/img/no_students.svg';
-import { useRumbleFilter } from '../../../../../hooks';
-import { modals } from '../../../../../state';
 import { Table } from '../../../../common';
 import SectionRumbleCard from './SectionRumbleCard';
 
 const RenderSectionRumbleList = ({
-  // currentRumbles,
-  section,
+  currentRumbleIds,
+  pastRumbleIds,
 }: IRenderSectionRumbleListProps): React.ReactElement => {
-  const setInviteModalOpen = useSetRecoilState(modals.inviteModalIsOpen);
-  const openInviteModal = () => setInviteModalOpen(true);
-
-  const [currentRum, pastRumbles] = useRumbleFilter(section.rumbles);
-
   return (
     <div className="rumble-list-wrapper">
       <div className="rumble-list-container">
         <div className="rumble-list">
           <h2>Current Rumbles</h2>
-          {currentRum.length ? (
+          {currentRumbleIds?.length ? (
             <>
               <Table.Header>
                 <Table.Col>Date</Table.Col>
@@ -30,13 +21,8 @@ const RenderSectionRumbleList = ({
                 <Table.Col>Rumble details</Table.Col>
               </Table.Header>
               <Table.Body>
-                {currentRum.map((rumble) => (
-                  <SectionRumbleCard
-                    rumble={rumble}
-                    section={section}
-                    key={rumble.id}
-                    endTime={rumble.end_time}
-                  />
+                {currentRumbleIds?.map((rId) => (
+                  <SectionRumbleCard rumbleId={rId} key={rId} />
                 ))}
               </Table.Body>
             </>
@@ -50,7 +36,7 @@ const RenderSectionRumbleList = ({
           )}
 
           <h2>Past Rumbles</h2>
-          {pastRumbles.length ? (
+          {pastRumbleIds?.length ? (
             <>
               <Table.Header>
                 <Table.Col>Date</Table.Col>
@@ -59,13 +45,8 @@ const RenderSectionRumbleList = ({
                 <Table.Col>Rumble details</Table.Col>
               </Table.Header>
               <Table.Body>
-                {pastRumbles.map((rumble) => (
-                  <SectionRumbleCard
-                    rumble={rumble}
-                    section={section}
-                    key={rumble.id}
-                    endTime={rumble.end_time}
-                  />
+                {pastRumbleIds?.map((rId) => (
+                  <SectionRumbleCard rumbleId={rId} key={rId} />
                 ))}
               </Table.Body>
             </>
@@ -77,17 +58,6 @@ const RenderSectionRumbleList = ({
               <img src={noStudents} alt="you have no past rumbles" />
             </div>
           )}
-          {/* ) : (
-            <div className="no-rumble">
-              <div className="message-text-container">
-                <p>There are no rumbles in this class &nbsp;</p>
-                <Button type="text" onClick={openInviteModal}>
-                  Invite to Class
-                </Button>
-              </div>
-              <img src={noStudents} alt="you have no students" />
-            </div> */}
-          {/* )} */}
         </div>
       </div>
     </div>
@@ -95,8 +65,8 @@ const RenderSectionRumbleList = ({
 };
 
 interface IRenderSectionRumbleListProps {
-  section: Sections.ISectionWithRumbles;
-  currentRumbles: Rumbles.IRumbleWithSectionInfo[];
+  currentRumbleIds?: number[];
+  pastRumbleIds?: number[];
 }
 
 export default RenderSectionRumbleList;

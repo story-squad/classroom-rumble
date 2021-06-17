@@ -22,15 +22,23 @@ const CreateNewRumbleForm = ({
   const { addToast } = useToasts();
 
   // Subscribe to state
-  const sectionList = useRecoilValue(sections.list);
+  const allSections = useRecoilValue(sections.getAll);
   const user = useRecoilValue(auth.user);
-  const addRumbles = useSetRecoilState(rumbles.addRumbles);
+  const addRumbles = useSetRecoilState(rumbles.add);
 
   // Parse the user's section list into a usable option type
   const sectionOptions = useMemo<FormTypes.IOption<number>[]>(
-    () => sectionList?.map((s) => ({ value: s.id, label: s.name })) ?? [],
-    [sectionList],
+    () =>
+      allSections
+        ?.filter((s) => !!s)
+        .map((s) => ({
+          value: s.id,
+          label: s.name,
+        })) ?? [],
+    [allSections],
   );
+
+  const goBack = () => push('/dashboard/teacher');
 
   const onSubmit: SubmitHandler<{
     sectionIds: string[];
@@ -49,10 +57,19 @@ const CreateNewRumbleForm = ({
           user.id,
           idList,
         );
-        addRumbles(res);
+        console.log('new rumble success', res);
+
+        // TODO - add end time and phase to rumbles
+        const parsedNewRumbles: Rumbles.IRumbleWithSectionInfo[] = res.map(
+          (r) => ({
+            ...r,
+            phase: 'INACTIVE',
+          }),
+        );
+        addRumbles(parsedNewRumbles);
         addToast('Successfuly Created a Rumble!', { appearance: 'success' });
         clearErrors();
-        push('/dashboard/teacher');
+        goBack();
       }
     } catch (err) {
       console.log({ err });
@@ -72,8 +89,6 @@ const CreateNewRumbleForm = ({
   const [executeSubmit, loading, ,] = useAsync({
     asyncFunction: handleSubmit(onSubmit),
   });
-
-  const goBack = () => push('/dashboard/teacher');
 
   return (
     <form onSubmit={executeSubmit}>

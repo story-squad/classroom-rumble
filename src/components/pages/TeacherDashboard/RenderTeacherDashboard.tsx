@@ -1,25 +1,26 @@
 import React from 'react';
-import { Sections } from '../../../api';
+import { useRecoilValue } from 'recoil';
+import { sections } from '../../../state';
 import { Loader, WelcomeModal } from '../../common';
 import { PromptQueueDisplay } from './PromptQueueDisplay';
 import { TeacherDashboardRumbleList } from './TeacherDashboardRumbleList';
 import { TeacherDashboardSectionList } from './TeacherDashboardSectionList';
 
-const RenderTeacherDashboard = ({
-  sectionList,
-}: IRenderTeacherDashboardProps): React.ReactElement => {
+const RenderTeacherDashboard = (): React.ReactElement => {
+  const sectionIds = useRecoilValue(sections.ids);
+
   return (
     <div className="teacher-dashboard">
       <WelcomeModal isTeacher />
       <PromptQueueDisplay />
-      {sectionList ? (
+      {sectionIds ? (
         <>
           <TeacherDashboardRumbleList
-            sections={sectionList}
+            sectionIds={sectionIds}
             phases={['ACTIVE', 'FEEDBACK', 'INACTIVE']}
             title="Current Rumbles"
           />
-          <TeacherDashboardSectionList sections={sectionList} />
+          <TeacherDashboardSectionList sectionIds={sectionIds} />
         </>
       ) : (
         <Loader message={'Loading sections'} />
@@ -27,9 +28,5 @@ const RenderTeacherDashboard = ({
     </div>
   );
 };
-
-interface IRenderTeacherDashboardProps {
-  sectionList: Sections.ISectionWithRumbles[];
-}
 
 export default RenderTeacherDashboard;

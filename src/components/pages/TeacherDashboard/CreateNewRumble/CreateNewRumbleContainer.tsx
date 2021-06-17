@@ -1,15 +1,10 @@
-import React, { useMemo } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-import { Prompts } from '../../../../api';
+import React from 'react';
+import { useRecoilValue } from 'recoil';
+import { prompts } from '../../../../state';
 import RenderCreateNewRumble from './RenderCreateNewRumble';
 
-const CreateNewRumble = ({
-  history,
-}: RouteComponentProps): React.ReactElement => {
-  const selectedPrompt = useMemo(
-    () => history.location.state as Prompts.IPromptInQueue | undefined,
-    [history],
-  );
+const CreateNewRumble = (): React.ReactElement => {
+  const selectedPrompt = useRecoilValue(prompts.current);
   return selectedPrompt ? (
     <RenderCreateNewRumble prompt={selectedPrompt} />
   ) : (

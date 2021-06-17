@@ -1,55 +1,48 @@
 import { DateTime } from 'luxon';
 import React, { useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
-import { Rumbles, Sections } from '../../../../../api';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { useRumbleStatus } from '../../../../../hooks';
-import { current } from '../../../../../state';
-import { Button, Table } from '../../../../common';
+import { rumbles, sections, students } from '../../../../../state';
+import { Button, Loader, Table } from '../../../../common';
 
 const SectionRumbleCard = ({
-  section,
-  rumble,
-  endTime,
+  rumbleId,
 }: ISectionRumbleCardProps): React.ReactElement => {
   const { push } = useHistory();
-  const setCurrentSection = useSetRecoilState(current.section);
-  const setCurrentRumble = useSetRecoilState(current.rumble);
-  const clearCurrentStudent = useResetRecoilState(current.student);
+  const rumble = useRecoilValue(rumbles.getById(rumbleId));
+  const section = useRecoilValue(sections.current);
+  const setCurrentRumble = useSetRecoilState(rumbles.current);
+  const clearCurrentStudent = useResetRecoilState(students.selected);
 
-  const [date, weekday] = useFormatDate(`${endTime || ''}`);
-  const [status] = useRumbleStatus(rumble.phase);
+  const [date, weekday] = useFormatDate(`${rumble?.end_time || ''}`);
+  const [status] = useRumbleStatus(rumble);
 
   const openRumble = () => {
-    setCurrentSection(section);
     setCurrentRumble(rumble);
     clearCurrentStudent();
     push('/dashboard/teacher/rumble', { rumble, section });
   };
 
-  return (
-    <div>
-      <div>
-        <Table.Row>
-          <Table.Col>
-            {rumble.phase !== 'INACTIVE' ? <>{date}</> : <p>N/A</p>}
-          </Table.Col>
-          <Table.Col>
-            {status !== 'Complete' ? (
-              <div>{rumble.phase} </div>
-            ) : (
-              <div className="weekday">{weekday}</div>
-            )}
-          </Table.Col>
-          {/* <Table.Col>{rumble.id}</Table.Col> */}
-          <Table.Col className="status">
-            <Button type="text" onClick={openRumble}>
-              Open
-            </Button>
-          </Table.Col>
-        </Table.Row>
-      </div>
-    </div>
+  return rumble ? (
+    <Table.Row>
+      <Table.Col>{rumble.phase !== 'INACTIVE' ? `${date}` : 'N/A'}</Table.Col>
+      <Table.Col>
+        {status !== 'Complete' ? (
+          <div>{rumble.phase} </div>
+        ) : (
+          <div className="weekday">{weekday}</div>
+        )}
+      </Table.Col>
+      {/* <Table.Col>{rumble.id}</Table.Col> */}
+      <Table.Col className="status">
+        <Button type="text" onClick={openRumble}>
+          Open
+        </Button>
+      </Table.Col>
+    </Table.Row>
+  ) : (
+    <Loader message="Loading rumble" />
   );
 };
 
@@ -67,9 +60,7 @@ const useFormatDate = (
 };
 
 interface ISectionRumbleCardProps {
-  rumble: Rumbles.IRumbleWithSectionInfo;
-  section: Sections.ISectionWithRumbles;
-  endTime?: Date;
+  rumbleId: number;
 }
 
 export default SectionRumbleCard;

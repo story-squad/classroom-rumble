@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { Auth } from '../../../api';
+import { Roles } from '../../../api/Auth';
 import { auth } from '../../../state';
 import { Input } from '../../common';
 import { ILoginParams } from './loginTypes';
@@ -13,7 +14,8 @@ const LoginForm = ({
   cleverId,
 }: ILoginParams): React.ReactElement => {
   const { errors, register, handleSubmit, clearErrors, setError } = useForm();
-  const login = useSetRecoilState(auth.isLoggedIn);
+  const setUser = useSetRecoilState(auth.user);
+  const setToken = useSetRecoilState(auth.authToken);
   const { push } = useHistory();
 
   const onSubmit: SubmitHandler<Auth.ILoginBody> = async (
@@ -26,9 +28,13 @@ const LoginForm = ({
       } else {
         res = await Auth.login(data);
       }
-      login(res);
+      setUser(res.user);
+      setToken(res.token);
       clearErrors();
-      push(`/dashboard/${Auth.Roles[res.user.roleId]}`);
+
+      const userType =
+        res.user.roleId === Roles.user ? 'student' : Roles[res.user.roleId];
+      push(`/dashboard/${userType}`);
     } catch (err) {
       console.log({ err });
       let message: string;
