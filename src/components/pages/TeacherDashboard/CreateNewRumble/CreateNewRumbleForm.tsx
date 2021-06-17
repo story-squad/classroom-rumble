@@ -58,7 +58,15 @@ const CreateNewRumbleForm = ({
           idList,
         );
         console.log('new rumble success', res);
-        addRumbles(res);
+
+        // TODO - add end time and phase to rumbles
+        const parsedNewRumbles: Rumbles.IRumbleWithSectionInfo[] = res.map(
+          (r) => ({
+            ...r,
+            phase: 'INACTIVE',
+          }),
+        );
+        addRumbles(parsedNewRumbles);
         addToast('Successfuly Created a Rumble!', { appearance: 'success' });
         clearErrors();
         goBack();

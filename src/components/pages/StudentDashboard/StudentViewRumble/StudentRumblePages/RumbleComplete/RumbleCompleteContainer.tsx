@@ -16,9 +16,15 @@ const RumbleCompleteContainer = (): React.ReactElement => {
   const submission = useRecoilValue(submissions.getById(selectedSubId));
   const addSubmissions = useSetRecoilState(submissions.add);
 
-  const [getSubForRumble, , subFromAPI, error] = useAsync({
+  const [getSubForRumble, , , error] = useAsync({
     asyncFunction: Students.getSubForRumble,
-    enableLogs: true,
+    setter: (subFromAPI) => {
+      console.log('sub GET', subFromAPI);
+      if (subFromAPI) {
+        addSubmissions(subFromAPI);
+        setSelectedSubId(subFromAPI.id);
+      }
+    },
   });
 
   useEffect(() => {
@@ -27,14 +33,6 @@ const RumbleCompleteContainer = (): React.ReactElement => {
       getSubForRumble(rumble.id, user.id);
     }
   }, [rumble, user]);
-
-  useEffect(() => {
-    if (subFromAPI) {
-      console.log('sub GET', subFromAPI);
-      addSubmissions(subFromAPI);
-      setSelectedSubId(subFromAPI.id);
-    }
-  }, [subFromAPI]);
 
   useEffect(() =>
     console.log({ rumble, selectedSubId, submission, user, section, error }),

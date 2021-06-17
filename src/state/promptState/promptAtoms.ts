@@ -19,7 +19,10 @@ export const queueIds = atom<number[] | undefined>({
   default: undefined,
 });
 
-export const getById = atomFamily<Prompts.IPromptInQueue | undefined, number>({
+export const getById = atomFamily<
+  Prompts.IPromptInQueue | undefined,
+  number | undefined
+>({
   key: 'promptById',
   default: undefined,
 });

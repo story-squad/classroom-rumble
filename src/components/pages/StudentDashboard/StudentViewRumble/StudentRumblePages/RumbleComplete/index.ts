@@ -1,1 +1,1 @@
-export { default as RumbleComplete } from './ViewSubmissionContainer';
+export { default as RumbleComplete } from './RumbleCompleteContainer';

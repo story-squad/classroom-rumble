@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { Feedback } from '../../../api';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { Feedback, Submissions } from '../../../api';
 import { useAsync } from '../../../hooks';
 import { feedback, submissions } from '../../../state';
 import { Loader } from '../Loader';
@@ -9,25 +9,39 @@ import RenderFeedback from './RenderFeedback';
 const FeedbackContainer = ({
   submissionId,
 }: IFeedbackContainerProps): React.ReactElement => {
-  const submission = useRecoilValue(submissions.getById(submissionId));
-  const [feedbackIds, setFeedback] = useRecoilState(feedback.ids);
+  const [submission, updateSubmission] = useRecoilState(
+    submissions.getById(submissionId),
+  );
+  const feedbackIds = useRecoilValue(feedback.getIdsBySubId(submissionId));
   const averages = useRecoilValue(feedback.averages(feedbackIds));
+  const addFeedback = useSetRecoilState(feedback.add);
 
   const [getSubmissionFeedback, loading, ,] = useAsync({
     asyncFunction: Feedback.getSubmissionFeedback,
-    setter: (f) => {
-      setFeedback(f.map((fb) => fb.id));
-    },
+    setter: addFeedback,
+  });
+
+  const [getSub, subLoading] = useAsync({
+    asyncFunction: Submissions.get,
+    setter: ([subFromAPI]) => updateSubmission(subFromAPI),
   });
 
   useEffect(() => {
-    if (submission) {
+    if (submission && !loading) {
       getSubmissionFeedback(submission.id);
+    } else if (!subLoading) {
+      getSub({ ids: [submissionId] });
     }
   }, [submission]);
 
+  useEffect(() =>
+    console.log({ submission, feedbackIds, averages, loading, submissionId }),
+  );
+
   return loading ? (
     <Loader />
+  ) : subLoading ? (
+    <Loader message="Loading submission" />
   ) : submission ? (
     <RenderFeedback averages={averages} submission={submission} />
   ) : (

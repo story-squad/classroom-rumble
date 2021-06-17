@@ -1,14 +1,12 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
-import { rumbles } from '../../../../state';
+import { Rumbles } from '../../../../api';
 import { PromptBox, SectionInfo } from '../../../common';
 import { RumbleStudentList } from './RumbleStudentList';
 
 const RenderTeacherViewRumble = ({
-  rumbleId,
+  rumble,
   prompt,
 }: IRenderTeacherViewRumbleProps): React.ReactElement => {
-  const rumble = useRecoilValue(rumbles.getById(rumbleId));
   // TODO track loading status of rumbles and such?
 
   return rumble ? (
@@ -23,7 +21,7 @@ const RenderTeacherViewRumble = ({
 };
 
 interface IRenderTeacherViewRumbleProps {
-  rumbleId: number;
+  rumble: Rumbles.IRumbleWithSectionInfo;
   prompt: string;
 }
 

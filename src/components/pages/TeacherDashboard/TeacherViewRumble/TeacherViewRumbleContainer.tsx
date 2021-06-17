@@ -1,27 +1,31 @@
 import React, { useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Prompts } from '../../../../api';
-import { useAsync, useResetOnUnmount } from '../../../../hooks';
-import { rumbles, sections } from '../../../../state';
+import { useAsync } from '../../../../hooks';
+import { prompts, rumbles, sections } from '../../../../state';
 import { CouldNotLoad, Loader } from '../../../common';
 import RenderTeacherViewRumble from './RenderTeacherViewRumble';
 
 const TeacherViewRumbleContainer = (): React.ReactElement => {
   const section = useRecoilValue(sections.current);
-  const rumbleId = useRecoilValue(rumbles.selected);
-  useResetOnUnmount({ recoil: [sections.selected, rumbles.selected] });
+  const rumble = useRecoilValue(rumbles.current);
+  const prompt = useRecoilValue(prompts.getById(rumble?.promptId));
+  const addPrompts = useSetRecoilState(prompts.add);
 
   // TODO change this to use recoil prompt selectors
-  const [getPromptById, promptIsLoading, prompt, error] = useAsync({
+  const [getPromptById, promptIsLoading, , error] = useAsync({
     asyncFunction: Prompts.getPromptById,
+    setter: addPrompts,
   });
 
   useEffect(() => {
-    if (rumbleId) getPromptById(rumbleId);
-  }, [rumbleId]);
+    if (rumble && !prompt && !promptIsLoading) getPromptById(rumble.promptId);
+  }, [rumble]);
 
-  return section && rumbleId && prompt && !promptIsLoading ? (
-    <RenderTeacherViewRumble rumbleId={rumbleId} prompt={prompt} />
+  console.log({ section, rumble, prompt, promptIsLoading, error });
+
+  return section && rumble && prompt && !promptIsLoading ? (
+    <RenderTeacherViewRumble rumble={rumble} prompt={prompt.prompt} />
   ) : error ? (
     <CouldNotLoad error={error.message} />
   ) : promptIsLoading ? (

@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { IFeedbackQuestions } from '../../../../../../../api/Feedback';
 import { feedbackQuestions } from '../../../../../../../config';
 import { submissions } from '../../../../../../../state';
-import { Submission } from '../../../../../../common';
+import { Loader, Submission } from '../../../../../../common';
 import FeedbackForm from './FeedbackForm';
 
 const FeedbackSubmissionCard = ({
@@ -34,7 +34,7 @@ const FeedbackSubmissionCard = ({
       </div>
     </div>
   ) : (
-    <p>Submission not found.</p>
+    <Loader message="Loading submission" />
   );
 };
 

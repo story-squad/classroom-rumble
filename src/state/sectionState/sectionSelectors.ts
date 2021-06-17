@@ -1,4 +1,4 @@
-import { selector } from 'recoil';
+import { DefaultValue, selector } from 'recoil';
 import { Sections } from '../../api';
 import { factories } from '../helpers';
 import { getById, ids, selected } from './sectionAtoms';
@@ -11,6 +11,15 @@ export const current = selector<Sections.ISectionWithRumbles | undefined>({
 
     const section = get(getById(currentId));
     return section;
+  },
+  set: ({ set }, newSection) => {
+    // Initialize/Clear
+    if (!newSection || newSection instanceof DefaultValue)
+      set(selected, undefined);
+    else {
+      set(getById(newSection.id), newSection);
+      set(selected, newSection.id);
+    }
   },
 });
 

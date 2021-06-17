@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { useToasts } from 'react-toast-notifications';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Feedback, Prompts, Rumbles } from '../../../api';
 import { useAsync } from '../../../hooks';
-import { rumbles, sections } from '../../../state';
+import { prompts, rumbles, sections } from '../../../state';
 import { Loader } from '../Loader';
 import { CouldNotLoad } from './../CouldNotLoad';
 import RenderPromptBox from './RenderPromptBox';
@@ -15,22 +15,21 @@ import RenderPromptBox from './RenderPromptBox';
 
 // TODO see if we needd the API call
 const PromptBoxContainer = ({
-  prompt: promptProp,
   isTeacher = false,
 }: IPromptBoxContainerProps): React.ReactElement => {
-  const currentRumbleId = useRecoilValue(rumbles.selected);
-  const currentRumble = useRecoilValue(
-    rumbles.getById(currentRumbleId as number),
-  );
-  const currentSection = useRecoilValue(sections.selected);
-  const [endTime, setEndTime] = useState(currentRumble?.end_time);
-  const [prompt, setPrompt] = useState<string | undefined>(promptProp);
   const { addToast } = useToasts();
   const { push } = useHistory();
 
+  const [currentRumble, updateCurrentRumble] = useRecoilState(rumbles.current);
+  const prompt = useRecoilValue(prompts.getById(currentRumble?.promptId));
+  const addPrompts = useSetRecoilState(prompts.add);
+  const currentSection = useRecoilValue(sections.selected);
+
   const [getPromptById, loading, , error] = useAsync({
     asyncFunction: Prompts.getPromptById,
-    setter: setPrompt,
+    setter: (promptFromAPI) => {
+      addPrompts(promptFromAPI);
+    },
   });
 
   useEffect(() => {
@@ -41,15 +40,14 @@ const PromptBoxContainer = ({
 
   const startRumble = async (): Promise<void> => {
     try {
-      if (currentRumble?.end_time) {
-        setEndTime(currentRumble.end_time);
-      } else {
+      if (currentRumble && !currentRumble.end_time) {
         const newEndTime = await Rumbles.startRumble(
           currentRumble?.id || 0,
           currentSection || 0,
         );
-        console.log({ newEndTime });
-        setEndTime(newEndTime);
+        updateCurrentRumble((prev) =>
+          prev ? { ...prev, end_time: newEndTime } : undefined,
+        );
       }
     } catch (err) {
       console.log(err);
@@ -77,9 +75,9 @@ const PromptBoxContainer = ({
 
   return prompt && !loading ? (
     <RenderPromptBox
-      prompt={prompt}
+      prompt={prompt.prompt}
       phase={currentRumble?.phase}
-      endTime={endTime}
+      endTime={currentRumble?.end_time}
       isTeacher={isTeacher}
       startRumble={isTeacher ? startRumble : undefined}
       startFeedback={isTeacher ? startFeedback : undefined}

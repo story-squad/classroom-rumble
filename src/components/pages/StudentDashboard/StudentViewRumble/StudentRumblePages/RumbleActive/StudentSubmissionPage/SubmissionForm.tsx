@@ -54,8 +54,9 @@ const SubmissionForm = (): React.ReactElement => {
         // Create new FormData instance to track our file and pass it to our API call `submitStory`
         const reqBody = new FormData();
         reqBody.append('story', file);
-        // Force Typing as a string bc WE are smarter than our interpereter!!
-        reqBody.append('promptId', promptId as string);
+        reqBody.append('promptId', `${promptId}`);
+        reqBody.append('rumbleId', `${currentRumble?.id}`);
+
         // ALL GOOD TO UPLOAD!
         // POST a submission here
         const newSubItem = await Submissions.submitStory(reqBody);

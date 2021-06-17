@@ -5,7 +5,11 @@ import { rumbles } from '../../../../state';
 import StudentDashboardRumbleCard from './StudentDashboardRumbleCard';
 
 const StudentDashboardRumbleList = (): React.ReactElement => {
-  const rumbleIds = useRecoilValue(rumbles.ids);
+  const rumbleIds = useRecoilValue(
+    rumbles.get({
+      phases: ['ACTIVE', 'FEEDBACK', 'INACTIVE'],
+    }),
+  );
 
   return (
     <div className="student-dash-rumble-list-wrapper">

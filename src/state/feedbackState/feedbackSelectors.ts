@@ -70,3 +70,20 @@ export const averages = selectorFamily<
     };
   },
 });
+
+export const getIdsBySubId = selectorFamily<number[], number>({
+  key: 'getFeedbackIdsBySubmissionId',
+  get: (submissionId) => ({ get }) => {
+    const feedbackIds = get(ids);
+    // We need a way to fetch them
+    if (!feedbackIds) return [];
+
+    // Filter out all the fbItems with the wrong subId
+    const res = feedbackIds.filter(
+      (fid) => get(getById(fid))?.submissionId === submissionId,
+    );
+
+    // Return the filtered id list
+    return res;
+  },
+});
