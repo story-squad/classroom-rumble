@@ -15,7 +15,10 @@ const CouldNotLoad = ({
     <div className={`could-not-load${className ? ' ' + className : ''}`}>
       <img src={ufo_cow} />
       <h2>Oh no!</h2>
-      <div className="error-message">{error}</div> 
+      <div className="error-message">
+        {error instanceof Error ? error.message : error}
+      </div>
+       
     </div>
   );
 };
