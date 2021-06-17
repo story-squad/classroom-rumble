@@ -19,9 +19,9 @@ import { TeacherDashboard } from './components/pages/TeacherDashboard';
 const App = (): React.ReactElement => {
   return (
     <div className="App">
-      <LoadUserData />
       <SEO />
       <CookiePopup />
+      <LoadUserData />
       <Switch>
         {/* Public Routes */}
         <Route

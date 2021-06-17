@@ -1,20 +1,18 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { useCheckBrowserState } from '../../../../hooks';
-import { current } from '../../../../state';
+import { useResetOnUnmount } from '../../../../hooks';
+import { sections } from '../../../../state';
 import { Loader } from '../../../common';
 import RenderStudentViewRumbles from './RenderStudentViewSection';
 
 const StudentViewSectionRumblesContainer = (): React.ReactElement => {
-  const { isLoading } = useCheckBrowserState('section');
-  const section = useRecoilValue(current.section);
+  const sectionId = useRecoilValue(sections.selected);
+  useResetOnUnmount({ recoil: [sections.selected] });
 
-  return section && !isLoading ? (
-    <RenderStudentViewRumbles section={section} />
-  ) : isLoading ? (
-    <Loader message={'Loading Rumbles'} />
+  return sectionId ? (
+    <RenderStudentViewRumbles sectionId={sectionId} />
   ) : (
-    <p>Redirecting...</p>
+    <Loader message={'Loading rumbles'} />
   );
 };
 

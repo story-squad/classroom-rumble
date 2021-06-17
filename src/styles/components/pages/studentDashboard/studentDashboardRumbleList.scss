@@ -29,9 +29,11 @@
     .rumble-list {
       @include scaling-flexbox;
       .rumble-card {
-        @include card($darken-amt: 1%);
+        @include card();
         border: 1px solid $c-grey-20;
-        cursor: unset;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-evenly;
         .student-button-container {
           padding-top: 1rem;
           display: flex;

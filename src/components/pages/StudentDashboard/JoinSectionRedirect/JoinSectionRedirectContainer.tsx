@@ -8,7 +8,7 @@ import { query } from '../../../../utils';
 const JoinSectionRedirectContainer = (): React.ReactElement => {
   const [sectionId, setSectionId] = useState<number>();
   const [joinCode, setJoinCode] = useState<string>();
-  const setSectionList = useSetRecoilState(sections.list);
+  const addSections = useSetRecoilState(sections.add);
   const user = useRecoilValue(auth.user);
   const { search } = useLocation();
   const { push } = useHistory();
@@ -25,7 +25,7 @@ const JoinSectionRedirectContainer = (): React.ReactElement => {
     if (joinCode && sectionId && user) {
       Sections.joinSection({ joinCode }, sectionId, user.id)
         .then((res) => {
-          setSectionList((prev) => (prev ? [...prev, res] : [res]));
+          addSections(res);
           push('/dashboard/student');
         })
         .catch((err) => console.log(err));

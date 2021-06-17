@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
-import { current, modals, sections } from '../../../../state';
+import { modals, rumbles, sections } from '../../../../state';
 import { Modal } from '../../../common';
 import InviteCode from './InviteCode';
 import SectionPicker from './SectionPicker';
@@ -9,9 +9,14 @@ const InviteToSection = ({
   disableSectionPicker = false,
 }: IInviteToSectionProps): React.ReactElement => {
   const [isOpen, setIsOpen] = useRecoilState(modals.inviteModalIsOpen);
-  const [currentSection, setCurrentSection] = useRecoilState(current.section);
-  const clearSection = useResetRecoilState(current.section);
-  const sectionList = useRecoilValue(sections.list);
+  const currentSection = useRecoilValue(sections.current);
+  const clearSection = useResetRecoilState(sections.selected);
+  const clearRumble = useResetRecoilState(rumbles.selected);
+
+  const clearSelection = () => {
+    clearSection();
+    clearRumble();
+  };
 
   return (
     <Modal.Component
@@ -21,13 +26,10 @@ const InviteToSection = ({
           <InviteCode
             disableSectionPicker={disableSectionPicker}
             section={currentSection}
-            goBack={clearSection}
+            goBack={clearSelection}
           />
         ) : (
-          <SectionPicker
-            sectionList={sectionList}
-            setCurrentSection={setCurrentSection}
-          />
+          <SectionPicker />
         )
       }
       visible={isOpen}

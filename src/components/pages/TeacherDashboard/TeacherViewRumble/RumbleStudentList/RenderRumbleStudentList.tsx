@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSetRecoilState } from 'recoil';
-import { Sections, Students } from '../../../../../api';
+import { Sections } from '../../../../../api';
 import noStudents from '../../../../../assets/img/no_students.svg';
 import { modals } from '../../../../../state';
 import { Button, Table } from '../../../../common';
@@ -28,11 +28,11 @@ const RenderRumbleStudentList = ({
                 <Table.Col>Submission Status</Table.Col>
               </Table.Header>
               <Table.Body>
-                {studentList.map((student) => (
+                {studentList.map((id) => (
                   <RumbleStudentCard
-                    student={student}
+                    studentId={id}
                     section={section}
-                    key={student.id}
+                    key={id}
                   />
                 ))}
               </Table.Body>
@@ -55,7 +55,7 @@ const RenderRumbleStudentList = ({
 };
 
 interface IRenderRumbleStudentListProps {
-  studentList: Students.IStudentWithSubmissions[];
+  studentList: number[];
   section: Sections.ISectionWithRumbles;
 }
 
