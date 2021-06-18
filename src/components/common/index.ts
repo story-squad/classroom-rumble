@@ -16,6 +16,7 @@ export { Modal } from './Modal';
 export { PrivateRoute } from './PrivateRoute';
 export { PromptBox } from './PromptBox';
 export { RadioGroup } from './RadioGroup';
+export { RenderToggle } from './RenderToggle';
 export { SectionInfo } from './SectionInfo';
 export * as Select from './Select';
 export { SEO } from './SEO';
