@@ -7,16 +7,16 @@ import { SectionStudentList } from './SectionStudentList';
 const RenderTeacherViewSection = ({
   sectionId,
 }: IRenderTeacherViewSectionProps): React.ReactElement => {
-  const [isStudentView, setIsStudentView] = useState(false);
-  const openStudentView = () => setIsStudentView(true);
-  const openRumbleView = () => setIsStudentView(false);
+  // const [isStudentView, setIsStudentView] = useState(false);
+  // const openStudentView = () => setIsStudentView(true);
+  // const openRumbleView = () => setIsStudentView(false);
 
   return (
     <>
       <InviteToSection disableSectionPicker />
       <div className="teacher-view-section">
         <SectionInfo isTeacher sectionId={sectionId} />
-        <div className="section-content-switcher-wrapper">
+        {/* <div className="section-content-switcher-wrapper">
           <div className="section-content-switcher-container">
             <h3
               onClick={openRumbleView}
@@ -33,7 +33,7 @@ const RenderTeacherViewSection = ({
           </div>
         </div>
         <SectionStudentList visible={isStudentView} />
-        <SectionRumbleList visible={!isStudentView} />
+        <SectionRumbleList visible={!isStudentView} /> */}
       </div>
     </>
   );
