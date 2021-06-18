@@ -6,10 +6,8 @@
 
     @mixin heading($font-size) {
       font-size: $font-size;
-      text-shadow: 0 2px 2px #0005;
       margin: 1.5rem 0;
     }
-
     h1 {
       @include heading(3.2rem);
     }
@@ -31,6 +29,7 @@
     }
 
     a {
+      cursor: pointer;
       text-decoration: underline;
       font-weight: 500;
     }
