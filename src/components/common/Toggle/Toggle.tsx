@@ -7,25 +7,27 @@ const Toggle = ({
   options,
   renderFirst: RenderFirst,
   renderSecond: RenderSecond,
-}: ToggleProps) => {
+}: ToggleProps): React.ReactElement => {
   const [view, setView] = useState(false);
-  const openOption1 = () => setView(true);
-  const openOption2 = () => setView(false);
+  const openOption1 = () => setView(false);
+  const openOption2 = () => setView(true);
 
   return (
     <>
-      <div className="section-content-switcher-wrapper">
-        <div className="section-content-switcher-container">
-          <h3 onClick={openOption1} className={view ? 'active' : ''}>
-            {options[0]}
-          </h3>
-          <h3 onClick={openOption2} className={view ? '' : 'active'}>
-            {options[1]}
-          </h3>
+      <div className="toggle-wrapper">
+        <div className="toggle-container">
+          <div className="toggle-content">
+            <h3 onClick={openOption1} className={view ? '' : 'active'}>
+              {options[0]}
+            </h3>
+            <h3 onClick={openOption2} className={view ? 'active' : ''}>
+              {options[1]}
+            </h3>
+          </div>
         </div>
       </div>
-      <RenderFirst visible={view} />
-      <RenderSecond visible={!view} />
+      <RenderFirst visible={!view} />
+      <RenderSecond visible={view} />
     </>
   );
 };
