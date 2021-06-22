@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Prompts } from '../../../../api';
 import { CreateCustomPrompt } from './CreateCustomPrompt';
 import PromptQueueItem from './PromptQueueItem';
 
@@ -8,6 +7,7 @@ const RenderPromptQueueDisplay = ({
 }: IRenderPromptQueueDisplayProps): React.ReactElement => {
   const [newPromptModalOpen, setNewPromptModalOpen] = useState(false);
   const openModal = () => setNewPromptModalOpen(true);
+
   return (
     <>
       <CreateCustomPrompt
@@ -18,8 +18,8 @@ const RenderPromptQueueDisplay = ({
         <div className="prompt-queue-container">
           <h2>Select a Prompt to Start a Rumble</h2>
           <div className="prompt-queue-list">
-            {queue.map((prompt) => (
-              <PromptQueueItem key={prompt.id} {...prompt} />
+            {queue.map((id) => (
+              <PromptQueueItem key={id} promptId={id} />
             ))}
             <div className="custom-prompt-button" onClick={openModal}>
               <h3>Create Custom Prompt</h3>
@@ -32,7 +32,7 @@ const RenderPromptQueueDisplay = ({
 };
 
 interface IRenderPromptQueueDisplayProps {
-  queue: Prompts.IPromptInQueue[];
+  queue: number[];
 }
 
 export default RenderPromptQueueDisplay;

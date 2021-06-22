@@ -1,24 +1,38 @@
-import React, { useEffect, useState } from 'react';
-import { Rumbles, Sections, Students } from '../../../../../api';
+import React, { useEffect } from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { Rumbles, Students } from '../../../../../api';
 import { useAsync } from '../../../../../hooks';
+import { sections, students } from '../../../../../state';
 import { CouldNotLoad, Loader } from '../../../../common';
 import RenderRumbleStudentList from './RenderRumbleStudentList';
 
 const RumbleStudentListContainer = ({
   rumble,
-  section,
-}: IRumbleStudentListContainerProps): React.ReactElement => {
-  const [studentList, setStudentList] = useState<
-    Students.IStudentWithSubmissions[]
-  >();
+}: {
+  rumble: Rumbles.IRumbleWithSectionInfo;
+}): React.ReactElement => {
+  const addStudent = useSetRecoilState(students.add);
+  const section = useRecoilValue(sections.getById(rumble.sectionId));
+  const [studentList, updateStudentList] = useRecoilState(
+    students.getIdsBySectionId(rumble.sectionId),
+  );
 
   const [getWithSubsByRumbleId, , , error] = useAsync({
     asyncFunction: Students.getWithSubsByRumbleId,
-    setter: setStudentList,
+    setter: (newStudents) => {
+      // Add the students to be tracked by id
+      addStudent(newStudents);
+
+      // Transform from array of students to array of ids (objects -> numbers)
+      const newStudentIds = newStudents.map((stu) => stu.id);
+      // Add them to be tracked by their section ID as well
+      updateStudentList(newStudentIds);
+    },
   });
+
   useEffect(() => {
     getWithSubsByRumbleId(rumble.id);
-  }, [section, rumble]);
+  }, [rumble]);
 
   return studentList && section ? (
     <RenderRumbleStudentList studentList={studentList} section={section} />
@@ -28,10 +42,5 @@ const RumbleStudentListContainer = ({
     <Loader message={'Loading students'} />
   );
 };
-
-interface IRumbleStudentListContainerProps {
-  rumble: Rumbles.IRumbleWithSectionInfo;
-  section: Sections.ISectionWithRumbles;
-}
 
 export default RumbleStudentListContainer;

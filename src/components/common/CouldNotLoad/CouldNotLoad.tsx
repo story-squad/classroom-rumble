@@ -1,5 +1,5 @@
 import React from 'react';
-import ufo_cow from '../../../assets/img/Alien.svg';
+import ufo_cow from '../../../assets/img/alien.svg';
 /**
  * Could Not Load will help us render consistent error messages throughout the application.
  * @param error The error the be loaded for the component, which in our case will be a message.
@@ -14,13 +14,17 @@ const CouldNotLoad = ({
   return (
     <div className={`could-not-load${className ? ' ' + className : ''}`}>
       <img src={ufo_cow} />
-      <div className="message">{error}&#128557;</div>
+      <h2>Oh no!</h2>
+      <div className="error-message">
+        {error instanceof Error ? error.message : error}
+      </div>
+       
     </div>
   );
 };
 
 interface CouldNotLoadProps {
-  error: string;
+  error: React.ReactNode | Error;
   className?: string;
 }
 

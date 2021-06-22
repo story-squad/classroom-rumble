@@ -1,46 +1,54 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { Sections } from '../../../../api';
-import { current, enumData } from '../../../../state';
+import { app, sections } from '../../../../state';
 
 const TeacherDashboardSectionCard = ({
-  id,
-  joinCode,
-  ...section
-}: Sections.ISectionWithRumbles): React.ReactElement => {
+  sectionId,
+}: {
+  sectionId: number;
+}): React.ReactElement => {
+  const section = useRecoilValue(sections.getById(sectionId));
   const { push } = useHistory();
 
-  const gradeEnum = useRecoilValue(enumData.grades);
-  const subjectEnum = useRecoilValue(enumData.subjects);
-  const setCurrentSection = useSetRecoilState(current.section);
+  const gradeEnum = useRecoilValue(app.enum.grades);
+  const subjectEnum = useRecoilValue(app.enum.subjects);
+  const setCurrentSection = useSetRecoilState(sections.selected);
 
   const openSection = () => {
-    const currentSection = { ...section, id, joinCode };
-    setCurrentSection(currentSection);
-    push('/dashboard/teacher/section', {
-      section: currentSection,
-    });
+    setCurrentSection(sectionId);
+    push('/dashboard/teacher/section');
   };
 
   return (
     <div className="section-card" onClick={openSection}>
-      <div className="content">
-        <h3>Class Name</h3>
-        <h4>{section.name}</h4>
-      </div>
-      <div className="content">
-        <h3>Subject</h3>
-        <h4>
-          {subjectEnum?.filter((x) => x.value === section.subjectId)[0].label}
-        </h4>
-      </div>
-      <div className="content">
-        <h3>Grade</h3>
-        <h4>
-          {gradeEnum?.filter((x) => x.value === section.gradeId)[0].label}
-        </h4>
-      </div>
+      {section ? (
+        <>
+          <div className="content">
+            <h3>Class Name</h3>
+            <h4>{section?.name}</h4>
+          </div>
+          <div className="content">
+            <h3>Subject</h3>
+            <h4>
+              {
+                subjectEnum?.filter((x) => x.value === section?.subjectId)[0]
+                  .label
+              }
+            </h4>
+          </div>
+          <div className="content">
+            <h3>Grade</h3>
+            <h4>
+              {gradeEnum?.filter((x) => x.value === section?.gradeId)[0].label}
+            </h4>
+          </div>
+        </>
+      ) : (
+        <div className="content">
+          <h4>Loading Class...</h4>
+        </div>
+      )}
     </div>
   );
 };

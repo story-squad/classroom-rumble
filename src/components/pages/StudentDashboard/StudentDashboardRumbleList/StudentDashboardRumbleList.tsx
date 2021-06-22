@@ -1,43 +1,38 @@
 import React from 'react';
-import { Sections } from '../../../../api';
+import { useRecoilValue } from 'recoil';
+import emptyMail from '../../../../assets/img/empty_inbox.svg';
+import { rumbles } from '../../../../state';
 import StudentDashboardRumbleCard from './StudentDashboardRumbleCard';
 
-const StudentDashboardRumbleList = ({
-  sections,
-}: IStudentDashboardRumbleListProps): React.ReactElement => {
-  // const [currentRumbles] = useRumbleFilter(
-  //   sections.reduce<Rumbles.IRumbleWithSectionInfo[]>(
-  //     (acc, section) => [...acc, ...section.rumbles],
-  //     [],
-  //   ),
-  // );
+const StudentDashboardRumbleList = (): React.ReactElement => {
+  const rumbleIds = useRecoilValue(
+    rumbles.get({
+      phases: ['ACTIVE', 'FEEDBACK', 'INACTIVE'],
+    }),
+  );
 
   return (
     <div className="student-dash-rumble-list-wrapper">
       <div className="student-dash-rumble-list-container">
         <h2>Current Rumbles</h2>
-        <div className="rumble-list">
-          {sections?.map((sec) =>
-            sec.rumbles
-              .filter((rumble) => {
-                return rumble.phase !== `COMPLETE`;
-              })
-              .map((rum) => (
-                <StudentDashboardRumbleCard
-                  key={rum.id}
-                  section={sec}
-                  rumble={rum}
-                />
-              )),
-          )}
-        </div>
+        {!rumbleIds || rumbleIds.length === 0 ? (
+          // Div is for centering purposes
+          <div className="no-rumbles">
+            <div className="message-text-container">
+              <p>You don&apos;t have any rumbles yet.</p>
+            </div>
+            <img src={emptyMail} alt="You don't have any current rumbles" />
+          </div>
+        ) : (
+          <div className="rumble-list">
+            {rumbleIds?.map((id) => (
+              <StudentDashboardRumbleCard key={id} rumbleId={id} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
 };
-
-interface IStudentDashboardRumbleListProps {
-  sections: Sections.ISectionWithRumbles[];
-}
 
 export default StudentDashboardRumbleList;

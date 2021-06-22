@@ -2,56 +2,48 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Prompts } from '../../../../api';
-import { IRumbleWithSectionInfo } from '../../../../api/Rumbles';
 import time_lady from '../../../../assets/img/waiting_time.svg';
 import { useAsync, useRumbleStatus } from '../../../../hooks';
-import { current } from '../../../../state';
+import { rumbles, sections } from '../../../../state';
 import { Button } from '../../../common';
 
 const StudentRumble = ({
-  numMinutes,
-  sectionName,
-  ...rumbleInfo
-}: IRumbleWithSectionInfo): React.ReactElement => {
+  rumbleId,
+}: {
+  rumbleId: number;
+}): React.ReactElement => {
   const { push } = useHistory();
-  const currentSection = useRecoilValue(current.section);
-  const setCurrentRumble = useSetRecoilState(current.rumble);
-  const [status] = useRumbleStatus(rumbleInfo.phase);
+  const rumble = useRecoilValue(rumbles.getById(rumbleId));
+  const setCurrentRumble = useSetRecoilState(rumbles.selected);
+  const setCurrentSection = useSetRecoilState(sections.selected);
+  const [status] = useRumbleStatus(rumble);
 
-  const [getPrompts, loading, prompt, error] = useAsync({
+  const [getPrompts, , prompt] = useAsync({
     asyncFunction: Prompts.getPromptById,
   });
 
   useEffect(() => {
-    if (!prompt) {
-      getPrompts(rumbleInfo.promptId);
+    if (!prompt && rumble) {
+      getPrompts(rumble.promptId);
     }
-  }, [rumbleInfo.promptId]);
-
-  console.log({ prompt });
+  }, [rumble, rumble?.promptId]);
 
   const openRumble = () => {
-    // Set current rumble BEFORE pushing the user to /dashboard/student/rumble
-    const currentRumble = {
-      numMinutes,
-      sectionName,
-      ...rumbleInfo,
-    };
-    console.log({ currentSection, currentRumble });
-    setCurrentRumble(currentRumble);
+    setCurrentRumble(rumbleId);
+    setCurrentSection(rumble?.sectionId);
     // When a student opens up a past rumble we want them to view their details for that rumble.
-    push('/dashboard/student/rumble', {
-      rumble: currentRumble,
-      section: currentSection,
-    });
+    push('/dashboard/student/rumble');
   };
+
+  // TODO think about loading state for the prompt
+
   return (
     <div className="rumble-item">
       <div className="content">
         {status !== 'Scheduled' ? (
           <>
             <h3>Prompt</h3>
-            <h4>{prompt}</h4>
+            <h4>{prompt?.prompt}</h4>
           </>
         ) : (
           <div className="scheduled-rumble">

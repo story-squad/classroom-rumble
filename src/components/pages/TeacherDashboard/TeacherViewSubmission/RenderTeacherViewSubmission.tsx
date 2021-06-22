@@ -1,29 +1,33 @@
 import React, { useMemo } from 'react';
-import { Auth, Sections, Submissions } from '../../../../api';
-import { Feedback, PromptBox, SectionInfo } from '../../../common';
+import { useRecoilValue } from 'recoil';
+import { students, submissions } from '../../../../state';
+import { FeedbackDisplay, PromptBox, SectionInfo } from '../../../common';
 
 const RenderTeacherViewSubmission = ({
-  submission,
-  section,
-  student,
+  submissionId,
+  sectionId,
+  studentId,
 }: IRenderTeacherViewSubmissionProps): React.ReactElement => {
+  const student = useRecoilValue(students.getById(studentId));
+  const submission = useRecoilValue(submissions.getById(submissionId));
+
   const studentName = useMemo(
-    () => `${student.firstname} ${student.lastname}`,
+    () => (student ? `${student.firstname} ${student.lastname}` : undefined),
     [student],
   );
   return (
     <div className="teacher-view-submission">
-      <PromptBox prompt={submission.prompt} isTeacher />
-      <SectionInfo section={section} studentName={studentName} />
-      <Feedback submission={submission} />
+      <PromptBox prompt={submission?.prompt} isTeacher />
+      <SectionInfo sectionId={sectionId} studentName={studentName} />
+      <FeedbackDisplay submissionId={submissionId} />
     </div>
   );
 };
 
 interface IRenderTeacherViewSubmissionProps {
-  section: Sections.ISectionWithRumbles;
-  student: Auth.IUser;
-  submission: Submissions.ISubItem;
+  sectionId: number;
+  studentId: number;
+  submissionId: number;
 }
 
 export default RenderTeacherViewSubmission;

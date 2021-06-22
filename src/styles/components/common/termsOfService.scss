@@ -1,0 +1,59 @@
+.tos {
+  .tos-wrapper {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 2rem;
+
+    @mixin heading($font-size) {
+      font-size: $font-size;
+      margin: 1.5rem 0;
+    }
+    h1 {
+      @include heading(3.2rem);
+    }
+
+    h2 {
+      @include heading(2.6rem);
+    }
+
+    h3 {
+      @include heading(2rem);
+    }
+
+    p {
+      font-size: 1.6rem;
+      line-height: 2rem;
+      font-family: $text-font;
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    a {
+      cursor: pointer;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+
+    ul {
+      margin-bottom: 1.5rem;
+      li {
+        font-size: 1.4rem;
+        line-height: 1.8rem;
+        margin-bottom: 0.5rem;
+        list-style-type: circle;
+        list-style-position: inside;
+        font-weight: 300;
+      }
+    }
+
+    strong {
+      font-weight: 500;
+    }
+
+    em {
+      font-style: italic;
+      font-weight: 100;
+      font-size: 1.2rem;
+    }
+  }
+}

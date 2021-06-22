@@ -4,17 +4,25 @@
   border: none;
   display: block;
 
+  // TODO maybe take this out?
+  white-space: nowrap;
+
   background-color: $primary-base;
+  border: 1px solid $primary-base;
   border-radius: 50px;
-  padding: 2rem 7rem;
+  padding: 1.8rem 4.5rem;
 
   color: $white;
   text-align: center;
 
   font-family: $button-font;
-  font-size: 15px;
-  letter-spacing: 1.25px;
-  line-height: 15px;
+  font-size: 1.5rem;
+  letter-spacing: 0.125rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  white-space: nowrap;
 
   transition: all 0.2s ease-in-out;
   &:hover {
@@ -46,7 +54,6 @@
   &.secondary-with-arrow {
     background: $white;
     color: $primary-base;
-    border: 1px solid $primary-base;
 
     &:hover {
       background-color: fade-out($primary-base, 0.95);
@@ -71,6 +78,8 @@
     background: none;
     padding: 0;
     color: $primary-base;
+    font-family: $text-font;
+    letter-spacing: unset;
     cursor: pointer;
     transition: all 0.1s ease-in;
     &:active,

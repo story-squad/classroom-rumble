@@ -5,6 +5,20 @@
   }
   .student-dash-rumble-list-container {
     @include wrapped-container();
+    .no-rumbles {
+      display: flex;
+      align-content: flex-start;
+      flex-flow: column wrap;
+      .message-text-container {
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 2rem;
+        P {
+          color: $c-grey-80;
+        }
+      }
+    }
     h2 {
       color: $c-grey-70;
       font-size: 1.6rem;
@@ -15,14 +29,16 @@
     .rumble-list {
       @include scaling-flexbox;
       .rumble-card {
-        @include card($darken-amt: 1%);
+        @include card();
         border: 1px solid $c-grey-20;
-        cursor: unset;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-evenly;
         .student-button-container {
           padding-top: 1rem;
           display: flex;
           flex-direction: column;
-          justify-content: space-evenly;
+          justify-content: space-between;
           align-items: center;
           button {
             width: 100%;

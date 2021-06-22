@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSetRecoilState } from 'recoil';
-import { Sections, Students } from '../../../../../api';
+import { Sections } from '../../../../../api';
 import noStudents from '../../../../../assets/img/no_students.svg';
 import { modals } from '../../../../../state';
-import { Table } from '../../../../common';
+import { Button, Table } from '../../../../common';
 import { InviteToSection } from '../../InviteToSection';
 import RumbleStudentCard from './RumbleStudentCard';
 
@@ -28,11 +28,11 @@ const RenderRumbleStudentList = ({
                 <Table.Col>Submission Status</Table.Col>
               </Table.Header>
               <Table.Body>
-                {studentList.map((student) => (
+                {studentList.map((id) => (
                   <RumbleStudentCard
-                    student={student}
+                    studentId={id}
                     section={section}
-                    key={student.id}
+                    key={id}
                   />
                 ))}
               </Table.Body>
@@ -42,7 +42,7 @@ const RenderRumbleStudentList = ({
               <div className="message-text-container">
                 <p>There are no students in this class &nbsp;</p>
                 <span>
-                  <button onClick={openInviteModal}>Invite to Class</button>
+                  <Button onClick={openInviteModal}>Invite to Class</Button>
                 </span>
               </div>
               <img src={noStudents} alt="you have no students" />
@@ -55,7 +55,7 @@ const RenderRumbleStudentList = ({
 };
 
 interface IRenderRumbleStudentListProps {
-  studentList: Students.IStudentWithSubmissions[];
+  studentList: number[];
   section: Sections.ISectionWithRumbles;
 }
 

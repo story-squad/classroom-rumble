@@ -1,27 +1,34 @@
-import { atom } from 'recoil';
-import { IPrompt, IPromptInQueue } from '../../api/Prompts';
+import { atom, atomFamily } from 'recoil';
+import { Prompts } from '../../api';
+import { persist } from '../effects';
 
-export const queue = atom<IPromptInQueue[] | undefined>({
-  key: 'promptQueue',
+// TODO inline documentation for what this data even is
+
+export const ids = atom<number[] | undefined>({
+  key: 'promptIds',
   default: undefined,
 });
 
-export const list = atom<IPrompt[]>({
-  key: 'promptList',
+export const customIds = atom<number[]>({
+  key: 'customPromptIds',
   default: [],
 });
 
-export const customList = atom<IPromptInQueue[]>({
-  key: 'customPromptList',
-  default: [],
+export const queueIds = atom<number[] | undefined>({
+  key: 'promptQueueIds',
+  default: undefined,
 });
 
-export const promptOffset = atom({
-  key: 'promptOffset',
-  default: 0,
+export const getById = atomFamily<
+  Prompts.IPromptInQueue | undefined,
+  number | undefined
+>({
+  key: 'promptById',
+  default: undefined,
 });
 
-export const currentPrompt = atom<IPrompt | null>({
-  key: 'currentPrompt',
-  default: null,
+export const selected = atom<number | undefined>({
+  key: 'selectedPrompt',
+  default: undefined,
+  effects_UNSTABLE: [persist('prompt:selected')],
 });

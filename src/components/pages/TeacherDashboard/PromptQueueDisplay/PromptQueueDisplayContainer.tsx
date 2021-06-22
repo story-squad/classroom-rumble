@@ -1,23 +1,28 @@
-import React, { useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import React, { useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Prompts } from '../../../../api';
-import { useAsync } from '../../../../hooks';
 import { prompts } from '../../../../state';
 import { CouldNotLoad, Loader } from '../../../common';
 import RenderPromptQueueDisplay from './RenderPromptQueueDisplay';
 
 const PromptQueueDisplayContainer = (): React.ReactElement => {
-  const [promptQueue, setPromptQueue] = useRecoilState(prompts.queue);
-  const customPrompts = useRecoilValue(prompts.customList);
-
-  const [getUpcoming, isLoading, , error] = useAsync({
-    asyncFunction: Prompts.getUpcoming,
-    setter: setPromptQueue,
-  });
+  const [promptQueue, setPromptQueue] = useRecoilState(prompts.queueIds);
+  const customPrompts = useRecoilValue(prompts.customIds);
+  const addPrompts = useSetRecoilState(prompts.add);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<Error>();
 
   useEffect(() => {
-    if (!promptQueue) {
-      getUpcoming();
+    if (!promptQueue && !loading) {
+      setLoading(true);
+      Prompts.getUpcoming()
+        .then((prompts) => {
+          addPrompts(prompts);
+          const ids = prompts.map((p) => p.id);
+          setPromptQueue(ids);
+        })
+        .catch((err) => setError(err))
+        .finally(() => setLoading(false));
     }
   }, []);
 
@@ -25,7 +30,7 @@ const PromptQueueDisplayContainer = (): React.ReactElement => {
     <RenderPromptQueueDisplay queue={[...promptQueue, ...customPrompts]} />
   ) : error ? (
     <CouldNotLoad error={error.message} />
-  ) : isLoading ? (
+  ) : loading ? (
     <Loader message={'Loading prompt queue'} />
   ) : (
     <>Could not load prompts.</>

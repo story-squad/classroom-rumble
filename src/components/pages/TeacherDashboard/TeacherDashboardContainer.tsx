@@ -1,7 +1,5 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { sections } from '../../../state';
 import { Header } from '../../common';
 import { CreateNewRumble } from './CreateNewRumble';
 import RenderTeacherDashboard from './RenderTeacherDashboard';
@@ -11,8 +9,6 @@ import { TeacherViewStudent } from './TeacherViewStudent';
 import { TeacherViewSubmission } from './TeacherViewSubmission';
 
 const TeacherDashboardContainer = (): React.ReactElement => {
-  const sectionList = useRecoilValue(sections.list);
-
   return (
     <>
       <Header />
@@ -20,7 +16,7 @@ const TeacherDashboardContainer = (): React.ReactElement => {
         <Route
           exact
           path="/dashboard/teacher"
-          render={() => <RenderTeacherDashboard sectionList={sectionList} />}
+          render={() => <RenderTeacherDashboard />}
         />
         <Route
           exact
@@ -45,7 +41,7 @@ const TeacherDashboardContainer = (): React.ReactElement => {
         <Route
           exact
           path="/dashboard/teacher/rumble/new"
-          render={(props) => <CreateNewRumble {...props} />}
+          render={() => <CreateNewRumble />}
         />
         {/* Fallback redirect for nonexistent routes */}
         <Route
