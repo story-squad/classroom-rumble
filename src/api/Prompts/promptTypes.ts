@@ -12,6 +12,7 @@ export interface IPrompt extends INewPrompt {
   active: boolean;
   approved: boolean;
   hasSubmitted?: boolean;
+  starts_at?: Date & string;
 }
 
 export interface INewPrompt {

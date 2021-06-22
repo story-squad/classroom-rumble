@@ -17,9 +17,9 @@ const CreateNewRumbleForm = ({
   prompt,
 }: ICreateNewRumbleFormProps): React.ReactElement => {
   // Subscribe to state
-  const sectionList = useRecoilValue(sections.list);
+  const allSections = useRecoilValue(sections.getAll);
   const user = useRecoilValue(auth.user);
-  const addRumbles = useSetRecoilState(rumbles.addRumbles);
+  const addRumbles = useSetRecoilState(rumbles.add);
 
   // Functional Hooks
   const {
@@ -35,8 +35,14 @@ const CreateNewRumbleForm = ({
 
   // Parse the user's section list into a usable option type
   const sectionOptions = useMemo<FormTypes.IOption<number>[]>(
-    () => sectionList?.map((s) => ({ value: s.id, label: s.name })) ?? [],
-    [sectionList],
+    () =>
+      allSections
+        ?.filter((s) => !!s)
+        .map((s) => ({
+          value: s.id,
+          label: s.name,
+        })) ?? [],
+    [allSections],
   );
 
   // Checkbox handlers for "Connect to FDSC button"
@@ -49,6 +55,7 @@ const CreateNewRumbleForm = ({
   const isCustom = useMemo<boolean>(() => !Prompts.isPromptInQueue(prompt), [
     prompt,
   ]);
+  const goBack = () => push('/dashboard/teacher');
 
   const onSubmit: SubmitHandler<{
     sectionIds: string[];
@@ -70,9 +77,24 @@ const CreateNewRumbleForm = ({
           sectionIds: idList,
         });
         addRumbles(res);
+        // const res = await Rumbles.create(
+        //   { numMinutes, promptId: prompt.id },
+        //   user.id,
+        //   idList,
+        // );
+        // console.log('new rumble success', res);
+
+        // // TODO - add end time and phase to rumbles
+        // const parsedNewRumbles: Rumbles.IRumbleWithSectionInfo[] = res.map(
+        //   (r) => ({
+        //     ...r,
+        //     phase: 'INACTIVE',
+        //   }),
+        // );
+        // addRumbles(parsedNewRumbles);
         addToast('Successfuly Created a Rumble!', { appearance: 'success' });
         clearErrors();
-        push('/dashboard/teacher');
+        goBack();
       }
     } catch (err) {
       console.log({ err });
@@ -99,8 +121,6 @@ const CreateNewRumbleForm = ({
   // If connect is not checked, start time is not required
 
   // Changing the timer value should change the cutoff time of the start time.
-
-  const goBack = () => push('/dashboard/teacher');
 
   const connectedStartMin = moment.max(
     moment((prompt as Prompts.IPromptInQueue).starts_at)
@@ -239,7 +259,7 @@ const CreateNewRumbleForm = ({
           onClick={() => clearErrors()}
           loading={loading}
         >
-          Start Rumble
+          Create A Rumble
         </Button>
       </div>
     </form>

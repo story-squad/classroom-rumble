@@ -19,9 +19,9 @@ import { TeacherDashboard } from './components/pages/TeacherDashboard';
 const App = (): React.ReactElement => {
   return (
     <div className="App">
-      <LoadUserData />
       <SEO />
       <CookiePopup />
+      <LoadUserData />
       <Switch>
         {/* Public Routes */}
         <Route
@@ -49,7 +49,7 @@ const App = (): React.ReactElement => {
             </LandingPageWrapper>
           )}
         />
-        <Route path="/tos" component={TermsOfService} />
+        <Route path="/termsofservice" component={TermsOfService} />
 
         {/* OAuth Redirects */}
         <Route

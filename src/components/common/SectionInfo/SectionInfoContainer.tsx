@@ -1,25 +1,26 @@
 import React, { useMemo } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { Sections } from '../../../api';
-import { enumData, modals } from '../../../state';
+import { app, modals, sections } from '../../../state';
 import RenderSectionInfo from './RenderSectionInfo';
 
 const SectionInfoContainer = ({
-  section,
+  sectionId,
   isTeacher = false,
   studentName,
 }: {
-  section: Sections.ISectionWithRumbles;
+  sectionId: number;
   isTeacher?: boolean;
   studentName?: string;
 }): React.ReactElement => {
-  const gradeEnum = useRecoilValue(enumData.grades);
+  const section = useRecoilValue(sections.getById(sectionId));
+
+  const gradeEnum = useRecoilValue(app.enum.grades);
   const gradeValue = useMemo(() => {
     const x = gradeEnum?.filter((x) => x.value === section?.gradeId)[0];
     return x ? x.label : '';
   }, [gradeEnum, section]);
 
-  const subjectEnum = useRecoilValue(enumData.subjects);
+  const subjectEnum = useRecoilValue(app.enum.subjects);
   const subjectValue = useMemo(() => {
     const x = subjectEnum?.filter((x) => x.value === section?.subjectId)[0];
     return x ? x.label : '';
@@ -30,7 +31,7 @@ const SectionInfoContainer = ({
     setInviteOpen(true);
   };
 
-  return (
+  return section ? (
     <RenderSectionInfo
       isTeacher={isTeacher}
       section={section}
@@ -39,6 +40,8 @@ const SectionInfoContainer = ({
       subject={subjectValue}
       studentName={studentName}
     />
+  ) : (
+    <p>Section not found.</p>
   );
 };
 
