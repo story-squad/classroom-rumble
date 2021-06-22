@@ -1,7 +1,7 @@
 import { selectorFamily } from 'recoil';
 import { IAverages } from '../../components/common/FeedbackDisplay/feedbackTypes';
 import { factories } from '../helpers';
-import { getById, getSubIdsByRumbleAndVoterId, ids } from './feedbackAtoms';
+import { getById, ids } from './feedbackAtoms';
 
 export const add = factories.AddSelectorFactory({
   key: 'addFeedback',
@@ -9,20 +9,21 @@ export const add = factories.AddSelectorFactory({
   ids,
 });
 
-export const hasSubmitted = selectorFamily<
-  boolean,
-  { voterId?: number; rumbleId?: number }
->({
+export const hasSubmitted = selectorFamily<boolean, number | undefined>({
   key: 'voterHasSubmittedFeedback',
-  get: (ids) => ({ get }) => {
-    const voterFeedbackIds = get(getSubIdsByRumbleAndVoterId(ids));
-    const res =
-      voterFeedbackIds?.some((fId) => {
-        const fbItem = get(getById(fId));
-        return !!fbItem?.score1 || !!fbItem?.score2 || !!fbItem?.score3;
-      }) ?? false;
-    console.log({ voterFeedbackIds, res, ...ids });
-    return res;
+  get: (voterId) => ({ get }) => {
+    if (!voterId) return false;
+
+    // This is an array of the feedback item IDs for the given submissions
+    const feedbackItemIds = get(getIdsByVoterId(voterId));
+    // This is the full feedback items in an array
+    const feedbackItemList = feedbackItemIds?.map((fbId) => get(getById(fbId)));
+    // Here we check that the user has submitted feedback
+    const hasSubmittedFeedback = feedbackItemList.some(
+      (fbItem) => !!fbItem?.score1 || !!fbItem?.score2 || !!fbItem?.score3,
+    );
+
+    return hasSubmittedFeedback;
   },
 });
 
@@ -33,7 +34,7 @@ export const averages = selectorFamily<
 >({
   key: 'getFeedbackAverages',
   get: (ids) => ({ get }) => {
-    if (!ids) return;
+    if (!ids) return undefined;
 
     let score1 = 0;
     let score2 = 0;
@@ -71,16 +72,31 @@ export const averages = selectorFamily<
   },
 });
 
-export const getIdsBySubId = selectorFamily<number[], number>({
-  key: 'getFeedbackIdsBySubmissionId',
-  get: (submissionId) => ({ get }) => {
+export const getIdsByVoterId = selectorFamily<number[], number>({
+  key: 'getFeedbackIdsByVoterId',
+  get: (voterId) => ({ get }) => {
     const feedbackIds = get(ids);
-    // We need a way to fetch them
     if (!feedbackIds) return [];
 
     // Filter out all the fbItems with the wrong subId
     const res = feedbackIds.filter(
-      (fid) => get(getById(fid))?.submissionId === submissionId,
+      (fbId) => get(getById(fbId))?.voterId === voterId,
+    );
+
+    // Return the filtered id list
+    return res;
+  },
+});
+
+export const getIdsBySubId = selectorFamily<number[], number>({
+  key: 'getFeedbackIdsBySubmissionId',
+  get: (submissionId) => ({ get }) => {
+    const feedbackIds = get(ids);
+    if (!feedbackIds) return [];
+
+    // Filter out all the fbItems with the wrong subId
+    const res = feedbackIds.filter(
+      (fbId) => get(getById(fbId))?.submissionId === submissionId,
     );
 
     // Return the filtered id list

@@ -6,7 +6,6 @@ import CreateNewRumbleForm from './CreateNewRumbleForm';
 const RenderCreateNewRumble = ({
   prompt,
 }: IRenderCreateRumbleProps): React.ReactElement => {
-  console.log(prompt);
   return (
     <div className="create-new-rumble-wrapper">
       <div className="create-new-rumble-container">
@@ -22,7 +21,9 @@ const RenderCreateNewRumble = ({
 };
 
 const formatDate = (date: string) =>
-  DateTime.fromISO(date).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY);
+  DateTime.fromISO(date)
+    .plus({ day: 1 })
+    .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY);
 
 interface IRenderCreateRumbleProps {
   prompt: Prompts.IPromptInQueue;

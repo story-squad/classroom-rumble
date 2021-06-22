@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { useHistory } from 'react-router';
 import { useToasts } from 'react-toast-notifications';
 import { useRecoilValue } from 'recoil';
 import { Auth, Feedback } from '../../../../../../../api';
@@ -13,7 +12,6 @@ const RenderPeerFeedback = ({
   student,
 }: IRenderPeerFeedbackProps): React.ReactElement => {
   const { addToast } = useToasts();
-  const { push } = useHistory();
   const methods = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -26,8 +24,6 @@ const RenderPeerFeedback = ({
       voterId: student.id,
     }),
   );
-
-  console.log({ submissionIds, rumble, student });
 
   // TODO better type interfaces for form data
   const onSubmit: SubmitHandler<Record<string, unknown>> = async (
@@ -49,7 +45,6 @@ const RenderPeerFeedback = ({
           });
         });
         await Feedback.submit(body);
-        push('/dashboard/student/complete');
         addToast('Submitted feedback!');
       }
     } catch (err) {

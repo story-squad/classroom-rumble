@@ -5,13 +5,11 @@ import { logger } from '../effects';
 export const ids = atom<number[] | undefined>({
   key: 'feedbackIds',
   default: undefined,
-  effects_UNSTABLE: [logger()],
 });
 
 export const getById = atomFamily<Feedback.IFeedback | undefined, number>({
   key: 'feedbackById',
   default: undefined,
-  effects_UNSTABLE: [logger()],
 });
 
 export const getSubIdsByRumbleAndVoterId = atomFamily<
