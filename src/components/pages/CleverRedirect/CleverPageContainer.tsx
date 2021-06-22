@@ -33,7 +33,6 @@ const CleverRedirectContainer = (): React.ReactElement => {
     if (code) {
       Auth.authorizeWithClever(code)
         .then((res) => {
-          console.log({ res });
           let params: URLSearchParams;
           const userType =
             res.roleId === Roles.user ? 'student' : Roles[res.roleId];

@@ -19,7 +19,6 @@ const RumbleCompleteContainer = (): React.ReactElement => {
   const [getSubForRumble, , , error] = useAsync({
     asyncFunction: Students.getSubForRumble,
     setter: (subFromAPI) => {
-      console.log('sub GET', subFromAPI);
       if (subFromAPI) {
         addSubmissions(subFromAPI);
         setSelectedSubId(subFromAPI.id);
@@ -29,14 +28,9 @@ const RumbleCompleteContainer = (): React.ReactElement => {
 
   useEffect(() => {
     if (rumble && user && !submission) {
-      console.log('getting sub');
       getSubForRumble(rumble.id, user.id);
     }
   }, [rumble, user]);
-
-  useEffect(() =>
-    console.log({ rumble, selectedSubId, submission, user, section, error }),
-  );
 
   return selectedSubId && section ? (
     <RenderRumbleComplete sectionId={section.id} submissionId={selectedSubId} />

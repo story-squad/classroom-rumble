@@ -31,8 +31,6 @@ const SectionStudentListContainer = ({
     if (sectionId) getStudents(sectionId);
   }, [sectionId]);
 
-  useEffect(() => console.log({ sectionId, studentIds, isLoading, error }));
-
   if (!visible) return <></>;
   return studentIds && sectionId ? (
     <RenderSectionStudentList studentIds={studentIds} sectionId={sectionId} />

@@ -22,8 +22,6 @@ const TeacherViewRumbleContainer = (): React.ReactElement => {
     if (rumble && !prompt && !promptIsLoading) getPromptById(rumble.promptId);
   }, [rumble]);
 
-  console.log({ section, rumble, prompt, promptIsLoading, error });
-
   return section && rumble && prompt && !promptIsLoading ? (
     <RenderTeacherViewRumble rumble={rumble} prompt={prompt.prompt} />
   ) : error ? (
