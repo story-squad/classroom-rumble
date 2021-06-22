@@ -40,13 +40,13 @@ const PromptBoxContainer = ({
 
   const startRumble = async (): Promise<void> => {
     try {
-      if (currentRumble && !currentRumble.end_time) {
+      if (currentRumble && currentRumble.phase === 'INACTIVE') {
         const newEndTime = await Rumbles.startRumble(
           currentRumble?.id || 0,
           currentSection || 0,
         );
         updateCurrentRumble((prev) =>
-          prev ? { ...prev, end_time: newEndTime } : undefined,
+          prev ? { ...prev, end_time: newEndTime, phase: 'ACTIVE' } : undefined,
         );
       }
     } catch (err) {
@@ -75,6 +75,7 @@ const PromptBoxContainer = ({
   console.log(currentRumble?.start_time);
   return prompt && !loading ? (
     <RenderPromptBox
+      startTime={currentRumble?.start_time}
       prompt={prompt.prompt}
       phase={currentRumble?.phase}
       endTime={currentRumble?.end_time}

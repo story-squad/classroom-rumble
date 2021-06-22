@@ -15,12 +15,48 @@ const RenderPromptBox = ({
   prompt,
   phase,
   endTime,
+  startTime,
   isTeacher,
   startRumble,
   startFeedback,
 }: IRenderPromptBoxProps): React.ReactElement => {
   const [date, weekday] = useFormatDate(`${endTime || ''}`);
-  const [display, isCountDownFinished] = useCountDown(endTime);
+  const [countDownToEnd, isCountDownFinished] = useCountDown(endTime);
+  const [countDownToStart, isStartTimeOver] = useCountDown(startTime as Date);
+
+  const render = () => {
+    return phase === 'INACTIVE' ? (
+      isTeacher ? (
+        <div className="start-phase-button">
+          <Button type="secondary" onClick={startRumble}>
+            Start Rumble
+          </Button>
+          {startTime && !isStartTimeOver && (
+            <CountDown title="Starts In" displayTime={countDownToStart} />
+          )}
+        </div>
+      ) : (
+        //back to studentdashboard when there's no end time and you're not a teacher
+        <>An error has occurred... </>
+      )
+    ) : isCountDownFinished ? (
+      phase === `COMPLETE` ? (
+        <div className="count-down-end">Rumble Over</div>
+      ) : phase === `ACTIVE` && isTeacher ? (
+        <div className="start-phase-button">
+          <Button type="secondary" onClick={startFeedback}>
+            Start Feedback
+          </Button>
+        </div>
+      ) : (
+        phase === `FEEDBACK` && (
+          <div className="count-down-end">Feedback Phase Started</div>
+        )
+      )
+    ) : (
+      <CountDown displayTime={countDownToEnd} />
+    );
+  };
 
   return (
     <div className="prompt-info-wrapper">
@@ -41,34 +77,7 @@ const RenderPromptBox = ({
             )}
             <p>{prompt}</p>
           </div>
-          {!endTime ? (
-            isTeacher ? (
-              <div className="start-phase-button">
-                <Button type="secondary" onClick={startRumble}>
-                  Start Rumble
-                </Button>
-              </div>
-            ) : (
-              //back to studentdashboard when there's no end time and you're not a teacher
-              <>An error has occurred... </>
-            )
-          ) : isCountDownFinished ? (
-            phase === `COMPLETE` ? (
-              <div className="count-down-end">Rumble Over</div>
-            ) : phase === `ACTIVE` && isTeacher ? (
-              <div className="start-phase-button">
-                <Button type="secondary" onClick={startFeedback}>
-                  Start Feedback
-                </Button>
-              </div>
-            ) : (
-              phase === `FEEDBACK` && (
-                <div className="count-down-end">Feedback Phase Started</div>
-              )
-            )
-          ) : (
-            <CountDown displayTime={display} />
-          )}
+          {render()}
         </div>
       </div>
     </div>
@@ -91,6 +100,7 @@ const useFormatDate = (
 interface IRenderPromptBoxProps {
   prompt: string;
   phase: Rumbles.RumblePhases | undefined;
+  startTime?: string | Date;
   endTime?: Date;
   isTeacher: boolean;
   startRumble?: () => void;
