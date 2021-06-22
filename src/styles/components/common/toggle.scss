@@ -1,0 +1,27 @@
+.toggle-wrapper {
+  @include wrapped-container;
+  .toggle-container {
+    margin: 3rem 0;
+    .toggle-content {
+      display: inline-flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      border: 0.5px solid $c-grey-80;
+      border-radius: 16px;
+      h3 {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 2.4rem;
+        text-align: center;
+        letter-spacing: 0.5px;
+        @include text-button($primary-base);
+        padding: 2px 40px;
+        border-radius: 16px;
+        &.active {
+          color: $w-grey-05;
+          background-color: $primary-base;
+        }
+      }
+    }
+  }
+}
