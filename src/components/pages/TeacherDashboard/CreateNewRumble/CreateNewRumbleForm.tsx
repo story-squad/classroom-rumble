@@ -57,7 +57,6 @@ const CreateNewRumbleForm = ({
           user.id,
           idList,
         );
-        console.log('new rumble success', res);
 
         // TODO - add end time and phase to rumbles
         const parsedNewRumbles: Rumbles.IRumbleWithSectionInfo[] = res.map(

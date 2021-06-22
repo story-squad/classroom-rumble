@@ -29,11 +29,11 @@ export const current = selector<Rumbles.IRumbleWithSectionInfo | undefined>({
  */
 export const get = selectorFamily<
   number[] | undefined,
-  { sectionId?: number; phases: Rumbles.RumblePhases[] }
+  { sectionId?: number; phases: Rumbles.RumblePhases[]; enableLogs?: boolean }
 >({
   key: 'getFilteredRumbles',
-  get: ({ sectionId, phases }) => ({ get }) => {
-    console.log('getting rumbles', { sectionId, phases });
+  get: ({ sectionId, phases, enableLogs = false }) => ({ get }) => {
+    enableLogs && console.log('getting rumbles', { sectionId, phases });
     let rumbleAtom: RecoilValue<number[] | undefined>;
     if (sectionId) rumbleAtom = getBySectionId(sectionId);
     else rumbleAtom = ids;
@@ -41,20 +41,21 @@ export const get = selectorFamily<
     if (!phases) {
       const rumbleIdList = get(rumbleAtom) || [];
 
-      console.log('returning new ids', rumbleIdList);
+      enableLogs && console.log('returning new ids', rumbleIdList);
       return rumbleIdList;
     } else {
       const rumbleIdList = get(rumbleAtom) || [];
-      console.log('got previous ids', rumbleIdList);
+      enableLogs && console.log('got previous ids', rumbleIdList);
 
       const filteredRumbles = rumbleIdList.filter((id) => {
         const rumble = get(getById(id));
         // Rumble will be included if not set? We can load it later?
-        console.log('filtering based on phase', { phases, rumble });
+        enableLogs &&
+          console.log('filtering based on phase', { phases, rumble });
         if (!rumble) return true;
         else return !rumble.phase || phases.includes(rumble.phase);
       });
-      console.log('filtered', filteredRumbles);
+      enableLogs && console.log('filtered', filteredRumbles);
 
       return filteredRumbles;
     }

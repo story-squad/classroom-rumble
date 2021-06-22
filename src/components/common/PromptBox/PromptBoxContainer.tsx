@@ -32,10 +32,6 @@ const PromptBoxContainer = ({
     },
   });
 
-  useEffect(() =>
-    console.log({ prompt, currentRumble, currentSection, loading, error }),
-  );
-
   useEffect(() => {
     if (currentRumble && !prompt) {
       getPromptById(currentRumble.promptId);

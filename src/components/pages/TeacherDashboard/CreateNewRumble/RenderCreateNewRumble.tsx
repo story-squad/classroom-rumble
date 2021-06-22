@@ -6,7 +6,6 @@ import CreateNewRumbleForm from './CreateNewRumbleForm';
 const RenderCreateNewRumble = ({
   prompt,
 }: IRenderCreateRumbleProps): React.ReactElement => {
-  console.log(prompt);
   return (
     <div className="create-new-rumble-wrapper">
       <div className="create-new-rumble-container">

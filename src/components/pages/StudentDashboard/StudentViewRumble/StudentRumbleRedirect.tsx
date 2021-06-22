@@ -27,7 +27,6 @@ const StudentRumbleRedirect = ({
   const [execute, loading, , error] = useAsync({
     asyncFunction: Students.getSubForRumble,
     setter: (sub) => {
-      console.log('sub GET', sub);
       addSubmissions(sub);
       setSubIdForRumble(sub?.id);
       setSelectedSub(sub);
@@ -56,10 +55,6 @@ const StudentRumbleRedirect = ({
         else return <CouldNotLoad error="Could not load rumble" />;
     }
   };
-
-  useEffect(() =>
-    console.log('redirect', { selectedSub, rumble, user, loading, error }),
-  );
 
   return render();
 };
