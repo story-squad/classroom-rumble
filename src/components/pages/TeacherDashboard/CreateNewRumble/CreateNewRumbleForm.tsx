@@ -76,22 +76,13 @@ const CreateNewRumbleForm = ({
           teacherId: user.id,
           sectionIds: idList,
         });
-        addRumbles(res);
-        // const res = await Rumbles.create(
-        //   { numMinutes, promptId: prompt.id },
-        //   user.id,
-        //   idList,
-        // );
-        // console.log('new rumble success', res);
-
-        // // TODO - add end time and phase to rumbles
-        // const parsedNewRumbles: Rumbles.IRumbleWithSectionInfo[] = res.map(
-        //   (r) => ({
-        //     ...r,
-        //     phase: 'INACTIVE',
-        //   }),
-        // );
-        // addRumbles(parsedNewRumbles);
+        const parsedNewRumbles: Rumbles.IRumbleWithSectionInfo[] = res.map(
+          (r) => ({
+            ...r,
+            phase: 'INACTIVE',
+          }),
+        );
+        addRumbles(parsedNewRumbles);
         addToast('Successfuly Created a Rumble!', { appearance: 'success' });
         clearErrors();
         goBack();
