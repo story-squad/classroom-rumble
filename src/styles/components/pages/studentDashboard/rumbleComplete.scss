@@ -22,4 +22,12 @@
       margin-bottom: 2rem;
     }
   }
+  .button-row {
+    display: flex;
+    flex-flow: row nowrap;
+
+    button:not(:last-of-type) {
+      margin-right: 1rem;
+    }
+  }
 }
