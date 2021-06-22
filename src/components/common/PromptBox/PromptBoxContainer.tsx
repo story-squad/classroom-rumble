@@ -89,7 +89,7 @@ const PromptBoxContainer = ({
       console.log(err);
     }
   };
-
+  console.log(currentRumble?.start_time);
   return prompt && !loading ? (
     <RenderPromptBox
       prompt={prompt}
@@ -107,6 +107,7 @@ const PromptBoxContainer = ({
 };
 
 interface IPromptBoxContainerProps {
+  startTime?: Date;
   prompt?: string;
   isTeacher?: boolean;
 }

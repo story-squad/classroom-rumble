@@ -39,34 +39,33 @@ const CreateNewRumbleForm = ({
     [sectionList],
   );
 
+  // Checkbox handlers for "Connect to FDSC button"
+  const [isChecked, setIsChecked] = useState<boolean>(true);
+  const toggleCheck = () => {
+    setIsChecked((prev) => !prev);
+  };
+
   // Checking if the prompt Is custom or not and returns a boolean value
   const isCustom = useMemo<boolean>(() => !Prompts.isPromptInQueue(prompt), [
     prompt,
   ]);
 
-  // Checkbox handlers for "Connect to FDSC button"
-  const [isChecked, setIsChecked] = useState<boolean>(!isCustom);
-  const toggleCheck = () => {
-    setIsChecked((prev) => !prev);
-  };
-
   const onSubmit: SubmitHandler<{
     sectionIds: string[];
     rumbleTime: Date;
-    // startTime: Date; // cast as Date for type checks
-    // startDate: Date;
-  }> = async ({ sectionIds, rumbleTime }) => {
+    startTime: Date; // cast as Date for type checks
+  }> = async ({ sectionIds, rumbleTime, startTime }) => {
     // Parse the ids that have been checked (sectionId[n] is TRUE)
     // return the `value` of the option item at that index
     const idList = sectionOptions
       .filter((op, i) => sectionIds[i])
       .map((op) => op.value);
     const numMinutes = rumbleTime.getHours() * 60 + rumbleTime.getMinutes(); // how long the rumble is in only minutes
-
+    console.log(startTime);
     try {
       if (user) {
         const res = await Rumbles.create({
-          rumble: { numMinutes, promptId: prompt.id },
+          rumble: { numMinutes, promptId: prompt.id, start_time: startTime },
           teacherId: user.id,
           sectionIds: idList,
         });
@@ -94,7 +93,8 @@ const CreateNewRumbleForm = ({
     asyncFunction: handleSubmit(onSubmit),
   });
 
-  //   If connect is checked, start time is required and start time cannot exceed submission cutoff time minus timer length. (end time cannot be past the submission cutoff time)
+  //   If connect is checked, start time is required and start time cannot exceed submission cutoff time minus timer length.
+  // (end time cannot be past the submission cutoff time)
 
   // If connect is not checked, start time is not required
 
