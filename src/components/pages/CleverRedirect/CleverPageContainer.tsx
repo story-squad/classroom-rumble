@@ -18,7 +18,8 @@ const CleverRedirectContainer = (): React.ReactElement => {
   const { search } = useLocation();
   const [code, setCode] = useState<undefined | string>();
   const { push } = useHistory();
-  const login = useSetRecoilState(auth.isLoggedIn);
+  const setUser = useSetRecoilState(auth.user);
+  const setToken = useSetRecoilState(auth.authToken);
 
   useEffect(() => {
     token.clear();
@@ -32,14 +33,14 @@ const CleverRedirectContainer = (): React.ReactElement => {
     if (code) {
       Auth.authorizeWithClever(code)
         .then((res) => {
-          console.log({ res });
           let params: URLSearchParams;
           const userType =
             res.roleId === Roles.user ? 'student' : Roles[res.roleId];
           switch (res.actionType) {
             case 'SUCCESS':
               // On success, store token and push to correct dashboard
-              login(res.body);
+              setUser(res.body.user);
+              setToken(res.body.token);
               push(`/dashboard/${userType}`);
               break;
             case 'MERGE':

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Table } from '..';
 import { Feedback, Submissions } from '../../../api';
 import { feedbackQuestions } from '../../../config';
@@ -10,6 +10,17 @@ const RenderFeedback = ({
   averages,
 }: IRenderFeedbackProps): React.ReactElement => {
   const questions: Feedback.IFeedbackQuestions[] = feedbackQuestions;
+
+  const printAverage = useCallback(
+    (av: IAverages, num: number): string =>
+      av[`score${num}` as keyof typeof av]
+        ? `${parseFloat(
+            av[`score${num}` as keyof typeof av].toFixed(2),
+          )} out of 5`
+        : 'No feedback',
+    [],
+  );
+
   return (
     <div className="feedback-content-wrapper">
       <div className="feedback-content">
@@ -29,11 +40,7 @@ const RenderFeedback = ({
                     {`${index + 1}. ` + question.question}
                   </Table.Col>
                   <Table.Col className="feedback-score">
-                    {averages[`score${index + 1}` as keyof typeof averages]
-                      ? `${
-                          averages[`score${index + 1}` as keyof typeof averages]
-                        } out of 5`
-                      : 'No feedback'}
+                    {printAverage(averages, index + 1)}
                   </Table.Col>
                 </Table.Row>
               </Table.Body>

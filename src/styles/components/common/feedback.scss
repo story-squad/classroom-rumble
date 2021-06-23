@@ -36,6 +36,7 @@
       font-weight: 600;
       text-transform: uppercase;
       margin-bottom: 0.5rem;
+<<<<<<< HEAD
     }
     .submission-container {
       align-items: stretch;
@@ -57,6 +58,29 @@
         font-size: 1.4rem;
       }
     }
+=======
+    }
+    .submission-container {
+      align-items: stretch;
+      @include bp($tablet) {
+        margin-bottom: 3rem;
+        @include bp($large) {
+          margin: 0;
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+      }
+      img {
+        width: 100%;
+        @include bp($large) {
+          width: 25rem;
+        }
+      }
+      a {
+        font-size: 1.4rem;
+      }
+    }
+>>>>>>> 09f5e5d84262dff0f15e77c4ce0580747d5f4398
     .feedback-wrapper {
       margin-left: 0;
       width: 100%;
@@ -97,6 +121,21 @@
         .row-wrapper .feedback-score {
           display: inline;
           text-align: center;
+<<<<<<< HEAD
+=======
+        }
+      }
+      .message {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        line-height: 5rem;
+        p {
+          font-weight: 600;
+          font-size: 1.8rem;
+>>>>>>> 09f5e5d84262dff0f15e77c4ce0580747d5f4398
         }
       }
     }

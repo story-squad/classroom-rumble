@@ -19,6 +19,7 @@ export interface INewRumble extends IRumblePostBody {
 export interface IRumblePostBody {
   numMinutes: number;
   promptId: number;
+  start_time?: Date | string;
 }
 
 export type RumblePhases = 'INACTIVE' | 'ACTIVE' | 'FEEDBACK' | 'COMPLETE';

@@ -1,16 +1,16 @@
 import React from 'react';
-import { Sections } from '../../../../api';
+import { useRecoilValue } from 'recoil';
 import emptyMail from '../../../../assets/img/empty_inbox.svg';
+import { sections } from '../../../../state';
 import StudentSection from './StudentSection';
 
-const StudentSectionListContainer = ({
-  sectionList,
-}: IStudentSectionListContainerProps): React.ReactElement => {
+const StudentSectionListContainer = (): React.ReactElement => {
+  const sectionIds = useRecoilValue(sections.ids);
   return (
     <div className="student-dash-section-list-wrapper">
       <div className="student-dash-section-list-container">
         <h2>Classes</h2>
-        {sectionList.length <= 0 ? (
+        {sectionIds && sectionIds.length <= 0 ? (
           <div className="no-sections">
             <div className="message-text-container">
               <p>You don&apos;t have any classes yet.</p>
@@ -19,8 +19,8 @@ const StudentSectionListContainer = ({
           </div>
         ) : (
           <div className="section-list">
-            {sectionList?.map((sec) => (
-              <StudentSection {...sec} key={sec.id} />
+            {sectionIds?.map((id) => (
+              <StudentSection key={id} sectionId={id} />
             ))}
           </div>
         )}
@@ -28,9 +28,5 @@ const StudentSectionListContainer = ({
     </div>
   );
 };
-
-interface IStudentSectionListContainerProps {
-  sectionList: Sections.ISectionWithRumbles[];
-}
 
 export default StudentSectionListContainer;

@@ -10,16 +10,17 @@ const CreateCustomPromptForm = ({
   closeModal,
 }: Modal.ModalComponentProps): React.ReactElement => {
   const { register, handleSubmit, errors } = useForm();
-  const setCustomPrompts = useSetRecoilState(prompts.customList);
+  const addPrompt = useSetRecoilState(prompts.add);
+  const setCustomPromptIds = useSetRecoilState(prompts.customIds);
   const { addToast } = useToasts();
 
   const onSubmit: SubmitHandler<Prompts.INewPrompt> = async (data) => {
-    console.log(data);
     try {
       const res = (await Prompts.addCustom(
         data.prompt,
       )) as Prompts.IPromptInQueue; // We're handling edge cases in the display component
-      setCustomPrompts((prev) => [...prev, res]);
+      addPrompt(res);
+      setCustomPromptIds((prev) => [...prev, res.id]);
       closeModal();
     } catch (err) {
       console.log(err);

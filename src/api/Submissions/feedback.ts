@@ -1,5 +1,5 @@
 import { axiosWithAuth } from './../axiosWithConfig';
-import { IRequestBody, ISubItem } from './subTypes';
+import { ISubItem } from './subTypes';
 
 export const getSubmissionsForFeedback = async (
   rumbleId: number,
@@ -40,12 +40,5 @@ export const getSubmissionsForFeedback = async (
   const { data } = await axiosWithAuth().get(
     `api/rumble/rumbles/${rumbleId}/feedback?studentId=${studentId}`,
   );
-  return data;
-};
-
-export const submitFeedback = async (
-  body: Record<string, unknown>[],
-): Promise<IRequestBody[]> => {
-  const { data } = await axiosWithAuth().put(`/api/rumble/feedback`, body);
   return data;
 };

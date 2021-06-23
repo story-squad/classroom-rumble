@@ -1,12 +1,10 @@
 import jwt_decode from 'jwt-decode';
-import { Auth } from '../../api';
 
 /**
  * If a key is set in the ENV, it will use that as the localStorage
  * key for the token, otherwise it will be stored as `token: ''`
  */
-const tokenName: string = process.env.TOKEN_KEY || 'token';
-const userStorageName: string = process.env.USER_STORAGE || 'user';
+export const label: string = process.env.TOKEN_KEY || 'auth:token';
 
 /**
  * Decodes the token and checks if you're still logged in before continuing.
@@ -14,7 +12,7 @@ const userStorageName: string = process.env.USER_STORAGE || 'user';
  * you're sent back to the landing page.
  */
 export const get = (): string | undefined => {
-  const token = localStorage.getItem(tokenName);
+  const token = localStorage.getItem(label);
   if (!token) return;
 
   try {
@@ -26,7 +24,6 @@ export const get = (): string | undefined => {
   } catch (err) {
     console.log(err);
     clear();
-    clearUser();
     return;
   }
 };
@@ -35,22 +32,13 @@ export const get = (): string | undefined => {
  * This function stores a token in localStorage
  * @param token taks a token as the argument and stores it in localStorage
  */
-export const set = (token: string): void =>
-  localStorage.setItem(tokenName, token);
+export const set = (token: string): void => localStorage.setItem(label, token);
 
 /**
  * Clears the current token stored in localStorage
  */
-export const clear = (): void => localStorage.removeItem(tokenName);
+export const clear = (): void => localStorage.removeItem(label);
 
-/**
- * Local storage handlers for user info
- */
-export const getUser = (): Auth.IUser | undefined =>
-  JSON.parse(localStorage.getItem(userStorageName) ?? 'null') ?? undefined;
-export const setUser = (user: Auth.IUser): void =>
-  localStorage.setItem(userStorageName, JSON.stringify(user));
-export const clearUser = (): void => localStorage.removeItem(userStorageName);
 export interface DecodedToken {
   exp: number;
   iat: number;
