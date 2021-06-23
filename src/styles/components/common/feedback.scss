@@ -98,17 +98,18 @@
           text-align: center;
         }
       }
-      .message {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        line-height: 5rem;
-        p {
-          font-weight: 600;
-          font-size: 1.8rem;
-        }
+    }
+    .message {
+      margin-left: 5rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      line-height: 5rem;
+      p {
+        font-weight: 600;
+        font-size: 1.8rem;
       }
     }
   }
