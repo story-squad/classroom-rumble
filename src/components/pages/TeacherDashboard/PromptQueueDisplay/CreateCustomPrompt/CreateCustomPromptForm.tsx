@@ -15,7 +15,6 @@ const CreateCustomPromptForm = ({
   const { addToast } = useToasts();
 
   const onSubmit: SubmitHandler<Prompts.INewPrompt> = async (data) => {
-    console.log(data);
     try {
       const res = (await Prompts.addCustom(
         data.prompt,

@@ -20,18 +20,13 @@ const RumbleFeedbackContainer = (): React.ReactElement => {
       voterId: user?.id,
     }),
   );
-  const feedbackComplete = useRecoilValue(
-    feedback.hasSubmitted({
-      rumbleId: rumble?.id,
-      voterId: user?.id,
-    }),
-  );
+  const feedbackComplete = useRecoilValue(feedback.hasSubmitted(user?.id));
 
   const [execute, loading, , error] = useAsync({
     asyncFunction: Feedback.getByVoterAndRumbleIds,
     setter: (fbList) => {
+      console.log('FEEDBACK GET', fbList);
       const idlist = fbList.map((fb) => fb.submissionId);
-      console.log('feedback GET', fbList, idlist, rumble, user);
       addFeedback(fbList);
       setSubIdsForFeedback(idlist);
     },
@@ -39,10 +34,19 @@ const RumbleFeedbackContainer = (): React.ReactElement => {
 
   // This useEffect get the current user's feedback for OTHER submissions in the rumble
   useEffect(() => {
-    if (user && rumble && !loading && !feedbackSubIds) {
+    if (user && rumble && !loading) {
       execute({ rumbleId: rumble.id, voterId: user.id });
     }
   }, [user, rumble]);
+
+  console.log({
+    rumble,
+    user,
+    feedbackSubIds,
+    loading,
+    error,
+    feedbackComplete,
+  });
 
   return feedbackComplete ? (
     <FeedbackComplete />

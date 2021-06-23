@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { useHistory } from 'react-router';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { Rumbles } from '../../../../api';
 import time_lady from '../../../../assets/img/waiting_time.svg';
 import { useRumbleStatus } from '../../../../hooks';
 import { rumbles, sections } from '../../../../state';
@@ -10,25 +9,29 @@ const StudentRumble = ({
   rumbleId,
 }: IStudentDashboardRumbleCardProps): React.ReactElement => {
   const { push } = useHistory();
-  // TODO find a better way to ensure this is set
-  const rumble = useRecoilValue(
-    rumbles.getById(rumbleId),
-  ) as Rumbles.IRumbleWithSectionInfo;
+
+  const rumble = useRecoilValue(rumbles.getById(rumbleId));
   const setCurrentSection = useSetRecoilState(sections.selected);
   const setCurrentRumble = useSetRecoilState(rumbles.selected);
   const [status] = useRumbleStatus(rumble);
 
   // Memoize the minutes and hours to reduce calculations
-  const hours = useMemo(() => Math.floor(rumble.numMinutes / 60), [rumble]);
-  const mins = useMemo(() => rumble.numMinutes % 60, [rumble]);
+  const hours = useMemo(
+    () => (rumble ? Math.floor(rumble.numMinutes / 60) : undefined),
+    [rumble],
+  );
+  const mins = useMemo(() => (rumble ? rumble.numMinutes % 60 : undefined), [
+    rumble,
+  ]);
   const timeDisplay = useMemo(() => {
     let res = '';
-    if (hours > 0) {
+    if (!hours && !mins) return null;
+    if (hours && hours > 0) {
       res += hours + ' hr';
       if (hours > 1) res += 's';
-      if (mins > 0) res += ', ';
+      if (mins && mins > 0) res += ', ';
     }
-    if (mins > 0) {
+    if (mins && mins > 0) {
       res += mins + ' min';
       if (mins > 1) res += 's';
     }

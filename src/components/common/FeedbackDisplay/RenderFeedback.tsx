@@ -25,7 +25,8 @@ const RenderFeedback = ({
     <div className="feedback-content-wrapper">
       <div className="feedback-content">
         <Submission title="Submission" submission={submission} />
-        {averages ? (
+        {/* Checks is the first score has nothing then other scores will be not there either*/}
+        {averages?.score1 === NaN ? (
           // If there are no averages show that there is no feedback yet else show the table with feedback
           <div className="feedback-wrapper">
             <h2>FEEDBACK</h2>
