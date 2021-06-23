@@ -35,13 +35,15 @@ const StudentRumble = ({
     push('/dashboard/student/rumble');
   };
 
+  // TODO think about loading state for the prompt
+
   return (
     <div className="rumble-item">
       <div className="content">
         {status !== 'Scheduled' ? (
           <>
             <h3>Prompt</h3>
-            <h4>{prompt}</h4>
+            <h4>{prompt?.prompt}</h4>
           </>
         ) : (
           <div className="scheduled-rumble">
