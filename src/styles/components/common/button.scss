@@ -19,6 +19,10 @@
   font-size: 1.5rem;
   letter-spacing: 0.125rem;
   line-height: 1.5rem;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  white-space: nowrap;
 
   transition: all 0.2s ease-in-out;
   &:hover {

@@ -34,10 +34,6 @@ const FeedbackContainer = ({
     }
   }, [submission]);
 
-  useEffect(() =>
-    console.log({ submission, feedbackIds, averages, loading, submissionId }),
-  );
-
   return loading ? (
     <Loader />
   ) : subLoading ? (

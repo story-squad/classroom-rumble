@@ -35,8 +35,6 @@ const SignupForm = ({
   const [formData, setFormData] = useState<Partial<Auth.SignupFormState>>({});
 
   const togglePage = (): void => {
-    // clearErrors()
-    console.log({ formData });
     const currentFormData = watch();
     setFormData((prev) => ({ ...prev, ...currentFormData }));
     setNextForm((prev) => !prev);
