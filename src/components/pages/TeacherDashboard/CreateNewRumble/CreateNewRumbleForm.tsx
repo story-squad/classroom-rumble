@@ -22,14 +22,8 @@ const CreateNewRumbleForm = ({
   const addRumbles = useSetRecoilState(rumbles.add);
 
   // Functional Hooks
-  const {
-    errors,
-    register,
-    handleSubmit,
-    control,
-    clearErrors,
-    watch,
-  } = useForm();
+  const { errors, register, handleSubmit, control, clearErrors, watch } =
+    useForm();
   const { push } = useHistory();
   const { addToast } = useToasts();
 
@@ -52,9 +46,10 @@ const CreateNewRumbleForm = ({
   };
 
   // Checking if the prompt Is custom or not and returns a boolean value
-  const isCustom = useMemo<boolean>(() => !Prompts.isPromptInQueue(prompt), [
-    prompt,
-  ]);
+  const isCustom = useMemo<boolean>(
+    () => !Prompts.isPromptInQueue(prompt),
+    [prompt],
+  );
   const goBack = () => push('/dashboard/teacher');
 
   const onSubmit: SubmitHandler<{
