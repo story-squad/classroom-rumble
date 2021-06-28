@@ -12,6 +12,7 @@ export const AddSelectorFactory = <IdType, DataType extends { id: IdType }>({
   getById: atomFamilyGetById,
   onAfter,
   enableLogs,
+  defaultValues = {},
 }: {
   key: string;
   ids: RecoilState<IdType[] | undefined>;
@@ -25,6 +26,7 @@ export const AddSelectorFactory = <IdType, DataType extends { id: IdType }>({
     enableLogs?: boolean;
   }) => void;
   enableLogs?: boolean;
+  defaultValues?: Partial<DataType>;
 }): RecoilState<DataType[] | DataType | undefined> =>
   // Selector code starts here
   selector<DataType[] | DataType | undefined>({
@@ -66,8 +68,18 @@ export const AddSelectorFactory = <IdType, DataType extends { id: IdType }>({
           newIds.push(item.id);
         }
 
-        enableLogs && console.log('updating', item.id, item, { key, newValue });
+        // Checking for defaults
+        enableLogs && console.log('Checking for default values', defaultValues);
         // Use the atomFamily to set the specific rumble data or update the previous one
+        const defaultKeys = Object.keys(defaultValues) as (keyof DataType)[];
+        // Keep only the default keys that match unset values
+        const filteredDefaults = defaultKeys.filter((key) => !item[key]);
+        // Since we filtered, all of these should update the default
+        filteredDefaults.forEach((key) => {
+          item[key] = defaultValues[key] as DataType[keyof DataType]; // Type casting to appease the TS gods
+        });
+
+        enableLogs && console.log('updating', item.id, item, { key, newValue });
         set(atomFamilyGetById(item.id), item);
       });
       // Create a list that merges the original (idList) as well as the new ids (newIds)

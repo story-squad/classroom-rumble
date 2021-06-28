@@ -1,7 +1,7 @@
 // import { DateTime } from 'luxon';
 import moment, { Moment } from 'moment';
 import 'rc-time-picker/assets/index.css';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
@@ -13,6 +13,12 @@ import { auth, rumbles, sections } from '../../../../state';
 import { FormTypes } from '../../../../types';
 import { Button, CheckboxGroup } from '../../../common';
 
+interface IFormData {
+  sectionIds: string[];
+  rumbleTime: Date;
+  startTime: Date; // cast as Date for type checks
+}
+
 const CreateNewRumbleForm = ({
   prompt,
 }: ICreateNewRumbleFormProps): React.ReactElement => {
@@ -23,7 +29,7 @@ const CreateNewRumbleForm = ({
 
   // Functional Hooks
   const { errors, register, handleSubmit, control, clearErrors, watch } =
-    useForm();
+    useForm<IFormData>();
   const { push } = useHistory();
   const { addToast } = useToasts();
 
@@ -50,20 +56,27 @@ const CreateNewRumbleForm = ({
     () => !Prompts.isPromptInQueue(prompt),
     [prompt],
   );
+  const promptStartsAt = useMemo<Moment>(
+    () => moment.utc((prompt as Prompts.IPromptInQueue).starts_at),
+    [prompt, moment],
+  );
+  const promptEndsToday = useMemo<boolean>(
+    () => promptStartsAt.diff(moment()) < 0,
+    [promptStartsAt, moment],
+  );
   const goBack = () => push('/dashboard/teacher');
 
-  const onSubmit: SubmitHandler<{
-    sectionIds: string[];
-    rumbleTime: Date;
-    startTime: Date; // cast as Date for type checks
-  }> = async ({ sectionIds, rumbleTime, startTime }) => {
+  const onSubmit: SubmitHandler<IFormData> = async ({
+    sectionIds,
+    rumbleTime,
+    startTime,
+  }) => {
     // Parse the ids that have been checked (sectionId[n] is TRUE)
     // return the `value` of the option item at that index
     const idList = sectionOptions
       .filter((op, i) => sectionIds[i])
       .map((op) => op.value);
     const numMinutes = rumbleTime.getHours() * 60 + rumbleTime.getMinutes(); // how long the rumble is in only minutes
-    console.log(startTime);
     try {
       if (user) {
         const res = await Rumbles.create({
@@ -71,13 +84,7 @@ const CreateNewRumbleForm = ({
           teacherId: user.id,
           sectionIds: idList,
         });
-        const parsedNewRumbles: Rumbles.IRumbleWithSectionInfo[] = res.map(
-          (r) => ({
-            ...r,
-            phase: 'INACTIVE',
-          }),
-        );
-        addRumbles(parsedNewRumbles);
+        addRumbles(res);
         addToast('Successfuly Created a Rumble!', { appearance: 'success' });
         clearErrors();
         goBack();
@@ -108,19 +115,36 @@ const CreateNewRumbleForm = ({
 
   // Changing the timer value should change the cutoff time of the start time.
 
-  const connectedStartMin = moment.max(
-    moment((prompt as Prompts.IPromptInQueue).starts_at)
-      .set('hour', schedule.submit.start.hour())
-      .set('minute', schedule.submit.start.minutes()),
-    moment(),
-  );
-  const connectedEndMax = moment((prompt as Prompts.IPromptInQueue).starts_at)
-    .add(1, 'd')
-    .set('hour', schedule.submit.end.hour())
-    .set('minute', schedule.submit.end.minutes())
-    .subtract(watch('rumbleTime')?.getHours(), 'h')
-    .subtract(watch('rumbleTime')?.getMinutes(), 'm');
+  const connectedStartMin = useMemo(() => {
+    const startTime = moment.utc((prompt as Prompts.IPromptInQueue).starts_at);
+    const now = moment();
+    const endsToday = startTime.diff(now) < 0;
+    if (endsToday) {
+      return now;
+    } else {
+      return startTime
+        .set('hour', schedule.submit.end.hour())
+        .set('minute', schedule.submit.end.minutes());
+    }
+  }, [prompt, schedule, schedule.submit, schedule.submit.end, moment]);
 
+  const connectedEndMax = useMemo(() => {
+    const startTime = moment((prompt as Prompts.IPromptInQueue).starts_at);
+    const endTime = startTime
+      .add(1, 'd')
+      .set('hour', schedule.submit.end.hour())
+      .set('minute', schedule.submit.end.minutes());
+
+    // This takes into account your timer when restricting times
+    const rumbleTime = watch('rumbleTime');
+    const latestPossibleStartTime = endTime
+      .subtract(rumbleTime?.getHours(), 'h')
+      .subtract(rumbleTime?.getMinutes(), 'm');
+
+    return latestPossibleStartTime;
+  }, [watch, prompt, moment, schedule, schedule.submit, schedule.submit.end]);
+
+  // A filter function to use with our Date picker to restrict available times
   const filterStartTimes = (date: Date): boolean => {
     // If not connected to FDSC, show all times
     if (!isChecked || isCustom) return date > new Date();
@@ -129,26 +153,10 @@ const CreateNewRumbleForm = ({
       date >= connectedStartMin.toDate() && date <= connectedEndMax.toDate()
     );
   };
-
-  /**
-   * CURRENTLY THIS BREAKS UNDER CERTAIN CONDITIONS!
-   *
-   * It's a very small break that only happens occasionally. To recreate:
-   * 1. Have an active prompt that ends today in the queue
-   * 2. Attempt to create a rumble for that prompt
-   *
-   * ---
-   * 3. Click on schedule time and select yesterday
-   * 4. You can no longer click on today
-   * ===
-   *
-   * OR
-   *
-   * ---
-   * 3. Nothing is selectable
-   * ---
-   */
   const filterStartDates = (date: Date): boolean => {
+    const now = moment();
+    if (promptEndsToday) return date.getDate() === now.date();
+
     const include = Prompts.isPromptInQueue(prompt)
       ? moment(prompt.starts_at).hours(0)
       : moment();
@@ -167,6 +175,17 @@ const CreateNewRumbleForm = ({
       showIfInclude
     );
   };
+
+  useEffect(() =>
+    console.log({
+      allSections,
+      connectedEndMax: connectedEndMax.toLocaleString(),
+      connectedStartMin: connectedStartMin.toLocaleString(),
+      loading,
+      isCustom,
+      isChecked,
+    }),
+  );
 
   return (
     <form onSubmit={executeSubmit}>

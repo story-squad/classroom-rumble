@@ -68,6 +68,9 @@ export const add = factories.AddSelectorFactory({
   key: 'addRumbles',
   getById,
   ids,
+  defaultValues: {
+    phase: 'INACTIVE',
+  },
   onAfter: ({ set, get, newValues, enableLogs }) => {
     enableLogs && console.log('add rumble onAfter effect', { newValues });
 
