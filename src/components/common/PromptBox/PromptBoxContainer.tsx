@@ -72,7 +72,7 @@ const PromptBoxContainer = ({
       console.log(err);
     }
   };
-  console.log(currentRumble?.start_time);
+
   return prompt && !loading ? (
     <RenderPromptBox
       startTime={currentRumble?.start_time}
