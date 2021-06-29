@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { query } from '../../../utils';
+import { Loader } from '../../common';
 import RenderSignupPage from './RenderSignupPage';
 
 const SignupPageContainer = (): React.ReactElement => {
@@ -12,6 +13,9 @@ const SignupPageContainer = (): React.ReactElement => {
   const [firstname, setFirstname] = useState<string>();
   const [lastname, setLastname] = useState<string>();
   const [email, setEmail] = useState<string>();
+
+  // This fixes an issue with default values setting incorrectly
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     // Parse the querystring if it exists
@@ -26,9 +30,10 @@ const SignupPageContainer = (): React.ReactElement => {
       setLastname(params.lastname);
       setEmail(params.email);
     }
+    setLoaded(true);
   }, []);
 
-  return (
+  return loaded ? (
     <RenderSignupPage
       isNew={isNew}
       cleverId={cleverId}
@@ -37,6 +42,8 @@ const SignupPageContainer = (): React.ReactElement => {
       lastname={lastname}
       email={email}
     />
+  ) : (
+    <Loader />
   );
 };
 
