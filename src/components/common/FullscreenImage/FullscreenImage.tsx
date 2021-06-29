@@ -16,14 +16,14 @@ const FullscreenImage = (props: FullscreenImageProps): React.ReactElement => {
   const [showInfo, setShowInfo] = useState(false);
 
   const closeModal = () => {
-    console.log('Close Modal');
+    // console.log('Close Modal');
     props.setIsVisible(false);
   };
 
   const toggleInfo = () => setShowInfo((cur) => !cur);
 
   const resizeHandler = () => {
-    console.log('Image resized');
+    // console.log('Image resized');
 
     document
       .getElementById(`fullscreen-image-${props.id}`)
