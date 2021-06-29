@@ -54,16 +54,21 @@ const CreateNewRumbleForm = ({
   // Checking if the prompt Is custom or not and returns a boolean value
   const isCustom = useMemo<boolean>(
     () => !Prompts.isPromptInQueue(prompt),
-    [prompt],
+    [prompt, Prompts.isPromptInQueue],
   );
-  const promptStartsAt = useMemo<Moment>(
-    () => moment.utc((prompt as Prompts.IPromptInQueue).starts_at),
-    [prompt, moment],
+  const promptEndsAt = useMemo(
+    () =>
+      moment
+        .utc((prompt as Prompts.IPromptInQueue).starts_at)
+        .hour(schedule.submit.end.hour())
+        .minute(schedule.submit.end.minutes())
+        .add(1, 'd'),
+    [prompt, schedule, moment],
   );
-  const promptEndsToday = useMemo<boolean>(
-    () => promptStartsAt.diff(moment()) < 0,
-    [promptStartsAt, moment],
-  );
+  const promptEndsToday = useMemo<boolean>(() => {
+    return promptEndsAt.date() === moment().date();
+  }, [prompt, moment]);
+
   const goBack = () => push('/dashboard/teacher');
 
   const onSubmit: SubmitHandler<IFormData> = async ({
@@ -178,12 +183,9 @@ const CreateNewRumbleForm = ({
 
   useEffect(() =>
     console.log({
-      allSections,
-      connectedEndMax: connectedEndMax.toLocaleString(),
-      connectedStartMin: connectedStartMin.toLocaleString(),
-      loading,
-      isCustom,
-      isChecked,
+      promptEndsToday,
+      selectedPrompt: prompt,
+      selectedPromptId: prompt.id,
     }),
   );
 

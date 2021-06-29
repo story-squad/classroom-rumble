@@ -25,6 +25,7 @@ export const getById = atomFamily<
 >({
   key: 'promptById',
   default: undefined,
+  effects_UNSTABLE: [persist('prompt:getById')],
 });
 
 export const selected = atom<number | undefined>({
