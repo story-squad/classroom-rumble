@@ -1,3 +1,4 @@
+import getAge from '../../utils/age/getAge';
 import { axiosWithAuth, axiosWithoutAuth } from '../axiosWithConfig';
 import {
   IAuthResponse,
@@ -24,15 +25,15 @@ export const signup = async (
 };
 
 export const formatSignupBody = (formData: SignupFormState): ISignUpBody => {
-  const age = parseInt(formData.ageStr);
+  const dob = getAge(formData.dob).toString();
   return {
     email: formData.email,
     firstname: formData.firstname,
     lastname: formData.lastname,
-    parentEmail: age < 13 ? formData.parentEmail : formData.email,
+    parentEmail: parseInt(dob) < 13 ? formData.parentEmail : formData.email,
     password: formData.password,
     codename: formData.codename,
-    age,
+    dob,
   };
 };
 
@@ -45,9 +46,9 @@ export const sendEmail = async (data: INewEmailBody): Promise<void> => {
 };
 
 export const formatSendEmailBody = (data: NewEmailFormState): INewEmailBody => {
-  const age = parseInt(data.ageStr);
+  const dob = getAge(data.dob).toString();
   return {
-    age,
+    dob,
     newEmail: data.newEmail,
   };
 };
