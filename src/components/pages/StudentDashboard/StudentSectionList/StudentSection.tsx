@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { app, sections } from '../../../../state';
-import { Button, Loader } from '../../../common';
+import { Loader } from '../../../common';
 
 const StudentSection = ({
   sectionId,
@@ -24,7 +24,7 @@ const StudentSection = ({
   if (!section) return <Loader message="Loading section..." />;
 
   return (
-    <div className="section-card">
+    <div className="section-card" onClick={openSection}>
       <div className="content">
         <h3>Class Name</h3>
         <h4>{section.name}</h4>
@@ -42,9 +42,6 @@ const StudentSection = ({
             {gradeEnum?.filter((x) => x.value === section.gradeId)[0].label}
           </h4>
         </div>
-        <Button type="secondary-with-arrow" onClick={openSection}>
-          View Class
-        </Button>
       </div>
     </div>
   );

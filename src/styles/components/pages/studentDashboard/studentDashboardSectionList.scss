@@ -32,8 +32,8 @@
     .section-list {
       @include scaling-flexbox;
       .section-card {
-        @include card($darken-amt: 1%);
-        cursor: unset;
+        @include card();
+        
         border: 1px solid $c-grey-20;
         .student-button-container {
           padding-top: 1rem;
@@ -44,7 +44,8 @@
             width: unset;
           }
           button {
-            margin-right: 0;
+            width: 100%;
+            margin-top: 1rem;
             padding: 0.5rem 1.2rem;
           }
         }
