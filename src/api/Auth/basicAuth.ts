@@ -25,15 +25,15 @@ export const signup = async (
 };
 
 export const formatSignupBody = (formData: SignupFormState): ISignUpBody => {
-  const dob = getAge(formData.dob).toString();
+  const age = getAge(formData?.dob).toString();
   return {
     email: formData.email,
     firstname: formData.firstname,
     lastname: formData.lastname,
-    parentEmail: parseInt(dob) < 13 ? formData.parentEmail : formData.email,
+    parentEmail: parseInt(age) < 13 ? formData.parentEmail : formData.email,
     password: formData.password,
     codename: formData.codename,
-    dob,
+    dob: formData.dob,
   };
 };
 

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import DatePicker from 'react-datepicker';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useHistory } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { Auth } from '../../../api';
 import { Roles } from '../../../api/Auth';
 import { patterns } from '../../../config';
 import { auth } from '../../../state';
+import getAge from '../../../utils/age/getAge';
 import { Button, Checkbox, Input } from '../../common';
 import { ISigninProps } from './signupTypes';
 
@@ -18,6 +20,7 @@ const SignupForm = ({
   lastname,
 }: ISigninProps): React.ReactElement => {
   const {
+    control,
     errors,
     register,
     handleSubmit,
@@ -74,6 +77,7 @@ const SignupForm = ({
       setError('form', { type: 'manual', message });
     }
   };
+  // console.log(formData.dob);
   return (
     <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
       {!nextForm && (
@@ -128,19 +132,35 @@ const SignupForm = ({
             defaultValue={formData.codename}
             placeholder="Your secret codename!"
           />
-          <Input
-            id="age"
+          <Controller
+            control={control}
             name="dob"
-            label="Age"
-            errors={errors}
-            register={register}
-            rules={{
-              required: 'Age is required!',
-              validate: (value) => !!parseInt(value) || 'Age must be a number!',
-            }}
-            placeholder="Enter your age"
-            defaultValue={formData.dob}
+            render={({ value, ...props }) => (
+              <DatePicker
+                placeholderText="Select Date Of Brith"
+                selected={value}
+                dateFormat="MM/dd/yyyy"
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode="select"
+                {...props}
+              />
+            )}
           />
+          {/* //  <Input
+          //   id="dob"
+          //   name="dob"
+          //   label="Date Of Birth"
+          //   errors={errors}
+          //   register={register}
+          //   rules={{
+          //     required: 'Date of birth is required!',
+          //     validate: (value) => !!parseInt(value),
+          //     // || 'Age must be a number!',
+          //   }}
+          //   placeholder="Enter your date of birth"
+          //   defaultValue={formData.dob}
+          // />  */}
           <input
             disabled={!formState.isValid}
             className="submit"
@@ -151,12 +171,11 @@ const SignupForm = ({
         </>
       )}
 
-      {nextForm &&
-        (console.log(formData),
-        (
-          <>
-            {/* If the user is younger than 13, require a parent email */}
-            {parseInt(formData?.dob ?? '') < 13 && (
+      {nextForm && (
+        <>
+          {/* If the user is younger than 13, require a parent email */}
+          {formData?.dob &&
+            parseInt(getAge(formData.dob).toString() ?? '') < 13 && (
               <Input
                 id="parentEmail"
                 name="parentEmail"
@@ -167,7 +186,7 @@ const SignupForm = ({
                   validate: {
                     // required field if the entered age is less than 13
                     required: (value) => {
-                      if (parseInt(watch('ageStr')) < 13)
+                      if (parseInt(watch('dob')) < 13)
                         return value.length > 1 || 'Parent email is required!';
                       else return true;
                     },
@@ -190,118 +209,115 @@ const SignupForm = ({
               />
             )}
 
-            <Input
-              label="Email"
-              name="email"
-              register={register}
-              id="signup-email"
-              errors={errors}
-              placeholder="Enter your email"
-              rules={{
-                required: 'Email is required!',
-                validate: {
-                  regex: (value) =>
-                    patterns.emailRegex.test(value) || 'Must be a valid email',
-                },
-              }}
-              defaultValue={formData.email ?? email}
-            />
-            <Input
-              id="signupPassword"
-              name="password"
-              label="Password"
-              type="password"
-              showPassword
-              errors={errors}
-              register={register}
-              rules={{
-                required: 'Password is required!',
-                validate: {
-                  // checks entered password value contains required characters
-                  // Password needs special characters added
-                  includesCapital: (value) => {
-                    const pattern = /[A-Z]/;
-                    return (
-                      pattern.test(value) ||
-                      'Password must include at least 1 capital letter.'
-                    );
-                  },
-                  includesNumber: (value) => {
-                    const pattern = /[0-9]/;
-                    return (
-                      pattern.test(value) ||
-                      'Password must include at least 1 number.'
-                    );
-                  },
-                  // checks that entered password value is a minimum of 8 chars
-                  checkLength: (value) => {
-                    return (
-                      (value.length >= 8 && value.length <= 32) ||
-                      'Password must be between 8 and 32 characters.'
-                    );
-                  },
-                  checkRegex: (value) => {
-                    return (
-                      patterns.passwordRegex.test(value) ||
-                      'Password is invalid!'
-                    );
-                  },
-                },
-              }}
-              defaultValue={formData.password}
-              placeholder="Create a safe password"
-            />
-            <Input
-              id="signupConfirm"
-              name="confirm"
-              label="Confirm Password"
-              type="password"
-              showPassword
-              errors={errors}
-              register={register}
-              rules={{
-                required: 'Password confirmation is required!',
-                validate: (value) => {
-                  // checks that the values in password and confirm inputs match
+          <Input
+            label="Email"
+            name="email"
+            register={register}
+            id="signup-email"
+            errors={errors}
+            placeholder="Enter your email"
+            rules={{
+              required: 'Email is required!',
+              validate: {
+                regex: (value) =>
+                  patterns.emailRegex.test(value) || 'Must be a valid email',
+              },
+            }}
+            defaultValue={formData.email ?? email}
+          />
+          <Input
+            id="signupPassword"
+            name="password"
+            label="Password"
+            type="password"
+            showPassword
+            errors={errors}
+            register={register}
+            rules={{
+              required: 'Password is required!',
+              validate: {
+                // checks entered password value contains required characters
+                // Password needs special characters added
+                includesCapital: (value) => {
+                  const pattern = /[A-Z]/;
                   return (
-                    value === watch('password') || "Passwords don't match!"
+                    pattern.test(value) ||
+                    'Password must include at least 1 capital letter.'
                   );
                 },
-              }}
-              placeholder="Re-enter your password"
-            />
-            <Checkbox
-              id="termsCheckbox"
-              name="termsCheckbox"
-              label={
-                <p className="small">
-                  I have read and agree to the{' '}
-                  <Link to="/termsofservice" className="text-button">
-                    Terms & Conditions
-                  </Link>
-                  .
-                </p>
-              }
-              errors={errors}
-              register={register}
-              rules={{
-                validate: {
-                  isChecked: (value) =>
-                    value || 'You must accept terms and conditions!',
+                includesNumber: (value) => {
+                  const pattern = /[0-9]/;
+                  return (
+                    pattern.test(value) ||
+                    'Password must include at least 1 number.'
+                  );
                 },
-              }}
-            />
-            <input
-              className="submit"
-              type="submit"
-              value="Create Account"
-              onClick={() => clearErrors('form')}
-            />
-            <Button htmlType="button" type="secondary" onClick={togglePage}>
-              Back
-            </Button>
-          </>
-        ))}
+                // checks that entered password value is a minimum of 8 chars
+                checkLength: (value) => {
+                  return (
+                    (value.length >= 8 && value.length <= 32) ||
+                    'Password must be between 8 and 32 characters.'
+                  );
+                },
+                checkRegex: (value) => {
+                  return (
+                    patterns.passwordRegex.test(value) || 'Password is invalid!'
+                  );
+                },
+              },
+            }}
+            defaultValue={formData.password}
+            placeholder="Create a safe password"
+          />
+          <Input
+            id="signupConfirm"
+            name="confirm"
+            label="Confirm Password"
+            type="password"
+            showPassword
+            errors={errors}
+            register={register}
+            rules={{
+              required: 'Password confirmation is required!',
+              validate: (value) => {
+                // checks that the values in password and confirm inputs match
+                return value === watch('password') || "Passwords don't match!";
+              },
+            }}
+            placeholder="Re-enter your password"
+          />
+          <Checkbox
+            id="termsCheckbox"
+            name="termsCheckbox"
+            label={
+              <p className="small">
+                I have read and agree to the{' '}
+                <Link to="/termsofservice" className="text-button">
+                  Terms & Conditions
+                </Link>
+                .
+              </p>
+            }
+            errors={errors}
+            register={register}
+            rules={{
+              validate: {
+                isChecked: (value) =>
+                  value || 'You must accept terms and conditions!',
+              },
+            }}
+          />
+          <input
+            className="submit"
+            type="submit"
+            value="Create Account"
+            onClick={() => clearErrors('form')}
+          />
+          <Button htmlType="button" type="secondary" onClick={togglePage}>
+            Back
+          </Button>
+        </>
+      )}
     </form>
   );
 };
