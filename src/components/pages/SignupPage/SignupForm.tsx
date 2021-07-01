@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useHistory } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { Auth } from '../../../api';
@@ -20,7 +19,6 @@ const SignupForm = ({
   lastname,
 }: ISigninProps): React.ReactElement => {
   const {
-    control,
     errors,
     register,
     handleSubmit,
@@ -132,35 +130,19 @@ const SignupForm = ({
             defaultValue={formData.codename}
             placeholder="Your secret codename!"
           />
-          <Controller
-            control={control}
+          <Input
+            id="dob"
             name="dob"
-            render={({ value, ...props }) => (
-              <DatePicker
-                placeholderText="Select Date Of Brith"
-                selected={value}
-                dateFormat="MM/dd/yyyy"
-                showMonthDropdown
-                showYearDropdown
-                dropdownMode="select"
-                {...props}
-              />
-            )}
+            label="Date Of Birth"
+            errors={errors}
+            register={register}
+            rules={{
+              required: 'Date of birth is required!',
+              validate: (value) => !!parseInt(value) || 'Format as MM/DD/YYYY!',
+            }}
+            placeholder="MM/DD/YYYY"
+            defaultValue={formData.dob}
           />
-          {/* //  <Input
-          //   id="dob"
-          //   name="dob"
-          //   label="Date Of Birth"
-          //   errors={errors}
-          //   register={register}
-          //   rules={{
-          //     required: 'Date of birth is required!',
-          //     validate: (value) => !!parseInt(value),
-          //     // || 'Age must be a number!',
-          //   }}
-          //   placeholder="Enter your date of birth"
-          //   defaultValue={formData.dob}
-          // />  */}
           <input
             disabled={!formState.isValid}
             className="submit"
