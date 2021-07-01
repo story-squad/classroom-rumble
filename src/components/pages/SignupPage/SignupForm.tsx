@@ -136,6 +136,7 @@ const SignupForm = ({
             label="Date Of Birth"
             errors={errors}
             register={register}
+            type="date"
             rules={{
               required: 'Date of birth is required!',
               validate: (value) => !!parseInt(value) || 'Format as MM/DD/YYYY!',
