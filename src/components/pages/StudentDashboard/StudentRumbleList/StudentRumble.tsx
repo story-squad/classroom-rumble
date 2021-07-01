@@ -54,7 +54,6 @@ const StudentRumble = ({
           </div>
         )}
       </div>
-      <div className="button-container"></div>
     </div>
   );
 };
