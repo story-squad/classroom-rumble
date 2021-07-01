@@ -54,10 +54,7 @@ const StudentRumble = ({
           </div>
         )}
       </div>
-
-      {status === 'Active' && <div className="button-container"></div>}
-
-      {status === 'Complete' && <div className="button-container"></div>}
+      <div className="button-container"></div>
     </div>
   );
 };
