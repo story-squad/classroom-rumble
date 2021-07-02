@@ -3,10 +3,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useHistory } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { Auth } from '../../../api';
-import { Roles } from '../../../api/Auth';
 import { patterns } from '../../../config';
 import { auth } from '../../../state';
-import getAge from '../../../utils/age/getAge';
+import { getAge } from '../../../utils';
 import { Button, Checkbox, Input } from '../../common';
 import { ISigninProps } from './signupTypes';
 
@@ -62,7 +61,9 @@ const SignupForm = ({
       clearErrors();
 
       const userType =
-        res.user.roleId === Roles.user ? 'student' : Roles[res.user.roleId];
+        res.user.roleId === Auth.Roles.user
+          ? 'student'
+          : Auth.Roles[res.user.roleId];
       push(`/dashboard/${userType}`);
     } catch (err) {
       console.log({ err });
@@ -157,40 +158,39 @@ const SignupForm = ({
       {nextForm && (
         <>
           {/* If the user is younger than 13, require a parent email */}
-          {formData?.dob &&
-            parseInt(getAge(formData.dob).toString() ?? '') < 13 && (
-              <Input
-                id="parentEmail"
-                name="parentEmail"
-                label="Parent Email"
-                errors={errors}
-                register={register}
-                rules={{
-                  validate: {
-                    // required field if the entered age is less than 13
-                    required: (value) => {
-                      if (parseInt(watch('dob')) < 13)
-                        return value.length > 1 || 'Parent email is required!';
-                      else return true;
-                    },
-                    // checks the email and parent email to make sure they are different
-                    differentEmail: (value) => {
-                      return (
-                        value !== watch('email') ||
-                        'Parent email must be different than email!'
-                      );
-                    },
+          {formData?.dob && getAge(formData.dob) < 13 && (
+            <Input
+              id="parentEmail"
+              name="parentEmail"
+              label="Parent Email"
+              errors={errors}
+              register={register}
+              rules={{
+                validate: {
+                  // required field if the entered age is less than 13
+                  required: (value) => {
+                    if (parseInt(watch('dob')) < 13)
+                      return value.length > 1 || 'Parent email is required!';
+                    else return true;
                   },
-                  pattern: {
-                    // ensures the entered parent email string matches a valid email address pattern
-                    value: patterns.emailRegex,
-                    message: 'Please enter a valid email address.',
+                  // checks the email and parent email to make sure they are different
+                  differentEmail: (value) => {
+                    return (
+                      value !== watch('email') ||
+                      'Parent email must be different than email!'
+                    );
                   },
-                }}
-                defaultValue={formData.parentEmail}
-                placeholder="ParentSuperWriter@storysquad.org"
-              />
-            )}
+                },
+                pattern: {
+                  // ensures the entered parent email string matches a valid email address pattern
+                  value: patterns.emailRegex,
+                  message: 'Please enter a valid email address.',
+                },
+              }}
+              defaultValue={formData.parentEmail}
+              placeholder="ParentSuperWriter@storysquad.org"
+            />
+          )}
 
           <Input
             label="Email"
