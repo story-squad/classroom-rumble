@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { query } from '../../../utils';
+import { Loader } from '../../common';
 import RenderLoginPage from './RenderLoginPage';
 
 const LoginPageContainer = (): React.ReactElement => {
@@ -10,6 +11,8 @@ const LoginPageContainer = (): React.ReactElement => {
   const [codename, setCodename] = useState<string>();
   const [cleverId, setCleverId] = useState<string>();
 
+  const [loaded, setLoaded] = useState(false);
+
   useEffect(() => {
     // Only parse the query if there is one
     if (search?.includes('?')) {
@@ -18,14 +21,17 @@ const LoginPageContainer = (): React.ReactElement => {
       setCodename(params.codename);
       setCleverId(params.cleverId);
     }
+    setLoaded(true);
   }, [search]);
 
-  return (
+  return loaded ? (
     <RenderLoginPage
       isMerge={isMerge}
       codename={codename}
       cleverId={cleverId}
     />
+  ) : (
+    <Loader />
   );
 };
 

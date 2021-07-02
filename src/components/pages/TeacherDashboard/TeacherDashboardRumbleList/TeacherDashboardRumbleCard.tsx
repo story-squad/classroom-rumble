@@ -13,9 +13,10 @@ const TeacherDashboardRumbleCard = ({
   const [status] = useRumbleStatus(rumble);
 
   // Memoize the minutes and hours to reduce calculations
-  const hours = useMemo(() => Math.floor((rumble?.numMinutes || 0) / 60), [
-    rumble,
-  ]);
+  const hours = useMemo(
+    () => Math.floor((rumble?.numMinutes || 0) / 60),
+    [rumble],
+  );
   const mins = useMemo(() => (rumble?.numMinutes || 0) % 60, [rumble]);
   const timeDisplay = useMemo(() => {
     let res = '';

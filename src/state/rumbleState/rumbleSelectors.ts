@@ -32,40 +32,45 @@ export const get = selectorFamily<
   { sectionId?: number; phases: Rumbles.RumblePhases[]; enableLogs?: boolean }
 >({
   key: 'getFilteredRumbles',
-  get: ({ sectionId, phases, enableLogs = false }) => ({ get }) => {
-    enableLogs && console.log('getting rumbles', { sectionId, phases });
-    let rumbleAtom: RecoilValue<number[] | undefined>;
-    if (sectionId) rumbleAtom = getBySectionId(sectionId);
-    else rumbleAtom = ids;
+  get:
+    ({ sectionId, phases, enableLogs = false }) =>
+    ({ get }) => {
+      enableLogs && console.log('getting rumbles', { sectionId, phases });
+      let rumbleAtom: RecoilValue<number[] | undefined>;
+      if (sectionId) rumbleAtom = getBySectionId(sectionId);
+      else rumbleAtom = ids;
 
-    if (!phases) {
-      const rumbleIdList = get(rumbleAtom) || [];
+      if (!phases) {
+        const rumbleIdList = get(rumbleAtom) || [];
 
-      enableLogs && console.log('returning new ids', rumbleIdList);
-      return rumbleIdList;
-    } else {
-      const rumbleIdList = get(rumbleAtom) || [];
-      enableLogs && console.log('got previous ids', rumbleIdList);
+        enableLogs && console.log('returning new ids', rumbleIdList);
+        return rumbleIdList;
+      } else {
+        const rumbleIdList = get(rumbleAtom) || [];
+        enableLogs && console.log('got previous ids', rumbleIdList);
 
-      const filteredRumbles = rumbleIdList.filter((id) => {
-        const rumble = get(getById(id));
-        // Rumble will be included if not set? We can load it later?
-        enableLogs &&
-          console.log('filtering based on phase', { phases, rumble });
-        if (!rumble) return true;
-        else return !rumble.phase || phases.includes(rumble.phase);
-      });
-      enableLogs && console.log('filtered', filteredRumbles);
+        const filteredRumbles = rumbleIdList.filter((id) => {
+          const rumble = get(getById(id));
+          // Rumble will be included if not set? We can load it later?
+          enableLogs &&
+            console.log('filtering based on phase', { phases, rumble });
+          if (!rumble) return true;
+          else return !rumble.phase || phases.includes(rumble.phase);
+        });
+        enableLogs && console.log('filtered', filteredRumbles);
 
-      return filteredRumbles;
-    }
-  },
+        return filteredRumbles;
+      }
+    },
 });
 
 export const add = factories.AddSelectorFactory({
   key: 'addRumbles',
   getById,
   ids,
+  defaultValues: {
+    phase: 'INACTIVE',
+  },
   onAfter: ({ set, get, newValues, enableLogs }) => {
     enableLogs && console.log('add rumble onAfter effect', { newValues });
 
@@ -105,8 +110,10 @@ export const userHasSubmitted = selectorFamily<
   { rumbleId?: number; userId?: number }
 >({
   key: 'userHasSubmittedForTheRumble',
-  get: (ids) => ({ get }) => {
-    const submission = get(getIdByRumbleAndUser(ids));
-    return submission !== undefined;
-  },
+  get:
+    (ids) =>
+    ({ get }) => {
+      const submission = get(getIdByRumbleAndUser(ids));
+      return submission !== undefined;
+    },
 });
