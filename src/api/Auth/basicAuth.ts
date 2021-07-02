@@ -1,4 +1,4 @@
-import getAge from '../../utils/age/getAge';
+import { getAge } from '../../utils';
 import { axiosWithAuth, axiosWithoutAuth } from '../axiosWithConfig';
 import {
   IAuthResponse,
