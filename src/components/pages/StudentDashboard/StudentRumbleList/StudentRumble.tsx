@@ -5,7 +5,6 @@ import { Prompts } from '../../../../api';
 import time_lady from '../../../../assets/img/waiting_time.svg';
 import { useAsync, useRumbleStatus } from '../../../../hooks';
 import { rumbles, sections } from '../../../../state';
-import { Button } from '../../../common';
 
 const StudentRumble = ({
   rumbleId,
@@ -38,7 +37,7 @@ const StudentRumble = ({
   // TODO think about loading state for the prompt
 
   return (
-    <div className="rumble-item">
+    <div className="rumble-item" onClick={openRumble}>
       <div className="content">
         {status !== 'Scheduled' ? (
           <>
@@ -55,20 +54,6 @@ const StudentRumble = ({
           </div>
         )}
       </div>
-      {status === 'Active' && (
-        <div className="button-container">
-          <Button type="primary-with-arrow" onClick={openRumble}>
-            View Rumble
-          </Button>
-        </div>
-      )}
-      {status === 'Complete' && (
-        <div className="button-container">
-          <Button type="secondary-with-arrow" onClick={openRumble}>
-            View Details
-          </Button>
-        </div>
-      )}
     </div>
   );
 };
