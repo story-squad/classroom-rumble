@@ -7,10 +7,9 @@ const useResetOnUnmount = <DataType extends unknown>({
   recoil: RecoilState<DataType>[];
 }): void => {
   const reset = useRecoilCallback<DataType[], void>(
-    ({ reset }) =>
-      () => {
-        recoil.forEach(reset);
-      },
+    ({ reset }) => () => {
+      recoil.forEach(reset);
+    },
     [recoil],
   );
 

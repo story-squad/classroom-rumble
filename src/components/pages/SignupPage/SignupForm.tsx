@@ -3,9 +3,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useHistory } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { Auth } from '../../../api';
-import { Roles } from '../../../api/Auth';
 import { patterns } from '../../../config';
 import { auth } from '../../../state';
+import { getAge } from '../../../utils';
 import { Button, Checkbox, Input } from '../../common';
 import { ISigninProps } from './signupTypes';
 
@@ -61,7 +61,9 @@ const SignupForm = ({
       clearErrors();
 
       const userType =
-        res.user.roleId === Roles.user ? 'student' : Roles[res.user.roleId];
+        res.user.roleId === Auth.Roles.user
+          ? 'student'
+          : Auth.Roles[res.user.roleId];
       push(`/dashboard/${userType}`);
     } catch (err) {
       console.log({ err });
@@ -74,6 +76,7 @@ const SignupForm = ({
       setError('form', { type: 'manual', message });
     }
   };
+  // console.log(formData.dob);
   return (
     <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
       {!nextForm && (
@@ -129,17 +132,18 @@ const SignupForm = ({
             placeholder="Your secret codename!"
           />
           <Input
-            id="age"
-            name="ageStr"
-            label="Age"
+            id="dob"
+            name="dob"
+            label="Date Of Birth"
             errors={errors}
             register={register}
+            type="date"
             rules={{
-              required: 'Age is required!',
-              validate: (value) => !!parseInt(value) || 'Age must be a number!',
+              required: 'Date of birth is required!',
+              validate: (value) => !!parseInt(value) || 'Format as MM/DD/YYYY!',
             }}
-            placeholder="Enter your age"
-            defaultValue={formData.ageStr}
+            placeholder="MM/DD/YYYY"
+            defaultValue={formData.dob}
           />
           <input
             disabled={!formState.isValid}
@@ -154,7 +158,7 @@ const SignupForm = ({
       {nextForm && (
         <>
           {/* If the user is younger than 13, require a parent email */}
-          {parseInt(formData?.ageStr ?? '') < 13 && (
+          {formData?.dob && getAge(formData.dob) < 13 && (
             <Input
               id="parentEmail"
               name="parentEmail"
@@ -165,7 +169,7 @@ const SignupForm = ({
                 validate: {
                   // required field if the entered age is less than 13
                   required: (value) => {
-                    if (parseInt(watch('ageStr')) < 13)
+                    if (parseInt(watch('dob')) < 13)
                       return value.length > 1 || 'Parent email is required!';
                     else return true;
                   },

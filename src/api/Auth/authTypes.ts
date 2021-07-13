@@ -19,7 +19,7 @@ export interface IUser {
   firstname: string;
   lastname: string;
   parentEmail?: string;
-  age?: number;
+  dob: Date | string;
 }
 
 export enum Roles {
@@ -27,8 +27,8 @@ export enum Roles {
   'teacher' = 2,
   'admin' = 3,
 }
-export interface SignupFormState extends Omit<ISignUpBody, 'age'> {
-  ageStr: string;
+export interface SignupFormState extends Omit<ISignUpBody, 'dob'> {
+  dob: string;
   confirm: string;
 }
 
@@ -39,14 +39,14 @@ export interface ISignUpBody {
   email: string;
   password: string;
   parentEmail: string;
-  age: number;
+  dob: Date | string;
 }
 
-export interface NewEmailFormState extends Omit<INewEmailBody, 'age'> {
-  ageStr: string;
+export interface NewEmailFormState extends Omit<INewEmailBody, 'dob'> {
+  dob: Date | string;
 }
 
 export interface INewEmailBody {
-  age: number;
+  dob: Date | string;
   newEmail: string;
 }
