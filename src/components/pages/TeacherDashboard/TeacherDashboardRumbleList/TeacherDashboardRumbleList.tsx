@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Rumbles } from '../../../../api';
 import emptyMail from '../../../../assets/img/empty_inbox.svg';
@@ -6,7 +6,7 @@ import { rumbles } from '../../../../state';
 import TeacherDashboardRumbleCard from './TeacherDashboardRumbleCard';
 
 const TeacherDashboardRumbleList = ({
-  phases = ['ACTIVE', 'FEEDBACK', 'INACTIVE', 'COMPLETE'],
+  phases = ['WAITING', 'FEEDBACK', 'WRITING', 'COMPLETE'],
   title,
   sectionIds,
   visible = true,
@@ -15,8 +15,11 @@ const TeacherDashboardRumbleList = ({
     rumbles.get({
       phases,
       sectionId: sectionIds.length === 1 ? sectionIds[0] : undefined,
+      enableLogs: true,
     }),
   );
+
+  useEffect(() => console.log('current rumbles', currentRumbles));
 
   if (!visible) return <></>;
   return (

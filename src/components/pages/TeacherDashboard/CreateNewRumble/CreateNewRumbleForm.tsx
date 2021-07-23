@@ -28,14 +28,8 @@ const CreateNewRumbleForm = ({
   const addRumbles = useSetRecoilState(rumbles.add);
 
   // Functional Hooks
-  const {
-    errors,
-    register,
-    handleSubmit,
-    control,
-    clearErrors,
-    watch,
-  } = useForm<IFormData>();
+  const { errors, register, handleSubmit, control, clearErrors, watch } =
+    useForm<IFormData>();
   const { push } = useHistory();
   const { addToast } = useToasts();
 
@@ -58,10 +52,10 @@ const CreateNewRumbleForm = ({
   };
 
   // Checking if the prompt Is custom or not and returns a boolean value
-  const isCustom = useMemo<boolean>(() => !Prompts.isPromptInQueue(prompt), [
-    prompt,
-    Prompts.isPromptInQueue,
-  ]);
+  const isCustom = useMemo<boolean>(
+    () => !Prompts.isPromptInQueue(prompt),
+    [prompt, Prompts.isPromptInQueue],
+  );
   const promptEndsAt = useMemo(
     () =>
       moment

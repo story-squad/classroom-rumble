@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 import React, { useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { Rumbles } from '../../../../../api';
 import { useRumbleStatus } from '../../../../../hooks';
 import { rumbles, sections, students } from '../../../../../state';
 import { Button, Loader, Table } from '../../../../common';
@@ -26,7 +27,9 @@ const SectionRumbleCard = ({
 
   return rumble ? (
     <Table.Row>
-      <Table.Col>{rumble.phase !== 'INACTIVE' ? `${date}` : 'N/A'}</Table.Col>
+      <Table.Col>
+        {rumble.phase !== Rumbles.Phases.WAITING ? `${date}` : 'N/A'}
+      </Table.Col>
       <Table.Col>
         {status !== 'Complete' ? (
           <div>{rumble.phase} </div>

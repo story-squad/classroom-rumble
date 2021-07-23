@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
+import { Rumbles } from '../../../../api';
 import emptyMail from '../../../../assets/img/empty_inbox.svg';
 import { rumbles } from '../../../../state';
 import { SectionInfo } from '../../../common';
@@ -9,7 +10,14 @@ const RenderStudentViewSectionRumbles = ({
   sectionId,
 }: IRenderStudentViewSectionRumblesProps): React.ReactElement => {
   const currentRumbles = useRecoilValue(
-    rumbles.get({ sectionId, phases: ['ACTIVE', 'INACTIVE', 'FEEDBACK'] }),
+    rumbles.get({
+      sectionId,
+      phases: [
+        Rumbles.Phases.WRITING,
+        Rumbles.Phases.WAITING,
+        Rumbles.Phases.FEEDBACK,
+      ],
+    }),
   );
   const pastRumbles = useRecoilValue(
     rumbles.get({ sectionId, phases: ['COMPLETE'] }),

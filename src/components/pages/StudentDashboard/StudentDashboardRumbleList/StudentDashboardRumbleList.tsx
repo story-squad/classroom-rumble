@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
+import { Rumbles } from '../../../../api';
 import emptyMail from '../../../../assets/img/empty_inbox.svg';
 import { rumbles } from '../../../../state';
 import StudentDashboardRumbleCard from './StudentDashboardRumbleCard';
@@ -7,7 +8,11 @@ import StudentDashboardRumbleCard from './StudentDashboardRumbleCard';
 const StudentDashboardRumbleList = (): React.ReactElement => {
   const rumbleIds = useRecoilValue(
     rumbles.get({
-      phases: ['ACTIVE', 'FEEDBACK', 'INACTIVE'],
+      phases: [
+        Rumbles.Phases.WRITING,
+        Rumbles.Phases.FEEDBACK,
+        Rumbles.Phases.WAITING,
+      ],
     }),
   );
 

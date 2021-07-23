@@ -25,7 +25,7 @@ const RenderPromptBox = ({
   const [countDownToStart, isStartTimeOver] = useCountDown(startTime as Date);
 
   const render = () => {
-    return phase === 'INACTIVE' ? (
+    return phase === Rumbles.Phases.WAITING ? (
       isTeacher ? (
         <div className="start-phase-button">
           <Button type="secondary" onClick={startRumble}>
@@ -40,16 +40,16 @@ const RenderPromptBox = ({
         <>An error has occurred... </>
       )
     ) : isCountDownFinished ? (
-      phase === `COMPLETE` ? (
+      phase === Rumbles.Phases.COMPLETE ? (
         <div className="count-down-end">Rumble Over</div>
-      ) : phase === `ACTIVE` && isTeacher ? (
+      ) : phase === Rumbles.Phases.WRITING && isTeacher ? (
         <div className="start-phase-button">
           <Button type="secondary" onClick={startFeedback}>
             Start Feedback
           </Button>
         </div>
       ) : (
-        phase === `FEEDBACK` && (
+        phase === Rumbles.Phases.FEEDBACK && (
           <div className="count-down-end">Feedback Phase Started</div>
         )
       )

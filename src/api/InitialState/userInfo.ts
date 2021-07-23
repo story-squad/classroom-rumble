@@ -2,7 +2,7 @@ import { axiosWithAuth } from '../axiosWithConfig';
 import { ISectionEnumData, ISectionWithRumbles } from '../Sections';
 
 export const getUserInfo = async (): Promise<IAppInitResponse> => {
-  const { data } = await axiosWithAuth().get('/api/rumble/');
+  const { data } = await axiosWithAuth().get('/api/rumble');
   return data;
 };
 

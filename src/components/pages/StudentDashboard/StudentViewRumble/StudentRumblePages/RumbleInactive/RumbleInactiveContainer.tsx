@@ -16,7 +16,7 @@ const RumbleInactiveContainer = (): React.ReactElement => {
   // Change this to update the actual end time of the request!
   useEffect(() => {
     let timer: NodeJS.Timeout;
-    if (rumble?.phase === 'INACTIVE') {
+    if (rumble?.phase === Rumbles.Phases.WAITING) {
       timer = setTimeout(() => {
         execute(rumble.id);
       }, 20000);

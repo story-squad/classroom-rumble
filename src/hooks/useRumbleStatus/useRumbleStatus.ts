@@ -8,13 +8,13 @@ const useRumbleStatus = (
     switch (rumble?.phase) {
       case undefined:
         return 'Loading';
-      case 'ACTIVE':
-      case 'FEEDBACK':
+      case Rumbles.Phases.WRITING:
+      case Rumbles.Phases.FEEDBACK:
         return 'Active';
       // TODO what should complete say
-      case 'COMPLETE':
+      case Rumbles.Phases.COMPLETE:
         return 'Complete';
-      case 'INACTIVE':
+      case Rumbles.Phases.WAITING:
       default:
         return 'Scheduled';
     }

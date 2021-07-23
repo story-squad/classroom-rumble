@@ -20,9 +20,10 @@ const StudentRumble = ({
     () => (rumble ? Math.floor(rumble.numMinutes / 60) : undefined),
     [rumble],
   );
-  const mins = useMemo(() => (rumble ? rumble.numMinutes % 60 : undefined), [
-    rumble,
-  ]);
+  const mins = useMemo(
+    () => (rumble ? rumble.numMinutes % 60 : undefined),
+    [rumble],
+  );
   const timeDisplay = useMemo(() => {
     let res = '';
     if (!hours && !mins) return null;

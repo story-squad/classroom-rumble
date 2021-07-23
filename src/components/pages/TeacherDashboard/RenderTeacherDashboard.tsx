@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
+import { Rumbles } from '../../../api';
 import { sections } from '../../../state';
 import { Loader, WelcomeModal } from '../../common';
 import { PromptQueueDisplay } from './PromptQueueDisplay';
@@ -17,7 +18,11 @@ const RenderTeacherDashboard = (): React.ReactElement => {
         <>
           <TeacherDashboardRumbleList
             sectionIds={sectionIds}
-            phases={['ACTIVE', 'FEEDBACK', 'INACTIVE']}
+            phases={[
+              Rumbles.Phases.WRITING,
+              Rumbles.Phases.WAITING,
+              Rumbles.Phases.FEEDBACK,
+            ]}
             title="Current Rumbles"
           />
           <TeacherDashboardSectionList sectionIds={sectionIds} />

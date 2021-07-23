@@ -34,7 +34,12 @@ const StudentRumbleRedirect = ({
   });
 
   useEffect(() => {
-    if (!selectedSub && rumble && user && rumble.phase !== 'INACTIVE') {
+    if (
+      !selectedSub &&
+      rumble &&
+      user &&
+      rumble.phase !== Rumbles.Phases.WAITING
+    ) {
       execute(rumble.id, user.id);
     }
   }, [rumble, selectedSub, user]);
@@ -42,9 +47,9 @@ const StudentRumbleRedirect = ({
   const render = () => {
     if (loading) return <Loader />;
     switch (rumble.phase) {
-      case 'INACTIVE':
+      case 'WAITING':
         return <RumbleInactive />;
-      case 'ACTIVE':
+      case 'WRITING':
         return <RumbleActive />;
       case 'FEEDBACK':
         return <RumbleFeedback />;

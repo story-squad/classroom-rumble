@@ -22,4 +22,11 @@ export interface IRumblePostBody {
   start_time?: Date | string;
 }
 
-export type RumblePhases = 'INACTIVE' | 'ACTIVE' | 'FEEDBACK' | 'COMPLETE';
+export type RumblePhases = 'WAITING' | 'WRITING' | 'FEEDBACK' | 'COMPLETE';
+
+export enum Phases {
+  WAITING = 'WAITING',
+  WRITING = 'WRITING',
+  FEEDBACK = 'FEEDBACK',
+  COMPLETE = 'COMPLETE',
+}

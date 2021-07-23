@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
+import { Rumbles } from '../../../../../api';
 import { rumbles } from '../../../../../state';
 import RenderSectionRumbleList from './RenderSectionRumbleList';
 
@@ -9,7 +10,11 @@ const SectionRumbleListContainer = ({
   const pastRumbleIds = useRecoilValue(rumbles.get({ phases: ['COMPLETE'] }));
   const currentRumbleIds = useRecoilValue(
     rumbles.get({
-      phases: ['ACTIVE', 'FEEDBACK', 'INACTIVE'],
+      phases: [
+        Rumbles.Phases.WRITING,
+        Rumbles.Phases.WAITING,
+        Rumbles.Phases.FEEDBACK,
+      ],
     }),
   );
 

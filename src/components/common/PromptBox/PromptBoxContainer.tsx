@@ -40,13 +40,15 @@ const PromptBoxContainer = ({
 
   const startRumble = async (): Promise<void> => {
     try {
-      if (currentRumble && currentRumble.phase === 'INACTIVE') {
+      if (currentRumble && currentRumble.phase === 'WAITING') {
         const newEndTime = await Rumbles.startRumble(
           currentRumble?.id || 0,
           currentSection || 0,
         );
         updateCurrentRumble((prev) =>
-          prev ? { ...prev, end_time: newEndTime, phase: 'ACTIVE' } : undefined,
+          prev
+            ? { ...prev, end_time: newEndTime, phase: 'WRITING' }
+            : undefined,
         );
       }
     } catch (err) {
